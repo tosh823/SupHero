@@ -16,5 +16,23 @@ namespace SupHero {
 
         // World charasterics
         public static int numberOfZones = 5;
+
+        public static int damageLow = 5;
+        public static int damageMedium = 10;
+        public static int damageHigh = 20;
+        public static int damageVeryHigh = 50;
+
+        public static int durablityWeak = 50;
+        public static int durablityNormal = 100;
+        public static int durablityStrong = 200;
+        public static int durablityImmortal = int.MaxValue;
+
+        public static float rateLow = 0.5f;
+        public static float rateNormal = 0.25f;
+        public static float rateFast = 0.1f;
+
+        public static float rangeClose = 1f;
+        public static float rangeShort = 10f;
+        public static float rangeLong = 20f;
     }
 }

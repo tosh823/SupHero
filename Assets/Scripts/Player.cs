@@ -4,9 +4,10 @@ using System.Collections;
 namespace SupHero {
     public class Player : MonoBehaviour {
 
-        private int armor = Constants.defaultArmor;
-        private int health = Constants.defaultHealth;
-        private string playerName;
+        protected int armor = Constants.defaultArmor;
+        protected int health = Constants.defaultHealth;
+        ItemSlot[] itemSlots = new ItemSlot[2];
+        protected string playerName;
 
         // Use this for initialization
         void Start() {

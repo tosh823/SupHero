@@ -2,10 +2,9 @@
 using System.Collections;
 
 namespace SupHero {
-    public class Weapon : MonoBehaviour {
+    public class ItemSlot : MonoBehaviour {
 
-        protected int damage;
-        protected float rate;
+        private Item item;
 
         // Use this for initialization
         void Start() {

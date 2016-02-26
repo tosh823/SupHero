@@ -6,14 +6,8 @@ namespace SupHero {
 
         private int shield = Constants.defaultShield;
 
-        // Use this for initialization
-        void Start() {
-
-        }
-
-        // Update is called once per frame
-        void Update() {
-
+        public Hero(int number) : base(number) {
+            playerName = "Hero";
         }
     }
 }

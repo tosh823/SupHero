@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace SupHero {
+namespace SupHero.Model {
     public class Player {
 
         protected int armor = Constants.defaultArmor;
         protected int health = Constants.defaultHealth;
         ItemSlot[] itemSlots = new ItemSlot[2];
-        protected string playerName;
+        public string playerName = "Default name";
         protected bool isAlive = true;
 
         public InputType inputType;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace SupHero {
+namespace SupHero.Model {
     public class Hero : Player {
 
         private int shield = Constants.defaultShield;

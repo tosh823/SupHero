@@ -22,7 +22,10 @@ namespace SupHero.Controllers {
         public void spawnPlayers(List<Player> players) {
             foreach (Player player in players) {
                 GameObject pawn = Instantiate(playerPrefab);
+                float chaosX = Random.value * 10;
+                float chaosZ = Random.value * 10;
                 pawn.transform.SetParent(transform);
+                pawn.transform.Translate(chaosX, 0f, chaosZ);
                 pawn.GetComponent<PlayerController>().setPlayer(player);
             }
         }

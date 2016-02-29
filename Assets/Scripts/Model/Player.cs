@@ -12,9 +12,11 @@ namespace SupHero.Model {
 
         public InputType inputType;
         public int number;
+        public bool wasHero;
 
-        public Player(int number) {
+        public Player(int number = 0) {
             this.number = number;
+            wasHero = false;
         }
 
         public void takeDamage(int damage) {

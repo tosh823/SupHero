@@ -6,7 +6,7 @@ namespace SupHero.Model {
 
         private int shield = Constants.defaultShield;
 
-        public Hero(int number) : base(number) {
+        public Hero(int number = 0) : base(number) {
             playerName = "Hero";
         }
     }

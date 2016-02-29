@@ -5,7 +5,12 @@ namespace SupHero.Model {
     public class Guard : Player {
 
         public Guard(int number = 0) : base(number) {
-            playerName = "Guard";
+            
+        }
+
+        public Guard(Player player) {
+            playerName = player.playerName;
+            number = player.number;
         }
     }
 }

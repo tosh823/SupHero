@@ -2,7 +2,7 @@
 using System.Collections;
 
 namespace SupHero.Model {
-    public class Player {
+    public abstract class Player {
 
         protected int armor = Constants.defaultArmor;
         protected int health = Constants.defaultHealth;
@@ -16,6 +16,7 @@ namespace SupHero.Model {
 
         public Player(int number = 0) {
             this.number = number;
+            playerName = string.Format("{0} {1}", "Player", this.number);
             wasHero = false;
         }
 

@@ -5,17 +5,18 @@ using System.Collections.Generic;
 namespace SupHero.Model {
     public class Level {
 
-        public List<Player> players;
+        private List<Player> players;
+        private int heroIndex;
+
         public Hero hero;
         public List<Guard> guards;
-        public Hero currentHero;
-        private int heroIndex;
+        public bool isPlaying;
 
         public Level() {
             players = new List<Player>();
             hero = new Hero();
             guards = new List<Guard>();
-            heroIndex = 0;
+            heroIndex = 1;
         }
 
         public void addPlayers(List<Player> players) {
@@ -26,43 +27,40 @@ namespace SupHero.Model {
             players.Add(player);
         }
 
-        // TODO!!!
-        // Complete players initialization
-        // Downcasting is not possible
-        public void setupRoles() {
-            for (int index = 0; index < players.Count; index++) {
-                if (index == 0) {
-                    //hero = players[index] as Hero;
-                    //players[index] = players[index] as Hero;
-                    hero = players[index] as Hero;
-                    if (hero != null) {
-                        Debug.Log(hero.GetType().ToString() + " with number " + hero.number + " on the battlefield");
-                    }
-                    
+        public void createPlayers() {
+            for (int index = 1; index <= 4; index++) {
+                if (index == 1) {
+                    hero = new Hero(index);
+                    players.Add(hero);
                 }
                 else {
-                    //guards.Add(players[index] as Guard);
-                    //players[index] = players[index] as Guard;
-                    Guard guard = players[index] as Guard;
-                    if (guard != null) {
-                        Debug.Log(guard.GetType().ToString() + " with number " + guard.number + " on the battlefield");
-                        guards.Add(guard);
-                    }
+                    Guard guard = new Guard(index);
+                    guards.Add(guard);
+                    players.Add(guard);
                 }
             }
+            isPlaying = true;
         }
 
-        public void changeRoles() {
+        public bool changeRoles() {
+
+            if (heroIndex == players.Count) {
+                isPlaying = false;
+                return false;
+            }
+
             heroIndex++;
             guards.Clear();
             for (int index = 0; index < players.Count; index++) {
-                if (index == heroIndex) {
-                    hero = players[index] as Hero;
+                if ((index + 1) == heroIndex) {
+                    hero = new Hero(players[index]);
                 }
                 else {
-                    guards.Add(players[index] as Guard);
+                    Guard guard = new Guard(players[index]);
+                    guards.Add(guard);
                 }
             }
+            return true;
         }
     }
 }

@@ -6,7 +6,7 @@ using SupHero.Model;
 namespace SupHero.Controllers {
     public class PlayerController : MonoBehaviour {
 
-        private Player player;
+        public Player player;
 
         // Use this for initialization
         void Start() {
@@ -20,6 +20,10 @@ namespace SupHero.Controllers {
 
         public void setPlayer(Player player) {
             this.player = player;
+        }
+
+        public void killSelf() {
+            Destroy(gameObject);
         }
 
         public Vector2 getMovementVector() {

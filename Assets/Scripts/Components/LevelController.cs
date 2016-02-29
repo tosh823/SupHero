@@ -13,41 +13,39 @@ namespace SupHero.Controllers {
         private GameObject zoneObject;
         private Level level;
 
-        private float time = 120f;
+        private float time = 10f;
 
         // Use this for initialization
         void Start() {
             level = new Level();
             zoneObject = Instantiate(zonePrefab);
             zoneObject.transform.SetParent(transform);
-            createPlayers(4);
-            level.setupRoles();
-            zoneObject.GetComponent<ZoneController>().spawnPlayers(level.players);
-            displayInfo();
+            level.createPlayers();
+            zoneObject.GetComponent<ZoneController>().spawnPlayers(level.hero, level.guards);
+            zoneObject.GetComponent<ZoneController>().logInfoAboutPlayers();
         }
 
         // Update is called once per frame
         void Update() {
-            // Timer ticking
-            if (time > 0) {
-                HUD.GetComponent<HUDController>().updateTimer(time);
-                time -= Time.deltaTime;
-            }
-            // Time is over, change roles
-            else {
-                
+            if (level.isPlaying) {
+                // Timer ticking
+                if (time > 0) {
+                    HUD.GetComponent<HUDController>().updateTimer(time);
+                    time -= Time.deltaTime;
+                }
+                // Time is over, change roles
+                else {
+                    time = 10f;
+                    zoneObject.GetComponent<ZoneController>().destroyPlayers();
+                    if (level.changeRoles()) {
+                        zoneObject.GetComponent<ZoneController>().spawnPlayers(level.hero, level.guards);
+                        zoneObject.GetComponent<ZoneController>().logInfoAboutPlayers();
+                    }
+                }
             }
         }
 
-        public void createPlayers(int number) {
-            for (int index = 1; index <= number; index++) {
-                Player player = new Player(index);
-                player.inputType = InputType.GAMEPAD;
-                level.addPlayer(player);
-            }
-        }
-
-        public void createPlayers() {
+        /*public void createPlayers() {
             string[] joysticks = Input.GetJoystickNames();
             if (joysticks.Length > 0) {
                 for (int index = 0; index < joysticks.Length; index++) {
@@ -62,12 +60,6 @@ namespace SupHero.Controllers {
                 player.inputType = InputType.KEYBOARD;
                 level.addPlayer(player);
             }
-        }
-
-        public void displayInfo() {
-            foreach (Player player in level.players) {
-                Debug.Log(player.GetType().ToString() + " with number " + player.number + " on the battlefield");
-            }
-        }
+        }*/
     }
 }

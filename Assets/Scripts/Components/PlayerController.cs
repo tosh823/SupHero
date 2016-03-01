@@ -8,14 +8,30 @@ namespace SupHero.Controllers {
 
         public Player player;
 
+        private Rigidbody playerRigidbody;
+
         // Use this for initialization
         void Start() {
-            
+            //player = new Hero(1);
+            //player.inputType = InputType.KEYBOARD;
+            playerRigidbody = GetComponent<Rigidbody>();
         }
 
         // Update is called once per frame
         void Update() {
 
+        }
+
+        void FixedUpdate() {
+            // Moving
+            Vector3 moveVector = getMovementVector();
+            if (moveVector != Vector3.zero) {
+                moveVector = moveVector.normalized * player.speed * Time.deltaTime;
+                playerRigidbody.MovePosition(transform.position + moveVector);
+            }
+            // Turning
+            Quaternion rotation = getRotation();
+            playerRigidbody.MoveRotation(rotation);
         }
 
         public void setPlayer(Player player) {
@@ -26,24 +42,49 @@ namespace SupHero.Controllers {
             Destroy(gameObject);
         }
 
-        public Vector2 getMovementVector() {
-            Vector2 movement = new Vector2(0f, 0f);
+        private Vector3 getMovementVector() {
+            Vector3 movement = Vector3.zero;
             float h, v;
             switch (player.inputType) {
                 case InputType.KEYBOARD:
                     h = Input.GetAxis("Horizontal");
                     v = Input.GetAxis("Vertical");
-                    movement = new Vector2(h, v);
+                    movement = new Vector3(h, 0f, v);
                     break;
                 case InputType.GAMEPAD:
-                    h = Input.GetAxis(Utils.getControlForPlayer("LeftStickX", player.number));
-                    v = Input.GetAxis(Utils.getControlForPlayer("LeftStickY", player.number));
-                    movement = new Vector2(h, v);
+                    h = Input.GetAxis(Utils.getControlForPlayer("LeftStickX", player.gamepadNumber));
+                    v = Input.GetAxis(Utils.getControlForPlayer("LeftStickY", player.gamepadNumber));
+                    movement = new Vector3(h, 0f, v);
                     break;
                 default:
                     break;
             }
             return movement;
+        }
+
+        private Quaternion getRotation() {
+            Quaternion rotation = transform.rotation;
+            switch (player.inputType) {
+                case InputType.GAMEPAD:
+                    float x = Input.GetAxis(Utils.getControlForPlayer("RightStickX", player.gamepadNumber));
+                    float z = Input.GetAxis(Utils.getControlForPlayer("RightStickY", player.gamepadNumber));
+                    if (x != 0f && z != 0f) {
+                        rotation = Quaternion.LookRotation(new Vector3(x, 0f, z) * Time.deltaTime);
+                    }
+                    break;
+                case InputType.KEYBOARD:
+                    Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit floorHit;
+                    if (Physics.Raycast(camRay, out floorHit)) {
+                        Vector3 playerToMouse = floorHit.point - transform.position;
+                        playerToMouse.y = 0f;
+                        rotation = Quaternion.LookRotation(playerToMouse * Time.deltaTime);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return rotation;
         }
     }
 }

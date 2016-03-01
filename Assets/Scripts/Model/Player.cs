@@ -4,13 +4,16 @@ using System.Collections;
 namespace SupHero.Model {
     public abstract class Player {
 
-        protected int armor = Constants.defaultArmor;
-        protected int health = Constants.defaultHealth;
-        ItemSlot[] itemSlots = new ItemSlot[2];
+        public int armor { get; protected set; }
+        public int health { get; protected set; }
+        public float speed { get; protected set; }
+        public ItemSlot[] itemSlots = new ItemSlot[2];
         public string playerName;
         protected bool isAlive;
 
         public InputType inputType;
+        public int gamepadNumber;
+        public string gamepadName;
         public int number;
         public int points;
 
@@ -20,6 +23,8 @@ namespace SupHero.Model {
             playerName = string.Format("{0} {1}", "Player", this.number);
             points = 0;
         }
+
+        protected abstract void setupDefaultProperties();
 
         public virtual void takeDamage(int damage) {
             // If have armor, make it take dmg on it

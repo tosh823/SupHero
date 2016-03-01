@@ -13,7 +13,7 @@ namespace SupHero.Controllers {
         private GameObject zoneObject;
         private Level level;
 
-        private float time = 10f;
+        private float time = Constants.turnTime;
 
         // Use this for initialization
         void Start() {
@@ -35,7 +35,7 @@ namespace SupHero.Controllers {
                 }
                 // Time is over, change roles
                 else {
-                    time = 10f;
+                    time = Constants.turnTime;
                     zoneObject.GetComponent<ZoneController>().destroyPlayers();
                     if (level.changeRoles()) {
                         zoneObject.GetComponent<ZoneController>().spawnPlayers(level.hero, level.guards);
@@ -44,22 +44,5 @@ namespace SupHero.Controllers {
                 }
             }
         }
-
-        /*public void createPlayers() {
-            string[] joysticks = Input.GetJoystickNames();
-            if (joysticks.Length > 0) {
-                for (int index = 0; index < joysticks.Length; index++) {
-                    Debug.Log(index + " = " + joysticks[index]);
-                    Player player = new Player(index);
-                    player.inputType = InputType.GAMEPAD;
-                    level.addPlayer(player);
-                }
-            }
-            else {
-                Player player = new Player(0);
-                player.inputType = InputType.KEYBOARD;
-                level.addPlayer(player);
-            }
-        }*/
     }
 }

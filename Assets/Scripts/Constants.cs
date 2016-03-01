@@ -10,9 +10,13 @@ namespace SupHero {
         public static int defaultHealth = 100;
         public static int defaultArmor = 100;
         public static int defaultShield = 100;
+        public static float defaultHeroSpeed = 5f;
+        public static float defaultGuardSpeed = 10f;
 
         // Game charasterics
-
+        public static int playersCount = 4;
+        public static float turnTime = 360f;
+        public static float turnTimeTest = 30f;
 
         // World charasterics
         public static int numberOfZones = 5;

@@ -28,13 +28,31 @@ namespace SupHero.Model {
         }
 
         public void createPlayers() {
-            for (int index = 1; index <= 4; index++) {
+            string[] gamepads = Input.GetJoystickNames();
+            for (int index = 1; index <= Constants.playersCount; index++) {
                 if (index == 1) {
                     hero = new Hero(index);
+                    if (gamepads.Length >= Constants.playersCount) {
+                        hero.inputType = InputType.GAMEPAD;
+                        hero.gamepadNumber = index;
+                        hero.gamepadName = gamepads[index - 1];
+                    }
+                    else hero.inputType = InputType.KEYBOARD;
                     players.Add(hero);
                 }
                 else {
                     Guard guard = new Guard(index);
+                    if (gamepads.Length >= Constants.playersCount) {
+                        guard.inputType = InputType.GAMEPAD;
+                        guard.gamepadNumber = index;
+                        guard.gamepadName = gamepads[index - 1];
+                    }
+                    else if (gamepads.Length >= (index - 1)) {
+                        guard.inputType = InputType.GAMEPAD;
+                        guard.gamepadNumber = index - 1;
+                        guard.gamepadName = gamepads[index - 2];
+                    }
+                    else guard.inputType = InputType.NONE;
                     guards.Add(guard);
                     players.Add(guard);
                 }

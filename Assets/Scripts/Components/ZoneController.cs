@@ -8,12 +8,11 @@ namespace SupHero.Controllers {
     public class ZoneController : MonoBehaviour {
 
         public GameObject playerPrefab;
-        //public GameObject[] players;
-        public List<GameObject> players;
+        private List<GameObject> players;
 
         // Use this for initialization
         void Start() {
-            //players;
+            
         }
 
         // Update is called once per frame
@@ -22,6 +21,8 @@ namespace SupHero.Controllers {
         }
 
         public void spawnPlayers(Hero hero, List<Guard> guards) {
+            players = new List<GameObject>();
+
             GameObject pawn = Instantiate(playerPrefab) as GameObject;
             pawn.transform.SetParent(transform);
             pawn.GetComponent<PlayerController>().setPlayer(hero);

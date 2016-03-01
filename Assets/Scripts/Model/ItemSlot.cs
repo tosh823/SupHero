@@ -6,7 +6,12 @@ namespace SupHero.Model {
 
         private Item item;
 
-        public ItemSlot() {
+        public ItemSlot(Item item) {
+            this.item = item;
+        }
+
+        // Activating item ability
+        public void activateItem() {
 
         }
     }

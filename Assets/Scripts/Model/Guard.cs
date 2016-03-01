@@ -11,6 +11,7 @@ namespace SupHero.Model {
         public Guard(Player player) {
             playerName = player.playerName;
             number = player.number;
+            points = player.points;
         }
     }
 }

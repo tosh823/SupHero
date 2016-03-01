@@ -7,20 +7,21 @@ namespace SupHero.Model {
         protected int armor = Constants.defaultArmor;
         protected int health = Constants.defaultHealth;
         ItemSlot[] itemSlots = new ItemSlot[2];
-        public string playerName = "Default name";
-        protected bool isAlive = true;
+        public string playerName;
+        protected bool isAlive;
 
         public InputType inputType;
         public int number;
-        public bool wasHero;
+        public int points;
 
         public Player(int number = 0) {
             this.number = number;
+            isAlive = true;
             playerName = string.Format("{0} {1}", "Player", this.number);
-            wasHero = false;
+            points = 0;
         }
 
-        public void takeDamage(int damage) {
+        public virtual void takeDamage(int damage) {
             // If have armor, make it take dmg on it
             if (armor > 0) {
                 // If damage is too high, take the rest to your body

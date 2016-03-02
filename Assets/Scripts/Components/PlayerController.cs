@@ -9,6 +9,8 @@ namespace SupHero.Controllers {
         public Player player;
         public GameObject weapon;
 
+        private GameObject playerUI;
+
         private Rigidbody playerRigidbody;
 
         // Use this for initialization
@@ -40,8 +42,16 @@ namespace SupHero.Controllers {
             getActions();
         }
 
+        public void takeDamage(int damage) {
+            player.takeDamage(damage);
+        }
+
         public void setPlayer(Player player) {
             this.player = player;
+        }
+
+        public void setUI(GameObject ui) {
+            playerUI = ui;
         }
 
         public void killSelf() {

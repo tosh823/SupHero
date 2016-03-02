@@ -13,7 +13,7 @@ namespace SupHero.Controllers {
         private GameObject zoneObject;
         private Level level;
 
-        private float time = Constants.turnTime;
+        private float time = Constants.turnTimeTest;
 
         // Use this for initialization
         void Start() {
@@ -21,8 +21,10 @@ namespace SupHero.Controllers {
             zoneObject = Instantiate(zonePrefab);
             zoneObject.transform.SetParent(transform);
             level.createPlayers();
-            zoneObject.GetComponent<ZoneController>().spawnPlayers(level.hero, level.guards);
-            zoneObject.GetComponent<ZoneController>().logInfoAboutPlayers();
+            zoneObject.GetComponent<ZoneController>().spawnPlayers(level.players);
+            //zoneObject.GetComponent<ZoneController>().spawnPlayers(level.hero, level.guards);
+            //HUD.GetComponent<HUDController>().setupPlayersUI(level.players);
+            //zoneObject.GetComponent<ZoneController>().logInfoAboutPlayers();
         }
 
         // Update is called once per frame
@@ -35,11 +37,13 @@ namespace SupHero.Controllers {
                 }
                 // Time is over, change roles
                 else {
-                    time = Constants.turnTime;
+                    time = Constants.turnTimeTest;
                     zoneObject.GetComponent<ZoneController>().destroyPlayers();
+                    HUD.GetComponent<HUDController>().clearPlayerUIs();
                     if (level.changeRoles()) {
                         zoneObject.GetComponent<ZoneController>().spawnPlayers(level.hero, level.guards);
-                        zoneObject.GetComponent<ZoneController>().logInfoAboutPlayers();
+                        HUD.GetComponent<HUDController>().setupPlayersUI(level.players);
+                        //zoneObject.GetComponent<ZoneController>().logInfoAboutPlayers();
                     }
                 }
             }

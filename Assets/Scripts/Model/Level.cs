@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace SupHero.Model {
     public class Level {
 
-        private List<Player> players;
+        public List<Player> players;
         private int heroIndex;
 
         public Hero hero;
@@ -61,7 +61,7 @@ namespace SupHero.Model {
         }
 
         public bool changeRoles() {
-
+            List<Player> tmp = new List<Player>();
             if (heroIndex == players.Count) {
                 isPlaying = false;
                 return false;
@@ -72,12 +72,16 @@ namespace SupHero.Model {
             for (int index = 0; index < players.Count; index++) {
                 if ((index + 1) == heroIndex) {
                     hero = new Hero(players[index]);
+                    tmp.Add(hero);
                 }
                 else {
                     Guard guard = new Guard(players[index]);
                     guards.Add(guard);
+                    tmp.Add(guard);
                 }
             }
+            players.Clear();
+            players = tmp;
             return true;
         }
     }

@@ -20,6 +20,22 @@ namespace SupHero.Controllers {
 
         }
 
+        public void spawnPlayers(List<Player> toSpawn) {
+            players = new List<GameObject>();
+            GameObject hud = GameObject.FindGameObjectWithTag("MainUI");
+            foreach (Player player in toSpawn) {
+                GameObject pawn = Instantiate(playerPrefab) as GameObject;
+                pawn.GetComponent<PlayerController>().setPlayer(player);
+                float chaosX = Random.value * 10;
+                float chaosZ = Random.value * 10;
+                pawn.transform.SetParent(transform);
+                pawn.transform.Translate(chaosX, 0f, chaosZ);
+                GameObject ui = hud.GetComponent<HUDController>().createUIforPlayer(player);
+                pawn.GetComponent<PlayerController>().setUI(ui);
+                players.Add(pawn);
+            }
+        }
+
         public void spawnPlayers(Hero hero, List<Guard> guards) {
             players = new List<GameObject>();
 

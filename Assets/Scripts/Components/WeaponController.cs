@@ -38,7 +38,15 @@ namespace SupHero.Controllers {
                     shootRay.origin = transform.position;
                     shootRay.direction = transform.forward;
                     lazer.SetPosition(1, shootRay.origin + shootRay.direction * weapon.range);
-                    
+
+                    if (Physics.Raycast(shootRay, out shootHit, weapon.range)) {
+                        GameObject target = shootHit.transform.gameObject;
+                        lazer.SetPosition(1, shootHit.point);
+                        if (target.CompareTag("Player")) {
+                            target.GetComponent<PlayerController>().takeDamage(weapon.damage);
+                        }
+                    }
+
                     Invoke(Utils.getActionName(disableEffects), 0.05f);
                 }
             }

@@ -5,7 +5,7 @@ using System;
 namespace SupHero.Model {
     public class Hero : Player {
 
-        private int shield;
+        public int shield { get; protected set; }
 
         public Hero(int number = 0) : base(number) {
             setupDefaultProperties();

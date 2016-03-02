@@ -4,11 +4,18 @@ using System.Collections;
 namespace SupHero.Model {
     public class Weapon {
 
-        protected int damage;
-        protected float rate;
+        public int damage { get; protected set; }
+        public float rate { get; protected set; }
+        public float range { get; protected set; }
 
         public Weapon() {
+            damage = 10;
+            rate = 0.3f;
+            range = 10f;
+        }
 
+        public bool trigger() {
+            return true;
         }
     }
 }

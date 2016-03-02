@@ -7,13 +7,17 @@ namespace SupHero.Controllers {
     public class PlayerController : MonoBehaviour {
 
         public Player player;
+        public GameObject weapon;
 
         private Rigidbody playerRigidbody;
 
         // Use this for initialization
         void Start() {
-            //player = new Hero(1);
-            //player.inputType = InputType.KEYBOARD;
+            // For standalone test init
+            if (player == null) {
+                player = new Hero(1);
+                player.inputType = InputType.KEYBOARD;
+            }
             playerRigidbody = GetComponent<Rigidbody>();
         }
 
@@ -32,6 +36,8 @@ namespace SupHero.Controllers {
             // Turning
             Quaternion rotation = getRotation();
             playerRigidbody.MoveRotation(rotation);
+            // Actions
+            getActions();
         }
 
         public void setPlayer(Player player) {
@@ -40,6 +46,22 @@ namespace SupHero.Controllers {
 
         public void killSelf() {
             Destroy(gameObject);
+        }
+
+        private void getActions() {
+            bool useWeapon = false;
+            switch (player.inputType) {
+                case InputType.KEYBOARD:
+                    useWeapon = Input.GetButton("Fire1");
+                    break;
+                case InputType.GAMEPAD:
+                    float rightBumper = Input.GetAxis(Utils.getControlForPlayer("R2", player.gamepadNumber));
+                    useWeapon = (rightBumper > 0f);
+                    break;
+                default:
+                    break;
+            }
+            if (useWeapon) weapon.GetComponent<WeaponController>().useWeapon();
         }
 
         private Vector3 getMovementVector() {

@@ -8,7 +8,7 @@ using SupHero.Model;
 namespace SupHero.Controllers {
     public class PlayerUIController : MonoBehaviour {
 
-        private Player player;
+        public Player player { get; protected set; }
 
         public GameObject shieldPanel;
         public Text shieldText;

@@ -6,40 +6,60 @@ using SupHero.Model;
 namespace SupHero.Controllers {
     public class PlayerController : MonoBehaviour {
 
+        // Variables
         public Player player;
-        public GameObject weapon;
-
         private GameObject playerUI;
+        private Vector3 moveVector;
+        private Vector3 rotation;
 
+        // Components
+        private WeaponController weapon;
+        private ZoneController zone;
         private Rigidbody playerRigidbody;
+
+        // Events
+        public delegate void dieAction(Player player);
+        public event dieAction OnDie;
+
+        void Awake() {
+            // For standalone init, like for test scene
+            player = new Hero(1);
+            player.inputType = InputType.KEYBOARD;
+        }
 
         // Use this for initialization
         void Start() {
-            // For standalone test init
-            if (player == null) {
-                player = new Hero(1);
-                player.inputType = InputType.KEYBOARD;
-            }
             playerRigidbody = GetComponent<Rigidbody>();
+            weapon = GetComponentInChildren<WeaponController>();
+            zone = GetComponentInParent<ZoneController>();
         }
 
         // Update is called once per frame
         void Update() {
-
+            if (player.isAlive) {
+                // Record move input
+                moveVector = getMovementVector();
+                // Record rotate input
+                rotation = getRotation();
+                // Record actions
+                getActions();
+            }
+            else {
+                die();
+            }
         }
 
         void FixedUpdate() {
             // Moving
-            Vector3 moveVector = getMovementVector();
-            if (moveVector != Vector3.zero) {
+            if (moveVector != null && moveVector != Vector3.zero) {
                 moveVector = moveVector.normalized * player.speed * Time.deltaTime;
                 playerRigidbody.MovePosition(transform.position + moveVector);
             }
             // Turning
-            Quaternion rotation = getRotation();
-            playerRigidbody.MoveRotation(rotation);
-            // Actions
-            getActions();
+            if (rotation != null && rotation != Vector3.zero) {
+                Quaternion rotate = Quaternion.LookRotation(rotation * Time.deltaTime);
+                playerRigidbody.MoveRotation(rotate);
+            }
         }
 
         public void takeDamage(int damage) {
@@ -54,8 +74,11 @@ namespace SupHero.Controllers {
             playerUI = ui;
         }
 
-        public void killSelf() {
-            Destroy(gameObject);
+        public void die() {
+            if (OnDie != null) {
+                player.die();
+                OnDie(player);
+            }
         }
 
         private void getActions() {
@@ -71,7 +94,7 @@ namespace SupHero.Controllers {
                 default:
                     break;
             }
-            if (useWeapon) weapon.GetComponent<WeaponController>().useWeapon();
+            if (useWeapon) weapon.useWeapon();
         }
 
         private Vector3 getMovementVector() {
@@ -94,14 +117,14 @@ namespace SupHero.Controllers {
             return movement;
         }
 
-        private Quaternion getRotation() {
-            Quaternion rotation = transform.rotation;
+        private Vector3 getRotation() {
+            Vector3 rotation = Vector3.zero;
             switch (player.inputType) {
                 case InputType.GAMEPAD:
                     float x = Input.GetAxis(Utils.getControlForPlayer("RightStickX", player.gamepadNumber));
                     float z = Input.GetAxis(Utils.getControlForPlayer("RightStickY", player.gamepadNumber));
                     if (x != 0f && z != 0f) {
-                        rotation = Quaternion.LookRotation(new Vector3(x, 0f, z) * Time.deltaTime);
+                        rotation = new Vector3(x, 0f, z);
                     }
                     break;
                 case InputType.KEYBOARD:
@@ -110,7 +133,7 @@ namespace SupHero.Controllers {
                     if (Physics.Raycast(camRay, out floorHit)) {
                         Vector3 playerToMouse = floorHit.point - transform.position;
                         playerToMouse.y = 0f;
-                        rotation = Quaternion.LookRotation(playerToMouse * Time.deltaTime);
+                        rotation = playerToMouse;
                     }
                     break;
                 default:

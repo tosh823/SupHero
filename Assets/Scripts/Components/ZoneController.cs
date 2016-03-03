@@ -9,10 +9,15 @@ namespace SupHero.Controllers {
 
         public GameObject playerPrefab;
         private List<GameObject> players;
+        private HUDController HUD;
+
+        void Awake() {
+            HUD = GameObject.FindGameObjectWithTag("MainUI").GetComponent<HUDController>();
+        }
 
         // Use this for initialization
         void Start() {
-            
+
         }
 
         // Update is called once per frame
@@ -22,42 +27,45 @@ namespace SupHero.Controllers {
 
         public void spawnPlayers(List<Player> toSpawn) {
             players = new List<GameObject>();
-            GameObject hud = GameObject.FindGameObjectWithTag("MainUI");
             foreach (Player player in toSpawn) {
+                // Creating new player object
                 GameObject pawn = Instantiate(playerPrefab) as GameObject;
-                pawn.GetComponent<PlayerController>().setPlayer(player);
                 float chaosX = Random.value * 10;
                 float chaosZ = Random.value * 10;
                 pawn.transform.SetParent(transform);
                 pawn.transform.Translate(chaosX, 0f, chaosZ);
-                GameObject ui = hud.GetComponent<HUDController>().createUIforPlayer(player);
-                pawn.GetComponent<PlayerController>().setUI(ui);
+                GameObject ui = HUD.createUIforPlayer(player);
+                PlayerController pc = pawn.GetComponent<PlayerController>();
+                pc.setPlayer(player);
+                pc.setUI(ui);
+                pc.OnDie += spawnPlayer;
+                
                 players.Add(pawn);
             }
         }
-
-        public void spawnPlayers(Hero hero, List<Guard> guards) {
-            players = new List<GameObject>();
-
+        
+        public void spawnPlayer(Player player) {
+            // First, delete existing instance of player
+            GameObject existing = findPlayer(player);
+            existing.GetComponent<PlayerController>().OnDie -= spawnPlayer;
+            Destroy(existing.gameObject);
+            players.Remove(existing);
+            // Secondly, create new
             GameObject pawn = Instantiate(playerPrefab) as GameObject;
+            float chaosX = Random.value * 10;
+            float chaosZ = Random.value * 10;
             pawn.transform.SetParent(transform);
-            pawn.GetComponent<PlayerController>().setPlayer(hero);
+            pawn.transform.Translate(chaosX, 0f, chaosZ);
+            GameObject ui = HUD.findUIforPlayer(player);
+            pawn.GetComponent<PlayerController>().setPlayer(player);
+            pawn.GetComponent<PlayerController>().setUI(ui);
             players.Add(pawn);
-
-            foreach (Guard guard in guards) {
-                pawn = Instantiate(playerPrefab) as GameObject;
-                float chaosX = Random.value * 10;
-                float chaosZ = Random.value * 10;
-                pawn.transform.SetParent(transform);
-                pawn.transform.Translate(chaosX, 0f, chaosZ);
-                pawn.GetComponent<PlayerController>().setPlayer(guard);
-                players.Add(pawn);
-            }
         }
 
         public void destroyPlayers() {
             foreach (GameObject player in players) {
-                player.GetComponent<PlayerController>().killSelf();
+                player.GetComponent<PlayerController>().OnDie -= spawnPlayer;
+                Destroy(player.gameObject);
             }
             players.Clear();
         }
@@ -67,6 +75,15 @@ namespace SupHero.Controllers {
                 Player objectPlayer = player.GetComponent<PlayerController>().player;
                 Debug.Log(objectPlayer.GetType().ToString() + " " + objectPlayer.playerName + " with number " + objectPlayer.number);
             }
+        }
+
+        private GameObject findPlayer(Player player) {
+            foreach (GameObject playerInScene in players) {
+                if (playerInScene.GetComponent<PlayerController>().player.number == player.number) {
+                    return playerInScene;
+                }
+            }
+            return null;
         }
     }
 }

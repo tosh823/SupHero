@@ -47,7 +47,7 @@ namespace SupHero.Controllers {
         }
 
         public GameObject createUIforPlayer(Player player) {
-            GameObject hud = new GameObject();
+            GameObject hud;
             switch (player.number) {
                 case 1:
                     hud = Instantiate(playerUIPrefabLeft);
@@ -74,6 +74,7 @@ namespace SupHero.Controllers {
                     hud.GetComponent<PlayerUIController>().setPlayer(player);
                     break;
                 default:
+                    hud = new GameObject();
                     break;
             }
             playerUIs.Add(hud);
@@ -87,39 +88,13 @@ namespace SupHero.Controllers {
             playerUIs.Clear();
         }
 
-        public void setupPlayersUI(List<Player> players) {
-            foreach (Player player in players) {
-                GameObject hud;
-                switch (player.number) {
-                    case 1:
-                        hud = Instantiate(playerUIPrefabLeft);
-                        hud.transform.SetParent(transform, false);
-                        positionUI(hud, UILocation.BOTTOM);
-                        hud.GetComponent<PlayerUIController>().setPlayer(player);
-                        break;
-                    case 2:
-                        hud = Instantiate(playerUIPrefabLeft);
-                        hud.transform.SetParent(transform, false);
-                        positionUI(hud, UILocation.TOP);
-                        hud.GetComponent<PlayerUIController>().setPlayer(player);
-                        break;
-                    case 3:
-                        hud = Instantiate(playerUIPrefabRight);
-                        hud.transform.SetParent(transform, false);
-                        positionUI(hud, UILocation.TOP);
-                        hud.GetComponent<PlayerUIController>().setPlayer(player);
-                        break;
-                    case 4:
-                        hud = Instantiate(playerUIPrefabRight);
-                        hud.transform.SetParent(transform, false);
-                        positionUI(hud, UILocation.BOTTOM);
-                        hud.GetComponent<PlayerUIController>().setPlayer(player);
-                        break;
-                    default:
-                        break;
+        public GameObject findUIforPlayer(Player player) {
+            foreach (GameObject ui in playerUIs) {
+                if (ui.GetComponent<PlayerUIController>().player.number == player.number) {
+                    return ui;
                 }
-                
             }
+            return null;
         }
 
         private void positionUI(GameObject ui, UILocation location) {

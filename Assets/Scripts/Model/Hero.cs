@@ -47,5 +47,10 @@ namespace SupHero.Model {
             shield = Constants.defaultShield;
             speed = Constants.defaultHeroSpeed;
         }
+
+        public override void die() {
+            health = Constants.defaultHealth;
+            armor = Constants.defaultArmor;
+        }
     }
 }

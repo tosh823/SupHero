@@ -7,9 +7,9 @@ namespace SupHero.Model {
         public int armor { get; protected set; }
         public int health { get; protected set; }
         public float speed { get; protected set; }
+        public bool isAlive { get; protected set; }
         public ItemSlot[] itemSlots = new ItemSlot[2];
         public string playerName;
-        protected bool isAlive;
 
         public InputType inputType;
         public int gamepadNumber;
@@ -25,6 +25,7 @@ namespace SupHero.Model {
         }
 
         protected abstract void setupDefaultProperties();
+        public abstract void die();
 
         public virtual void takeDamage(int damage) {
             // If have armor, make it take dmg on it

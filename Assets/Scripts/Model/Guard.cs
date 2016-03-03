@@ -22,6 +22,11 @@ namespace SupHero.Model {
             setupDefaultProperties();
         }
 
+        public override void die() {
+            health = Constants.defaultHealth;
+            armor = Constants.defaultArmor;
+        }
+
         protected override void setupDefaultProperties() {
             health = Constants.defaultHealth;
             armor = Constants.defaultArmor;

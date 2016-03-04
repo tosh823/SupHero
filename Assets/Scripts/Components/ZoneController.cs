@@ -22,7 +22,7 @@ namespace SupHero.Controllers {
 
         // Update is called once per frame
         void Update() {
-
+            
         }
 
         public void spawnPlayers(List<Player> toSpawn) {
@@ -60,6 +60,7 @@ namespace SupHero.Controllers {
             pawn.GetComponent<PlayerController>().setPlayer(player);
             pawn.GetComponent<PlayerController>().setUI(ui);
             players.Add(pawn);
+            player.resurrect();
         }
 
         public void destroyPlayers() {

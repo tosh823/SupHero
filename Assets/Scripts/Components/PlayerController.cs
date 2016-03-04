@@ -52,6 +52,13 @@ namespace SupHero.Controllers {
         void FixedUpdate() {
             // Moving
             if (moveVector != null && moveVector != Vector3.zero) {
+                // For moving relative to camera
+                Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
+                forward.y = 0f;
+                forward = forward.normalized;
+                Vector3 right = new Vector3(forward.z, 0f, -forward.x);
+                moveVector = (moveVector.x * right + moveVector.z * forward);
+
                 moveVector = moveVector.normalized * player.speed * Time.deltaTime;
                 playerRigidbody.MovePosition(transform.position + moveVector);
             }

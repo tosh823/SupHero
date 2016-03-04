@@ -26,6 +26,7 @@ namespace SupHero.Model {
 
         protected abstract void setupDefaultProperties();
         public abstract void die();
+        public abstract void resurrect();
 
         public virtual void takeDamage(int damage) {
             // If have armor, make it take dmg on it

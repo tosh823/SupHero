@@ -27,7 +27,12 @@ namespace SupHero.Model {
             armor = Constants.defaultArmor;
         }
 
+        public override void resurrect() {
+            setupDefaultProperties();
+        }
+
         protected override void setupDefaultProperties() {
+            isAlive = true;
             health = Constants.defaultHealth;
             armor = Constants.defaultArmor;
             speed = Constants.defaultGuardSpeed;

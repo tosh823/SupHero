@@ -42,6 +42,7 @@ namespace SupHero.Model {
         }
 
         protected override void setupDefaultProperties() {
+            isAlive = true;
             health = Constants.defaultHealth;
             armor = Constants.defaultArmor;
             shield = Constants.defaultShield;
@@ -51,6 +52,10 @@ namespace SupHero.Model {
         public override void die() {
             health = Constants.defaultHealth;
             armor = Constants.defaultArmor;
+        }
+
+        public override void resurrect() {
+            setupDefaultProperties();
         }
     }
 }

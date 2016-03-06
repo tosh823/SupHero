@@ -27,7 +27,7 @@ namespace SupHero.Controllers {
             if (player != null) {
                 if (player is Hero) {
                     Hero hero = player as Hero;
-                    shieldText.text = hero.shield.ToString();
+                    shieldText.text = string.Format("{0}%", ((int)hero.shieldPercentage).ToString());
                 }
                 else {
                     shieldPanel.SetActive(false);

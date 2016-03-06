@@ -90,7 +90,9 @@ namespace SupHero.Controllers {
 
         public GameObject findUIforPlayer(Player player) {
             foreach (GameObject ui in playerUIs) {
-                if (ui.GetComponent<PlayerUIController>().player.number == player.number) {
+                PlayerUIController pc = ui.GetComponent<PlayerUIController>();
+                if (pc.player.number == player.number) {
+                    pc.setPlayer(player);
                     return ui;
                 }
             }

@@ -8,9 +8,10 @@ namespace SupHero.Controllers {
 
         // Variables
         public Player player;
-        private GameObject playerUI;
-        private Vector3 moveVector;
-        private Vector3 rotation;
+        
+        private GameObject playerUI; // Ref to UI for this player, possibly unnessecary
+        private Vector3 moveVector; // Vector for moving character
+        private Vector3 rotation; // Vector for rotating character
 
         // Components
         private WeaponController weapon;
@@ -19,7 +20,9 @@ namespace SupHero.Controllers {
 
         // Events
         public delegate void dieAction(Player player);
+        public delegate void takeDamageAction();
         public event dieAction OnDie;
+        public event takeDamageAction OnTakenDamage;
 
         void Awake() {
             // For standalone init, like for test scene
@@ -62,12 +65,20 @@ namespace SupHero.Controllers {
             }
         }
 
-        public void takeDamage(int damage) {
-            player.takeDamage(damage);
+        public DamageResult takeDamage(float damage) {
+            if (OnTakenDamage != null) {
+                OnTakenDamage();
+            }
+            return player.takeDamage(damage);
         }
 
         public void setPlayer(Player player) {
             this.player = player;
+            if (player is Hero) {
+                ShieldController sc = gameObject.AddComponent<ShieldController>();
+                sc.owner = (Hero) player;
+                OnTakenDamage += sc.refreshTimer;
+            }
         }
 
         public void setUI(GameObject ui) {
@@ -81,6 +92,7 @@ namespace SupHero.Controllers {
             }
         }
 
+        // Reading inputs
         private void getActions() {
             bool useWeapon = false;
             switch (player.inputType) {
@@ -97,6 +109,7 @@ namespace SupHero.Controllers {
             if (useWeapon) weapon.useWeapon();
         }
 
+        // Reading movement input
         private Vector3 getMovementVector() {
             Vector3 movement = Vector3.zero;
             float h, v;
@@ -117,6 +130,7 @@ namespace SupHero.Controllers {
             return movement;
         }
 
+        // Reading rotation input
         private Vector3 getRotation() {
             Vector3 rotation = Vector3.zero;
             switch (player.inputType) {

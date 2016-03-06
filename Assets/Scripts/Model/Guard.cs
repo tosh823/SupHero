@@ -23,14 +23,14 @@ namespace SupHero.Model {
         }
 
         public override void die() {
-            health = Constants.defaultHealth;
-            armor = Constants.defaultArmor;
+            health = Constants.health;
+            armor = Constants.armor;
         }
 
         protected override void setupDefaultProperties() {
-            health = Constants.defaultHealth;
-            armor = Constants.defaultArmor;
-            speed = Constants.defaultGuardSpeed;
+            health = Constants.health;
+            armor = Constants.armor;
+            speed = Constants.guardSpeed;
         }
     }
 }

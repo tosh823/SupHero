@@ -5,7 +5,20 @@ using System;
 namespace SupHero.Model {
     public class Hero : Player {
 
-        public int shield { get; protected set; }
+        public float shield { get; protected set; }
+        public float replenishWaitTime { get; protected set; }
+        public bool haveTakenDamage;
+        public float shieldPercentage {
+            get {
+                return (shield / Constants.shield) * 100;
+            }
+        }
+        public bool isShieldFull {
+            get {
+                if (shield >= Constants.shield) return true;
+                else return false;
+            }
+        }
 
         public Hero(int number = 0) : base(number) {
             setupDefaultProperties();
@@ -24,33 +37,46 @@ namespace SupHero.Model {
             setupDefaultProperties();
         }
 
-        public override void takeDamage(int damage) {
+        public override DamageResult takeDamage(float damage) {
             // If have shield active, make it take dmg on it
+            haveTakenDamage = true;
             if (shield > 0) {
                 // If damage is too high, take the rest to your body
                 if (damage >= shield) {
-                    int rest = damage - shield;
+                    float rest = damage - shield;
                     shield = 0;
-                    takeDamage(rest);
+                    return takeDamage(rest);
                 }
-                else shield -= damage;
+                else {
+                    shield -= damage;
+                    return DamageResult.SHIELD_HIT;
+                }
             }
             // Else take damage as normal
             else {
-                base.takeDamage(damage);
+                return base.takeDamage(damage);
+            }
+        }
+
+        public void replenishShield() {
+            if (!isShieldFull) {
+                shield++;
             }
         }
 
         protected override void setupDefaultProperties() {
-            health = Constants.defaultHealth;
-            armor = Constants.defaultArmor;
-            shield = Constants.defaultShield;
-            speed = Constants.defaultHeroSpeed;
+            health = Constants.health;
+            armor = Constants.armor;
+            shield = Constants.shield;
+            replenishWaitTime = Constants.replenishWaitTime;
+            speed = Constants.heroSpeed;
+            haveTakenDamage = false;
         }
 
         public override void die() {
-            health = Constants.defaultHealth;
-            armor = Constants.defaultArmor;
+            shield = Constants.shield;
+            health = Constants.health;
+            armor = Constants.armor;
         }
     }
 }

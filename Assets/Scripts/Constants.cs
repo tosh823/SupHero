@@ -4,32 +4,36 @@ using System.Collections;
 namespace SupHero {
     public static class Constants {
 
-        // Class for different constants of the game
+        // Constants of the game
 
         // Players charasterics
-        public static int defaultHealth = 100;
-        public static int defaultArmor = 100;
-        public static int defaultShield = 100;
-        public static float defaultHeroSpeed = 5f;
-        public static float defaultGuardSpeed = 10f;
+        // Common
+        public static float health = 100;
+        public static float armor = 100;
+        // Hero
+        public static float heroSpeed = 5f;
+        public static float shield = 500;
+        public static float replenishWaitTime = 3f; // In seconds
+        // Guard
+        public static float guardSpeed = 10f;
 
         // Game charasterics
         public static int playersCount = 4;
-        public static float turnTime = 360f;
-        public static float turnTimeTest = 30f;
+        public static float turnTime = 360f; // In seconds
+        public static float turnTimeTest = 30f; // In seconds
 
         // World charasterics
         public static int numberOfZones = 5;
 
-        public static int damageLow = 5;
-        public static int damageMedium = 10;
-        public static int damageHigh = 20;
-        public static int damageVeryHigh = 50;
+        public static float damageLow = 5;
+        public static float damageMedium = 10;
+        public static float damageHigh = 20;
+        public static float damageVeryHigh = 50;
 
-        public static int durablityWeak = 50;
-        public static int durablityNormal = 100;
-        public static int durablityStrong = 200;
-        public static int durablityImmortal = int.MaxValue;
+        public static float durablityWeak = 50;
+        public static float durablityNormal = 100;
+        public static float durablityStrong = 200;
+        public static float durablityImmortal = float.MaxValue;
 
         public static float rateLow = 0.5f;
         public static float rateNormal = 0.25f;

@@ -71,12 +71,17 @@ namespace SupHero.Model {
             replenishWaitTime = Constants.replenishWaitTime;
             speed = Constants.heroSpeed;
             haveTakenDamage = false;
+            isAlive = true;
         }
 
         public override void die() {
             shield = Constants.shield;
             health = Constants.health;
             armor = Constants.armor;
+        }
+
+        public override void resurrect() {
+            setupDefaultProperties();
         }
     }
 }

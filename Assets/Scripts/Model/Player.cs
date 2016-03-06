@@ -35,6 +35,7 @@ namespace SupHero.Model {
 
         protected abstract void setupDefaultProperties();
         public abstract void die();
+        public abstract void resurrect();
 
         public virtual void applyPoints(int amount) {
             points += amount;

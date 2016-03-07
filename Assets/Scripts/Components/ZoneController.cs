@@ -39,6 +39,10 @@ namespace SupHero.Controllers {
                 pc.setPlayer(player);
                 pc.setUI(ui);
                 pc.OnDie += spawnPlayer;
+
+                if (player is Hero) {
+                    Camera.main.GetComponent<CameraController>().setTarget(pawn);
+                }
                 
                 players.Add(pawn);
             }
@@ -59,6 +63,11 @@ namespace SupHero.Controllers {
             GameObject ui = HUD.findUIforPlayer(player);
             pawn.GetComponent<PlayerController>().setPlayer(player);
             pawn.GetComponent<PlayerController>().setUI(ui);
+
+            if (player is Hero) {
+                Camera.main.GetComponent<CameraController>().setTarget(pawn);
+            }
+
             players.Add(pawn);
             player.resurrect();
         }

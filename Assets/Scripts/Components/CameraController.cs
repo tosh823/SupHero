@@ -16,7 +16,7 @@ namespace SupHero.Controllers {
         private Vector3 center;
         private float minDistance;
         private int surfaceMask;
-        private float smoothing = 5f;
+        private float smoothing = 0.5f;
         
         // Use this for initialization
         void Start() {

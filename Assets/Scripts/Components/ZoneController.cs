@@ -4,20 +4,22 @@ using System.Collections.Generic;
 
 using SupHero.Model;
 
-namespace SupHero.Controllers {
+namespace SupHero.Components {
     public class ZoneController : MonoBehaviour {
+        
+        // Prefabs for instantiating
 
-        public GameObject playerPrefab;
-        private List<GameObject> players;
-        private HUDController HUD;
+        public List<GameObject> players;
+
+        private Spawner spawner;
 
         void Awake() {
-            HUD = GameObject.FindGameObjectWithTag("MainUI").GetComponent<HUDController>();
+            spawner = GetComponent<Spawner>();
         }
 
         // Use this for initialization
         void Start() {
-
+            
         }
 
         // Update is called once per frame
@@ -25,53 +27,26 @@ namespace SupHero.Controllers {
             
         }
 
+        // Initial respawn on zone
         public void spawnPlayers(List<Player> toSpawn) {
             players = new List<GameObject>();
             foreach (Player player in toSpawn) {
-                // Creating new player object
-                GameObject pawn = Instantiate(playerPrefab) as GameObject;
-                float chaosX = Random.value * 10;
-                float chaosZ = Random.value * 10;
-                pawn.transform.SetParent(transform);
-                pawn.transform.Translate(chaosX, 0f, chaosZ);
-                GameObject ui = HUD.createUIforPlayer(player);
-                PlayerController pc = pawn.GetComponent<PlayerController>();
-                pc.setPlayer(player);
-                pc.setUI(ui);
-                pc.OnDie += spawnPlayer;
-
-                if (player is Hero) {
-                    Camera.main.GetComponent<CameraController>().setTarget(pawn);
-                }
-                
+                // Creating new player gameObject
+                GameObject pawn = spawner.spawnPlayer(player);
+                pawn.GetComponent<PlayerController>().OnDie += spawnPlayer;
                 players.Add(pawn);
             }
         }
         
+        // Using for respawning players after death
         public void spawnPlayer(Player player) {
-            // First, delete existing instance of player
-            GameObject existing = findPlayer(player);
-            existing.GetComponent<PlayerController>().OnDie -= spawnPlayer;
-            Destroy(existing.gameObject);
-            players.Remove(existing);
-            // Secondly, create new
-            GameObject pawn = Instantiate(playerPrefab) as GameObject;
-            float chaosX = Random.value * 10;
-            float chaosZ = Random.value * 10;
-            pawn.transform.SetParent(transform);
-            pawn.transform.Translate(chaosX, 0f, chaosZ);
-            GameObject ui = HUD.findUIforPlayer(player);
-            pawn.GetComponent<PlayerController>().setPlayer(player);
-            pawn.GetComponent<PlayerController>().setUI(ui);
-
-            if (player is Hero) {
-                Camera.main.GetComponent<CameraController>().setTarget(pawn);
-            }
-
+            GameObject pawn = spawner.spawnPlayer(player);
+            pawn.GetComponent<PlayerController>().OnDie += spawnPlayer;
             players.Add(pawn);
             player.resurrect();
         }
 
+        // Kill all the players
         public void destroyPlayers() {
             foreach (GameObject player in players) {
                 player.GetComponent<PlayerController>().OnDie -= spawnPlayer;
@@ -80,6 +55,7 @@ namespace SupHero.Controllers {
             players.Clear();
         }
 
+        // Log info about players to console
         public void logInfoAboutPlayers() {
             foreach (GameObject player in players) {
                 Player objectPlayer = player.GetComponent<PlayerController>().player;
@@ -87,7 +63,8 @@ namespace SupHero.Controllers {
             }
         }
 
-        private GameObject findPlayer(Player player) {
+        // Find player gameObject
+        public GameObject findPlayer(Player player) {
             foreach (GameObject playerInScene in players) {
                 if (playerInScene.GetComponent<PlayerController>().player.number == player.number) {
                     return playerInScene;
@@ -95,5 +72,13 @@ namespace SupHero.Controllers {
             }
             return null;
         }
+
+        // Remove certaing player gameObject
+        public void removePlayer(GameObject player) {
+            player.GetComponent<PlayerController>().OnDie -= spawnPlayer;
+            Destroy(player.gameObject);
+            players.Remove(player);
+        }
+
     }
 }

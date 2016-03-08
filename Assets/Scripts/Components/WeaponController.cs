@@ -3,7 +3,7 @@ using System.Collections;
 using SupHero;
 using SupHero.Model;
 
-namespace SupHero.Controllers {
+namespace SupHero.Components {
     public class WeaponController : MonoBehaviour {
 
         public Weapon weapon;

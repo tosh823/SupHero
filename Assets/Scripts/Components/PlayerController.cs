@@ -3,7 +3,7 @@ using System.Collections;
 using SupHero;
 using SupHero.Model;
 
-namespace SupHero.Controllers {
+namespace SupHero.Components {
     public class PlayerController : MonoBehaviour {
 
         // Variables
@@ -35,6 +35,7 @@ namespace SupHero.Controllers {
             playerRigidbody = GetComponent<Rigidbody>();
             weapon = GetComponentInChildren<WeaponController>();
             zone = GetComponentInParent<ZoneController>();
+            
         }
 
         // Update is called once per frame
@@ -81,8 +82,12 @@ namespace SupHero.Controllers {
 
         public void setPlayer(Player player) {
             this.player = player;
+            // If player is a hero
             if (player is Hero) {
-                ShieldController sc = gameObject.AddComponent<ShieldController>();
+                // Set it as camera target
+                LevelController.instance.view.setTarget(gameObject);
+                // Add to him a shield
+                Shield sc = gameObject.AddComponent<Shield>();
                 sc.owner = (Hero) player;
                 OnTakenDamage += sc.refreshTimer;
             }

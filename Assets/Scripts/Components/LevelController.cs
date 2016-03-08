@@ -4,20 +4,35 @@ using System.Collections;
 using System.Collections.Generic;
 using SupHero.Model;
 
-namespace SupHero.Controllers {
+namespace SupHero.Components {
     public class LevelController : MonoBehaviour {
 
+        public static LevelController instance = null;
+
+        public HUDController HUD;
+        public CameraController view;
         public GameObject zonePrefab;
-        public GameObject HUD;
 
         private GameObject zoneObject;
         private Level level;
 
         private float time = Constants.turnTime;
 
+        void Awake() {
+            if (instance == null) {
+                instance = this;
+            }
+            else if (instance != this) {
+                Destroy(gameObject);
+            }
+            DontDestroyOnLoad(gameObject);
+        }
+
         // Use this for initialization
         void Start() {
             level = new Level();
+            HUD = GameObject.FindGameObjectWithTag("MainUI").GetComponent<HUDController>();
+            view = Camera.main.GetComponent<CameraController>();
             zoneObject = Instantiate(zonePrefab);
             zoneObject.transform.SetParent(transform);
             level.createPlayers();

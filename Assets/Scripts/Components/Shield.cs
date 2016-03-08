@@ -3,8 +3,8 @@ using System.Collections;
 using SupHero;
 using SupHero.Model;
 
-namespace SupHero.Controllers {
-    public class ShieldController : MonoBehaviour {
+namespace SupHero.Components {
+    public class Shield : MonoBehaviour {
 
         public Hero owner;
         private float timer;

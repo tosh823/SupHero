@@ -5,7 +5,7 @@ using System.Collections;
 using SupHero;
 using SupHero.Model;
 
-namespace SupHero.Controllers {
+namespace SupHero.Components {
     public class PlayerUIController : MonoBehaviour {
 
         public Player player { get; protected set; }

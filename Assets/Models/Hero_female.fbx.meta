@@ -1,0 +1,307 @@
+fileFormatVersion: 2
+guid: ac52609f8058bb74d8f12e87cb8982dc
+timeCreated: 1457529826
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Abdomen
+    100002: Arm.L
+    100004: Arm.R
+    100006: Armature
+    100008: Body
+    100010: Bone shape
+    100012: Bone shape 10
+    100014: Bone shape 2
+    100016: Bone shape 3
+    100018: Bone shape 4
+    100020: Bone shape 4.001
+    100022: Bone shape 4.002
+    100024: Bone shape 4.003
+    100026: Bone shape 4.004
+    100028: Bone shape 5
+    100030: Bone shape 6
+    100032: Bone shape 6.001
+    100034: Bone shape 6.002
+    100036: Bone shape 7
+    100038: Bone shape 8
+    100040: Chest
+    100042: Elbow.L IK
+    100044: Elbow.L IK_end
+    100046: Elbow.R IK
+    100048: Elbow.R IK_end
+    100050: Eye.L
+    100052: Eye.L_end
+    100054: Eye.R
+    100056: Eye.R_end
+    100058: Finger1.L
+    100060: Finger1.R
+    100062: Finger2.L
+    100064: Finger2.L_end
+    100066: Finger2.R
+    100068: Finger2.R_end
+    100070: Foot.L
+    100072: Foot.L IK
+    100074: Foot.L IK_end
+    100076: Foot.R
+    100078: Foot.R IK
+    100080: Foot.R IK_end
+    100082: Forearm.L
+    100084: Forearm.R
+    100086: Hand.L
+    100088: Hand.L IK
+    100090: Hand.L IK_end
+    100092: Hand.R
+    100094: Hand.R IK
+    100096: Hand.R IK_end
+    100098: Head
+    100100: //RootNode
+    100102: Hips
+    100104: Knee.L IK
+    100106: Knee.L IK_end
+    100108: Knee.R IK
+    100110: Knee.R IK_end
+    100112: Leg.L
+    100114: Leg.R
+    100116: Main
+    100118: Main eye
+    100120: Main eye_end
+    100122: Neck
+    100124: Shin.L
+    100126: Shin.R
+    100128: Shoulder.L
+    100130: Shoulder.R
+    100132: Thumb1.L
+    100134: Thumb1.R
+    100136: Thumb2.L
+    100138: Thumb2.R
+    100140: Thumb3.L
+    100142: Thumb3.L_end
+    100144: Thumb3.R
+    100146: Thumb3.R_end
+    100148: Toe.L
+    100150: Toe.L_end
+    100152: Toe.R
+    100154: Toe.R_end
+    400000: Abdomen
+    400002: Arm.L
+    400004: Arm.R
+    400006: Armature
+    400008: Body
+    400010: Bone shape
+    400012: Bone shape 10
+    400014: Bone shape 2
+    400016: Bone shape 3
+    400018: Bone shape 4
+    400020: Bone shape 4.001
+    400022: Bone shape 4.002
+    400024: Bone shape 4.003
+    400026: Bone shape 4.004
+    400028: Bone shape 5
+    400030: Bone shape 6
+    400032: Bone shape 6.001
+    400034: Bone shape 6.002
+    400036: Bone shape 7
+    400038: Bone shape 8
+    400040: Chest
+    400042: Elbow.L IK
+    400044: Elbow.L IK_end
+    400046: Elbow.R IK
+    400048: Elbow.R IK_end
+    400050: Eye.L
+    400052: Eye.L_end
+    400054: Eye.R
+    400056: Eye.R_end
+    400058: Finger1.L
+    400060: Finger1.R
+    400062: Finger2.L
+    400064: Finger2.L_end
+    400066: Finger2.R
+    400068: Finger2.R_end
+    400070: Foot.L
+    400072: Foot.L IK
+    400074: Foot.L IK_end
+    400076: Foot.R
+    400078: Foot.R IK
+    400080: Foot.R IK_end
+    400082: Forearm.L
+    400084: Forearm.R
+    400086: Hand.L
+    400088: Hand.L IK
+    400090: Hand.L IK_end
+    400092: Hand.R
+    400094: Hand.R IK
+    400096: Hand.R IK_end
+    400098: Head
+    400100: //RootNode
+    400102: Hips
+    400104: Knee.L IK
+    400106: Knee.L IK_end
+    400108: Knee.R IK
+    400110: Knee.R IK_end
+    400112: Leg.L
+    400114: Leg.R
+    400116: Main
+    400118: Main eye
+    400120: Main eye_end
+    400122: Neck
+    400124: Shin.L
+    400126: Shin.R
+    400128: Shoulder.L
+    400130: Shoulder.R
+    400132: Thumb1.L
+    400134: Thumb1.R
+    400136: Thumb2.L
+    400138: Thumb2.R
+    400140: Thumb3.L
+    400142: Thumb3.L_end
+    400144: Thumb3.R
+    400146: Thumb3.R_end
+    400148: Toe.L
+    400150: Toe.L_end
+    400152: Toe.R
+    400154: Toe.R_end
+    2300000: Bone shape
+    2300002: Bone shape 10
+    2300004: Bone shape 2
+    2300006: Bone shape 3
+    2300008: Bone shape 4
+    2300010: Bone shape 4.001
+    2300012: Bone shape 4.002
+    2300014: Bone shape 4.003
+    2300016: Bone shape 4.004
+    2300018: Bone shape 5
+    2300020: Bone shape 6
+    2300022: Bone shape 6.001
+    2300024: Bone shape 6.002
+    2300026: Bone shape 7
+    2300028: Bone shape 8
+    3300000: Bone shape
+    3300002: Bone shape 10
+    3300004: Bone shape 2
+    3300006: Bone shape 3
+    3300008: Bone shape 4
+    3300010: Bone shape 4.001
+    3300012: Bone shape 4.002
+    3300014: Bone shape 4.003
+    3300016: Bone shape 4.004
+    3300018: Bone shape 5
+    3300020: Bone shape 6
+    3300022: Bone shape 6.001
+    3300024: Bone shape 6.002
+    3300026: Bone shape 7
+    3300028: Bone shape 8
+    4300000: Bone shape 10
+    4300002: Body
+    4300004: Bone shape
+    4300006: Bone shape 2
+    4300008: Bone shape 3
+    4300010: Bone shape 4.001
+    4300012: Bone shape 4.002
+    4300014: Bone shape 4.003
+    4300016: Bone shape 4.004
+    4300018: Bone shape 4
+    4300020: Bone shape 5
+    4300022: Bone shape 6
+    4300024: Bone shape 6.001
+    4300026: Bone shape 6.002
+    4300028: Bone shape 7
+    4300030: Bone shape 8
+    7400000: Idle_legs
+    7400002: Idle_pistol
+    7400004: Shoot_pistol
+    7400006: Walk fwd_legs
+    7400008: Walk bwd_legs
+    7400010: Strafe left_legs
+    7400012: Strafe right_legs
+    7400014: Move_pistol
+    7400016: Idle_sword
+    7400018: Move_sword
+    7400020: Slash_sword
+    7400022: Take cover
+    7400024: Throw
+    7400026: Fireball
+    7400028: Knockback
+    7400030: Armature|Fireball
+    7400032: Armature|Knockback
+    7400034: Armature|Slash_sword
+    7400036: Armature|Take cover
+    7400038: Armature|Throw
+    9500000: //RootNode
+    13700000: Body
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: "\nClip 'Idle_pistol' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'Shoulder.L' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'Shoulder.R' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\nClip
+      'Shoot_pistol' has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'Shoulder.L'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Shoulder.R'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
+      'Idle_sword' has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'Shoulder.L'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Shoulder.R'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

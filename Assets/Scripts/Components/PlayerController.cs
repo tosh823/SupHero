@@ -40,7 +40,7 @@ namespace SupHero.Components {
 
         // Update is called once per frame
         void Update() {
-            if (player.isAlive) {
+            if (player.isAlive && transform.position.y >= 0f) {
                 // Record move input
                 moveVector = getMovementVector();
                 // Record rotate input

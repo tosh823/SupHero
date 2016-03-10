@@ -92,11 +92,13 @@ namespace SupHero.Components {
             foreach (GameObject ui in playerUIs) {
                 PlayerUIController pc = ui.GetComponent<PlayerUIController>();
                 if (pc.player.number == player.number) {
+                    // Found, return existing UI
                     pc.setPlayer(player);
                     return ui;
                 }
             }
-            return null;
+            // Not found, create one
+            return createUIforPlayer(player);
         }
 
         private void positionUI(GameObject ui, UILocation location) {

@@ -38,11 +38,6 @@ namespace SupHero.Components {
                 pawn.GetComponent<PlayerController>().OnDie += spawnPlayer;
                 players.Add(pawn);
             }
-            Debug.Log("Surface bounds" + surface.bounds);
-            Debug.Log("Surface size " + surface.bounds.size);
-            Debug.Log("Surface min " + surface.bounds.min);
-            Debug.Log("Surface max " + surface.bounds.max);
-            spawner.getPosInsideBounds();
         }
         
         // Using for respawning players after death

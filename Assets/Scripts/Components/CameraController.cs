@@ -66,25 +66,25 @@ namespace SupHero.Components {
             Ray rayTopLeft = cameraComponent.ViewportPointToRay(new Vector3(0f, 0f, 0f));
             if (Physics.Raycast(rayTopLeft, out hit, surfaceMask)) {
                 Vector3 hitPoint = hit.point;
-                hitPoint.y = 0f;
+                //hitPoint.y = 0f;
                 visibleArea.topLeft = hitPoint;
             }
             Ray rayTopRight = cameraComponent.ViewportPointToRay(new Vector3(1f, 0f, 0f));
             if (Physics.Raycast(rayTopRight, out hit, surfaceMask)) {
                 Vector3 hitPoint = hit.point;
-                hitPoint.y = 0f;
+                //hitPoint.y = 0f;
                 visibleArea.topRight = hitPoint;
             }
             Ray rayBotRight = cameraComponent.ViewportPointToRay(new Vector3(1f, 1f, 0f));
             if (Physics.Raycast(rayBotRight, out hit, surfaceMask)) {
                 Vector3 hitPoint = hit.point;
-                hitPoint.y = 0f;
+                //hitPoint.y = 0f;
                 visibleArea.botRight = hitPoint;
             }
-            Ray rayBotLeft = cameraComponent.ViewportPointToRay(new Vector3(1f, 0f, 0f));
+            Ray rayBotLeft = cameraComponent.ViewportPointToRay(new Vector3(0f, 1f, 0f));
             if (Physics.Raycast(rayBotLeft, out hit, surfaceMask)) {
                 Vector3 hitPoint = hit.point;
-                hitPoint.y = 0f;
+                //hitPoint.y = 0f;
                 visibleArea.botLeft = hitPoint;
             }
             return visibleArea;

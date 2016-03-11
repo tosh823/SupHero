@@ -105,16 +105,16 @@ namespace SupHero.Components {
             RectTransform rt = ui.GetComponent<RectTransform>();
             float w = rectTransform.sizeDelta.x;
             float h = rectTransform.sizeDelta.y;
-            float uiWidth = rt.sizeDelta.x;
-            float uiHeight = rt.sizeDelta.y;
+            float uiWidth = rt.sizeDelta.x * rt.localScale.x;
+            float uiHeight = rt.sizeDelta.y * rt.localScale.y;
             float pos;
             switch (location) {
                 case UILocation.BOTTOM:
-                    pos = uiHeight / 2 - h / 2 - 1;
+                    pos = uiHeight / 2 - h / 2;
                     rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, pos);
                     break;
                 case UILocation.TOP:
-                    pos = h / 2 - uiHeight / 2 + 1;
+                    pos = h / 2 - uiHeight / 2;
                     rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, pos);
                     break;
                 default:

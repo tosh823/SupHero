@@ -54,45 +54,41 @@ namespace SupHero.Components {
         public Vector3 getPosInsideBounds() {
             Vector3 pos = Vector3.zero;
             Area visibleArea = LevelController.instance.view.getVisibleArea();
-            float minX = 0;
-            float maxX = 1;
-            float minZ = 0;
-            float maxZ = 1;
+            float visibleXmin = surfaceBounds.min.x;
+            float visibleXmax = surfaceBounds.max.x;
+            float visibleZmin = surfaceBounds.min.z;
+            float visibleZmax = surfaceBounds.max.z;
 
             // Checking top left corner
             Vector3 topLeft = visibleArea.topLeft;
             if (surfaceBounds.Contains(topLeft)) {
-                minX = topLeft.x;
-                maxZ = topLeft.z;
+                visibleXmin = topLeft.x;
+                visibleZmax = topLeft.z;
             }
-            else minX = surfaceBounds.min.x;
+
+            // Checking bot left corner
+            Vector3 botLeft = visibleArea.botLeft;
+            if (surfaceBounds.Contains(botLeft)) {
+                visibleXmin = botLeft.x;
+                visibleZmin = botLeft.z;
+            }
 
             // Checking top right corner
             Vector3 topRight = visibleArea.topRight;
             if (surfaceBounds.Contains(topRight)) {
-                maxX = topRight.x;
-                maxZ = topRight.z;
+                visibleXmax = topRight.x;
+                visibleZmax = topRight.z;
             }
-            else maxX = surfaceBounds.max.x;
 
             // Checking bot right corner
             Vector3 botRight = visibleArea.botRight;
             if (surfaceBounds.Contains(botRight)) {
-                maxX = botRight.x;
-                minZ = botRight.z;
+                visibleXmax = botRight.x;
+                visibleZmin = botRight.z;
             }
-            else maxZ = surfaceBounds.max.z;
 
-            // Checking bot right corner
-            Vector3 botLeft = visibleArea.botLeft;
-            if (surfaceBounds.Contains(botLeft)) {
-                minX = botLeft.x;
-                minZ = botLeft.z;
-            }
-            else minZ = surfaceBounds.min.z;
-
-            float x = Random.Range(minX, maxX);
-            float z = Random.Range(minZ, maxZ);
+            float x = Random.Range(visibleXmin, visibleXmax);
+            float z = Random.Range(visibleZmin, visibleZmax);
             pos.x = x;
             pos.y = 0f;
             pos.z = z;

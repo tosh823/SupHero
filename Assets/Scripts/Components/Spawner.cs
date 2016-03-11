@@ -8,6 +8,8 @@ namespace SupHero.Components {
 
         // Prefabs for instantiating
         public GameObject playerPrefab;
+        public GameObject heroSpawnPoint;
+        public GameObject[] guardsSpawnPoints;
 
         private ZoneController zoneController; // Ref to GameObject ZoneController
         private Bounds surfaceBounds; // The dimensions of available surface
@@ -28,7 +30,7 @@ namespace SupHero.Components {
         }
 
         // Spawn a player
-        public GameObject spawnPlayer(Player player) {
+        public GameObject spawnPlayer(Player player, bool isInitial = false) {
             // First, search for player
             GameObject existing = zoneController.findPlayer(player);
             if (existing != null) {
@@ -36,19 +38,26 @@ namespace SupHero.Components {
                 zoneController.removePlayer(existing);
             }
             // Creating new player object
-            GameObject pawn = Instantiate(playerPrefab) as GameObject;
-            //float chaosX = Random.value * 10;
-            //float chaosZ = Random.value * 10;
-            Vector3 move = getPosInsideBounds();
-            pawn.transform.SetParent(transform);
-            //pawn.transform.Translate(chaosX, 0f, chaosZ);
-            pawn.transform.Translate(move);
-            GameObject ui = LevelController.instance.HUD.findUIforPlayer(player);
-            PlayerController pc = pawn.GetComponent<PlayerController>();
-            pc.setPlayer(player);
-            pc.setUI(ui);
+            GameObject pawn = createPlayerGameObject();
+            Vector3 spawnPosition = Vector3.zero;
+            if (player is Hero) {
+                // Hero always spawns in the beginning
+                spawnPosition = heroSpawnPoint.transform.position;
+            }
+            else {
+                if (isInitial) spawnPosition = getInitialSpawnPosition();
+                else spawnPosition = getSpawnPosition();
+            }
+            spawnPosition.y = 0f;
+            pawn.transform.position = spawnPosition;
 
             return pawn;  
+        }
+
+        private GameObject createPlayerGameObject() {
+            GameObject pawn = Instantiate(playerPrefab) as GameObject;
+            pawn.transform.SetParent(transform);
+            return pawn;
         }
 
         public Vector3 getPosInsideBounds() {
@@ -96,9 +105,41 @@ namespace SupHero.Components {
         }
 
         private Vector3 getSpawnPosition() {
-            Vector3 pos = Vector3.zero;
-            pos.y = 1f;
-            return pos;
+            Vector3 position = zoneController.getHero().transform.position;
+            Vector3 rng = Random.onUnitSphere * Constants.heroDistance;
+            // Checking availability of point
+            bool beyoundMaxX = ((position.x + rng.x) >= surfaceBounds.max.x);
+            bool belowMinX = ((position.x + rng.x) <= surfaceBounds.min.x);
+            if (beyoundMaxX || belowMinX) {
+                position.x -= rng.x;
+            }
+            else position.x += rng.x;
+
+            bool beyoundMaxZ = ((position.z + rng.z) >= surfaceBounds.max.z);
+            bool belowMinZ = ((position.z + rng.z) <= surfaceBounds.min.z);
+            if (beyoundMaxZ || belowMinZ) {
+                position.z -= rng.z;
+            }
+            else position.z += rng.z;
+
+            return position;
+        }
+
+        private Vector3 getInitialSpawnPosition() {
+            Vector3 position = zoneController.getHero().transform.position;
+            for (int index = 0; index < guardsSpawnPoints.Length; index++) {
+                if (guardsSpawnPoints[index].activeInHierarchy) {
+                    guardsSpawnPoints[index].SetActive(false);
+                    return guardsSpawnPoints[index].transform.position;
+                }
+            }
+            return position;
+        }
+
+        public void resetSpawnPoints() {
+            for (int index = 0; index < guardsSpawnPoints.Length; index++) {
+                guardsSpawnPoints[index].SetActive(true);
+            }
         }
 
         private void createMark(Vector3 pos) {

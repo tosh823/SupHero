@@ -33,17 +33,32 @@ namespace SupHero.Components {
         public void spawnPlayers(List<Player> toSpawn) {
             players = new List<GameObject>();
             foreach (Player player in toSpawn) {
+                // First, give it body
                 // Creating new player gameObject
-                GameObject pawn = spawner.spawnPlayer(player);
-                pawn.GetComponent<PlayerController>().OnDie += spawnPlayer;
+                GameObject pawn = spawner.spawnPlayer(player, true);
+                PlayerController pc = pawn.GetComponent<PlayerController>();
+                GameObject ui = LevelController.instance.HUD.findUIforPlayer(player);
+
+                // Then, give it soul
+                pc.setPlayer(player);
+                pc.setUI(ui);
+                pc.OnDie += spawnPlayer;
+
                 players.Add(pawn);
             }
+            spawner.resetSpawnPoints();
         }
         
         // Using for respawning players after death
         public void spawnPlayer(Player player) {
             GameObject pawn = spawner.spawnPlayer(player);
-            pawn.GetComponent<PlayerController>().OnDie += spawnPlayer;
+            PlayerController pc = pawn.GetComponent<PlayerController>();
+            GameObject ui = LevelController.instance.HUD.findUIforPlayer(player);
+
+            pc.setPlayer(player);
+            pc.setUI(ui);
+            pc.OnDie += spawnPlayer;
+
             players.Add(pawn);
             player.resurrect();
         }
@@ -69,6 +84,15 @@ namespace SupHero.Components {
         public GameObject findPlayer(Player player) {
             foreach (GameObject playerInScene in players) {
                 if (playerInScene.GetComponent<PlayerController>().player.number == player.number) {
+                    return playerInScene;
+                }
+            }
+            return null;
+        }
+
+        public GameObject getHero() {
+            foreach (GameObject playerInScene in players) {
+                if (playerInScene.GetComponent<PlayerController>().player is Hero) {
                     return playerInScene;
                 }
             }

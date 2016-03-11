@@ -30,7 +30,7 @@ namespace SupHero.Components {
             levelController = GetComponentInParent<LevelController>();
             cameraComponent = GetComponent<Camera>();
             surfaceMask = LayerMask.GetMask("Floor");
-            minDistance = 8f;
+            minDistance = Constants.heroDistance;
         }
 
         void FixedUpdate() {

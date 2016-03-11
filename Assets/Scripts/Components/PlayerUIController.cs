@@ -33,7 +33,7 @@ namespace SupHero.Components {
                     shieldPanel.SetActive(false);
                 }
                 armorText.text = player.armor.ToString();
-                healthText.text = player.health.ToString();
+                //healthText.text = player.health.ToString();
                 playerName.text = player.playerName;
                 playerPoints.text = player.points.ToString();
             }

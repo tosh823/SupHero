@@ -12,16 +12,14 @@ namespace SupHero.Components {
         public List<GameObject> players;
 
         private Spawner spawner;
-        private Collider surface;
 
         void Awake() {
             spawner = GetComponent<Spawner>();
-            surface = GameObject.FindGameObjectWithTag("Surface").GetComponent<Collider>();
         }
 
         // Use this for initialization
         void Start() {
-            
+            spawnPlayers(LevelController.instance.level.players);
         }
 
         // Update is called once per frame

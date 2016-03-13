@@ -21,7 +21,7 @@ namespace SupHero {
         public static int playersCount = 4;
         public static float turnTime = 360f; // In seconds
         public static float turnTimeTest = 30f; // In seconds
-        public static float heroDistance = 8.5f;
+        public static float heroDistance = 3f;
 
         // World charasterics
         public static int numberOfZones = 5;

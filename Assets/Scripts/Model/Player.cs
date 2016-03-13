@@ -19,7 +19,6 @@ namespace SupHero.Model {
         public int points { get; protected set; }
         public int number { get; protected set; }
 
-        public ItemSlot[] itemSlots = new ItemSlot[2];
         public string playerName;
 
         public InputType inputType;

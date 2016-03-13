@@ -6,11 +6,11 @@ namespace SupHero.Model {
     public class Level {
 
         public List<Player> players;
-        private int heroIndex;
-
         public Hero hero;
         public List<Guard> guards;
         public bool isPlaying;
+
+        private int heroIndex;
 
         public Level() {
             players = new List<Player>();

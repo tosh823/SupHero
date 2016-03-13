@@ -35,7 +35,6 @@ namespace SupHero.Components {
             playerRigidbody = GetComponent<Rigidbody>();
             weapon = GetComponentInChildren<WeaponController>();
             zone = GetComponentInParent<ZoneController>();
-            
         }
 
         // Update is called once per frame

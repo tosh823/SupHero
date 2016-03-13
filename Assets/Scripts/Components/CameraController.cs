@@ -23,13 +23,13 @@ namespace SupHero.Components {
         private Vector3 offset;
         private float minDistance;
         private int surfaceMask;
-        private float smoothing = 0.5f;
+        private float smoothing = 0.8f;
         
         // Use this for initialization
         void Start() {
             levelController = GetComponentInParent<LevelController>();
             cameraComponent = GetComponent<Camera>();
-            surfaceMask = LayerMask.GetMask("Floor");
+            surfaceMask = LayerMask.GetMask(Layers.Floor);
             minDistance = Constants.heroDistance;
         }
 
@@ -54,9 +54,11 @@ namespace SupHero.Components {
             if (Physics.Raycast(ray, out hit, surfaceMask)) {
                 Vector3 hitPoint = hit.point;
                 hitPoint.y = 0f;
-                mark.transform.position = hitPoint;
                 center = hitPoint;
+                center.z -= 5f;
+                center.x += 2f;
                 offset = transform.position - center;
+                mark.transform.position = center;
             }
         }
 

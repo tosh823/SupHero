@@ -45,11 +45,14 @@ namespace SupHero.Components {
                     if (Physics.Raycast(shootRay, out shootHit, weapon.range)) {
                         GameObject target = shootHit.transform.gameObject;
                         lazer.SetPosition(1, shootHit.point);
-                        if (target.CompareTag("Player")) {
+                        if (target.CompareTag(Tags.Player)) {
                             DamageResult result = target.GetComponent<PlayerController>().takeDamage(weapon.damage);
                             if (result == DamageResult.MORTAL_HIT) {
                                 owner.player.applyPoints(10);
                             }
+                        }
+                        else if (target.CompareTag(Tags.Cover)) {
+                            target.GetComponent<CoverController>().takeDamage(weapon.damage);
                         }
                     }
 

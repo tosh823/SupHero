@@ -9,15 +9,16 @@ namespace SupHero.Components {
 
         public static LevelController instance = null;
 
-        public HUDController HUD;
-        public CameraController view;
+        public Level level { get; private set; }
+        public HUDController HUD { get; private set; }
+        public CameraController view { get; private set; }
         public GameObject zonePrefab;
 
         private GameObject zoneObject;
-        private Level level;
 
         private float time = Constants.turnTime;
 
+        // Singleton realization
         void Awake() {
             if (instance == null) {
                 instance = this;
@@ -31,12 +32,12 @@ namespace SupHero.Components {
         // Use this for initialization
         void Start() {
             level = new Level();
-            HUD = GameObject.FindGameObjectWithTag("MainUI").GetComponent<HUDController>();
-            view = Camera.main.GetComponent<CameraController>();
-            zoneObject = Instantiate(zonePrefab);
-            zoneObject.transform.SetParent(transform);
             level.createPlayers();
-            zoneObject.GetComponent<ZoneController>().spawnPlayers(level.players);
+
+            HUD = GameObject.FindGameObjectWithTag(Tags.MainUI).GetComponent<HUDController>();
+            view = Camera.main.GetComponent<CameraController>();
+
+            createZone();
         }
 
         // Update is called once per frame
@@ -51,12 +52,26 @@ namespace SupHero.Components {
                 else {
                     time = Constants.turnTime;
                     zoneObject.GetComponent<ZoneController>().destroyPlayers();
-                    HUD.GetComponent<HUDController>().clearPlayerUIs();
+                    HUD.clearPlayerUIs();
                     if (level.changeRoles()) {
                         zoneObject.GetComponent<ZoneController>().spawnPlayers(level.players);
                     }
                 }
             }
+        }
+
+        public void transferToZone() {
+            // Destroying current zone
+            zoneObject.GetComponent<ZoneController>().destroyPlayers();
+            HUD.clearPlayerUIs();
+            Destroy(zoneObject.gameObject);
+            // Creating new one
+            createZone();
+        }
+
+        private void createZone() {
+            zoneObject = Instantiate(zonePrefab);
+            zoneObject.transform.SetParent(transform);
         }
     }
 }

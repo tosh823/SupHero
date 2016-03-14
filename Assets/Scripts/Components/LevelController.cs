@@ -17,6 +17,7 @@ namespace SupHero.Components {
         private GameObject zoneObject;
 
         private float time = Constants.turnTime;
+        private Timer timer;
 
         // Singleton realization
         void Awake() {
@@ -38,13 +39,18 @@ namespace SupHero.Components {
             view = Camera.main.GetComponent<CameraController>();
 
             createZone();
+
+            timer = gameObject.AddComponent<Timer>();
+            timer.OnTick += updateTimer;
+            timer.OnEnd += newTurn;
+            timer.launch();
         }
 
         // Update is called once per frame
         void Update() {
             if (level.isPlaying) {
                 // Timer ticking
-                if (time > 0) {
+                /*if (time > 0) {
                     HUD.GetComponent<HUDController>().updateTimer(time);
                     time -= Time.deltaTime;
                 }
@@ -56,7 +62,31 @@ namespace SupHero.Components {
                     if (level.changeRoles()) {
                         zoneObject.GetComponent<ZoneController>().spawnPlayers(level.players);
                     }
-                }
+                }*/
+            }
+        }
+
+        public void updateTimer() {
+            HUD.updateTimer(timer.time);
+        }
+
+        public void newTurn() {
+            // Destroy timer
+            timer.OnTick -= updateTimer;
+            timer.OnEnd -= newTurn;
+            Destroy(timer);
+
+            if (level.changeRoles()) {
+                transferToZone();
+                timer = gameObject.AddComponent<Timer>();
+                timer.OnTick += updateTimer;
+                timer.OnEnd += newTurn;
+                timer.launch();
+            }
+            else {
+                // Go to reward section
+                //timer.OnTick -= updateTimer;
+                //timer.OnEnd -= newTurn;
             }
         }
 

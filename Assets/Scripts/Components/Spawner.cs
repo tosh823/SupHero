@@ -126,7 +126,7 @@ namespace SupHero.Components {
         }
 
         private Vector3 getInitialSpawnPosition() {
-            Vector3 position = zoneController.getHero().transform.position;
+            Vector3 position = Vector3.zero;
             for (int index = 0; index < guardsSpawnPoints.Length; index++) {
                 if (guardsSpawnPoints[index].activeInHierarchy) {
                     guardsSpawnPoints[index].SetActive(false);

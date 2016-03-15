@@ -19,7 +19,9 @@ namespace SupHero.Components {
 
         // Use this for initialization
         void Start() {
-            spawnPlayers(LevelController.instance.level.players);
+            if (LevelController.instance != null) {
+                spawnPlayers(LevelController.instance.level.players);
+            }
         }
 
         // Update is called once per frame

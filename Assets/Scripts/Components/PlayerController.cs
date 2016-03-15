@@ -17,6 +17,7 @@ namespace SupHero.Components {
         private WeaponController weapon;
         private ZoneController zone;
         private Rigidbody playerRigidbody;
+        private Animator animator;
 
         // Events
         public delegate void dieAction(Player player);
@@ -33,13 +34,14 @@ namespace SupHero.Components {
         // Use this for initialization
         void Start() {
             playerRigidbody = GetComponent<Rigidbody>();
+            animator = GetComponent<Animator>();
             weapon = GetComponentInChildren<WeaponController>();
             zone = GetComponentInParent<ZoneController>();
         }
 
         // Update is called once per frame
         void Update() {
-            if (player.isAlive && transform.position.y >= 0f) {
+            if (player.isAlive && transform.position.y >= -10f) {
                 // Record move input
                 moveVector = getMovementVector();
                 // Record rotate input
@@ -56,6 +58,8 @@ namespace SupHero.Components {
             // Moving
             if (moveVector != null && moveVector != Vector3.zero) {
                 // For moving relative to camera
+                animator.SetBool("moving", true);
+                animator.SetFloat("vertical", moveVector.z);
                 Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
                 forward.y = 0f;
                 forward = forward.normalized;
@@ -64,6 +68,9 @@ namespace SupHero.Components {
 
                 moveVector = moveVector.normalized * player.speed * Time.deltaTime;
                 playerRigidbody.MovePosition(transform.position + moveVector);
+            }
+            else {
+                animator.SetBool("moving", false);
             }
             // Turning
             if (rotation != null && rotation != Vector3.zero) {

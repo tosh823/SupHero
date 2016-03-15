@@ -48,7 +48,7 @@ namespace SupHero.Components {
                 if (isInitial) spawnPosition = getInitialSpawnPosition();
                 else spawnPosition = getSpawnPosition();
             }
-            spawnPosition.y = 0f;
+            spawnPosition.y = playerPrefab.transform.position.y;
             pawn.transform.position = spawnPosition;
 
             return pawn;  

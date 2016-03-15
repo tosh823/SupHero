@@ -59,7 +59,23 @@ namespace SupHero.Components {
             if (moveVector != null && moveVector != Vector3.zero) {
                 // For moving relative to camera
                 animator.SetBool("moving", true);
-                animator.SetFloat("vertical", moveVector.z);
+                float verticalRelative;
+                if (moveVector.normalized.z != 0f) {
+                    verticalRelative = transform.forward.z - moveVector.normalized.z;
+                }
+                else {
+                    verticalRelative = moveVector.normalized.z;
+                } 
+                float horizontalRelative;
+                if (moveVector.normalized.x != 0f) {
+                    horizontalRelative = transform.right.x - moveVector.normalized.x;
+                }
+                else {
+                    horizontalRelative = moveVector.normalized.x;
+                }
+                animator.SetFloat("vertical", verticalRelative);
+                animator.SetFloat("horizontal", horizontalRelative);
+
                 Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
                 forward.y = 0f;
                 forward = forward.normalized;

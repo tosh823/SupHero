@@ -41,6 +41,8 @@ namespace SupHero.Components {
                 if (distance.magnitude >= minDistance) {
                     // Create a postion the camera is aiming for based on the offset from the target.
                     Vector3 moveVector = target.transform.position + offset;
+                    // Don't even dare to change camera y position!!!
+                    moveVector.y = transform.position.y;
                     // Smoothly interpolate between the camera's current position and it's target position.
                     transform.position = Vector3.Lerp(transform.position, moveVector, smoothing * Time.deltaTime);
                     defineCenter();

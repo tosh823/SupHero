@@ -10,6 +10,7 @@ namespace SupHero.Model {
         MORTAL_HIT
     }
 
+    [System.Serializable]
     public abstract class Player {
 
         public float armor { get; protected set; }

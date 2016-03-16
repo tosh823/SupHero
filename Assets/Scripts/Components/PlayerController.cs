@@ -90,8 +90,10 @@ namespace SupHero.Components {
             }
             // Turning
             if (rotation != null && rotation != Vector3.zero) {
-                Quaternion rotate = Quaternion.LookRotation(rotation * Time.deltaTime);
-                playerRigidbody.MoveRotation(rotate);
+                float smoothing = 2f;
+                Quaternion rotate = Quaternion.LookRotation(rotation);
+                Quaternion smoothRotation = Quaternion.Lerp(transform.rotation, rotate, smoothing * Time.deltaTime);
+                playerRigidbody.MoveRotation(smoothRotation);
             }
         }
 

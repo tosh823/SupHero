@@ -41,6 +41,7 @@ namespace SupHero.Components {
             createZone();
 
             timer = gameObject.AddComponent<Timer>();
+            timer.time = Constants.turnTime;
             timer.OnTick += updateTimer;
             timer.OnEnd += newTurn;
             timer.launch();
@@ -77,8 +78,10 @@ namespace SupHero.Components {
             Destroy(timer);
 
             if (level.changeRoles()) {
+                Debug.Log("Change roles!");
                 transferToZone();
                 timer = gameObject.AddComponent<Timer>();
+                timer.time = Constants.turnTime;
                 timer.OnTick += updateTimer;
                 timer.OnEnd += newTurn;
                 timer.launch();

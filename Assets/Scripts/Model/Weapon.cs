@@ -2,6 +2,18 @@
 using System.Collections;
 
 namespace SupHero.Model {
+
+    public enum WeaponType {
+        MELEE,
+        RANGE
+    }
+
+    public struct WeaponSet {
+        public Weapon melee;
+        public Weapon range;
+    }
+
+    [System.Serializable]
     public class Weapon {
 
         public float damage { get; protected set; }

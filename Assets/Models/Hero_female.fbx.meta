@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: ac52609f8058bb74d8f12e87cb8982dc
-timeCreated: 1457529826
+timeCreated: 1458217594
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -240,19 +240,7 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Idle_pistol' has import animation warnings that
-      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
-      improve retargeting quality.\n\t'Shoulder.L' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n\t'Shoulder.R' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'Shoot_pistol' has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'Shoulder.L'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Shoulder.R'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'Idle_sword' has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'Shoulder.L'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Shoulder.R'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 3
@@ -3610,6 +3598,22 @@ ModelImporter:
         modified: 0
     - boneName: Finger2.R
       humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Shoulder.L
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Shoulder.R
+      humanName: RightShoulder
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}

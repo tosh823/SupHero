@@ -21,7 +21,8 @@ namespace SupHero.Components {
             weapon = new Weapon();
             owner = GetComponentInParent<PlayerController>();
             timeBetweenUsage = 0f;
-            lazer = GetComponent<LineRenderer>();
+
+            lazer = GetComponentInChildren<LineRenderer>();
         }
 
         // Update is called once per frame

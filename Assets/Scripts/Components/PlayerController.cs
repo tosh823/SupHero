@@ -14,10 +14,13 @@ namespace SupHero.Components {
         private Vector3 rotation; // Vector for rotating character
 
         // Components
-        private WeaponController weapon;
         private ZoneController zone;
         private Rigidbody playerRigidbody;
         private Animator animator;
+        private Inventory inventory;
+
+        private WeaponController primary;
+        private WeaponController secondary;
 
         // Events
         public delegate void dieAction(Player player);
@@ -35,8 +38,8 @@ namespace SupHero.Components {
         void Start() {
             playerRigidbody = GetComponent<Rigidbody>();
             animator = GetComponent<Animator>();
-            weapon = GetComponentInChildren<WeaponController>();
             zone = GetComponentInParent<ZoneController>();
+            inventory = GetComponent<Inventory>();
         }
 
         // Update is called once per frame
@@ -47,7 +50,7 @@ namespace SupHero.Components {
                 // Record rotate input
                 rotation = getRotation();
                 // Record actions
-                getActions();
+                readWeaponInput();
             }
             else {
                 die();
@@ -97,6 +100,31 @@ namespace SupHero.Components {
             }
         }
 
+        public void drawPrimary() {
+            hideWeapon(secondary);
+            primary = inventory.primary;
+            primary.gameObject.SetActive(true);
+        }
+
+        public void drawSecondary() {
+            hideWeapon(primary);
+            secondary = inventory.secondary;
+            secondary.gameObject.SetActive(true);
+        }
+
+        public void hideWeapon(WeaponController weapon) {
+            if (weapon != null && weapon.gameObject.activeInHierarchy) {
+                weapon.gameObject.SetActive(false);
+            }
+        }
+
+        public bool isWeaponActive(WeaponController weapon) {
+            if (weapon != null && weapon.gameObject.activeInHierarchy) {
+                return true;
+            }
+            else return false;
+        }
+
         public DamageResult takeDamage(float damage) {
             if (OnTakenDamage != null) {
                 OnTakenDamage();
@@ -128,21 +156,59 @@ namespace SupHero.Components {
             }
         }
 
-        // Reading inputs
-        private void getActions() {
-            bool useWeapon = false;
+        // Reading weapon input
+        private void readWeaponInput() {
+            bool usePrimaryWeapon = false;
+            bool useSecondaryWeapon = false;
             switch (player.inputType) {
                 case InputType.KEYBOARD:
-                    useWeapon = Input.GetButton("Fire1");
+                    usePrimaryWeapon = Input.GetButton("Fire1");
+                    useSecondaryWeapon = Input.GetButton("Fire2");
                     break;
                 case InputType.GAMEPAD:
                     float rightBumper = Input.GetAxis(Utils.getControlForPlayer("R2", player.gamepadNumber));
-                    useWeapon = (rightBumper > 0f);
+                    float leftBumper = Input.GetAxis(Utils.getControlForPlayer("L2", player.gamepadNumber));
+                    usePrimaryWeapon = (rightBumper > 0f);
+                    useSecondaryWeapon = (leftBumper > 0f);
                     break;
                 default:
                     break;
             }
-            if (useWeapon) weapon.useWeapon();
+            // Attack with primary
+            if (usePrimaryWeapon) {
+                if (isWeaponActive(primary)) {
+                    animator.SetBool("attacking", true);
+                }
+                else {
+                    animator.SetBool("secondary", false);
+                    animator.SetBool("primary", true);
+                    drawPrimary();
+                } 
+            }
+            // Attack with secondary
+            else if (useSecondaryWeapon) {
+                if (isWeaponActive(secondary)) {
+                    animator.SetBool("attacking", true);
+                }
+                else {
+                    animator.SetBool("primary", false);
+                    animator.SetBool("secondary", true);
+                    drawSecondary();
+                }
+            }
+            // No attacking at all
+            else {
+                animator.SetBool("attacking", false);
+            }
+        }
+
+        public void useWeapon() {
+            if (isWeaponActive(primary)) {
+                primary.useWeapon();
+            }
+            else if (isWeaponActive(secondary)) {
+                secondary.useWeapon();
+            }
         }
 
         // Reading movement input

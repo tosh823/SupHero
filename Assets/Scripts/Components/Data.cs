@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using SupHero;
 using SupHero.Assets;
+using SupHero.Model;
 
 namespace SupHero.Components {
-    public class DataManager : MonoBehaviour {
+    public class Data : MonoBehaviour {
 
-        public static DataManager instance = null;
+        public static Data instance = null;
         public WeaponDatabase weapons;
         public ItemDatabase items;
         public SettingsDatabase settings;
@@ -23,14 +24,9 @@ namespace SupHero.Components {
             DontDestroyOnLoad(gameObject);
         }
 
-        // Use this for initialization
-        void Start() {
-
-        }
-
-        // Update is called once per frame
-        void Update() {
-
+        public SettingsData getMainSettings() {
+            if (settings != null) return settings.getSettingsAtIndex(0);
+            else return null;
         }
     }
 }

@@ -14,13 +14,10 @@ namespace SupHero.Components {
         private Vector3 rotation; // Vector for rotating character
 
         // Components
-        private ZoneController zone;
+        private ZoneController zone; // Ref to current zone
         private Rigidbody playerRigidbody;
-        private Animator animator;
-        private Inventory inventory;
-
-        private WeaponController primary;
-        private WeaponController secondary;
+        private Animator animator; // Animator, attached to this player
+        private Inventory inventory; // Store for weapons and items
 
         // Events
         public delegate void dieAction(Player player);
@@ -93,7 +90,7 @@ namespace SupHero.Components {
             }
             // Turning
             if (rotation != null && rotation != Vector3.zero) {
-                float smoothing = 2f;
+                float smoothing = 2.5f;
                 Quaternion rotate = Quaternion.LookRotation(rotation);
                 Quaternion smoothRotation = Quaternion.Lerp(transform.rotation, rotate, smoothing * Time.deltaTime);
                 playerRigidbody.MoveRotation(smoothRotation);
@@ -101,15 +98,13 @@ namespace SupHero.Components {
         }
 
         public void drawPrimary() {
-            hideWeapon(secondary);
-            primary = inventory.primary;
-            primary.gameObject.SetActive(true);
+            hideWeapon(inventory.secondary);
+            inventory.primary.gameObject.SetActive(true);
         }
 
         public void drawSecondary() {
-            hideWeapon(primary);
-            secondary = inventory.secondary;
-            secondary.gameObject.SetActive(true);
+            hideWeapon(inventory.primary);
+            inventory.secondary.gameObject.SetActive(true);
         }
 
         public void hideWeapon(WeaponController weapon) {
@@ -176,7 +171,7 @@ namespace SupHero.Components {
             }
             // Attack with primary
             if (usePrimaryWeapon) {
-                if (isWeaponActive(primary)) {
+                if (isWeaponActive(inventory.primary)) {
                     animator.SetBool("attacking", true);
                 }
                 else {
@@ -187,7 +182,7 @@ namespace SupHero.Components {
             }
             // Attack with secondary
             else if (useSecondaryWeapon) {
-                if (isWeaponActive(secondary)) {
+                if (isWeaponActive(inventory.secondary)) {
                     animator.SetBool("attacking", true);
                 }
                 else {
@@ -203,11 +198,11 @@ namespace SupHero.Components {
         }
 
         public void useWeapon() {
-            if (isWeaponActive(primary)) {
-                primary.useWeapon();
+            if (isWeaponActive(inventory.primary)) {
+                inventory.primary.useWeapon();
             }
-            else if (isWeaponActive(secondary)) {
-                secondary.useWeapon();
+            else if (isWeaponActive(inventory.secondary)) {
+                inventory.secondary.useWeapon();
             }
         }
 

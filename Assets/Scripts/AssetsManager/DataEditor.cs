@@ -77,9 +77,6 @@ namespace SupHero.Assets {
                         if (GUILayout.Button("Create New Settings List", GUILayout.ExpandWidth(false))) {
                             createNewSettingsDB();
                         }
-                        /*if (GUILayout.Button("Open Existing Item List", GUILayout.ExpandWidth(false))) {
-                            OpenItemList();
-                        }*/
                         GUILayout.EndHorizontal();
                     }
                     GUILayout.Space(20);
@@ -127,9 +124,6 @@ namespace SupHero.Assets {
                         if (GUILayout.Button("Create New Weapon List", GUILayout.ExpandWidth(false))) {
                             createNewWeaponDB();
                         }
-                        /*if (GUILayout.Button("Open Existing Weapon List", GUILayout.ExpandWidth(false))) {
-                            OpenItemList();
-                        }*/
                         GUILayout.EndHorizontal();
                     }
 
@@ -168,6 +162,7 @@ namespace SupHero.Assets {
                             weaponDB.getWeaponAtIndex(dbIndex).description = EditorGUILayout.TextField("Weapon Description", weaponDB.getWeaponAtIndex(dbIndex).description as string);
                             weaponDB.getWeaponAtIndex(dbIndex).damage = EditorGUILayout.FloatField("Weapon Damage", weaponDB.getWeaponAtIndex(dbIndex).damage);
                             weaponDB.getWeaponAtIndex(dbIndex).rate = EditorGUILayout.FloatField("Weapon Rate", weaponDB.getWeaponAtIndex(dbIndex).rate);
+                            weaponDB.getWeaponAtIndex(dbIndex).range = EditorGUILayout.FloatField("Weapon Range", weaponDB.getWeaponAtIndex(dbIndex).range);
                             weaponDB.getWeaponAtIndex(dbIndex).weaponPrefab = EditorGUILayout.ObjectField("Weapon Prefab", weaponDB.getWeaponAtIndex(dbIndex).weaponPrefab, typeof(GameObject), true) as GameObject;
                             GUILayout.Space(10);
                         }
@@ -183,9 +178,6 @@ namespace SupHero.Assets {
                         if (GUILayout.Button("Create New Item List", GUILayout.ExpandWidth(false))) {
                             createNewItemDB();
                         }
-                        /*if (GUILayout.Button("Open Existing Item List", GUILayout.ExpandWidth(false))) {
-                            OpenItemList();
-                        }*/
                         GUILayout.EndHorizontal();
                     }
                     GUILayout.Space(20);

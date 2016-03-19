@@ -12,11 +12,11 @@ namespace SupHero.Components {
         public Level level { get; private set; }
         public HUDController HUD { get; private set; }
         public CameraController view { get; private set; }
+        public Data data;
         public GameObject zonePrefab;
 
         private GameObject zoneObject;
 
-        private float time = Constants.turnTime;
         private Timer timer;
 
         // Singleton realization
@@ -37,11 +37,12 @@ namespace SupHero.Components {
 
             HUD = GameObject.FindGameObjectWithTag(Tags.MainUI).GetComponent<HUDController>();
             view = Camera.main.GetComponent<CameraController>();
+            data = GetComponent<Data>();
 
             createZone();
 
             timer = gameObject.AddComponent<Timer>();
-            timer.time = Constants.turnTime;
+            timer.time = data.getMainSettings().turnTime;
             timer.OnTick += updateTimer;
             timer.OnEnd += newTurn;
             timer.launch();
@@ -81,7 +82,7 @@ namespace SupHero.Components {
                 Debug.Log("Change roles!");
                 transferToZone();
                 timer = gameObject.AddComponent<Timer>();
-                timer.time = Constants.turnTime;
+                timer.time = data.getMainSettings().turnTime;
                 timer.OnTick += updateTimer;
                 timer.OnEnd += newTurn;
                 timer.launch();

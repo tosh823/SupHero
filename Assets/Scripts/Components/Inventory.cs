@@ -20,8 +20,12 @@ namespace SupHero.Components {
         void Start() {
             owner = GetComponent<PlayerController>();
 
-            primaryPrefab = DataManager.instance.weapons.getWeaponAtIndex(0).weaponPrefab;
-            secondaryPrefab = DataManager.instance.weapons.getWeaponAtIndex(1).weaponPrefab;
+            if (primaryPrefab == null) {
+                primaryPrefab = Data.instance.weapons.getWeaponAtIndex(0).weaponPrefab;
+            }
+            if (secondaryPrefab == null) {
+                secondaryPrefab = Data.instance.weapons.getWeaponAtIndex(1).weaponPrefab;
+            }
 
             GameObject primaryInstance = Instantiate(primaryPrefab) as GameObject;
             primaryInstance.transform.SetParent(weaponPlacement.transform);

@@ -13,7 +13,6 @@ namespace SupHero.Model {
         public Weapon range;
     }
 
-    [System.Serializable]
     public class Weapon {
 
         public float damage { get; protected set; }

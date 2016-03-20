@@ -10,10 +10,20 @@ namespace SupHero.Model {
         }
 
         public Guard(Player player) {
-            // Copying needed values
+            // Copying data
             playerName = player.playerName;
             number = player.number;
             points = player.points;
+
+            // Properties
+            health = player.health;
+            armor = player.armor;
+            speed = player.speed;
+
+            // Weapon
+            primaryId = player.primaryId;
+            secondaryId = player.secondaryId;
+
             // Input properties
             inputType = player.inputType;
             gamepadNumber = player.gamepadNumber;
@@ -32,9 +42,13 @@ namespace SupHero.Model {
         }
 
         protected override void setupDefaultProperties() {
-            health = Constants.health;
-            armor = Constants.armor;
-            speed = Constants.guardSpeed;
+            health = Data.instance.mainSettings.guardHealth;
+            armor = Data.instance.mainSettings.guardArmor;
+            speed = Data.instance.mainSettings.guardSpeed;
+
+            primaryId = Data.instance.mainSettings.starterPrimary;
+            secondaryId = Data.instance.mainSettings.starterSecondary;
+
             isAlive = true;
         }
     }

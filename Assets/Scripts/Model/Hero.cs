@@ -25,10 +25,15 @@ namespace SupHero.Model {
         }
 
         public Hero(Player player) {
-            // Copying needed values
+            // Copying data
             playerName = player.playerName;
             number = player.number;
             points = player.points;
+
+            // Weapon
+            primaryId = player.primaryId;
+            secondaryId = player.secondaryId;
+
             // Input properties
             inputType = player.inputType;
             gamepadNumber = player.gamepadNumber;
@@ -65,12 +70,16 @@ namespace SupHero.Model {
         }
 
         protected override void setupDefaultProperties() {
-            health = Constants.health;
-            armor = Constants.armor;
-            shield = Constants.shield;
-            replenishWaitTime = Constants.replenishWaitTime;
-            speed = Constants.heroSpeed;
+            health = Data.instance.mainSettings.heroHealth;
+            armor = Data.instance.mainSettings.heroArmor;
+            shield = Data.instance.mainSettings.heroShield;
+            replenishWaitTime = Data.instance.mainSettings.shieldReplenishTime;
+            speed = Data.instance.mainSettings.heroSpeed;
             haveTakenDamage = false;
+
+            primaryId = Data.instance.mainSettings.starterPrimary;
+            secondaryId = Data.instance.mainSettings.starterSecondary;
+
             isAlive = true;
         }
 

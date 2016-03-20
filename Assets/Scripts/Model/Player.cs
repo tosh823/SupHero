@@ -19,6 +19,8 @@ namespace SupHero.Model {
         public bool isAlive { get; protected set; }
         public int points { get; protected set; }
         public int number { get; protected set; }
+        public int primaryId { get; set; }
+        public int secondaryId { get; set; }
 
         public string playerName;
 

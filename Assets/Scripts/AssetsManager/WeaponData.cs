@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace SupHero.Assets {
+namespace SupHero {
 
     [System.Serializable]
     public class WeaponData {

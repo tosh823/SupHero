@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace SupHero.Assets {
+namespace SupHero {
     public class WeaponDatabase : ScriptableObject {
         
         // Storage

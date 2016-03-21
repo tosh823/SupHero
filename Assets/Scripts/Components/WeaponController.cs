@@ -11,7 +11,7 @@ namespace SupHero.Components {
         protected PlayerController owner; // Player-owner
         protected float timeBetweenUsage; // timer to handle rate of usage
 
-        // Use this for initialization
+        // Initialization
         public virtual void Start() {
             owner = GetComponentInParent<PlayerController>();
             timeBetweenUsage = weapon.rate;
@@ -25,11 +25,13 @@ namespace SupHero.Components {
         }
 
         // Check availability of weapon
+        // Check rate, ammo, etc.
         public bool canUseWeapon() {
             if (timeBetweenUsage >= weapon.rate) return true;
             else return false;
         }
 
+        // 
         public virtual void useWeapon() {
             if (canUseWeapon()) {
                 timeBetweenUsage = 0f;

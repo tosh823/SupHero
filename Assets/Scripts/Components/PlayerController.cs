@@ -21,8 +21,8 @@ namespace SupHero.Components {
 
         // Events
         public delegate void dieAction(Player player);
-        public delegate void takeDamageAction();
         public event dieAction OnDie;
+        public delegate void takeDamageAction();
         public event takeDamageAction OnTakenDamage;
 
         // Use this for initialization
@@ -90,7 +90,7 @@ namespace SupHero.Components {
             }
             // Turning
             if (rotation != null && rotation != Vector3.zero) {
-                float smoothing = 2.5f;
+                float smoothing = 2.8f;
                 Quaternion rotate = Quaternion.LookRotation(rotation);
                 Quaternion smoothRotation = Quaternion.Lerp(transform.rotation, rotate, smoothing * Time.deltaTime);
                 playerRigidbody.MoveRotation(smoothRotation);

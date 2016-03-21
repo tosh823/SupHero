@@ -109,7 +109,20 @@ namespace SupHero {
                             EditorGUILayout.LabelField("of   " + settingsDB.settings.Count.ToString() + "  items", "", GUILayout.ExpandWidth(false));
                             GUILayout.EndHorizontal();
                             int dbIndex = viewIndex - 1;
+                            GUILayout.Label("Common game settings");
                             settingsDB.getSettingsAtIndex(dbIndex).turnTime = EditorGUILayout.FloatField("Turn Time", settingsDB.getSettingsAtIndex(dbIndex).turnTime);
+                            GUILayout.Space(20);
+                            GUILayout.Label("Default hero settings");
+                            settingsDB.getSettingsAtIndex(dbIndex).heroHealth = EditorGUILayout.FloatField("Hero health", settingsDB.getSettingsAtIndex(dbIndex).heroHealth);
+                            settingsDB.getSettingsAtIndex(dbIndex).heroArmor = EditorGUILayout.FloatField("Hero armor", settingsDB.getSettingsAtIndex(dbIndex).heroArmor);
+                            settingsDB.getSettingsAtIndex(dbIndex).heroShield = EditorGUILayout.FloatField("Hero shield", settingsDB.getSettingsAtIndex(dbIndex).heroShield);
+                            settingsDB.getSettingsAtIndex(dbIndex).shieldReplenishTime = EditorGUILayout.FloatField("Shield replenish time", settingsDB.getSettingsAtIndex(dbIndex).shieldReplenishTime);
+                            settingsDB.getSettingsAtIndex(dbIndex).heroSpeed = EditorGUILayout.FloatField("Hero speed", settingsDB.getSettingsAtIndex(dbIndex).heroSpeed);
+                            GUILayout.Space(20);
+                            GUILayout.Label("Default guard settings");
+                            settingsDB.getSettingsAtIndex(dbIndex).guardHealth = EditorGUILayout.FloatField("Guard health", settingsDB.getSettingsAtIndex(dbIndex).guardHealth);
+                            settingsDB.getSettingsAtIndex(dbIndex).guardArmor = EditorGUILayout.FloatField("Guard armor", settingsDB.getSettingsAtIndex(dbIndex).guardArmor);
+                            settingsDB.getSettingsAtIndex(dbIndex).guardSpeed = EditorGUILayout.FloatField("Guard speed", settingsDB.getSettingsAtIndex(dbIndex).guardSpeed);
                             GUILayout.Space(10);
                         }
                         else {

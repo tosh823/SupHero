@@ -6,64 +6,41 @@ using SupHero.Model;
 namespace SupHero.Components {
     public class WeaponController : MonoBehaviour {
 
-        public WeaponData weapon;
-        public GameObject barrelEnd;
+        public WeaponData weapon; // Data of this weapon
 
-        private PlayerController owner;
-
-        private Ray shootRay;
-        private RaycastHit shootHit;
-
-        private float timeBetweenUsage;
-        private LineRenderer lazer;
+        protected PlayerController owner; // Player-owner
+        protected float timeBetweenUsage; // timer to handle rate of usage
 
         // Use this for initialization
-        void Start() {
+        public virtual void Start() {
             owner = GetComponentInParent<PlayerController>();
-            timeBetweenUsage = 0f;
-
-            lazer = GetComponentInChildren<LineRenderer>();
+            timeBetweenUsage = weapon.rate;
         }
 
         // Update is called once per frame
-        void Update() {
+        public virtual void Update() {
             if (timeBetweenUsage < weapon.rate) {
                 timeBetweenUsage += Time.deltaTime;
             }
         }
 
-        public void useWeapon() {
-            if (timeBetweenUsage >= weapon.rate) {
+        // Check availability of weapon
+        public bool canUseWeapon() {
+            if (timeBetweenUsage >= weapon.rate) return true;
+            else return false;
+        }
+
+        public virtual void useWeapon() {
+            if (canUseWeapon()) {
                 timeBetweenUsage = 0f;
                 // Shot!
-                if (lazer != null) {
-                    lazer.enabled = true;
-                    lazer.SetPosition(0, transform.position);
-                    shootRay.origin = barrelEnd.transform.position;
-                    shootRay.direction = owner.transform.forward;
-                    lazer.SetPosition(1, shootRay.origin + shootRay.direction * weapon.range);
-
-                    if (Physics.Raycast(shootRay, out shootHit, weapon.range)) {
-                        GameObject target = shootHit.transform.gameObject;
-                        lazer.SetPosition(1, shootHit.point);
-                        if (target.CompareTag(Tags.Player)) {
-                            DamageResult result = target.GetComponent<PlayerController>().takeDamage(weapon.damage);
-                            if (result == DamageResult.MORTAL_HIT) {
-                                owner.player.applyPoints(10);
-                            }
-                        }
-                        else if (target.CompareTag(Tags.Cover)) {
-                            target.GetComponent<CoverController>().takeDamage(weapon.damage);
-                        }
-                    }
-
-                    Invoke(Utils.getActionName(disableEffects), 0.05f);
-                }
+                trigger();
             }
         }
 
-        private void disableEffects() {
-            lazer.enabled = false;
+        protected virtual void trigger() {
+            // Overdrive this method in childred
+            // to add custom behavior on using
         }
     }
 }

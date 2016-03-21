@@ -25,18 +25,18 @@ namespace SupHero.Components {
         public event dieAction OnDie;
         public event takeDamageAction OnTakenDamage;
 
-        void Awake() {
-            // For standalone init, like for test scene
-            player = new Hero(1);
-            player.inputType = InputType.KEYBOARD;
-        }
-
         // Use this for initialization
         void Start() {
             playerRigidbody = GetComponent<Rigidbody>();
             animator = GetComponent<Animator>();
             zone = GetComponentInParent<ZoneController>();
             inventory = GetComponent<Inventory>();
+
+            if (player == null) {
+                // For standalone unit, like for test scene
+                player = new Hero(1);
+                player.inputType = InputType.KEYBOARD;
+            }
         }
 
         // Update is called once per frame
@@ -171,10 +171,11 @@ namespace SupHero.Components {
             }
             // Attack with primary
             if (usePrimaryWeapon) {
-                if (isWeaponActive(inventory.primary)) {
+                if (isWeaponActive(inventory.primary) && inventory.primary.canUseWeapon()) {
                     animator.SetBool("attacking", true);
                 }
                 else {
+                    animator.SetBool("attacking", false);
                     animator.SetBool("secondary", false);
                     animator.SetBool("primary", true);
                     drawPrimary();
@@ -182,10 +183,11 @@ namespace SupHero.Components {
             }
             // Attack with secondary
             else if (useSecondaryWeapon) {
-                if (isWeaponActive(inventory.secondary)) {
+                if (isWeaponActive(inventory.secondary) && inventory.secondary.canUseWeapon()) {
                     animator.SetBool("attacking", true);
                 }
                 else {
+                    animator.SetBool("attacking", false);
                     animator.SetBool("primary", false);
                     animator.SetBool("secondary", true);
                     drawSecondary();

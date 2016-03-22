@@ -5,7 +5,7 @@ using SupHero.Model;
 
 namespace SupHero.Components {
 
-    public struct States {
+    public struct State {
         public static string MOVING = "moving";
         public static string STEADY = "steady";
         public static string TRIGGER = "trigger";
@@ -70,7 +70,7 @@ namespace SupHero.Components {
             // Moving
             if (moveVector != null && moveVector != Vector3.zero) {
                 // For moving relative to camera
-                animator.SetBool(States.MOVING, true);
+                animator.SetBool(State.MOVING, true);
                 float verticalRelative;
                 if (moveVector.normalized.z != 0f) {
                     verticalRelative = transform.forward.z - moveVector.normalized.z;
@@ -85,26 +85,19 @@ namespace SupHero.Components {
                 else {
                     horizontalRelative = moveVector.normalized.x;
                 }
-                animator.SetFloat(States.VERT, verticalRelative);
-                animator.SetFloat(States.HOR, horizontalRelative);
+                animator.SetFloat(State.VERT, verticalRelative);
+                animator.SetFloat(State.HOR, horizontalRelative);
 
                 Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
                 forward.y = 0f;
                 forward = forward.normalized;
                 Vector3 right = new Vector3(forward.z, 0f, -forward.x);
                 moveVector = (moveVector.x * right + moveVector.z * forward);
-
-                if (moveVector.z >= 0.5f) Debug.Log("Vertical = " + moveVector.z);
-                if (moveVector.x >= 0.5f) Debug.Log("Horizontal = " + moveVector.x);
-
                 moveVector = moveVector.normalized * player.speed * Time.deltaTime;
-                //if (Mathf.Abs(moveVector.z) >= 0.5f) Debug.Log("Vertical = " + moveVector.z);
-                //if (Mathf.Abs(moveVector.x) >= 0.5f) Debug.Log("Horizontal = " + moveVector.x);
-
                 playerRigidbody.MovePosition(transform.position + moveVector);
             }
             else {
-                animator.SetBool(States.MOVING, false);
+                animator.SetBool(State.MOVING, false);
             }
             // Turning
             if (rotation != null && rotation != Vector3.zero) {
@@ -191,31 +184,31 @@ namespace SupHero.Components {
             if (usePrimaryWeapon) {
                 // New behavior
                 if (isWeaponActive(inventory.primary)) {
-                    if (inventory.primary.canUseWeapon()) animator.SetBool(States.TRIGGER, true);
-                    else animator.SetBool(States.STEADY, true);
+                    animator.SetBool(State.STEADY, true);
+                    if (inventory.primary.canUseWeapon()) animator.SetBool(State.TRIGGER, true);
                 }
                 else {
-                    animator.SetBool(States.SECONDARY, false);
-                    animator.SetBool(States.PRIMARY, true);
+                    animator.SetBool(State.SECONDARY, false);
+                    animator.SetBool(State.PRIMARY, true);
                     drawPrimary();
                 }
             }
             // Attack with secondary
             else if (useSecondaryWeapon) {
                 if (isWeaponActive(inventory.secondary)) {
-                    if (inventory.secondary.canUseWeapon()) animator.SetBool(States.TRIGGER, true);
-                    else animator.SetBool(States.STEADY, true);
+                    animator.SetBool(State.STEADY, true);
+                    if (inventory.secondary.canUseWeapon()) animator.SetBool(State.TRIGGER, true);
                 }
                 else {
-                    animator.SetBool(States.PRIMARY, false);
-                    animator.SetBool(States.SECONDARY, true);
+                    animator.SetBool(State.PRIMARY, false);
+                    animator.SetBool(State.SECONDARY, true);
                     drawSecondary();
                 }
             }
             // No attacking at all
             else {
-                animator.SetBool(States.TRIGGER, false);
-                animator.SetBool(States.STEADY, false);
+                animator.SetBool(State.STEADY, false);
+                animator.SetBool(State.TRIGGER, false);
             }
         }
 

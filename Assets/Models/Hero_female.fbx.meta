@@ -227,6 +227,8 @@ ModelImporter:
     7400034: Armature|Slash_sword
     7400036: Armature|Take cover
     7400038: Armature|Throw
+    7400040: Aiming_pistol
+    7400042: Death
     9500000: //RootNode
     13700000: Body
   materials:
@@ -240,7 +242,10 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Shoot_pistol' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Shoulder.L' has translation animation that
+      will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 3
@@ -2593,470 +2598,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|Fireball
-      takeName: Armature|Fireball
-      firstFrame: 0
-      lastFrame: 10
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Armature
-        weight: 1
-      - path: Armature/Elbow.L IK
-        weight: 1
-      - path: Armature/Elbow.L IK/Elbow.L IK_end
-        weight: 1
-      - path: Armature/Elbow.R IK
-        weight: 1
-      - path: Armature/Elbow.R IK/Elbow.R IK_end
-        weight: 1
-      - path: Armature/Foot.L IK
-        weight: 1
-      - path: Armature/Foot.L IK/Foot.L IK_end
-        weight: 1
-      - path: Armature/Foot.R IK
-        weight: 1
-      - path: Armature/Foot.R IK/Foot.R IK_end
-        weight: 1
-      - path: Armature/Hand.L IK
-        weight: 1
-      - path: Armature/Hand.L IK/Hand.L IK_end
-        weight: 1
-      - path: Armature/Hand.R IK
-        weight: 1
-      - path: Armature/Hand.R IK/Hand.R IK_end
-        weight: 1
-      - path: Armature/Knee.L IK
-        weight: 1
-      - path: Armature/Knee.L IK/Knee.L IK_end
-        weight: 1
-      - path: Armature/Knee.R IK
-        weight: 1
-      - path: Armature/Knee.R IK/Knee.R IK_end
-        weight: 1
-      - path: Armature/Main
-        weight: 1
-      - path: Armature/Main/Hips
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.L/Eye.L_end
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.R/Eye.R_end
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Main eye
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Main eye/Main eye_end
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Finger1.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Finger1.L/Finger2.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Finger1.L/Finger2.L/Finger2.L_end
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L/Thumb3.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L/Thumb3.L/Thumb3.L_end
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Finger1.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Finger1.R/Finger2.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Finger1.R/Finger2.R/Finger2.R_end
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R/Thumb3.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R/Thumb3.R/Thumb3.R_end
-        weight: 1
-      - path: Armature/Main/Hips/Leg.L
-        weight: 1
-      - path: Armature/Main/Hips/Leg.L/Shin.L
-        weight: 1
-      - path: Armature/Main/Hips/Leg.L/Shin.L/Foot.L
-        weight: 1
-      - path: Armature/Main/Hips/Leg.L/Shin.L/Foot.L/Toe.L
-        weight: 1
-      - path: Armature/Main/Hips/Leg.L/Shin.L/Foot.L/Toe.L/Toe.L_end
-        weight: 1
-      - path: Armature/Main/Hips/Leg.R
-        weight: 1
-      - path: Armature/Main/Hips/Leg.R/Shin.R
-        weight: 1
-      - path: Armature/Main/Hips/Leg.R/Shin.R/Foot.R
-        weight: 1
-      - path: Armature/Main/Hips/Leg.R/Shin.R/Foot.R/Toe.R
-        weight: 1
-      - path: Armature/Main/Hips/Leg.R/Shin.R/Foot.R/Toe.R/Toe.R_end
-        weight: 1
-      - path: Body
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Armature|Knockback
-      takeName: Armature|Knockback
-      firstFrame: 0
-      lastFrame: 30
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Armature
-        weight: 1
-      - path: Armature/Elbow.L IK
-        weight: 1
-      - path: Armature/Elbow.L IK/Elbow.L IK_end
-        weight: 1
-      - path: Armature/Elbow.R IK
-        weight: 1
-      - path: Armature/Elbow.R IK/Elbow.R IK_end
-        weight: 1
-      - path: Armature/Foot.L IK
-        weight: 1
-      - path: Armature/Foot.L IK/Foot.L IK_end
-        weight: 1
-      - path: Armature/Foot.R IK
-        weight: 1
-      - path: Armature/Foot.R IK/Foot.R IK_end
-        weight: 1
-      - path: Armature/Hand.L IK
-        weight: 1
-      - path: Armature/Hand.L IK/Hand.L IK_end
-        weight: 1
-      - path: Armature/Hand.R IK
-        weight: 1
-      - path: Armature/Hand.R IK/Hand.R IK_end
-        weight: 1
-      - path: Armature/Knee.L IK
-        weight: 1
-      - path: Armature/Knee.L IK/Knee.L IK_end
-        weight: 1
-      - path: Armature/Knee.R IK
-        weight: 1
-      - path: Armature/Knee.R IK/Knee.R IK_end
-        weight: 1
-      - path: Armature/Main
-        weight: 1
-      - path: Armature/Main/Hips
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.L/Eye.L_end
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.R/Eye.R_end
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Main eye
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Main eye/Main eye_end
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Finger1.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Finger1.L/Finger2.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Finger1.L/Finger2.L/Finger2.L_end
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L/Thumb3.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L/Thumb3.L/Thumb3.L_end
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Finger1.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Finger1.R/Finger2.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Finger1.R/Finger2.R/Finger2.R_end
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R/Thumb3.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R/Thumb3.R/Thumb3.R_end
-        weight: 1
-      - path: Armature/Main/Hips/Leg.L
-        weight: 1
-      - path: Armature/Main/Hips/Leg.L/Shin.L
-        weight: 1
-      - path: Armature/Main/Hips/Leg.L/Shin.L/Foot.L
-        weight: 1
-      - path: Armature/Main/Hips/Leg.L/Shin.L/Foot.L/Toe.L
-        weight: 1
-      - path: Armature/Main/Hips/Leg.L/Shin.L/Foot.L/Toe.L/Toe.L_end
-        weight: 1
-      - path: Armature/Main/Hips/Leg.R
-        weight: 1
-      - path: Armature/Main/Hips/Leg.R/Shin.R
-        weight: 1
-      - path: Armature/Main/Hips/Leg.R/Shin.R/Foot.R
-        weight: 1
-      - path: Armature/Main/Hips/Leg.R/Shin.R/Foot.R/Toe.R
-        weight: 1
-      - path: Armature/Main/Hips/Leg.R/Shin.R/Foot.R/Toe.R/Toe.R_end
-        weight: 1
-      - path: Body
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Armature|Slash_sword
-      takeName: Armature|Slash_sword
-      firstFrame: 0
-      lastFrame: 10
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Armature
-        weight: 1
-      - path: Armature/Elbow.L IK
-        weight: 1
-      - path: Armature/Elbow.L IK/Elbow.L IK_end
-        weight: 1
-      - path: Armature/Elbow.R IK
-        weight: 1
-      - path: Armature/Elbow.R IK/Elbow.R IK_end
-        weight: 1
-      - path: Armature/Foot.L IK
-        weight: 1
-      - path: Armature/Foot.L IK/Foot.L IK_end
-        weight: 1
-      - path: Armature/Foot.R IK
-        weight: 1
-      - path: Armature/Foot.R IK/Foot.R IK_end
-        weight: 1
-      - path: Armature/Hand.L IK
-        weight: 1
-      - path: Armature/Hand.L IK/Hand.L IK_end
-        weight: 1
-      - path: Armature/Hand.R IK
-        weight: 1
-      - path: Armature/Hand.R IK/Hand.R IK_end
-        weight: 1
-      - path: Armature/Knee.L IK
-        weight: 1
-      - path: Armature/Knee.L IK/Knee.L IK_end
-        weight: 1
-      - path: Armature/Knee.R IK
-        weight: 1
-      - path: Armature/Knee.R IK/Knee.R IK_end
-        weight: 1
-      - path: Armature/Main
-        weight: 1
-      - path: Armature/Main/Hips
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.L/Eye.L_end
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.R/Eye.R_end
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Main eye
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Main eye/Main eye_end
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Finger1.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Finger1.L/Finger2.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Finger1.L/Finger2.L/Finger2.L_end
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L/Thumb3.L
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L/Thumb3.L/Thumb3.L_end
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Finger1.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Finger1.R/Finger2.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Finger1.R/Finger2.R/Finger2.R_end
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R/Thumb3.R
-        weight: 1
-      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R/Thumb3.R/Thumb3.R_end
-        weight: 1
-      - path: Armature/Main/Hips/Leg.L
-        weight: 1
-      - path: Armature/Main/Hips/Leg.L/Shin.L
-        weight: 1
-      - path: Armature/Main/Hips/Leg.L/Shin.L/Foot.L
-        weight: 1
-      - path: Armature/Main/Hips/Leg.L/Shin.L/Foot.L/Toe.L
-        weight: 1
-      - path: Armature/Main/Hips/Leg.L/Shin.L/Foot.L/Toe.L/Toe.L_end
-        weight: 1
-      - path: Armature/Main/Hips/Leg.R
-        weight: 1
-      - path: Armature/Main/Hips/Leg.R/Shin.R
-        weight: 1
-      - path: Armature/Main/Hips/Leg.R/Shin.R/Foot.R
-        weight: 1
-      - path: Armature/Main/Hips/Leg.R/Shin.R/Foot.R/Toe.R
-        weight: 1
-      - path: Armature/Main/Hips/Leg.R/Shin.R/Foot.R/Toe.R/Toe.R_end
-        weight: 1
-      - path: Body
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Armature|Take cover
-      takeName: Armature|Take cover
+      name: Aiming_pistol
+      takeName: Aiming_pistol
       firstFrame: 0
       lastFrame: 20
       wrapMode: 0
@@ -3084,37 +2627,37 @@ ModelImporter:
       - path: Armature
         weight: 1
       - path: Armature/Elbow.L IK
-        weight: 1
+        weight: 0
       - path: Armature/Elbow.L IK/Elbow.L IK_end
-        weight: 1
+        weight: 0
       - path: Armature/Elbow.R IK
-        weight: 1
+        weight: 0
       - path: Armature/Elbow.R IK/Elbow.R IK_end
-        weight: 1
+        weight: 0
       - path: Armature/Foot.L IK
-        weight: 1
+        weight: 0
       - path: Armature/Foot.L IK/Foot.L IK_end
-        weight: 1
+        weight: 0
       - path: Armature/Foot.R IK
-        weight: 1
+        weight: 0
       - path: Armature/Foot.R IK/Foot.R IK_end
-        weight: 1
+        weight: 0
       - path: Armature/Hand.L IK
-        weight: 1
+        weight: 0
       - path: Armature/Hand.L IK/Hand.L IK_end
-        weight: 1
+        weight: 0
       - path: Armature/Hand.R IK
-        weight: 1
+        weight: 0
       - path: Armature/Hand.R IK/Hand.R IK_end
-        weight: 1
+        weight: 0
       - path: Armature/Knee.L IK
-        weight: 1
+        weight: 0
       - path: Armature/Knee.L IK/Knee.L IK_end
-        weight: 1
+        weight: 0
       - path: Armature/Knee.R IK
-        weight: 1
+        weight: 0
       - path: Armature/Knee.R IK/Knee.R IK_end
-        weight: 1
+        weight: 0
       - path: Armature/Main
         weight: 1
       - path: Armature/Main/Hips
@@ -3130,15 +2673,15 @@ ModelImporter:
       - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.L
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.L/Eye.L_end
-        weight: 1
+        weight: 0
       - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.R
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.R/Eye.R_end
-        weight: 1
+        weight: 0
       - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Main eye
-        weight: 1
+        weight: 0
       - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Main eye/Main eye_end
-        weight: 1
+        weight: 0
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L
@@ -3152,7 +2695,7 @@ ModelImporter:
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Finger1.L/Finger2.L
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Finger1.L/Finger2.L/Finger2.L_end
-        weight: 1
+        weight: 0
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L
@@ -3160,7 +2703,7 @@ ModelImporter:
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L/Thumb3.L
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L/Thumb3.L/Thumb3.L_end
-        weight: 1
+        weight: 0
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R
@@ -3174,7 +2717,7 @@ ModelImporter:
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Finger1.R/Finger2.R
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Finger1.R/Finger2.R/Finger2.R_end
-        weight: 1
+        weight: 0
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R
@@ -3182,7 +2725,7 @@ ModelImporter:
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R/Thumb3.R
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R/Thumb3.R/Thumb3.R_end
-        weight: 1
+        weight: 0
       - path: Armature/Main/Hips/Leg.L
         weight: 1
       - path: Armature/Main/Hips/Leg.L/Shin.L
@@ -3192,7 +2735,7 @@ ModelImporter:
       - path: Armature/Main/Hips/Leg.L/Shin.L/Foot.L/Toe.L
         weight: 1
       - path: Armature/Main/Hips/Leg.L/Shin.L/Foot.L/Toe.L/Toe.L_end
-        weight: 1
+        weight: 0
       - path: Armature/Main/Hips/Leg.R
         weight: 1
       - path: Armature/Main/Hips/Leg.R/Shin.R
@@ -3202,17 +2745,17 @@ ModelImporter:
       - path: Armature/Main/Hips/Leg.R/Shin.R/Foot.R/Toe.R
         weight: 1
       - path: Armature/Main/Hips/Leg.R/Shin.R/Foot.R/Toe.R/Toe.R_end
-        weight: 1
+        weight: 0
       - path: Body
-        weight: 1
+        weight: 0
       maskType: 0
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|Throw
-      takeName: Armature|Throw
+      name: Death
+      takeName: Death
       firstFrame: 0
-      lastFrame: 10
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -3238,37 +2781,37 @@ ModelImporter:
       - path: Armature
         weight: 1
       - path: Armature/Elbow.L IK
-        weight: 1
+        weight: 0
       - path: Armature/Elbow.L IK/Elbow.L IK_end
-        weight: 1
+        weight: 0
       - path: Armature/Elbow.R IK
-        weight: 1
+        weight: 0
       - path: Armature/Elbow.R IK/Elbow.R IK_end
-        weight: 1
+        weight: 0
       - path: Armature/Foot.L IK
-        weight: 1
+        weight: 0
       - path: Armature/Foot.L IK/Foot.L IK_end
-        weight: 1
+        weight: 0
       - path: Armature/Foot.R IK
-        weight: 1
+        weight: 0
       - path: Armature/Foot.R IK/Foot.R IK_end
-        weight: 1
+        weight: 0
       - path: Armature/Hand.L IK
-        weight: 1
+        weight: 0
       - path: Armature/Hand.L IK/Hand.L IK_end
-        weight: 1
+        weight: 0
       - path: Armature/Hand.R IK
-        weight: 1
+        weight: 0
       - path: Armature/Hand.R IK/Hand.R IK_end
-        weight: 1
+        weight: 0
       - path: Armature/Knee.L IK
-        weight: 1
+        weight: 0
       - path: Armature/Knee.L IK/Knee.L IK_end
-        weight: 1
+        weight: 0
       - path: Armature/Knee.R IK
-        weight: 1
+        weight: 0
       - path: Armature/Knee.R IK/Knee.R IK_end
-        weight: 1
+        weight: 0
       - path: Armature/Main
         weight: 1
       - path: Armature/Main/Hips
@@ -3284,15 +2827,15 @@ ModelImporter:
       - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.L
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.L/Eye.L_end
-        weight: 1
+        weight: 0
       - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.R
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.R/Eye.R_end
-        weight: 1
+        weight: 0
       - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Main eye
-        weight: 1
+        weight: 0
       - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Main eye/Main eye_end
-        weight: 1
+        weight: 0
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L
@@ -3306,7 +2849,7 @@ ModelImporter:
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Finger1.L/Finger2.L
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Finger1.L/Finger2.L/Finger2.L_end
-        weight: 1
+        weight: 0
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L
@@ -3314,7 +2857,7 @@ ModelImporter:
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L/Thumb3.L
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L/Thumb3.L/Thumb3.L_end
-        weight: 1
+        weight: 0
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R
@@ -3328,7 +2871,7 @@ ModelImporter:
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Finger1.R/Finger2.R
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Finger1.R/Finger2.R/Finger2.R_end
-        weight: 1
+        weight: 0
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R
@@ -3336,7 +2879,7 @@ ModelImporter:
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R/Thumb3.R
         weight: 1
       - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R/Thumb3.R/Thumb3.R_end
-        weight: 1
+        weight: 0
       - path: Armature/Main/Hips/Leg.L
         weight: 1
       - path: Armature/Main/Hips/Leg.L/Shin.L
@@ -3346,7 +2889,7 @@ ModelImporter:
       - path: Armature/Main/Hips/Leg.L/Shin.L/Foot.L/Toe.L
         weight: 1
       - path: Armature/Main/Hips/Leg.L/Shin.L/Foot.L/Toe.L/Toe.L_end
-        weight: 1
+        weight: 0
       - path: Armature/Main/Hips/Leg.R
         weight: 1
       - path: Armature/Main/Hips/Leg.R/Shin.R
@@ -3356,9 +2899,9 @@ ModelImporter:
       - path: Armature/Main/Hips/Leg.R/Shin.R/Foot.R/Toe.R
         weight: 1
       - path: Armature/Main/Hips/Leg.R/Shin.R/Foot.R/Toe.R/Toe.R_end
-        weight: 1
+        weight: 0
       - path: Body
-        weight: 1
+        weight: 0
       maskType: 0
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0

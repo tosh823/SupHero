@@ -19,7 +19,6 @@ namespace SupHero.Components {
         // Use this for initialization
         void Start() {
             owner = GetComponent<PlayerController>();
-            setupWeapons();
         }
 
         public void setupWeapons() {

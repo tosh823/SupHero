@@ -25,11 +25,6 @@ namespace SupHero {
             DontDestroyOnLoad(gameObject);
         }
 
-        public SettingsData getMainSettings() {
-            if (settings != null) return settings.getSettingsAtIndex(0);
-            else return null;
-        }
-
         public WeaponData getWeaponById(int id) {
             foreach (WeaponData data in weaponsDB.weapons) {
                 if (data.id == id) {

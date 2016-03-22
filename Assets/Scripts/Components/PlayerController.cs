@@ -4,6 +4,17 @@ using SupHero;
 using SupHero.Model;
 
 namespace SupHero.Components {
+
+    public struct States {
+        public static string MOVING = "moving";
+        public static string STEADY = "steady";
+        public static string TRIGGER = "trigger";
+        public static string PRIMARY = "primary";
+        public static string SECONDARY = "secondary";
+        public static string HOR = "horizontal";
+        public static string VERT = "vertical";
+    }
+
     public class PlayerController : MonoBehaviour {
 
         // Variables
@@ -27,16 +38,17 @@ namespace SupHero.Components {
 
         // Use this for initialization
         void Start() {
-            playerRigidbody = GetComponent<Rigidbody>();
-            animator = GetComponent<Animator>();
-            zone = GetComponentInParent<ZoneController>();
-            inventory = GetComponent<Inventory>();
-
             if (player == null) {
                 // For standalone unit, like for test scene
                 player = new Hero(1);
                 player.inputType = InputType.KEYBOARD;
             }
+
+            playerRigidbody = GetComponent<Rigidbody>();
+            animator = GetComponent<Animator>();
+            zone = GetComponentInParent<ZoneController>();
+            inventory = GetComponent<Inventory>();
+            inventory.setupWeapons();
         }
 
         // Update is called once per frame
@@ -58,7 +70,7 @@ namespace SupHero.Components {
             // Moving
             if (moveVector != null && moveVector != Vector3.zero) {
                 // For moving relative to camera
-                animator.SetBool("moving", true);
+                animator.SetBool(States.MOVING, true);
                 float verticalRelative;
                 if (moveVector.normalized.z != 0f) {
                     verticalRelative = transform.forward.z - moveVector.normalized.z;
@@ -73,8 +85,8 @@ namespace SupHero.Components {
                 else {
                     horizontalRelative = moveVector.normalized.x;
                 }
-                animator.SetFloat("vertical", verticalRelative);
-                animator.SetFloat("horizontal", horizontalRelative);
+                animator.SetFloat(States.VERT, verticalRelative);
+                animator.SetFloat(States.HOR, horizontalRelative);
 
                 Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
                 forward.y = 0f;
@@ -82,11 +94,17 @@ namespace SupHero.Components {
                 Vector3 right = new Vector3(forward.z, 0f, -forward.x);
                 moveVector = (moveVector.x * right + moveVector.z * forward);
 
+                if (moveVector.z >= 0.5f) Debug.Log("Vertical = " + moveVector.z);
+                if (moveVector.x >= 0.5f) Debug.Log("Horizontal = " + moveVector.x);
+
                 moveVector = moveVector.normalized * player.speed * Time.deltaTime;
+                //if (Mathf.Abs(moveVector.z) >= 0.5f) Debug.Log("Vertical = " + moveVector.z);
+                //if (Mathf.Abs(moveVector.x) >= 0.5f) Debug.Log("Horizontal = " + moveVector.x);
+
                 playerRigidbody.MovePosition(transform.position + moveVector);
             }
             else {
-                animator.SetBool("moving", false);
+                animator.SetBool(States.MOVING, false);
             }
             // Turning
             if (rotation != null && rotation != Vector3.zero) {
@@ -171,31 +189,33 @@ namespace SupHero.Components {
             }
             // Attack with primary
             if (usePrimaryWeapon) {
-                if (isWeaponActive(inventory.primary) && inventory.primary.canUseWeapon()) {
-                    animator.SetBool("attacking", true);
+                // New behavior
+                if (isWeaponActive(inventory.primary)) {
+                    if (inventory.primary.canUseWeapon()) animator.SetBool(States.TRIGGER, true);
+                    else animator.SetBool(States.STEADY, true);
                 }
                 else {
-                    animator.SetBool("attacking", false);
-                    animator.SetBool("secondary", false);
-                    animator.SetBool("primary", true);
+                    animator.SetBool(States.SECONDARY, false);
+                    animator.SetBool(States.PRIMARY, true);
                     drawPrimary();
-                } 
+                }
             }
             // Attack with secondary
             else if (useSecondaryWeapon) {
-                if (isWeaponActive(inventory.secondary) && inventory.secondary.canUseWeapon()) {
-                    animator.SetBool("attacking", true);
+                if (isWeaponActive(inventory.secondary)) {
+                    if (inventory.secondary.canUseWeapon()) animator.SetBool(States.TRIGGER, true);
+                    else animator.SetBool(States.STEADY, true);
                 }
                 else {
-                    animator.SetBool("attacking", false);
-                    animator.SetBool("primary", false);
-                    animator.SetBool("secondary", true);
+                    animator.SetBool(States.PRIMARY, false);
+                    animator.SetBool(States.SECONDARY, true);
                     drawSecondary();
                 }
             }
             // No attacking at all
             else {
-                animator.SetBool("attacking", false);
+                animator.SetBool(States.TRIGGER, false);
+                animator.SetBool(States.STEADY, false);
             }
         }
 

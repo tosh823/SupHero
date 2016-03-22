@@ -7,10 +7,12 @@ namespace SupHero.Components {
 
         private Collider edge;
         private bool doingSlash;
+        private AudioSource slashSound;
 
         public override void Start() {
             base.Start();
             edge = GetComponent<Collider>();
+            slashSound = GetComponent<AudioSource>();
             doingSlash = false;
         }
 
@@ -30,6 +32,7 @@ namespace SupHero.Components {
 
         protected override void trigger() {
             doingSlash = true;
+            slashSound.Play();
             Invoke(Utils.getActionName(disableEffects), 0.5f);
         }
 

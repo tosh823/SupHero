@@ -10,10 +10,12 @@ namespace SupHero.Components {
         private LineRenderer lazer;
         private Ray shootRay;
         private RaycastHit shootHit;
+        private AudioSource shotSound;
 
         public override void Start() {
             base.Start();
             lazer = GetComponentInChildren<LineRenderer>();
+            shotSound = GetComponent<AudioSource>();
         }
 
         public override void Update() {
@@ -40,6 +42,8 @@ namespace SupHero.Components {
                     target.GetComponent<CoverController>().takeDamage(weapon.damage);
                 }
             }
+
+            shotSound.Play();
 
             Invoke(Utils.getActionName(disableEffects), 0.05f);
         }

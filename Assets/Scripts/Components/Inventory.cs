@@ -16,9 +16,14 @@ namespace SupHero.Components {
 
         private PlayerController owner;
 
+        void Awake() {
+            owner = GetComponent<PlayerController>();
+        }
+
         // Use this for initialization
         void Start() {
-            owner = GetComponent<PlayerController>();
+            //owner = GetComponent<PlayerController>();
+            
         }
 
         public void setupWeapons() {

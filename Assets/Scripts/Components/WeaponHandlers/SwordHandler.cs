@@ -23,7 +23,7 @@ namespace SupHero.Components {
         void OnTriggerEnter(Collider other) {
             GameObject target = other.gameObject;
             if (doingSlash && target.CompareTag(Tags.Player)) {
-                DamageResult result = target.GetComponent<PlayerController>().takeDamage(weapon.damage);
+                DamageResult result = target.GetComponent<PlayerController>().receiveDamage(weapon.damage);
                 if (result == DamageResult.MORTAL_HIT) {
                     owner.player.applyPoints(10);
                 }

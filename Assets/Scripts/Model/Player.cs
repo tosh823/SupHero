@@ -24,6 +24,8 @@ namespace SupHero.Model {
 
         public string playerName;
 
+        public bool isStunned;
+
         public InputType inputType;
         public int gamepadNumber;
         public string gamepadName;
@@ -31,6 +33,7 @@ namespace SupHero.Model {
         public Player(int number = 0) {
             this.number = number;
             isAlive = true;
+            isStunned = false;
             playerName = string.Format("{0} {1}", "Player", this.number);
             points = 0;
         }

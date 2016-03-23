@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using SupHero.Model;
 
 namespace SupHero.Components {
@@ -33,7 +32,8 @@ namespace SupHero.Components {
                 GameObject target = shootHit.transform.gameObject;
                 lazer.SetPosition(1, shootHit.point);
                 if (target.CompareTag(Tags.Player)) {
-                    DamageResult result = target.GetComponent<PlayerController>().takeDamage(weapon.damage);
+                    DamageResult result = target.GetComponent<PlayerController>().receiveDamage(weapon.damage);
+                    if (weapon.hasEffect) target.GetComponent<PlayerController>().applyEffect(weapon.effect);
                     if (result == DamageResult.MORTAL_HIT) {
                         owner.player.applyPoints(10);
                     }

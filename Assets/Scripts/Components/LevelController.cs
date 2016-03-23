@@ -73,11 +73,6 @@ namespace SupHero.Components {
         }
 
         public void newTurn() {
-            // Destroy timer
-            timer.OnTick -= updateTimer;
-            timer.OnEnd -= newTurn;
-            Destroy(timer);
-
             if (level.changeRoles()) {
                 Debug.Log("Change roles!");
                 transferToZone();

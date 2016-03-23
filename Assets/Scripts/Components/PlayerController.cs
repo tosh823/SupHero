@@ -33,8 +33,8 @@ namespace SupHero.Components {
         // Events
         public delegate void dieAction(Player player);
         public event dieAction OnDie;
-        public delegate void takeDamageAction();
-        public event takeDamageAction OnTakenDamage;
+        public delegate void receiveDamageAction();
+        public event receiveDamageAction OnDamageReceived;
 
         // Use this for initialization
         void Start() {
@@ -54,12 +54,14 @@ namespace SupHero.Components {
         // Update is called once per frame
         void Update() {
             if (player.isAlive && transform.position.y >= -10f) {
-                // Record move input
-                moveVector = getMovementVector();
-                // Record rotate input
-                rotation = getRotation();
-                // Record actions
-                readWeaponInput();
+                if (!player.isStunned) {
+                    // Record move input
+                    moveVector = getMovementVector();
+                    // Record rotate input
+                    rotation = getRotation();
+                    // Record actions
+                    readWeaponInput();
+                }
             }
             else {
                 die();
@@ -131,11 +133,35 @@ namespace SupHero.Components {
             else return false;
         }
 
-        public DamageResult takeDamage(float damage) {
-            if (OnTakenDamage != null) {
-                OnTakenDamage();
+        public DamageResult receiveDamage(float damage) {
+            if (OnDamageReceived != null) {
+                OnDamageReceived();
             }
             return player.takeDamage(damage);
+        }
+
+        public void applyEffect(Effect effect) {
+            switch (effect.type) {
+                case EffectType.FIRE:
+                    break;
+                case EffectType.POISON:
+                    break;
+                case EffectType.SLOWDOWN:
+                    break;
+                case EffectType.STUN:
+                    Timer timer = gameObject.AddComponent<Timer>();
+                    timer.time = effect.duration;
+                    timer.OnStart += delegate () {
+                        player.isStunned = true;
+                    };
+                    timer.OnEnd += delegate () {
+                        player.isStunned = false;
+                    };
+                    timer.launch();
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void setPlayer(Player player) {
@@ -147,7 +173,7 @@ namespace SupHero.Components {
                 // Add to him a shield
                 Shield sc = gameObject.AddComponent<Shield>();
                 sc.owner = (Hero) player;
-                OnTakenDamage += sc.refreshTimer;
+                OnDamageReceived += sc.refreshTimer;
             }
         }
 

@@ -76,6 +76,7 @@ namespace SupHero.Model {
             replenishWaitTime = Data.instance.mainSettings.shieldReplenishTime;
             speed = Data.instance.mainSettings.heroSpeed;
             haveTakenDamage = false;
+            isStunned = false;
 
             primaryId = Data.instance.mainSettings.starterPrimary;
             secondaryId = Data.instance.mainSettings.starterSecondary;

@@ -32,6 +32,7 @@ namespace SupHero.Components {
                     // Time is ended
                     if (OnEnd != null) OnEnd();
                     isRunning = false;
+                    Destroy(this);
                 }
             }
         }

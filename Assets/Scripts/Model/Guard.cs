@@ -50,6 +50,7 @@ namespace SupHero.Model {
             secondaryId = Data.instance.mainSettings.starterSecondary;
 
             isAlive = true;
+            isStunned = false;
         }
     }
 }

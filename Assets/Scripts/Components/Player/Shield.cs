@@ -9,12 +9,10 @@ namespace SupHero.Components {
         public Hero owner;
         private float timer;
 
-        // Use this for initialization
         void Start() {
             timer = 0f;
         }
 
-        // Update is called once per frame
         void Update() {
             if (owner.isAlive && !owner.isShieldFull) {
                 // Ticking timer

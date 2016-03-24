@@ -42,12 +42,12 @@ namespace SupHero.Model {
         }
 
         protected override void setupDefaultProperties() {
-            health = Data.instance.mainSettings.guardHealth;
-            armor = Data.instance.mainSettings.guardArmor;
-            speed = Data.instance.mainSettings.guardSpeed;
+            health = Data.Instance.mainSettings.guardHealth;
+            armor = Data.Instance.mainSettings.guardArmor;
+            speed = Data.Instance.mainSettings.guardSpeed;
 
-            primaryId = Data.instance.mainSettings.starterPrimary;
-            secondaryId = Data.instance.mainSettings.starterSecondary;
+            primaryId = Data.Instance.mainSettings.starterPrimary;
+            secondaryId = Data.Instance.mainSettings.starterSecondary;
 
             isAlive = true;
             isStunned = false;

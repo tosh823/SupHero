@@ -11,13 +11,11 @@ namespace SupHero.Components {
         protected PlayerController owner; // Player-owner
         protected float timeBetweenUsage; // timer to handle rate of usage
 
-        // Initialization
         public virtual void Start() {
             owner = GetComponentInParent<PlayerController>();
             timeBetweenUsage = weapon.rate;
         }
 
-        // Update is called once per frame
         public virtual void Update() {
             if (timeBetweenUsage < weapon.rate) {
                 timeBetweenUsage += Time.deltaTime;

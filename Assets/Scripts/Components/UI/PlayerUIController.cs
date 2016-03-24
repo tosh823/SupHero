@@ -17,12 +17,10 @@ namespace SupHero.Components {
         public Text playerName;
         public Text playerPoints;
 
-        // Use this for initialization
         void Start() {
 
         }
 
-        // Update is called once per frame
         void Update() {
             if (player != null) {
                 if (player is Hero) {

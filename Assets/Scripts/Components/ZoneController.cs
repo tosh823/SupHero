@@ -17,14 +17,12 @@ namespace SupHero.Components {
             spawner = GetComponent<Spawner>();
         }
 
-        // Use this for initialization
         void Start() {
-            if (LevelController.instance != null) {
-                spawnPlayers(LevelController.instance.level.players);
+            if (LevelController.Instance != null) {
+                spawnPlayers(LevelController.Instance.level.players);
             }
         }
 
-        // Update is called once per frame
         void Update() {
             
         }
@@ -37,7 +35,7 @@ namespace SupHero.Components {
                 // Creating new player gameObject
                 GameObject pawn = spawner.spawnPlayer(player, true);
                 PlayerController pc = pawn.GetComponent<PlayerController>();
-                GameObject ui = LevelController.instance.HUD.findUIforPlayer(player);
+                GameObject ui = LevelController.Instance.HUD.findUIforPlayer(player);
 
                 // Then, give it soul
                 pc.setPlayer(player);
@@ -53,7 +51,7 @@ namespace SupHero.Components {
         public void spawnPlayer(Player player) {
             GameObject pawn = spawner.spawnPlayer(player);
             PlayerController pc = pawn.GetComponent<PlayerController>();
-            GameObject ui = LevelController.instance.HUD.findUIforPlayer(player);
+            GameObject ui = LevelController.Instance.HUD.findUIforPlayer(player);
 
             pc.setPlayer(player);
             pc.setUI(ui);

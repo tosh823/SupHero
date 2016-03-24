@@ -22,7 +22,6 @@ namespace SupHero.Components {
         private GameObject timerInstance;
         private List<GameObject> playerUIs;
 
-        // Use this for initialization
         void Start() {
             rectTransform = gameObject.GetComponent<RectTransform>();
             playerUIs = new List<GameObject>();
@@ -30,7 +29,6 @@ namespace SupHero.Components {
             timerInstance.transform.SetParent(transform, false);
         }
 
-        // Update is called once per frame
         void Update() {
             
         }

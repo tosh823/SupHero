@@ -10,7 +10,7 @@ namespace SupHero.Components {
             if (entered.CompareTag(Tags.Player)) {
                 // If hero reached the end of zone, go to new one
                 if (entered.GetComponent<PlayerController>().player is Hero) {
-                    LevelController.instance.transferToZone();
+                    LevelController.Instance.transferToZone();
                 }
             }
         }

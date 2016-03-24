@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 
 namespace SupHero {
@@ -17,6 +18,10 @@ namespace SupHero {
 
         private Game() {
             
+        }
+
+        public void loadLevel() {
+            SceneManager.LoadScene("Level");
         }
 
     }

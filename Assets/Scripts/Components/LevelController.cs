@@ -7,7 +7,7 @@ using SupHero.Model;
 namespace SupHero.Components {
     public class LevelController : MonoBehaviour {
 
-        public static LevelController instance = null;
+        public static LevelController Instance = null;
 
         public Level level { get; private set; }
         public HUDController HUD { get; private set; }
@@ -21,16 +21,15 @@ namespace SupHero.Components {
 
         // Singleton realization
         void Awake() {
-            if (instance == null) {
-                instance = this;
+            if (Instance == null) {
+                Instance = this;
             }
-            else if (instance != this) {
+            else if (Instance != this) {
                 Destroy(gameObject);
             }
             DontDestroyOnLoad(gameObject);
         }
 
-        // Use this for initialization
         void Start() {
             level = new Level();
             level.createPlayers();
@@ -48,23 +47,9 @@ namespace SupHero.Components {
             timer.launch();
         }
 
-        // Update is called once per frame
         void Update() {
             if (level.isPlaying) {
-                // Timer ticking
-                /*if (time > 0) {
-                    HUD.GetComponent<HUDController>().updateTimer(time);
-                    time -= Time.deltaTime;
-                }
-                // Time is over, change roles
-                else {
-                    time = Constants.turnTime;
-                    zoneObject.GetComponent<ZoneController>().destroyPlayers();
-                    HUD.clearPlayerUIs();
-                    if (level.changeRoles()) {
-                        zoneObject.GetComponent<ZoneController>().spawnPlayers(level.players);
-                    }
-                }*/
+                
             }
         }
 

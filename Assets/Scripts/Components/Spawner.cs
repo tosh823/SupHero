@@ -19,12 +19,10 @@ namespace SupHero.Components {
             surfaceBounds = GameObject.FindGameObjectWithTag("Surface").GetComponent<Collider>().bounds;
         }
 
-        // Use this for initialization
         void Start() {
             
         }
 
-        // Update is called once per frame
         void Update() {
 
         }
@@ -62,7 +60,7 @@ namespace SupHero.Components {
 
         public Vector3 getPosInsideBounds() {
             Vector3 pos = Vector3.zero;
-            Area visibleArea = LevelController.instance.view.getVisibleArea();
+            Area visibleArea = LevelController.Instance.view.getVisibleArea();
             float visibleXmin = surfaceBounds.min.x;
             float visibleXmax = surfaceBounds.max.x;
             float visibleZmin = surfaceBounds.min.z;
@@ -143,7 +141,7 @@ namespace SupHero.Components {
         }
 
         private void createMark(Vector3 pos) {
-            GameObject mark = Instantiate(LevelController.instance.view.mark, pos, Quaternion.identity) as GameObject;
+            GameObject mark = Instantiate(LevelController.Instance.view.mark, pos, Quaternion.identity) as GameObject;
             mark.transform.SetParent(transform);
         }
     }

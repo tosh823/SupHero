@@ -7,7 +7,6 @@ namespace SupHero.Components {
 
         public Text timerText;
 
-        // Use this for initialization
         void Start() {
             timerText.text = "Test";
         }
@@ -16,7 +15,6 @@ namespace SupHero.Components {
             timerText.text = time;
         }
 
-        // Update is called once per frame
         void Update() {
 
         }

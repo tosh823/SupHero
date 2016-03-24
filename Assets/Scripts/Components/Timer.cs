@@ -17,7 +17,6 @@ namespace SupHero.Components {
         public event tickAction OnTick;
         public event endAction OnEnd;
 
-        // Update is called once per frame
         void Update() {
             if (isRunning) {
                 if (time > 0) {

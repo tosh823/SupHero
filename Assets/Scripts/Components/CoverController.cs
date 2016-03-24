@@ -10,12 +10,10 @@ namespace SupHero.Components {
         // Later better create model, parhaps
         public float durability = Constants.durablityNormal;
 
-        // Use this for initialization
         void Start() {
 
         }
 
-        // Update is called once per frame
         void Update() {
             if (durability <= 0f) {
                 Destroy(gameObject);

@@ -36,7 +36,6 @@ namespace SupHero.Components {
         public delegate void receiveDamageAction();
         public event receiveDamageAction OnDamageReceived;
 
-        // Use this for initialization
         void Start() {
             if (player == null) {
                 // For standalone unit, like for test scene
@@ -51,7 +50,6 @@ namespace SupHero.Components {
             inventory.setupWeapons();
         }
 
-        // Update is called once per frame
         void Update() {
             if (player.isAlive && transform.position.y >= -10f) {
                 if (!player.isStunned) {
@@ -169,7 +167,7 @@ namespace SupHero.Components {
             // If player is a hero
             if (player is Hero) {
                 // Set it as camera target
-                LevelController.instance.view.setTarget(gameObject);
+                LevelController.Instance.view.setTarget(gameObject);
                 // Add to him a shield
                 Shield sc = gameObject.AddComponent<Shield>();
                 sc.owner = (Hero) player;

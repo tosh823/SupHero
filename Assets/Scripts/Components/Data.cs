@@ -3,7 +3,7 @@
 namespace SupHero {
     public class Data : MonoBehaviour {
 
-        public static Data instance = null;
+        public static Data Instance = null;
         public WeaponDatabase weaponsDB;
         public ItemDatabase itemsDB;
         public SettingsDatabase settings;
@@ -16,10 +16,10 @@ namespace SupHero {
 
         // Singleton realization
         void Awake() {
-            if (instance == null) {
-                instance = this;
+            if (Instance == null) {
+                Instance = this;
             }
-            else if (instance != this) {
+            else if (Instance != this) {
                 Destroy(gameObject);
             }
             DontDestroyOnLoad(gameObject);

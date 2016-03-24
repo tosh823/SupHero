@@ -174,19 +174,25 @@ namespace SupHero {
                             EditorGUILayout.LabelField("of   " + weaponDB.weapons.Count.ToString() + "  items", "", GUILayout.ExpandWidth(false));
                             GUILayout.EndHorizontal();
                             int dbIndex = viewIndex - 1;
-                            weaponDB.getWeaponAtIndex(dbIndex).name = EditorGUILayout.TextField("Weapon Name", weaponDB.getWeaponAtIndex(dbIndex).name as string);
-                            weaponDB.getWeaponAtIndex(dbIndex).description = EditorGUILayout.TextField("Weapon Description", weaponDB.getWeaponAtIndex(dbIndex).description as string);
-                            weaponDB.getWeaponAtIndex(dbIndex).damage = EditorGUILayout.FloatField("Weapon Damage", weaponDB.getWeaponAtIndex(dbIndex).damage);
-                            weaponDB.getWeaponAtIndex(dbIndex).rate = EditorGUILayout.FloatField("Weapon Rate", weaponDB.getWeaponAtIndex(dbIndex).rate);
-                            weaponDB.getWeaponAtIndex(dbIndex).range = EditorGUILayout.FloatField("Weapon Range", weaponDB.getWeaponAtIndex(dbIndex).range);
-                            weaponDB.getWeaponAtIndex(dbIndex).hasEffect = EditorGUILayout.Toggle("Weapon Range", weaponDB.getWeaponAtIndex(dbIndex).hasEffect);
+                            weaponDB.getWeaponAtIndex(dbIndex).name = EditorGUILayout.TextField("Name", weaponDB.getWeaponAtIndex(dbIndex).name as string);
+                            weaponDB.getWeaponAtIndex(dbIndex).description = EditorGUILayout.TextField("Description", weaponDB.getWeaponAtIndex(dbIndex).description as string);
+                            weaponDB.getWeaponAtIndex(dbIndex).slot = (WeaponSlot)EditorGUILayout.EnumPopup("Slot", weaponDB.getWeaponAtIndex(dbIndex).slot);
+                            weaponDB.getWeaponAtIndex(dbIndex).damage = EditorGUILayout.FloatField("Damage", weaponDB.getWeaponAtIndex(dbIndex).damage);
+                            weaponDB.getWeaponAtIndex(dbIndex).rate = EditorGUILayout.FloatField("Rate", weaponDB.getWeaponAtIndex(dbIndex).rate);
+                            weaponDB.getWeaponAtIndex(dbIndex).range = EditorGUILayout.FloatField("Range", weaponDB.getWeaponAtIndex(dbIndex).range);
+                            weaponDB.getWeaponAtIndex(dbIndex).ammo = EditorGUILayout.IntField("Ammo capacity", weaponDB.getWeaponAtIndex(dbIndex).ammo);
+                            weaponDB.getWeaponAtIndex(dbIndex).reloadTime = EditorGUILayout.FloatField("Reload time", weaponDB.getWeaponAtIndex(dbIndex).reloadTime);
+                            weaponDB.getWeaponAtIndex(dbIndex).hasEffect = EditorGUILayout.Toggle("Does it have effect?", weaponDB.getWeaponAtIndex(dbIndex).hasEffect);
                             if (weaponDB.getWeaponAtIndex(dbIndex).hasEffect) {
-                                weaponDB.getWeaponAtIndex(dbIndex).effect.name = EditorGUILayout.TextField("Effect Name", weaponDB.getWeaponAtIndex(dbIndex).effect.name as string);
-                                weaponDB.getWeaponAtIndex(dbIndex).effect.type = (EffectType) EditorGUILayout.EnumPopup("Effect Type", weaponDB.getWeaponAtIndex(dbIndex).effect.type);  
-                                weaponDB.getWeaponAtIndex(dbIndex).effect.duration = EditorGUILayout.FloatField("Effect Duration", weaponDB.getWeaponAtIndex(dbIndex).effect.duration);
-                                weaponDB.getWeaponAtIndex(dbIndex).effect.value = EditorGUILayout.FloatField("Effect Value", weaponDB.getWeaponAtIndex(dbIndex).effect.value);
+                                GUILayout.Space(5);
+                                weaponDB.getWeaponAtIndex(dbIndex).effect.name = EditorGUILayout.TextField("Name", weaponDB.getWeaponAtIndex(dbIndex).effect.name as string);
+                                weaponDB.getWeaponAtIndex(dbIndex).effect.type = (EffectType) EditorGUILayout.EnumPopup("Type", weaponDB.getWeaponAtIndex(dbIndex).effect.type);  
+                                weaponDB.getWeaponAtIndex(dbIndex).effect.duration = EditorGUILayout.FloatField("Duration", weaponDB.getWeaponAtIndex(dbIndex).effect.duration);
+                                weaponDB.getWeaponAtIndex(dbIndex).effect.value = EditorGUILayout.FloatField("Value", weaponDB.getWeaponAtIndex(dbIndex).effect.value);
                             }
-                            weaponDB.getWeaponAtIndex(dbIndex).weaponPrefab = EditorGUILayout.ObjectField("Weapon Prefab", weaponDB.getWeaponAtIndex(dbIndex).weaponPrefab, typeof(GameObject), true) as GameObject;
+                            weaponDB.getWeaponAtIndex(dbIndex).prefab = EditorGUILayout.ObjectField("Prefab", weaponDB.getWeaponAtIndex(dbIndex).prefab, typeof(GameObject), true) as GameObject;
+                            weaponDB.getWeaponAtIndex(dbIndex).triggerSound = EditorGUILayout.ObjectField("OnTrigger sound effect", weaponDB.getWeaponAtIndex(dbIndex).triggerSound, typeof(AudioClip), true) as AudioClip;
+                            weaponDB.getWeaponAtIndex(dbIndex).reloadSound = EditorGUILayout.ObjectField("OnReload sound effect", weaponDB.getWeaponAtIndex(dbIndex).reloadSound, typeof(AudioClip), true) as AudioClip;
                             GUILayout.Space(10);
                         }
                         else {

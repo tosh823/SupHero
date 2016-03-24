@@ -28,7 +28,7 @@ namespace SupHero.Components {
             // Primary weapon
             int primaryId = owner.player.primaryId;
             WeaponData primaryData = Data.Instance.getWeaponById(primaryId);
-            if (primaryPrefab == null) primaryPrefab = primaryData.weaponPrefab;
+            if (primaryPrefab == null) primaryPrefab = primaryData.prefab;
             GameObject primaryInstance = Instantiate(primaryPrefab) as GameObject;
             primaryInstance.transform.SetParent(weaponPlacement.transform);
             primaryInstance.transform.position = weaponPlacement.transform.position;
@@ -38,7 +38,7 @@ namespace SupHero.Components {
 
             int secondaryId = owner.player.secondaryId;
             WeaponData secondaryData = Data.Instance.getWeaponById(secondaryId);
-            if (secondaryPrefab == null) secondaryPrefab = secondaryData.weaponPrefab;
+            if (secondaryPrefab == null) secondaryPrefab = secondaryData.prefab;
             GameObject secondaryInstance = Instantiate(secondaryPrefab) as GameObject;
             secondaryInstance.transform.SetParent(weaponPlacement.transform);
             secondaryInstance.transform.position = weaponPlacement.transform.position;

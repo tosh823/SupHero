@@ -199,14 +199,14 @@ namespace SupHero.Components {
             bool useSecondaryWeapon = false;
             switch (player.inputType) {
                 case InputType.KEYBOARD:
-                    usePrimaryWeapon = Input.GetButton("Fire1");
-                    useSecondaryWeapon = Input.GetButton("Fire2");
+                    usePrimaryWeapon = Input.GetButton(Control.LeftMouse);
+                    useSecondaryWeapon = Input.GetButton(Control.RightMouse);
                     break;
                 case InputType.GAMEPAD:
-                    float rightBumper = Input.GetAxis(Utils.getControlForPlayer("R2", player.gamepadNumber));
-                    float leftBumper = Input.GetAxis(Utils.getControlForPlayer("L2", player.gamepadNumber));
-                    usePrimaryWeapon = (rightBumper > 0f);
-                    useSecondaryWeapon = (leftBumper > 0f);
+                    float rightTrigger = Input.GetAxis(Utils.getControlForPlayer(Control.RightTrigger, player.gamepadNumber));
+                    float leftTrigger = Input.GetAxis(Utils.getControlForPlayer(Control.LeftTrigger, player.gamepadNumber));
+                    usePrimaryWeapon = (rightTrigger > 0f);
+                    useSecondaryWeapon = (leftTrigger > 0f);
                     break;
                 default:
                     break;
@@ -217,6 +217,7 @@ namespace SupHero.Components {
                 if (isWeaponActive(inventory.primary)) {
                     animator.SetBool(State.STEADY, true);
                     if (inventory.primary.canUseWeapon()) animator.SetBool(State.TRIGGER, true);
+                    else animator.SetBool(State.TRIGGER, false);
                 }
                 else {
                     animator.SetBool(State.SECONDARY, false);
@@ -229,6 +230,7 @@ namespace SupHero.Components {
                 if (isWeaponActive(inventory.secondary)) {
                     animator.SetBool(State.STEADY, true);
                     if (inventory.secondary.canUseWeapon()) animator.SetBool(State.TRIGGER, true);
+                    else animator.SetBool(State.TRIGGER, false);
                 }
                 else {
                     animator.SetBool(State.PRIMARY, false);
@@ -258,13 +260,13 @@ namespace SupHero.Components {
             float h, v;
             switch (player.inputType) {
                 case InputType.KEYBOARD:
-                    h = Input.GetAxis("Horizontal");
-                    v = Input.GetAxis("Vertical");
+                    h = Input.GetAxis(Control.Horizontal);
+                    v = Input.GetAxis(Control.Vertical);
                     movement = new Vector3(h, 0f, v);
                     break;
                 case InputType.GAMEPAD:
-                    h = Input.GetAxis(Utils.getControlForPlayer("LeftStickX", player.gamepadNumber));
-                    v = Input.GetAxis(Utils.getControlForPlayer("LeftStickY", player.gamepadNumber));
+                    h = Input.GetAxis(Utils.getControlForPlayer(Control.LeftStickX, player.gamepadNumber));
+                    v = Input.GetAxis(Utils.getControlForPlayer(Control.LeftStickY, player.gamepadNumber));
                     movement = new Vector3(h, 0f, v);
                     break;
                 default:
@@ -278,8 +280,8 @@ namespace SupHero.Components {
             Vector3 rotation = Vector3.zero;
             switch (player.inputType) {
                 case InputType.GAMEPAD:
-                    float x = Input.GetAxis(Utils.getControlForPlayer("RightStickX", player.gamepadNumber));
-                    float z = Input.GetAxis(Utils.getControlForPlayer("RightStickY", player.gamepadNumber));
+                    float x = Input.GetAxis(Utils.getControlForPlayer(Control.RightStickX, player.gamepadNumber));
+                    float z = Input.GetAxis(Utils.getControlForPlayer(Control.RightStickY, player.gamepadNumber));
                     if (x != 0f && z != 0f) {
                         rotation = new Vector3(x, 0f, z);
                     }

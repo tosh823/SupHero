@@ -9,16 +9,20 @@ namespace SupHero.Components {
         private LineRenderer lazer;
         private Ray shootRay;
         private RaycastHit shootHit;
-        private AudioSource shotSound;
 
         public override void Start() {
             base.Start();
             lazer = GetComponentInChildren<LineRenderer>();
-            shotSound = GetComponent<AudioSource>();
         }
 
         public override void Update() {
             base.Update();
+        }
+
+        public override bool canUseWeapon() {
+            bool haveAmmo = (ammo > 0);
+            if (!haveAmmo) reload();
+            return (haveAmmo && base.canUseWeapon());
         }
 
         protected override void trigger() {
@@ -43,7 +47,8 @@ namespace SupHero.Components {
                 }
             }
 
-            shotSound.Play();
+            playTriggerSound();
+            ammo--;
 
             Invoke(Utils.getActionName(disableEffects), 0.05f);
         }

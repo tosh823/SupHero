@@ -26,6 +26,13 @@ namespace SupHero {
         // World charasterics
         public static int numberOfZones = 5;
 
+        public static float reloadTime = 3f;
+
+        public static int capacityLow = 1;
+        public static int capacityMedium = 10;
+        public static int capacityHigh = 30;
+        public static int capacityUnlimited = int.MaxValue;
+
         public static float damageLow = 5;
         public static float damageMedium = 10;
         public static float damageHigh = 20;

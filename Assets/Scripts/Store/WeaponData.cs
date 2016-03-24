@@ -11,6 +11,11 @@ namespace SupHero {
         SLOWDOWN
     }
 
+    public enum WeaponSlot {
+        PRIMARY,
+        SECONDARY
+    }
+
     [System.Serializable]
     public struct EffectData {
         public string name;
@@ -25,15 +30,21 @@ namespace SupHero {
         public int id;
         public string name = "New weapon";
         public string description = "Default weapon description";
+        public WeaponSlot slot;
+
+        public GameObject prefab;
 
         public float damage = Constants.damageMedium;
         public float rate = Constants.rateNormal;
         public float range = Constants.rangeShort;
+        public int ammo = Constants.capacityMedium;
+        public float reloadTime = Constants.reloadTime;
 
         public bool hasEffect = false;
         public EffectData effect;
 
-        public GameObject weaponPrefab;
+        public AudioClip triggerSound;
+        public AudioClip reloadSound;
 
         public WeaponData() {
 

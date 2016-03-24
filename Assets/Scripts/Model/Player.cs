@@ -13,12 +13,12 @@ namespace SupHero.Model {
     [System.Serializable]
     public abstract class Player {
 
-        public float armor { get; protected set; }
-        public float health { get; protected set; }
-        public float speed { get; protected set; }
-        public bool isAlive { get; protected set; }
-        public int points { get; protected set; }
-        public int number { get; protected set; }
+        public float armor { get; set; }
+        public float health { get; set; }
+        public float speed { get; set; }
+        public bool isAlive { get; set; }
+        public int points { get; set; }
+        public int number { get; set; }
         public int primaryId { get; set; }
         public int secondaryId { get; set; }
 
@@ -46,14 +46,14 @@ namespace SupHero.Model {
             points += amount;
         }
 
-        public virtual DamageResult takeDamage(float damage) {
+        public virtual DamageResult receiveDamage(float damage) {
             // If have armor, make it take dmg on it
             if (armor > 0) {
                 // If damage is too high, take the rest to your body
                 if (damage >= armor) {
                     float rest = damage - armor;
                     armor = 0;
-                    return takeDamage(rest);
+                    return receiveDamage(rest);
                 }
                 else {
                     armor -= damage;

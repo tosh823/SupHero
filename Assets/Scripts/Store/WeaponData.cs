@@ -12,7 +12,8 @@ namespace SupHero {
     }
 
     [System.Serializable]
-    public struct Effect {
+    public struct EffectData {
+        public string name;
         public EffectType type;
         public float value;
         public float duration;
@@ -30,7 +31,7 @@ namespace SupHero {
         public float range = Constants.rangeShort;
 
         public bool hasEffect = false;
-        public Effect effect;
+        public EffectData effect;
 
         public GameObject weaponPrefab;
 

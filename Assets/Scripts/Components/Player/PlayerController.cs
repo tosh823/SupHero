@@ -50,6 +50,7 @@ namespace SupHero.Components {
             inventory.setupWeapons();
         }
 
+        // In update we read input and check state of the player
         void Update() {
             if (player.isAlive && transform.position.y >= -10f) {
                 if (!player.isStunned) {
@@ -66,6 +67,7 @@ namespace SupHero.Components {
             }
         }
 
+        // In fixed update we apply motion and rotaion
         void FixedUpdate() {
             // Moving
             if (moveVector != null && moveVector != Vector3.zero) {
@@ -108,22 +110,26 @@ namespace SupHero.Components {
             }
         }
 
+        // Draw primary weapon from inventory
         public void drawPrimary() {
             hideWeapon(inventory.secondary);
             inventory.primary.gameObject.SetActive(true);
         }
 
+        // Draw secondary weapon from inventory
         public void drawSecondary() {
             hideWeapon(inventory.primary);
             inventory.secondary.gameObject.SetActive(true);
         }
 
+        // Hide weapon
         public void hideWeapon(WeaponController weapon) {
             if (weapon != null && weapon.gameObject.activeInHierarchy) {
                 weapon.gameObject.SetActive(false);
             }
         }
 
+        // Is weapon currenlty held in hands
         public bool isWeaponActive(WeaponController weapon) {
             if (weapon != null && weapon.gameObject.activeInHierarchy) {
                 return true;
@@ -131,31 +137,32 @@ namespace SupHero.Components {
             else return false;
         }
 
+        // Receive damage
         public DamageResult receiveDamage(float damage) {
             if (OnDamageReceived != null) {
                 OnDamageReceived();
             }
-            return player.takeDamage(damage);
+            return player.receiveDamage(damage);
         }
 
-        public void applyEffect(Effect effect) {
+        // Apply effect
+        public void applyEffect(EffectData effect) {
             switch (effect.type) {
                 case EffectType.FIRE:
+                    FireEffect fire = gameObject.AddComponent<FireEffect>();
+                    fire.effect = effect;
                     break;
                 case EffectType.POISON:
+                    PoisonEffect poison = gameObject.AddComponent<PoisonEffect>();
+                    poison.effect = effect;
                     break;
                 case EffectType.SLOWDOWN:
+                    SlowdownEffect slow = gameObject.AddComponent<SlowdownEffect>();
+                    slow.effect = effect;
                     break;
                 case EffectType.STUN:
-                    Timer timer = gameObject.AddComponent<Timer>();
-                    timer.time = effect.duration;
-                    timer.OnStart += delegate () {
-                        player.isStunned = true;
-                    };
-                    timer.OnEnd += delegate () {
-                        player.isStunned = false;
-                    };
-                    timer.launch();
+                    StunEffect stun = gameObject.AddComponent<StunEffect>();
+                    stun.effect = effect;
                     break;
                 default:
                     break;

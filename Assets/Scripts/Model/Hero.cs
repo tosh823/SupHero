@@ -42,7 +42,7 @@ namespace SupHero.Model {
             setupDefaultProperties();
         }
 
-        public override DamageResult takeDamage(float damage) {
+        public override DamageResult receiveDamage(float damage) {
             // If have shield active, make it take dmg on it
             haveTakenDamage = true;
             if (shield > 0) {
@@ -50,7 +50,7 @@ namespace SupHero.Model {
                 if (damage >= shield) {
                     float rest = damage - shield;
                     shield = 0;
-                    return takeDamage(rest);
+                    return receiveDamage(rest);
                 }
                 else {
                     shield -= damage;
@@ -59,7 +59,7 @@ namespace SupHero.Model {
             }
             // Else take damage as normal
             else {
-                return base.takeDamage(damage);
+                return base.receiveDamage(damage);
             }
         }
 

@@ -37,14 +37,17 @@ namespace SupHero {
                 string path = EditorPrefs.GetString("SettingsPath");
                 settingsDB = AssetDatabase.LoadAssetAtPath<SettingsDatabase>(path);
             }
+            else settingsDB = AssetDatabase.LoadAssetAtPath<SettingsDatabase>("Assets/Data/SettingsDB.asset");
             if (EditorPrefs.HasKey("ItemsPath")) {
                 string path = EditorPrefs.GetString("ItemsPath");
                 itemDB = AssetDatabase.LoadAssetAtPath<ItemDatabase>(path);
             }
+            else itemDB = AssetDatabase.LoadAssetAtPath<ItemDatabase>("Assets/Data/ItemDB.asset");
             if (EditorPrefs.HasKey("WeaponsPath")) {
                 string path = EditorPrefs.GetString("WeaponsPath");
                 weaponDB = AssetDatabase.LoadAssetAtPath<WeaponDatabase>(path);
             }
+            else weaponDB = AssetDatabase.LoadAssetAtPath<WeaponDatabase>("Assets/Data/WeaponDB.asset");
         }
 
         void OnGUI() {
@@ -176,6 +179,13 @@ namespace SupHero {
                             weaponDB.getWeaponAtIndex(dbIndex).damage = EditorGUILayout.FloatField("Weapon Damage", weaponDB.getWeaponAtIndex(dbIndex).damage);
                             weaponDB.getWeaponAtIndex(dbIndex).rate = EditorGUILayout.FloatField("Weapon Rate", weaponDB.getWeaponAtIndex(dbIndex).rate);
                             weaponDB.getWeaponAtIndex(dbIndex).range = EditorGUILayout.FloatField("Weapon Range", weaponDB.getWeaponAtIndex(dbIndex).range);
+                            weaponDB.getWeaponAtIndex(dbIndex).hasEffect = EditorGUILayout.Toggle("Weapon Range", weaponDB.getWeaponAtIndex(dbIndex).hasEffect);
+                            if (weaponDB.getWeaponAtIndex(dbIndex).hasEffect) {
+                                weaponDB.getWeaponAtIndex(dbIndex).effect.name = EditorGUILayout.TextField("Effect Name", weaponDB.getWeaponAtIndex(dbIndex).effect.name as string);
+                                weaponDB.getWeaponAtIndex(dbIndex).effect.type = (EffectType) EditorGUILayout.EnumPopup("Effect Type", weaponDB.getWeaponAtIndex(dbIndex).effect.type);  
+                                weaponDB.getWeaponAtIndex(dbIndex).effect.duration = EditorGUILayout.FloatField("Effect Duration", weaponDB.getWeaponAtIndex(dbIndex).effect.duration);
+                                weaponDB.getWeaponAtIndex(dbIndex).effect.value = EditorGUILayout.FloatField("Effect Value", weaponDB.getWeaponAtIndex(dbIndex).effect.value);
+                            }
                             weaponDB.getWeaponAtIndex(dbIndex).weaponPrefab = EditorGUILayout.ObjectField("Weapon Prefab", weaponDB.getWeaponAtIndex(dbIndex).weaponPrefab, typeof(GameObject), true) as GameObject;
                             GUILayout.Space(10);
                         }

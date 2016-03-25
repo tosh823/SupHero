@@ -1,7 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using SupHero;
-using SupHero.Model;
 
 namespace SupHero.Components {
     public class WeaponController : MonoBehaviour {
@@ -11,8 +8,8 @@ namespace SupHero.Components {
         public bool reloading; // Do we reloading weapon now?
 
         protected PlayerController owner; // Player-owner
-        protected float timeBetweenUsage; // timer to handle rate of usage
         protected AudioSource audioSource; // AudioSource attached to the weapon
+        protected float timeBetweenUsage; // timer to handle rate of usage
 
         public virtual void Start() {
             owner = GetComponentInParent<PlayerController>();
@@ -46,7 +43,7 @@ namespace SupHero.Components {
         }
 
         protected virtual void trigger() {
-            // Overdrive this method in childred
+            // Overdrive this method in children
             // to add custom behavior on using
 
             // ATTENTION: Assuming all checks
@@ -64,24 +61,27 @@ namespace SupHero.Components {
                 reload.OnEnd += delegate () {
                     ammo = weapon.ammo;
                     reloading = false;
+                    audioSource.Stop();
                 };
                 reload.launch();
                 playReloadSound();
             }
         }
 
-        protected virtual void playTriggerSound() {
-            if (weapon.triggerSound != null) {
-                audioSource.clip = weapon.triggerSound;
+        protected virtual void playSound(AudioClip sound, bool inLoop = false) {
+            if (sound != null) {
+                audioSource.clip = sound;
+                audioSource.loop = inLoop;
                 audioSource.Play();
             }
         }
 
+        protected virtual void playTriggerSound() {
+            playSound(weapon.triggerSound);
+        }
+
         protected virtual void playReloadSound() {
-            if (weapon.reloadSound != null) {
-                audioSource.clip = weapon.reloadSound;
-                audioSource.Play();
-            }
+            playSound(weapon.reloadSound, true);
         }
     }
 }

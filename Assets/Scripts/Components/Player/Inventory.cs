@@ -7,12 +7,20 @@ namespace SupHero.Components {
 
     public class Inventory : MonoBehaviour {
 
+        // InGame weapon representation
         public GameObject weaponPlacement;
         public GameObject primaryPrefab; // For adjusting models
         public GameObject secondaryPrefab; // For adjusting models
 
         public WeaponController primary { get; private set; }
         public WeaponController secondary { get; private set; }
+
+        // InGame item representation
+        public GameObject firstItemPrefab;
+        public GameObject secondItemPrefab;
+
+        public ItemController firstItem { get; private set; }
+        public ItemController secondItem { get; private set; }
 
         private PlayerController owner;
 
@@ -36,6 +44,7 @@ namespace SupHero.Components {
             primary.weapon = primaryData;
             primaryInstance.SetActive(false);
 
+            // Secondary weapon
             int secondaryId = owner.player.secondaryId;
             WeaponData secondaryData = Data.Instance.getWeaponById(secondaryId);
             if (secondaryPrefab == null) secondaryPrefab = secondaryData.prefab;
@@ -45,6 +54,10 @@ namespace SupHero.Components {
             secondary = secondaryInstance.GetComponent<WeaponController>();
             secondary.weapon = secondaryData;
             secondaryInstance.SetActive(false);
+        }
+
+        public void setupItems() {
+
         }
         
     }

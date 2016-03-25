@@ -48,6 +48,7 @@ namespace SupHero.Components {
             zone = GetComponentInParent<ZoneController>();
             inventory = GetComponent<Inventory>();
             inventory.setupWeapons();
+            inventory.setupItems();
         }
 
         // In update we read input and check state of the player

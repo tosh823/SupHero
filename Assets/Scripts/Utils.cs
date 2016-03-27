@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System;
-using System.Collections;
+using System.Collections.Generic;
 
 
 namespace SupHero {
@@ -19,6 +19,19 @@ namespace SupHero {
 
         public static string getActionName(Action action) {
             return action.Method.Name;
+        }
+
+        public static bool feelLucky(float probability) {
+            float luck = UnityEngine.Random.value;
+            if (luck < probability) return true;
+            else return false;
+        }
+
+        public static T getRandomElement<T>(List<T> list) {
+            float rand = UnityEngine.Random.Range(0f, list.Count);
+            int item = Mathf.FloorToInt(rand);
+            if (item == list.Count) item--;
+            return list[item];
         }
 
     }

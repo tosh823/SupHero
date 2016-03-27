@@ -1,24 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
 using SupHero.Model;
 
 namespace SupHero.Components {
     public class ZoneController : MonoBehaviour {
         
-        // Prefabs for instantiating
-
+        // Store
         public List<GameObject> players;
 
         private Spawner spawner;
+        private Constructor constructor;
 
         void Awake() {
             spawner = GetComponent<Spawner>();
+            constructor = GetComponent<Constructor>();
         }
 
         void Start() {
             if (LevelController.Instance != null) {
+                constructor.createRoute(7);
                 spawnPlayers(LevelController.Instance.level.players);
             }
         }

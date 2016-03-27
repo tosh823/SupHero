@@ -8,5 +8,6 @@ namespace SupHero {
         public static string TransferZone = "TransferZone";
         public static string Cover = "Cover";
         public static string Data = "Data";
+        public static string Surface = "Surface";
     }
 }

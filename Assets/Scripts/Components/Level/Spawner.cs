@@ -16,7 +16,7 @@ namespace SupHero.Components {
 
         void Awake() {
             zoneController = GetComponent<ZoneController>();
-            surfaceBounds = GameObject.FindGameObjectWithTag("Surface").GetComponent<Collider>().bounds;
+            surfaceBounds = GameObject.FindGameObjectWithTag(Tags.Surface).GetComponent<Collider>().bounds;
         }
 
         void Start() {

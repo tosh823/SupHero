@@ -59,18 +59,16 @@ namespace SupHero.Components {
 
         public void newTurn() {
             if (level.changeRoles()) {
-                Debug.Log("Change roles!");
                 transferToZone();
                 timer = gameObject.AddComponent<Timer>();
                 timer.time = data.mainSettings.turnTime;
                 timer.OnTick += updateTimer;
                 timer.OnEnd += newTurn;
                 timer.launch();
+                HUD.showMessage("New Turn!", 1f);
             }
             else {
                 // Go to reward section
-                //timer.OnTick -= updateTimer;
-                //timer.OnEnd -= newTurn;
             }
         }
 

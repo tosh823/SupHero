@@ -17,6 +17,7 @@ namespace SupHero.Components {
         public GameObject timerPrefab;
         public GameObject playerUIPrefabLeft;
         public GameObject playerUIPrefabRight;
+        public GameObject popUpPrefab;
 
         private RectTransform rectTransform;
         private GameObject timerInstance;
@@ -29,12 +30,14 @@ namespace SupHero.Components {
             timerInstance.transform.SetParent(transform, false);
         }
 
-        void Update() {
-            
-        }
-
         public void updateTimer(float time) {
             timerInstance.GetComponent<TimerController>().updateTimer(getTime(time));
+        }
+
+        public void showMessage(string message, float fadeOut = 2f) {
+            GameObject popup = Instantiate(popUpPrefab);
+            popup.transform.SetParent(transform, false);
+            popup.GetComponent<PopUpMessage>().showWithMessage(message, fadeOut);
         }
 
         private string getTime(float time) {

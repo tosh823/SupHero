@@ -49,6 +49,7 @@ namespace SupHero.Components {
             inventory = GetComponent<Inventory>();
             inventory.setupWeapons();
             inventory.setupItems();
+            drawPrimary();
         }
 
         // In update we read input and check state of the player
@@ -72,30 +73,36 @@ namespace SupHero.Components {
         void FixedUpdate() {
             // Moving
             if (moveVector != null && moveVector != Vector3.zero) {
-                // For moving relative to camera
                 animator.SetBool(State.MOVING, true);
+                // For animation accordingly to look orientation
                 float verticalRelative;
-                if (moveVector.normalized.z != 0f) {
-                    verticalRelative = transform.forward.z - moveVector.normalized.z;
+                if (moveVector.z > 0f) {
+                    if (transform.forward.z > 0f) verticalRelative = moveVector.z;
+                    else verticalRelative = -moveVector.z;
                 }
                 else {
-                    verticalRelative = moveVector.normalized.z;
-                } 
+                    if (transform.forward.z < 0f) verticalRelative = -moveVector.z;
+                    else verticalRelative = moveVector.z;
+                }
+
                 float horizontalRelative;
-                if (moveVector.normalized.x != 0f) {
-                    horizontalRelative = transform.right.x - moveVector.normalized.x;
+                if (moveVector.x > 0f) {
+                    if (transform.right.x > 0f) horizontalRelative = moveVector.x;
+                    else horizontalRelative = -moveVector.x;
                 }
                 else {
-                    horizontalRelative = moveVector.normalized.x;
+                    if (transform.right.x < 0f) horizontalRelative = -moveVector.x;
+                    else horizontalRelative = moveVector.x;
                 }
                 animator.SetFloat(State.VERT, verticalRelative);
                 animator.SetFloat(State.HOR, horizontalRelative);
-
+                // For moving relative to camera
                 Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
                 forward.y = 0f;
                 forward = forward.normalized;
                 Vector3 right = new Vector3(forward.z, 0f, -forward.x);
                 moveVector = (moveVector.x * right + moveVector.z * forward);
+                // Finally, moving!
                 moveVector = moveVector.normalized * player.speed * Time.deltaTime;
                 playerRigidbody.MovePosition(transform.position + moveVector);
             }

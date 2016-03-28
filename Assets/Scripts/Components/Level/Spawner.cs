@@ -36,7 +36,7 @@ namespace SupHero.Components {
                 zoneController.removePlayer(existing);
             }
             // Creating new player object
-            GameObject pawn = createPlayerGameObject();
+            GameObject pawn = createPlayerGameObject(player);
             Vector3 spawnPosition = Vector3.zero;
             if (player is Hero) {
                 // Hero always spawns in the beginning
@@ -52,8 +52,11 @@ namespace SupHero.Components {
             return pawn;  
         }
 
-        private GameObject createPlayerGameObject() {
-            GameObject pawn = Instantiate(playerPrefab) as GameObject;
+        private GameObject createPlayerGameObject(Player player) {
+            GameObject prefab;
+            if (player is Hero) prefab = Data.Instance.mainSettings.heroPrefab;
+            else prefab = Data.Instance.mainSettings.guardPrefab;
+            GameObject pawn = Instantiate(prefab) as GameObject;
             pawn.transform.SetParent(transform);
             return pawn;
         }

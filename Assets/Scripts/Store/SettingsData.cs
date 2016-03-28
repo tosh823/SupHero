@@ -21,10 +21,12 @@ namespace SupHero {
         public float heroShield = 500;
         public float heroSpeed = 6;
         public float shieldReplenishTime = 10;
+        public GameObject heroPrefab;
 
         // Guard
         public float guardHealth = 50;
         public float guardArmor = 100;
         public float guardSpeed = 8;
+        public GameObject guardPrefab;
     }
 }

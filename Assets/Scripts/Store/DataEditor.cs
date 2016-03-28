@@ -121,11 +121,13 @@ namespace SupHero {
                             settingsDB.getSettingsAtIndex(dbIndex).heroShield = EditorGUILayout.FloatField("Hero shield", settingsDB.getSettingsAtIndex(dbIndex).heroShield);
                             settingsDB.getSettingsAtIndex(dbIndex).shieldReplenishTime = EditorGUILayout.FloatField("Shield replenish time", settingsDB.getSettingsAtIndex(dbIndex).shieldReplenishTime);
                             settingsDB.getSettingsAtIndex(dbIndex).heroSpeed = EditorGUILayout.FloatField("Hero speed", settingsDB.getSettingsAtIndex(dbIndex).heroSpeed);
+                            settingsDB.getSettingsAtIndex(dbIndex).heroPrefab = EditorGUILayout.ObjectField("Hero prefab", settingsDB.getSettingsAtIndex(dbIndex).heroPrefab, typeof(GameObject), true) as GameObject;
                             GUILayout.Space(20);
                             GUILayout.Label("Default guard settings");
                             settingsDB.getSettingsAtIndex(dbIndex).guardHealth = EditorGUILayout.FloatField("Guard health", settingsDB.getSettingsAtIndex(dbIndex).guardHealth);
                             settingsDB.getSettingsAtIndex(dbIndex).guardArmor = EditorGUILayout.FloatField("Guard armor", settingsDB.getSettingsAtIndex(dbIndex).guardArmor);
                             settingsDB.getSettingsAtIndex(dbIndex).guardSpeed = EditorGUILayout.FloatField("Guard speed", settingsDB.getSettingsAtIndex(dbIndex).guardSpeed);
+                            settingsDB.getSettingsAtIndex(dbIndex).guardPrefab = EditorGUILayout.ObjectField("Guard prefab", settingsDB.getSettingsAtIndex(dbIndex).guardPrefab, typeof(GameObject), true) as GameObject;
                             GUILayout.Space(10);
                         }
                         else {

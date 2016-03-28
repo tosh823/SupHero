@@ -100,6 +100,8 @@ namespace SupHero.Components {
                 playerRigidbody.MovePosition(transform.position + moveVector);
             }
             else {
+                animator.SetFloat(State.VERT, 0f);
+                animator.SetFloat(State.HOR, 0f);
                 animator.SetBool(State.MOVING, false);
             }
             // Turning

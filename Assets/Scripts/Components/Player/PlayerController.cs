@@ -65,7 +65,8 @@ namespace SupHero.Components {
                 }
             }
             else {
-                die();
+                //die();
+                animator.SetTrigger("die");
             }
         }
 

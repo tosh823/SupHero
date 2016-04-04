@@ -11,12 +11,14 @@ namespace SupHero {
             NOTHING,
             SETTINGS,
             WEAPONS,
-            ITEMS
+            ITEMS,
+            ENVIRONMENTS
         }
 
         public WeaponDatabase weaponDB;
         public ItemDatabase itemDB;
         public SettingsDatabase settingsDB;
+        public EnvironmentDatabase envDB;
         public string dir;
 
         private int viewIndex;
@@ -38,16 +40,24 @@ namespace SupHero {
                 settingsDB = AssetDatabase.LoadAssetAtPath<SettingsDatabase>(path);
             }
             else settingsDB = AssetDatabase.LoadAssetAtPath<SettingsDatabase>("Assets/Data/SettingsDB.asset");
+
             if (EditorPrefs.HasKey("ItemsPath")) {
                 string path = EditorPrefs.GetString("ItemsPath");
                 itemDB = AssetDatabase.LoadAssetAtPath<ItemDatabase>(path);
             }
             else itemDB = AssetDatabase.LoadAssetAtPath<ItemDatabase>("Assets/Data/ItemDB.asset");
+
             if (EditorPrefs.HasKey("WeaponsPath")) {
                 string path = EditorPrefs.GetString("WeaponsPath");
                 weaponDB = AssetDatabase.LoadAssetAtPath<WeaponDatabase>(path);
             }
             else weaponDB = AssetDatabase.LoadAssetAtPath<WeaponDatabase>("Assets/Data/WeaponDB.asset");
+
+            if (EditorPrefs.HasKey("EnvPath")) {
+                string path = EditorPrefs.GetString("EnvPath");
+                envDB = AssetDatabase.LoadAssetAtPath<EnvironmentDatabase>(path);
+            }
+            else envDB = AssetDatabase.LoadAssetAtPath<EnvironmentDatabase>("Assets/Data/EnvDB.asset");
         }
 
         void OnGUI() {
@@ -67,6 +77,11 @@ namespace SupHero {
                 EditorUtility.FocusProjectWindow();
                 Selection.activeObject = itemDB;
                 toShow = SHOW.ITEMS;
+            }
+            if (GUILayout.Button("Env DB", GUILayout.ExpandWidth(false))) {
+                EditorUtility.FocusProjectWindow();
+                Selection.activeObject = envDB;
+                toShow = SHOW.ENVIRONMENTS;
             }
             GUILayout.EndVertical();
 
@@ -251,6 +266,54 @@ namespace SupHero {
                         }
                     }
                     break;
+                case SHOW.ENVIRONMENTS:
+                    if (envDB == null) {
+                        GUILayout.BeginHorizontal();
+                        GUILayout.Space(10);
+                        if (GUILayout.Button("Create New Env List", GUILayout.ExpandWidth(false))) {
+                            createNewEnvDB();
+                        }
+                        GUILayout.EndHorizontal();
+                    }
+                    GUILayout.Space(20);
+                    if (envDB != null) {
+                        GUILayout.BeginHorizontal();
+                        GUILayout.Space(10);
+                        if (GUILayout.Button("Prev", GUILayout.ExpandWidth(false))) {
+                            if (viewIndex > 1)
+                                viewIndex--;
+                        }
+                        GUILayout.Space(5);
+                        if (GUILayout.Button("Next", GUILayout.ExpandWidth(false))) {
+                            if (viewIndex < envDB.environments.Count) {
+                                viewIndex++;
+                            }
+                        }
+                        GUILayout.Space(60);
+                        if (GUILayout.Button("Add Environment", GUILayout.ExpandWidth(false))) {
+                            envDB.add();
+                            viewIndex = envDB.environments.Count;
+                        }
+                        if (GUILayout.Button("Delete Environment", GUILayout.ExpandWidth(false))) {
+                            envDB.removeEnvAtIndex(viewIndex - 1);
+                            viewIndex = envDB.environments.Count;
+                        }
+                        GUILayout.EndHorizontal();
+                        if (envDB.environments.Count > 0) {
+                            GUILayout.BeginHorizontal();
+                            viewIndex = Mathf.Clamp(EditorGUILayout.IntField("Current Item", viewIndex, GUILayout.ExpandWidth(false)), 1, envDB.environments.Count);
+                            EditorGUILayout.LabelField("of   " + envDB.environments.Count.ToString() + "  items", "", GUILayout.ExpandWidth(false));
+                            GUILayout.EndHorizontal();
+                            int dbIndex = viewIndex - 1;
+                            envDB.getEnvAtIndex(dbIndex).theme = (Theme)EditorGUILayout.EnumPopup("Theme", envDB.getEnvAtIndex(dbIndex).theme);
+                            GUILayout.Label("Setup covers and interior in the right panel");
+                            GUILayout.Space(10);
+                        }
+                        else {
+                            GUILayout.Label("The environment list is empty");
+                        }
+                    }
+                    break;
                 case SHOW.NOTHING:
                     GUILayout.Label("Press on content button you want to edit");
                     break;
@@ -261,6 +324,7 @@ namespace SupHero {
                 if (weaponDB != null) EditorUtility.SetDirty(weaponDB);
                 if (itemDB != null) EditorUtility.SetDirty(itemDB);
                 if (settingsDB != null) EditorUtility.SetDirty(settingsDB);
+                if (envDB != null) EditorUtility.SetDirty(envDB);
             }
         }
 
@@ -279,6 +343,21 @@ namespace SupHero {
                 EditorPrefs.SetString("WeaponsPath", relPath);
                 EditorUtility.FocusProjectWindow();
                 Selection.activeObject = weaponDB;
+            }
+        }
+
+        void createNewEnvDB() {
+            viewIndex = 1;
+            envDB = CreateInstance<EnvironmentDatabase>();
+            string destintation = dir + "EnvDB.asset";
+            AssetDatabase.CreateAsset(envDB, destintation);
+            AssetDatabase.SaveAssets();
+            if (envDB) {
+                envDB.environments = new List<EnvironmentData>();
+                string relPath = AssetDatabase.GetAssetPath(envDB);
+                EditorPrefs.SetString("EnvPath", relPath);
+                EditorUtility.FocusProjectWindow();
+                Selection.activeObject = envDB;
             }
         }
 

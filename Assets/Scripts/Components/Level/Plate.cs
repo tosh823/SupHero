@@ -34,6 +34,10 @@ namespace SupHero.Components {
         public Connector eastConnector;
         public Connector southConnector;
         public Connector westConnector;
+        public GameObject covers;
+        public GameObject interior;
+
+        private Bounds bounds;
         
         void Awake() {
             northConnector = new Connector(Side.NORTH, north, true);
@@ -43,11 +47,43 @@ namespace SupHero.Components {
         }
 
         void Start() {
-
+            bounds = GetComponent<Collider>().bounds;
+            generateObjects(Theme.FOREST);
         }
 
         void Update() {
 
+        }
+
+        void generateObjects(Theme theme) {
+            EnvironmentData data = Data.Instance.getEnvByTheme(theme);
+            // Interior
+            for (int i = 0; i < 7; i++) {
+                GameObject instance = Instantiate(Utils.getRandomElement<GameObject>(data.interior)) as GameObject;
+                //Random.InitState(i);
+                float xPos = Random.Range(bounds.min.x, bounds.max.x);
+                float zPos = Random.Range(bounds.min.z, bounds.max.z);
+                Vector3 pos = new Vector3(xPos, instance.transform.position.y, zPos);
+                instance.transform.SetParent(interior.transform);
+                instance.transform.position = pos;
+            }
+            // Covers
+            for (int i = 0; i < 7; i++) {
+                GameObject instance = Instantiate(Utils.getRandomElement<GameObject>(data.covers)) as GameObject;
+                //Random.InitState(i);
+                float xPos = Random.Range(bounds.min.x, bounds.max.x);
+                float zPos = Random.Range(bounds.min.z, bounds.max.z);
+                Vector3 pos = new Vector3(xPos, instance.transform.position.y, zPos);
+                instance.transform.SetParent(covers.transform);
+                instance.transform.position = pos;
+            }
+        }
+
+        void OnTriggerEnter(Collider other) {
+            Transform incoming = other.gameObject.transform;
+            if (incoming.CompareTag(Tags.Player)) {
+                // Player came to this plate
+            }
         }
 
         public List<Connector> getFreeConnectors() {

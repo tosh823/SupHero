@@ -6,6 +6,7 @@ namespace SupHero {
         public static Data Instance = null;
         public WeaponDatabase weaponsDB;
         public ItemDatabase itemsDB;
+        public EnvironmentDatabase envDB;
         public SettingsDatabase settings;
         public SettingsData mainSettings {
             get {
@@ -32,6 +33,11 @@ namespace SupHero {
                 }
             }
             return null;
+        }
+
+        public EnvironmentData getEnvByTheme(Theme theme) {
+            EnvironmentData data = envDB.environments.Find(x => x.theme == theme);
+            return data;
         }
 
         public ItemData getItemById(int id) {

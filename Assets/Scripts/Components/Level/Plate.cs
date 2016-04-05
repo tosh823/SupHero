@@ -30,6 +30,8 @@ namespace SupHero.Components {
         public GameObject south;
         public GameObject west;
 
+        public bool generateView = true;
+
         public Connector northConnector;
         public Connector eastConnector;
         public Connector southConnector;
@@ -52,7 +54,7 @@ namespace SupHero.Components {
 
         void Start() {
             bounds = GetComponent<Collider>().bounds;
-            generateObjects(Theme.FOREST);
+            if (generateView) generateObjects(Theme.FOREST);
         }
 
         void Update() {

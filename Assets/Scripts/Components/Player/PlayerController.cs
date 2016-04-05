@@ -125,12 +125,14 @@ namespace SupHero.Components {
         public void drawPrimary() {
             hideWeapon(inventory.secondary);
             inventory.primary.gameObject.SetActive(true);
+            animator.runtimeAnimatorController = inventory.primary.weapon.controller;
         }
 
         // Draw secondary weapon from inventory
         public void drawSecondary() {
             hideWeapon(inventory.primary);
             inventory.secondary.gameObject.SetActive(true);
+            animator.runtimeAnimatorController = inventory.secondary.weapon.controller;
         }
 
         // Hide weapon
@@ -202,6 +204,10 @@ namespace SupHero.Components {
                 player.die();
                 OnDie(player);
             }
+        }
+
+        public void receiveDrop(Entity type, int id) {
+            inventory.processDrop(type, id);
         }
 
         // Reading weapon input

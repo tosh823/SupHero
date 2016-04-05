@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 
 namespace SupHero.Components {
-    public class Constructor : MonoBehaviour {
+    public class Map : MonoBehaviour {
 
         private ZoneController zone;
         public GameObject plate;
         public GameObject transfer;
 
-        public List<GameObject> plates;
+        public List<GameObject> plates; // All the plates
+        public Plate battleField; // Current plate where hero is
 
         void Awake() {
             zone = GetComponent<ZoneController>();
@@ -16,7 +17,6 @@ namespace SupHero.Components {
 
         void Start() {
             plates = new List<GameObject>();
-            //createRoute(6);
         }
 
         void Update() {
@@ -31,14 +31,13 @@ namespace SupHero.Components {
             plateInstance.transform.position = transform.position;
             // Shift base plate to north
             plateInstance.transform.Translate(plateInstance.GetComponent<Plate>().north.transform.localPosition);
-            // Setting south to dirty, so we won't connect to it
-            plateInstance.GetComponent<Plate>().southConnector.isFree = false;
+            // The first plate will be the first battlefield
+            battleField = plateInstance.GetComponent<Plate>();
             plates.Add(plateInstance);
             for (int index = 1; index < length; index++) {
                 // Building a maze
                 plateInstance = Instantiate(plate) as GameObject;
                 plateInstance.transform.SetParent(transform);
-
                 Plate last = plates[index - 1].GetComponent<Plate>();
                 List<Connector> free = last.getFreeConnectors();
                 // Protection from looping
@@ -67,6 +66,12 @@ namespace SupHero.Components {
                     transferInstance.transform.SetParent(transform);
                     plateInstance.GetComponent<Plate>().placeTransfer(transferInstance);
                 }
+
+                // When hero steps on this plate, made it current battlefield
+                plateInstance.GetComponent<Plate>().OnHeroCome += delegate () {
+                    battleField = plateInstance.GetComponent<Plate>();
+                };
+
                 plates.Add(plateInstance);
             }
         }

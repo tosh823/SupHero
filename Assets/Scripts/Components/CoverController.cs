@@ -1,7 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using SupHero;
-using SupHero.Model;
 
 namespace SupHero.Components {
     public class CoverController : MonoBehaviour {

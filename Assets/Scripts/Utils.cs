@@ -34,5 +34,12 @@ namespace SupHero {
             return list[item];
         }
 
+        public static T getRandomElement<T>(T[] array) {
+            float rand = UnityEngine.Random.Range(0f, array.Length);
+            int item = Mathf.FloorToInt(rand);
+            if (item == array.Length) item--;
+            return array[item];
+        }
+
     }
 }

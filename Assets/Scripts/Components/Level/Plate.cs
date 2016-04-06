@@ -30,6 +30,8 @@ namespace SupHero.Components {
         public GameObject south;
         public GameObject west;
 
+        public bool generateView = true;
+
         public Connector northConnector;
         public Connector eastConnector;
         public Connector southConnector;
@@ -38,7 +40,11 @@ namespace SupHero.Components {
         public GameObject interior;
 
         private Bounds bounds;
-        
+
+        // Events
+        public delegate void heroIncoming();
+        public event heroIncoming OnHeroCome;
+
         void Awake() {
             northConnector = new Connector(Side.NORTH, north, true);
             eastConnector = new Connector(Side.EAST, east, true);
@@ -48,41 +54,63 @@ namespace SupHero.Components {
 
         void Start() {
             bounds = GetComponent<Collider>().bounds;
-            generateObjects(Theme.FOREST);
+            if (generateView) generateObjects(Theme.FOREST);
         }
 
         void Update() {
 
         }
 
+        // Generating objects into plate here
+
         void generateObjects(Theme theme) {
             EnvironmentData data = Data.Instance.getEnvByTheme(theme);
             // Interior
             for (int i = 0; i < 7; i++) {
-                GameObject instance = Instantiate(Utils.getRandomElement<GameObject>(data.interior)) as GameObject;
+                GameObject instance = Instantiate(Utils.getRandomElement(data.interior)) as GameObject;
                 //Random.InitState(i);
-                float xPos = Random.Range(bounds.min.x, bounds.max.x);
-                float zPos = Random.Range(bounds.min.z, bounds.max.z);
+                Bounds objectBounds = instance.GetComponent<Collider>().bounds;
+                float xPos = Random.Range(bounds.min.x + objectBounds.size.x, bounds.max.x - objectBounds.size.x);
+                float zPos = Random.Range(bounds.min.z + objectBounds.size.z, bounds.max.z - objectBounds.size.z);
+                // Random location
                 Vector3 pos = new Vector3(xPos, instance.transform.position.y, zPos);
                 instance.transform.SetParent(interior.transform);
                 instance.transform.position = pos;
+                // Random rotation
+                Vector3 euler = instance.transform.eulerAngles;
+                euler.y = Random.Range(0f, 360f);
+                instance.transform.eulerAngles = euler;
             }
             // Covers
             for (int i = 0; i < 7; i++) {
-                GameObject instance = Instantiate(Utils.getRandomElement<GameObject>(data.covers)) as GameObject;
+                GameObject instance = Instantiate(Utils.getRandomElement(data.covers)) as GameObject;
                 //Random.InitState(i);
-                float xPos = Random.Range(bounds.min.x, bounds.max.x);
-                float zPos = Random.Range(bounds.min.z, bounds.max.z);
+                Bounds objectBounds = instance.GetComponent<Collider>().bounds;
+                float xPos = Random.Range(bounds.min.x + objectBounds.size.x, bounds.max.x - objectBounds.size.x);
+                float zPos = Random.Range(bounds.min.z + objectBounds.size.z, bounds.max.z - objectBounds.size.z);
+                // Random location
                 Vector3 pos = new Vector3(xPos, instance.transform.position.y, zPos);
                 instance.transform.SetParent(covers.transform);
                 instance.transform.position = pos;
+                // Random rotation
+                Vector3 euler = instance.transform.eulerAngles;
+                euler.y = Random.Range(0f, 360f);
+                instance.transform.eulerAngles = euler;
             }
+        }
+
+        public void dropItem() {
+            // Drop weapons, items and supplies here
+
         }
 
         void OnTriggerEnter(Collider other) {
             Transform incoming = other.gameObject.transform;
             if (incoming.CompareTag(Tags.Player)) {
                 // Player came to this plate
+                if (OnHeroCome != null) {
+                    OnHeroCome();
+                }
             }
         }
 

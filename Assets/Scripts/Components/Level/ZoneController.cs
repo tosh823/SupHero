@@ -10,11 +10,11 @@ namespace SupHero.Components {
         public List<GameObject> players;
 
         private Spawner spawner;
-        private Constructor constructor;
+        private Map constructor;
 
         void Awake() {
             spawner = GetComponent<Spawner>();
-            constructor = GetComponent<Constructor>();
+            constructor = GetComponent<Map>();
         }
 
         void Start() {

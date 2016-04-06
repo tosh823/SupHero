@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 
 namespace SupHero {
+
+    public enum Entity {
+        WEAPON,
+        ITEM,
+        SUPPLY
+    }
+
     public class Data : MonoBehaviour {
 
         public static Data Instance = null;

@@ -52,6 +52,10 @@ namespace SupHero.Components {
             drawPrimary();
         }
 
+        public void setAnimator(AnimatorOverrideController controller) {
+            animator.runtimeAnimatorController = controller;
+        }
+
         // In update we read input and check state of the player
         void Update() {
             if (player.isAlive && transform.position.y >= -10f) {
@@ -123,16 +127,16 @@ namespace SupHero.Components {
 
         // Draw primary weapon from inventory
         public void drawPrimary() {
-            hideWeapon(inventory.secondary);
-            inventory.primary.gameObject.SetActive(true);
-            animator.runtimeAnimatorController = inventory.primary.weapon.controller;
+            hideWeapon(inventory.secondaryWeapon);
+            animator.runtimeAnimatorController = inventory.primaryWeapon.weapon.controller;
+            inventory.primaryWeapon.gameObject.SetActive(true);
         }
 
         // Draw secondary weapon from inventory
         public void drawSecondary() {
-            hideWeapon(inventory.primary);
-            inventory.secondary.gameObject.SetActive(true);
-            animator.runtimeAnimatorController = inventory.secondary.weapon.controller;
+            animator.runtimeAnimatorController = inventory.secondaryWeapon.weapon.controller;
+            hideWeapon(inventory.primaryWeapon);
+            inventory.secondaryWeapon.gameObject.SetActive(true);
         }
 
         // Hide weapon
@@ -207,7 +211,20 @@ namespace SupHero.Components {
         }
 
         public void receiveDrop(Entity type, int id) {
-            inventory.processDrop(type, id);
+            switch (type) {
+                case Entity.WEAPON:
+                    inventory.equipWeapon(id);
+                    drawPrimary();
+                    break;
+                case Entity.ITEM:
+                    inventory.equipItem(id);
+                    break;
+                case Entity.SUPPLY:
+                    inventory.useSupply(id);
+                    break;
+                default:
+                    break;
+            }
         }
 
         // Reading weapon input
@@ -231,27 +248,23 @@ namespace SupHero.Components {
             // Attack with primary
             if (usePrimaryWeapon) {
                 // New behavior
-                if (isWeaponActive(inventory.primary)) {
+                if (isWeaponActive(inventory.primaryWeapon)) {
                     animator.SetBool(State.STEADY, true);
-                    if (inventory.primary.canUseWeapon()) animator.SetBool(State.TRIGGER, true);
+                    if (inventory.primaryWeapon.canUseWeapon()) animator.SetBool(State.TRIGGER, true);
                     else animator.SetBool(State.TRIGGER, false);
                 }
                 else {
-                    animator.SetBool(State.SECONDARY, false);
-                    animator.SetBool(State.PRIMARY, true);
                     drawPrimary();
                 }
             }
             // Attack with secondary
             else if (useSecondaryWeapon) {
-                if (isWeaponActive(inventory.secondary)) {
+                if (isWeaponActive(inventory.secondaryWeapon)) {
                     animator.SetBool(State.STEADY, true);
-                    if (inventory.secondary.canUseWeapon()) animator.SetBool(State.TRIGGER, true);
+                    if (inventory.secondaryWeapon.canUseWeapon()) animator.SetBool(State.TRIGGER, true);
                     else animator.SetBool(State.TRIGGER, false);
                 }
                 else {
-                    animator.SetBool(State.PRIMARY, false);
-                    animator.SetBool(State.SECONDARY, true);
                     drawSecondary();
                 }
             }
@@ -263,11 +276,11 @@ namespace SupHero.Components {
         }
 
         public void useWeapon() {
-            if (isWeaponActive(inventory.primary)) {
-                inventory.primary.useWeapon();
+            if (isWeaponActive(inventory.primaryWeapon)) {
+                inventory.primaryWeapon.useWeapon();
             }
-            else if (isWeaponActive(inventory.secondary)) {
-                inventory.secondary.useWeapon();
+            else if (isWeaponActive(inventory.secondaryWeapon)) {
+                inventory.secondaryWeapon.useWeapon();
             }
         }
 

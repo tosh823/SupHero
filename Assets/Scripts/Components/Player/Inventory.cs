@@ -8,16 +8,10 @@ namespace SupHero.Components {
     public class Inventory : MonoBehaviour {
 
         // InGame weapon representation
-        public GameObject weaponPlacement;
-        public GameObject primaryPrefab; // For adjusting models
-        public GameObject secondaryPrefab; // For adjusting models
+        public Transform rightHand;
 
-        public WeaponController primary { get; private set; }
-        public WeaponController secondary { get; private set; }
-
-        // InGame item representation
-        public GameObject firstItemPrefab;
-        public GameObject secondItemPrefab;
+        public WeaponController primaryWeapon { get; private set; }
+        public WeaponController secondaryWeapon { get; private set; }
 
         public ItemController firstItem { get; private set; }
         public ItemController secondItem { get; private set; }
@@ -34,26 +28,9 @@ namespace SupHero.Components {
 
         public void setupWeapons() {
             // Primary weapon
-            int primaryId = owner.player.primaryId;
-            WeaponData primaryData = Data.Instance.getWeaponById(primaryId);
-            if (primaryPrefab == null) primaryPrefab = primaryData.prefab;
-            GameObject primaryInstance = Instantiate(primaryPrefab) as GameObject;
-            primaryInstance.transform.SetParent(weaponPlacement.transform);
-            primaryInstance.transform.position = weaponPlacement.transform.position;
-            primary = primaryInstance.GetComponent<WeaponController>();
-            primary.weapon = primaryData;
-            primaryInstance.SetActive(false);
-
+            equipWeapon(owner.player.primaryId);
             // Secondary weapon
-            int secondaryId = owner.player.secondaryId;
-            WeaponData secondaryData = Data.Instance.getWeaponById(secondaryId);
-            if (secondaryPrefab == null) secondaryPrefab = secondaryData.prefab;
-            GameObject secondaryInstance = Instantiate(secondaryPrefab) as GameObject;
-            secondaryInstance.transform.SetParent(weaponPlacement.transform);
-            secondaryInstance.transform.position = weaponPlacement.transform.position;
-            secondary = secondaryInstance.GetComponent<WeaponController>();
-            secondary.weapon = secondaryData;
-            secondaryInstance.SetActive(false);
+            equipWeapon(owner.player.secondaryId);
         }
 
         public void setupItems() {
@@ -76,33 +53,38 @@ namespace SupHero.Components {
             }
         }
 
-        private void equipWeapon(int id) {
+        public void equipWeapon(int id) {
             WeaponData weaponData = Data.Instance.getWeaponById(id);
             if (weaponData != null) {
-                GameObject instance = Instantiate(weaponData.prefab) as GameObject;
-                instance.transform.SetParent(weaponPlacement.transform);
-                instance.transform.position = weaponPlacement.transform.position;
+                owner.setAnimator(weaponData.controller);
+                GameObject instance = Instantiate(weaponData.prefab, rightHand.position, Quaternion.identity) as GameObject;
+                instance.transform.SetParent(rightHand);
+                // I spent the whole 06.04.2016 of fixing fucking weapon rotation
+                // Still don't know how it works, damn you Unity
+                instance.transform.localEulerAngles = weaponData.prefab.transform.rotation.eulerAngles;
+                switch (weaponData.slot) {
+                    case WeaponSlot.PRIMARY:
+                        if (primaryWeapon != null) Destroy(primaryWeapon.gameObject);
+                        primaryWeapon = instance.GetComponent<WeaponController>();
+                        primaryWeapon.weapon = weaponData;
+                        break;
+                    case WeaponSlot.SECONDARY:
+                        if (secondaryWeapon != null) Destroy(secondaryWeapon.gameObject);
+                        secondaryWeapon = instance.GetComponent<WeaponController>();
+                        secondaryWeapon.weapon = weaponData;
+                        break;
+                    default:
+                        break;
+                }
                 instance.SetActive(false);
-                if (weaponData.slot == WeaponSlot.PRIMARY) {
-                    Destroy(primary.gameObject);
-                    primary = instance.GetComponent<WeaponController>();
-                    primary.weapon = weaponData;
-                    //owner.drawPrimary();
-                }
-                else if (weaponData.slot == WeaponSlot.SECONDARY) {
-                    Destroy(secondary.gameObject);
-                    secondary = instance.GetComponent<WeaponController>();
-                    secondary.weapon = weaponData;
-                    //owner.drawSecondary();
-                }
             }
         }
 
-        private void equipItem(int id) {
+        public void equipItem(int id) {
 
         }
 
-        private void useSupply(int id) {
+        public void useSupply(int id) {
 
         }
     }

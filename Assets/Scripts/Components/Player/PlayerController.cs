@@ -19,6 +19,7 @@ namespace SupHero.Components {
 
         // Variables
         public Player player;
+        public bool gamePadControl = false;
         
         private GameObject playerUI; // Ref to UI for this player, possibly unnessecary
         private Vector3 moveVector; // Vector for moving character
@@ -40,15 +41,19 @@ namespace SupHero.Components {
             if (player == null) {
                 // For standalone unit, like for test scene
                 player = new Hero(1);
-                player.inputType = InputType.KEYBOARD;
+                if (gamePadControl) {
+                    player.inputType = InputType.GAMEPAD;
+                    player.gamepadNumber = 1;
+                }
+                else {
+                    player.inputType = InputType.KEYBOARD;
+                }
             }
-
             playerRigidbody = GetComponent<Rigidbody>();
             animator = GetComponent<Animator>();
             zone = GetComponentInParent<ZoneController>();
             inventory = GetComponent<Inventory>();
             inventory.setupWeapons();
-            inventory.setupItems();
             drawPrimary();
         }
 
@@ -127,8 +132,8 @@ namespace SupHero.Components {
 
         // Draw primary weapon from inventory
         public void drawPrimary() {
-            hideWeapon(inventory.secondaryWeapon);
             animator.runtimeAnimatorController = inventory.primaryWeapon.weapon.controller;
+            hideWeapon(inventory.secondaryWeapon);
             inventory.primaryWeapon.gameObject.SetActive(true);
         }
 
@@ -213,8 +218,7 @@ namespace SupHero.Components {
         public void receiveDrop(Entity type, int id) {
             switch (type) {
                 case Entity.WEAPON:
-                    inventory.equipWeapon(id);
-                    drawPrimary();
+                    inventory.equipWeapon(id, true);
                     break;
                 case Entity.ITEM:
                     inventory.equipItem(id);

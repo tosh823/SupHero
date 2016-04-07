@@ -14,7 +14,7 @@ namespace SupHero {
         }
 
         public void add() {
-            ItemData item = new ItemData(items.Count - 1);
+            ItemData item = new ItemData(items.Count);
             items.Add(item);
         }
 

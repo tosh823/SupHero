@@ -14,7 +14,7 @@ namespace SupHero {
         }
 
         public void add() {
-            WeaponData weapon = new WeaponData(weapons.Count - 1);
+            WeaponData weapon = new WeaponData(weapons.Count);
             weapons.Add(weapon);
         }
 

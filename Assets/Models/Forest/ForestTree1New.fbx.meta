@@ -1,18 +1,18 @@
 fileFormatVersion: 2
-guid: 730f734242d8254438aaeacee74ed8ec
-timeCreated: 1459856162
+guid: 8facfd7cdb080a8499fc4935211ab6cd
+timeCreated: 1459958943
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: Camera
     100002: Cylinder
-    100004: Lamp
-    100006: //RootNode
+    100004: //RootNode
+    100006: Lamp
     400000: Camera
     400002: Cylinder
-    400004: Lamp
-    400006: //RootNode
+    400004: //RootNode
+    400006: Lamp
     2300000: Cylinder
     3300000: Cylinder
     4300000: Cylinder

@@ -1,7 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using SupHero;
-using SupHero.Model;
 
 namespace SupHero.Components {
 
@@ -27,10 +24,10 @@ namespace SupHero.Components {
         }
 
         public void setupWeapons() {
-            // Primary weapon
-            equipWeapon(owner.player.primaryId);
             // Secondary weapon
             equipWeapon(owner.player.secondaryId);
+            // Primary weapon
+            equipWeapon(owner.player.primaryId);
         }
 
         public void setupItems() {
@@ -53,7 +50,7 @@ namespace SupHero.Components {
             }
         }
 
-        public void equipWeapon(int id) {
+        public void equipWeapon(int id, bool draw = false) {
             WeaponData weaponData = Data.Instance.getWeaponById(id);
             if (weaponData != null) {
                 owner.setAnimator(weaponData.controller);
@@ -62,21 +59,23 @@ namespace SupHero.Components {
                 // I spent the whole 06.04.2016 of fixing fucking weapon rotation
                 // Still don't know how it works, damn you Unity
                 instance.transform.localEulerAngles = weaponData.prefab.transform.rotation.eulerAngles;
+                instance.SetActive(false);
                 switch (weaponData.slot) {
                     case WeaponSlot.PRIMARY:
                         if (primaryWeapon != null) Destroy(primaryWeapon.gameObject);
                         primaryWeapon = instance.GetComponent<WeaponController>();
                         primaryWeapon.weapon = weaponData;
+                        if (draw) owner.drawPrimary();
                         break;
                     case WeaponSlot.SECONDARY:
                         if (secondaryWeapon != null) Destroy(secondaryWeapon.gameObject);
                         secondaryWeapon = instance.GetComponent<WeaponController>();
                         secondaryWeapon.weapon = weaponData;
+                        if (draw) owner.drawSecondary();
                         break;
                     default:
                         break;
                 }
-                instance.SetActive(false);
             }
         }
 

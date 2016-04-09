@@ -7,12 +7,12 @@ namespace SupHero.Components {
 
     public struct State {
         public static string MOVING = "moving";
+        public static string ROTATION = "rotation";
         public static string STEADY = "steady";
         public static string TRIGGER = "trigger";
-        public static string PRIMARY = "primary";
-        public static string SECONDARY = "secondary";
         public static string HOR = "horizontal";
         public static string VERT = "vertical";
+        public static string DIE = "die";
     }
 
     public class PlayerController : MonoBehaviour {
@@ -24,11 +24,12 @@ namespace SupHero.Components {
         private GameObject playerUI; // Ref to UI for this player, possibly unnessecary
         private Vector3 moveVector; // Vector for moving character
         private Vector3 rotation; // Vector for rotating character
+        private Vector3 oldLookRotation;
 
         // Components
         private ZoneController zone; // Ref to current zone
         private Rigidbody playerRigidbody;
-        private Animator animator; // Animator, attached to this player
+        private Animator mecanim; // Animator, attached to this player
         private Inventory inventory; // Store for weapons and items
 
         // Events
@@ -50,7 +51,7 @@ namespace SupHero.Components {
                 }
             }
             playerRigidbody = GetComponent<Rigidbody>();
-            animator = GetComponent<Animator>();
+            mecanim = GetComponent<Animator>();
             zone = GetComponentInParent<ZoneController>();
             inventory = GetComponent<Inventory>();
             inventory.setupWeapons();
@@ -58,7 +59,7 @@ namespace SupHero.Components {
         }
 
         public void setAnimator(AnimatorOverrideController controller) {
-            animator.runtimeAnimatorController = controller;
+            mecanim.runtimeAnimatorController = controller;
         }
 
         // In update we read input and check state of the player
@@ -74,8 +75,8 @@ namespace SupHero.Components {
                 }
             }
             else {
-                //die();
-                animator.SetTrigger("die");
+                // Invoking die in animation event
+                mecanim.SetTrigger(State.DIE);
             }
         }
 
@@ -83,7 +84,7 @@ namespace SupHero.Components {
         void FixedUpdate() {
             // Moving
             if (moveVector != null && moveVector != Vector3.zero) {
-                animator.SetBool(State.MOVING, true);
+                mecanim.SetBool(State.MOVING, true);
                 // For animation accordingly to look orientation
                 float verticalRelative;
                 if (moveVector.z > 0f) {
@@ -104,8 +105,8 @@ namespace SupHero.Components {
                     if (transform.right.x < 0f) horizontalRelative = -moveVector.x;
                     else horizontalRelative = moveVector.x;
                 }
-                animator.SetFloat(State.VERT, verticalRelative);
-                animator.SetFloat(State.HOR, horizontalRelative);
+                mecanim.SetFloat(State.VERT, verticalRelative);
+                mecanim.SetFloat(State.HOR, horizontalRelative);
                 // For moving relative to camera
                 Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
                 forward.y = 0f;
@@ -117,9 +118,9 @@ namespace SupHero.Components {
                 playerRigidbody.MovePosition(transform.position + moveVector);
             }
             else {
-                animator.SetFloat(State.VERT, 0f);
-                animator.SetFloat(State.HOR, 0f);
-                animator.SetBool(State.MOVING, false);
+                mecanim.SetFloat(State.VERT, 0f);
+                mecanim.SetFloat(State.HOR, 0f);
+                mecanim.SetBool(State.MOVING, false);
             }
             // Turning
             if (rotation != null && rotation != Vector3.zero) {
@@ -127,19 +128,30 @@ namespace SupHero.Components {
                 Quaternion rotate = Quaternion.LookRotation(rotation);
                 Quaternion smoothRotation = Quaternion.Lerp(transform.rotation, rotate, smoothing * Time.deltaTime);
                 playerRigidbody.MoveRotation(smoothRotation);
+                // If we have old rotation, check if need to apply animation
+                if (oldLookRotation != null) {
+                    float threshold = 0.2f;
+                    if (Mathf.Abs(rotation.x - oldLookRotation.x) >= threshold) {
+                        mecanim.SetFloat(State.ROTATION, rotation.normalized.x);
+                    }
+                    else {
+                        mecanim.SetFloat(State.ROTATION, 0f);
+                    }
+                }
+                oldLookRotation = rotation;
             }
         }
 
         // Draw primary weapon from inventory
         public void drawPrimary() {
-            animator.runtimeAnimatorController = inventory.primaryWeapon.weapon.controller;
+            mecanim.runtimeAnimatorController = inventory.primaryWeapon.weapon.controller;
             hideWeapon(inventory.secondaryWeapon);
             inventory.primaryWeapon.gameObject.SetActive(true);
         }
 
         // Draw secondary weapon from inventory
         public void drawSecondary() {
-            animator.runtimeAnimatorController = inventory.secondaryWeapon.weapon.controller;
+            mecanim.runtimeAnimatorController = inventory.secondaryWeapon.weapon.controller;
             hideWeapon(inventory.primaryWeapon);
             inventory.secondaryWeapon.gameObject.SetActive(true);
         }
@@ -253,9 +265,9 @@ namespace SupHero.Components {
             if (usePrimaryWeapon) {
                 // New behavior
                 if (isWeaponActive(inventory.primaryWeapon)) {
-                    animator.SetBool(State.STEADY, true);
-                    if (inventory.primaryWeapon.canUseWeapon()) animator.SetBool(State.TRIGGER, true);
-                    else animator.SetBool(State.TRIGGER, false);
+                    mecanim.SetBool(State.STEADY, true);
+                    if (inventory.primaryWeapon.canUseWeapon()) mecanim.SetBool(State.TRIGGER, true);
+                    else mecanim.SetBool(State.TRIGGER, false);
                 }
                 else {
                     drawPrimary();
@@ -264,9 +276,9 @@ namespace SupHero.Components {
             // Attack with secondary
             else if (useSecondaryWeapon) {
                 if (isWeaponActive(inventory.secondaryWeapon)) {
-                    animator.SetBool(State.STEADY, true);
-                    if (inventory.secondaryWeapon.canUseWeapon()) animator.SetBool(State.TRIGGER, true);
-                    else animator.SetBool(State.TRIGGER, false);
+                    mecanim.SetBool(State.STEADY, true);
+                    if (inventory.secondaryWeapon.canUseWeapon()) mecanim.SetBool(State.TRIGGER, true);
+                    else mecanim.SetBool(State.TRIGGER, false);
                 }
                 else {
                     drawSecondary();
@@ -274,8 +286,8 @@ namespace SupHero.Components {
             }
             // No attacking at all
             else {
-                animator.SetBool(State.STEADY, false);
-                animator.SetBool(State.TRIGGER, false);
+                mecanim.SetBool(State.STEADY, false);
+                mecanim.SetBool(State.TRIGGER, false);
             }
         }
 

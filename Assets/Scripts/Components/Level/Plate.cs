@@ -10,10 +10,35 @@ namespace SupHero.Components {
         WEST
     }
 
-    public struct Connector {
+    public enum Direction {
+        ANY,
+        LEFT,
+        RIGHT
+    }
+
+    public class Connector {
         public Side type;
         public GameObject place;
         public bool isFree;
+        public Side compatibleType {
+            get {
+                switch (type) {
+                    case Side.NORTH:
+                        return Side.SOUTH;
+                    case Side.EAST:
+                        return Side.WEST;
+                    case Side.SOUTH:
+                        return Side.NORTH;
+                    case Side.WEST:
+                        return Side.EAST;
+                    default:
+                        return Side.SOUTH;
+                }
+            }
+            set {
+                compatibleType = value;
+            }
+        }
 
         public Connector(Side type, GameObject place, bool isFree) {
             this.type = type;
@@ -23,6 +48,9 @@ namespace SupHero.Components {
     }
 
     public class Plate : MonoBehaviour {
+
+        // Direction
+        public Direction direction;
 
         // Connectors
         public GameObject north;
@@ -46,10 +74,10 @@ namespace SupHero.Components {
         public event heroIncoming OnHeroCome;
 
         void Awake() {
-            northConnector = new Connector(Side.NORTH, north, true);
-            eastConnector = new Connector(Side.EAST, east, true);
-            southConnector = new Connector(Side.SOUTH, south, false);
-            westConnector = new Connector(Side.WEST, west, true);
+            if (north != null) northConnector = new Connector(Side.NORTH, north, true);
+            if (east != null) eastConnector = new Connector(Side.EAST, east, true);
+            if (south != null) southConnector = new Connector(Side.SOUTH, south, true);
+            if (west != null) westConnector = new Connector(Side.WEST, west, true);
         }
 
         void Start() {
@@ -114,14 +142,29 @@ namespace SupHero.Components {
             }
         }
 
+        public List<Connector> getAllConnectors() {
+            List<Connector> all = new List<Connector>();
+            if (north != null) all.Add(new Connector(Side.NORTH, north, true));
+            if (east != null) all.Add(new Connector(Side.EAST, east, true));
+            if (south != null) all.Add(new Connector(Side.SOUTH, south, true));
+            if (west != null) all.Add(new Connector(Side.WEST, west, true));
+            return all;
+        }
+
         public List<Connector> getFreeConnectors() {
             List<Connector> free = new List<Connector>();
             // Okay, do it manually :(
-            if (northConnector.isFree) free.Add(northConnector);
-            if (eastConnector.isFree) free.Add(eastConnector);
-            if (southConnector.isFree) free.Add(southConnector);
-            if (westConnector.isFree) free.Add(westConnector);
+            if (northConnector != null && northConnector.isFree) free.Add(northConnector);
+            if (eastConnector != null && eastConnector.isFree) free.Add(eastConnector);
+            if (southConnector != null && southConnector.isFree) free.Add(southConnector);
+            if (westConnector != null && westConnector.isFree) free.Add(westConnector);
             return free;
+        }
+
+        public bool hasFreeConnectorOfType(Side side) {
+            List<Connector> all = getFreeConnectors();
+            if (all.Find(x => x.type == side) != null) return true;
+            else return false;
         }
 
         public void connectTo(Connector connector) {
@@ -130,31 +173,38 @@ namespace SupHero.Components {
                 case Side.NORTH:
                     southConnector.isFree = false;
                     transform.position = connector.place.transform.position;
-                    move.z = connector.place.transform.localPosition.z;
+                    move = -southConnector.place.transform.localPosition;
+                    move.y = 0f;
+                    //move.z = connector.place.transform.localPosition.z;
                     transform.Translate(move);
                     break;
                 case Side.EAST:
                     westConnector.isFree = false;
                     transform.position = connector.place.transform.position;
-                    move.x = connector.place.transform.localPosition.x;
+                    move = -westConnector.place.transform.localPosition;
+                    move.y = 0f;
+                    //move.x = connector.place.transform.localPosition.x;
                     transform.Translate(move);
                     break;
                 case Side.SOUTH:
                     northConnector.isFree = false;
                     transform.position = connector.place.transform.position;
-                    move.z = connector.place.transform.localPosition.z;
+                    move = -northConnector.place.transform.localPosition;
+                    move.y = 0f;
+                    //move.z = connector.place.transform.localPosition.z;
                     transform.Translate(move);
                     break;
                 case Side.WEST:
-                    eastConnector.isFree = false;
+                    eastConnector.isFree = false; 
                     transform.position = connector.place.transform.position;
-                    move.x = connector.place.transform.localPosition.x;
+                    move = -eastConnector.place.transform.localPosition;
+                    move.y = 0f;
+                    //move.x = connector.place.transform.localPosition.x;
                     transform.Translate(move);
                     break;
                 default:
                     break;
             }
-            //connector.isFree = false;
         }
 
         public void placeTransfer(GameObject transfer) {

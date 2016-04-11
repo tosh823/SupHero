@@ -4,8 +4,16 @@ using System.Collections;
 namespace SupHero {
     public class MainMenuButtons : MonoBehaviour {
 
-        public void ChangeScene(string sceneName) {
-            Game.Instance.loadLevel();
+		/*void Start(){
+			StartCoroutine(ChangeScene());
+		}*/
+
+		public void ChangeScene(string sceneName) {
+			
+			Game.Instance.loadLevel();
         }
+
+
+
     }
 }

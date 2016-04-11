@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using SupHero.Components.Character;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Weapon {
     public class WeaponController : MonoBehaviour {
 
         public WeaponData weapon; // Data of this weapon

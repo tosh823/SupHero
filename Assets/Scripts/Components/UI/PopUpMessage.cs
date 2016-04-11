@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace SupHero.Components {
+namespace SupHero.Components.UI {
     public class PopUpMessage : MonoBehaviour {
 
         private Text textView;

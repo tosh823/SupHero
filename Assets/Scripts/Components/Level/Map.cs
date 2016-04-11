@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Level {
     public class Map : MonoBehaviour {
 
         private ZoneController zone;
@@ -18,7 +18,7 @@ namespace SupHero.Components {
 
         void Start() {
             plates = new List<GameObject>();
-            if (prefabs.Length > 0) createRouteExperimental(6);
+            if (prefabs.Length > 0) createRouteExperimental(7);
         }
 
         void Update() {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Level {
 
     public enum Side {
         NORTH,
@@ -83,6 +83,9 @@ namespace SupHero.Components {
         void Start() {
             bounds = GetComponent<Collider>().bounds;
             if (generateView) generateObjects(Theme.FOREST);
+            /*Debug.Log("Renderer bounds are " + GetComponentInChildren<Renderer>().bounds);
+            Debug.Log("Renderer bounds min are " + GetComponentInChildren<Renderer>().bounds.min);
+            Debug.Log("Renderer bounds max are " + GetComponentInChildren<Renderer>().bounds.max);*/
         }
 
         void Update() {
@@ -174,7 +177,7 @@ namespace SupHero.Components {
                     southConnector.isFree = false;
                     transform.position = connector.place.transform.position;
                     move = -southConnector.place.transform.localPosition;
-                    move.y = 0f;
+                    //move.y = 0f;
                     //move.z = connector.place.transform.localPosition.z;
                     transform.Translate(move);
                     break;
@@ -182,7 +185,7 @@ namespace SupHero.Components {
                     westConnector.isFree = false;
                     transform.position = connector.place.transform.position;
                     move = -westConnector.place.transform.localPosition;
-                    move.y = 0f;
+                    //move.y = 0f;
                     //move.x = connector.place.transform.localPosition.x;
                     transform.Translate(move);
                     break;
@@ -190,7 +193,7 @@ namespace SupHero.Components {
                     northConnector.isFree = false;
                     transform.position = connector.place.transform.position;
                     move = -northConnector.place.transform.localPosition;
-                    move.y = 0f;
+                    //move.y = 0f;
                     //move.z = connector.place.transform.localPosition.z;
                     transform.Translate(move);
                     break;
@@ -198,7 +201,7 @@ namespace SupHero.Components {
                     eastConnector.isFree = false; 
                     transform.position = connector.place.transform.position;
                     move = -eastConnector.place.transform.localPosition;
-                    move.y = 0f;
+                    //move.y = 0f;
                     //move.x = connector.place.transform.localPosition.x;
                     transform.Translate(move);
                     break;

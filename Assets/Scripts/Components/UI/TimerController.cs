@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-namespace SupHero.Components {
+namespace SupHero.Components.UI {
     public class TimerController : MonoBehaviour {
 
         public Text timerText;

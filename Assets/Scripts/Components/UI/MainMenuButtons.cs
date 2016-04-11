@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace SupHero {
+namespace SupHero.Components.UI {
     public class MainMenuButtons : MonoBehaviour {
 
         public void ChangeScene(string sceneName) {

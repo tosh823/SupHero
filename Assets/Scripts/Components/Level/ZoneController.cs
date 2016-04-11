@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using SupHero.Model;
+using SupHero.Components.Character;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Level {
     public class ZoneController : MonoBehaviour {
         
         // Store

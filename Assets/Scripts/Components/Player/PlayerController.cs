@@ -2,8 +2,10 @@
 using System.Collections;
 using SupHero;
 using SupHero.Model;
+using SupHero.Components.Level;
+using SupHero.Components.Weapon;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Character {
 
     public struct State {
         public static string MOVING = "moving";

@@ -3,16 +3,17 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using SupHero.Model;
+using SupHero.Components.UI;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Level {
     public class LevelController : MonoBehaviour {
 
         public static LevelController Instance = null;
 
-        public Level level { get; private set; }
+        public Model.Level level { get; private set; }
         public HUDController HUD { get; private set; }
         public CameraController view { get; private set; }
-        public Data data;
+        public Data data { get; private set; } 
         public GameObject zonePrefab;
 
         private GameObject zoneObject;
@@ -31,7 +32,7 @@ namespace SupHero.Components {
         }
 
         void Start() {
-            level = new Level();
+            level = new Model.Level();
             level.createPlayers();
 
             HUD = GameObject.FindGameObjectWithTag(Tags.MainUI).GetComponent<HUDController>();

@@ -4,7 +4,7 @@ using SupHero.Components.Character;
 using SupHero.Model;
 
 namespace SupHero.Components.Weapon {
-    public class SwordHandler : WeaponController {
+    public class LanceHandler : WeaponController {
 
         private Collider edge;
         private bool doingSlash;

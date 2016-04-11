@@ -2,7 +2,7 @@
 using System.Collections;
 
 namespace SupHero.Components.Weapon {
-    public class SidearmHandler : WeaponController {
+    public class BlunderbassHandler : WeaponController {
 
         public Transform barrelEnd;
 
@@ -26,7 +26,7 @@ namespace SupHero.Components.Weapon {
         }
 
         private void disableEffects() {
-            
+
         }
     }
 }

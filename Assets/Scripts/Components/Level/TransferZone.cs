@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using SupHero.Model;
+using SupHero.Components.Character;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Level {
     public class TransferZone : MonoBehaviour {
 
         void OnTriggerEnter(Collider other) {

@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using SupHero.Components.Weapon;
+using UnityEngine;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Character {
 
     public class Inventory : MonoBehaviour {
 

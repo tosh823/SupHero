@@ -20,7 +20,7 @@ namespace SupHero.Components.Level {
 
         void Start() {
             if (LevelController.Instance != null) {
-                constructor.createRoute(7);
+                constructor.createRouteExperimental(7);
                 spawnPlayers(LevelController.Instance.level.players);
             }
         }

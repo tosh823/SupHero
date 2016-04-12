@@ -34,6 +34,7 @@ namespace SupHero {
 
         public GameObject prefab;
         public AnimatorOverrideController controller;
+        public AnimatorOverrideController guardVersion;
 
         public float damage = Constants.damageMedium;
         public float rate = Constants.rateNormal;

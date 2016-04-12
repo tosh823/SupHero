@@ -7,9 +7,12 @@ namespace SupHero.Components.Level {
         private ZoneController zone;
         public GameObject plate;
         public GameObject transfer;
+        
+        public bool generateRoute = false;
+        public int length = 1;
         public GameObject[] prefabs;
 
-        public List<GameObject> plates; // All the plates
+        public List<GameObject> plates { get; private set; } // All the plates
         public Plate battleField { get; private set; } // Current plate where hero is
 
         void Awake() {
@@ -18,7 +21,9 @@ namespace SupHero.Components.Level {
 
         void Start() {
             plates = new List<GameObject>();
-            if (prefabs.Length > 0) createRouteExperimental(7);
+            if (generateRoute && prefabs.Length > 0 && length > 0) {
+                createRouteExperimental(length);
+            }
         }
 
         void Update() {
@@ -37,6 +42,9 @@ namespace SupHero.Components.Level {
         }
 
         public void createRouteExperimental(int length) {
+            // New list of plates
+            plates = new List<GameObject>();
+
             GameObject plateInstance = Instantiate(plate) as GameObject;
             plateInstance.transform.SetParent(transform);
             plateInstance.transform.position = transform.position;
@@ -52,7 +60,6 @@ namespace SupHero.Components.Level {
                 Plate last = plates[index - 1].GetComponent<Plate>();
                 List<Connector> free = last.getFreeConnectors();
                 Connector chosen = Utils.getRandomElement(free);
-                Debug.Log("Chosen is " + chosen.type);
                 List<GameObject> solutions = getPlatesByType(chosen.compatibleType);
 
                 if (solutions.Count > 0) {

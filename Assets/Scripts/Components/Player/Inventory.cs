@@ -54,7 +54,7 @@ namespace SupHero.Components.Character {
         public void equipWeapon(int id, bool draw = false) {
             WeaponData weaponData = Data.Instance.getWeaponById(id);
             if (weaponData != null) {
-                owner.setAnimator(weaponData.controller);
+                //owner.setAnimator(weaponData.controller);
                 GameObject instance = Instantiate(weaponData.prefab, rightHand.position, Quaternion.identity) as GameObject;
                 instance.transform.SetParent(rightHand);
                 // I spent the whole 06.04.2016 of fixing fucking weapon rotation

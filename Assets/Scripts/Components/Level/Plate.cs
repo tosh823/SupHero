@@ -70,6 +70,7 @@ namespace SupHero.Components.Level {
         public GameObject interior;
 
         private Bounds bounds;
+        private int numberOfAttempts;
 
         // Events
         public delegate void heroIncoming();
@@ -84,6 +85,7 @@ namespace SupHero.Components.Level {
 
         void Start() {
             bounds = GetComponent<Collider>().bounds;
+            numberOfAttempts = 3;
             if (generateView) generateObjects(Theme.FOREST);
         }
 
@@ -100,8 +102,10 @@ namespace SupHero.Components.Level {
             // Thus getting point on the edge of the plate
             Vector3 direction = Random.onUnitSphere;
             direction.y = 0;
-            Vector3 from = surface.transform.position;
-            from.y += 0.5f;
+            /*Vector3 from = surface.transform.position;
+            from.y += 0.5f;*/
+            Vector3 from = transform.position;
+            from.y -= 2f;
             Vector3 faraway = from + direction * length;
             Ray ray = new Ray(faraway, -direction);
             RaycastHit hit;
@@ -124,48 +128,79 @@ namespace SupHero.Components.Level {
                 return result;
             }
             else {
-                Debug.Log("Really?");
                 return surface.transform.position;
             }
         }
 
-        private bool checkAvailability(Bounds bounds) {
-            return true;
+        private bool placeAvailable(Bounds objectBounds, Vector3 placement) {
+            /*int mask = 1 << LayerMask.GetMask(Layers.Surface);
+            mask = ~mask;*/
+            Collider[] overlap = Physics.OverlapBox(placement, objectBounds.extents, Quaternion.identity, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+            if (overlap.Length > 3) {
+                Debug.Log("Object overlap with something");
+                return false;
+            }
+            else return true;
         }
 
         // Generating objects into plate here
         void generateObjects(Theme theme) {
             EnvironmentData data = Data.Instance.getEnvByTheme(theme);
-            Debug.Log("Plate " + gameObject.name + " with y = " + surface.transform.position.y);
             // Interior
             for (int i = 0; i < 5; i++) {
                 GameObject instance = Instantiate(Utils.getRandomElement(data.interior)) as GameObject;
                 instance.transform.SetParent(interior.transform);
-                //Random.InitState(i);
                 Bounds objectBounds = instance.GetComponent<Collider>().bounds;
                 // Random location
-                Vector3 pos = getRandomPointOnMesh(Mathf.Abs(objectBounds.extents.x), Mathf.Abs(objectBounds.extents.z));
-                pos.y = instance.transform.position.y;
-                instance.transform.position = pos;
-                // Random rotation
-                Vector3 euler = instance.transform.eulerAngles;
-                euler.y = Random.Range(0f, 360f);
-                instance.transform.eulerAngles = euler;
+                Vector3 pos;
+                int attempt = 0;
+                bool placed = false;
+                do {
+                    pos = getRandomPointOnMesh(Mathf.Abs(objectBounds.extents.x), Mathf.Abs(objectBounds.extents.z));
+                    pos.y = instance.transform.position.y;
+                    instance.transform.position = pos;
+                    placed = placeAvailable(objectBounds, pos);
+                    attempt++;
+                } while (!placed && attempt <= numberOfAttempts);
+
+                // If we didn't succeeded in placement, remove object
+                if (!placed) {
+                    Destroy(instance.gameObject);
+                }
+                else {
+                    // Random rotation
+                    Vector3 euler = instance.transform.eulerAngles;
+                    euler.y = Random.Range(0f, 360f);
+                    instance.transform.eulerAngles = euler;
+                }
             }
             // Covers
             for (int i = 0; i < 7; i++) {
                 GameObject instance = Instantiate(Utils.getRandomElement(data.covers)) as GameObject;
                 instance.transform.SetParent(covers.transform);
-                //Random.InitState(i);
                 Bounds objectBounds = instance.GetComponent<Collider>().bounds;
                 // Random location
-                Vector3 pos = getRandomPointOnMesh(Mathf.Abs(objectBounds.extents.x), Mathf.Abs(objectBounds.extents.z));
-                pos.y = instance.transform.position.y;
-                instance.transform.position = pos;
-                // Random rotation
-                Vector3 euler = instance.transform.eulerAngles;
-                euler.y = Random.Range(0f, 360f);
-                instance.transform.eulerAngles = euler;
+                Vector3 pos;
+                int attempt = 0;
+                bool placed = false;
+                do {
+                    pos = getRandomPointOnMesh(Mathf.Abs(objectBounds.extents.x), Mathf.Abs(objectBounds.extents.z));
+                    pos.y = instance.transform.position.y;
+                    instance.transform.position = pos;
+                    placed = placeAvailable(objectBounds, pos);
+                    attempt++;
+                } while (!placed && attempt <= numberOfAttempts);
+
+                // If we didn't succeeded in placement, remove object
+                if (!placed) {
+                    Destroy(instance.gameObject);
+                }
+                else {
+                    // Random rotation
+                    Vector3 euler = instance.transform.eulerAngles;
+                    euler.y = Random.Range(0f, 360f);
+                    instance.transform.eulerAngles = euler;
+                }
             }
         }
 

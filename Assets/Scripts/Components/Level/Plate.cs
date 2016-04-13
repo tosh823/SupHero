@@ -58,6 +58,8 @@ namespace SupHero.Components.Level {
         public GameObject south;
         public GameObject west;
 
+        public Transform surface;
+
         public bool generateView = true;
 
         public Connector northConnector;
@@ -83,29 +85,67 @@ namespace SupHero.Components.Level {
         void Start() {
             bounds = GetComponent<Collider>().bounds;
             if (generateView) generateObjects(Theme.FOREST);
-            /*Debug.Log("Renderer bounds are " + GetComponentInChildren<Renderer>().bounds);
-            Debug.Log("Renderer bounds min are " + GetComponentInChildren<Renderer>().bounds.min);
-            Debug.Log("Renderer bounds max are " + GetComponentInChildren<Renderer>().bounds.max);*/
         }
 
         void Update() {
 
         }
 
-        // Generating objects into plate here
+        private Vector3 getRandomPointOnMesh(float offsetX = 0f, float offsetZ = 0f) {
+            Collider collider = surface.GetComponent<Collider>();
+            // Assuming that all plates are far smaller
+            float length = 100f;
+            // Getting random point far away
+            // And raycasting from it to the center of the plate
+            // Thus getting point on the edge of the plate
+            Vector3 direction = Random.onUnitSphere;
+            direction.y = 0;
+            Vector3 from = surface.transform.position;
+            from.y += 0.5f;
+            Vector3 faraway = from + direction * length;
+            Ray ray = new Ray(faraway, -direction);
+            RaycastHit hit;
+            if (collider.Raycast(ray, out hit, length * 2)) {
+                // Now, getting random point between edge and center
+                Vector3 edgePoint = hit.point;
+                // Randomize X
+                Vector3 result = Vector3.zero;
+                if (edgePoint.x > from.x) {
+                    result.x = Random.Range(transform.position.x + offsetX, edgePoint.x - offsetX);
+                }
+                else result.x = Random.Range(edgePoint.x + offsetX, transform.position.x - offsetX);
 
+                // Randomize Z
+                if (edgePoint.z > from.z) {
+                    result.z = Random.Range(transform.position.z + offsetZ, edgePoint.z - offsetZ);
+                }
+                else result.z = Random.Range(edgePoint.z + offsetZ, transform.position.z - offsetZ);
+
+                return result;
+            }
+            else {
+                Debug.Log("Really?");
+                return surface.transform.position;
+            }
+        }
+
+        private bool checkAvailability(Bounds bounds) {
+            return true;
+        }
+
+        // Generating objects into plate here
         void generateObjects(Theme theme) {
             EnvironmentData data = Data.Instance.getEnvByTheme(theme);
+            Debug.Log("Plate " + gameObject.name + " with y = " + surface.transform.position.y);
             // Interior
-            for (int i = 0; i < 7; i++) {
+            for (int i = 0; i < 5; i++) {
                 GameObject instance = Instantiate(Utils.getRandomElement(data.interior)) as GameObject;
+                instance.transform.SetParent(interior.transform);
                 //Random.InitState(i);
                 Bounds objectBounds = instance.GetComponent<Collider>().bounds;
-                float xPos = Random.Range(bounds.min.x + objectBounds.size.x, bounds.max.x - objectBounds.size.x);
-                float zPos = Random.Range(bounds.min.z + objectBounds.size.z, bounds.max.z - objectBounds.size.z);
                 // Random location
-                Vector3 pos = new Vector3(xPos, instance.transform.position.y, zPos);
-                instance.transform.SetParent(interior.transform);
+                Vector3 pos = getRandomPointOnMesh(Mathf.Abs(objectBounds.extents.x), Mathf.Abs(objectBounds.extents.z));
+                pos.y = instance.transform.position.y;
                 instance.transform.position = pos;
                 // Random rotation
                 Vector3 euler = instance.transform.eulerAngles;
@@ -115,13 +155,12 @@ namespace SupHero.Components.Level {
             // Covers
             for (int i = 0; i < 7; i++) {
                 GameObject instance = Instantiate(Utils.getRandomElement(data.covers)) as GameObject;
+                instance.transform.SetParent(covers.transform);
                 //Random.InitState(i);
                 Bounds objectBounds = instance.GetComponent<Collider>().bounds;
-                float xPos = Random.Range(bounds.min.x + objectBounds.size.x, bounds.max.x - objectBounds.size.x);
-                float zPos = Random.Range(bounds.min.z + objectBounds.size.z, bounds.max.z - objectBounds.size.z);
                 // Random location
-                Vector3 pos = new Vector3(xPos, instance.transform.position.y, zPos);
-                instance.transform.SetParent(covers.transform);
+                Vector3 pos = getRandomPointOnMesh(Mathf.Abs(objectBounds.extents.x), Mathf.Abs(objectBounds.extents.z));
+                pos.y = instance.transform.position.y;
                 instance.transform.position = pos;
                 // Random rotation
                 Vector3 euler = instance.transform.eulerAngles;

@@ -68,9 +68,10 @@ namespace SupHero.Components.Level {
         public Connector westConnector;
         public GameObject covers;
         public GameObject interior;
+        public PlateData plateData;
 
         private Bounds bounds;
-        private int numberOfAttempts;
+        private int numberOfAttempts = 3;
 
         // Events
         public delegate void heroIncoming();
@@ -85,7 +86,6 @@ namespace SupHero.Components.Level {
 
         void Start() {
             bounds = GetComponent<Collider>().bounds;
-            numberOfAttempts = 3;
             if (generateView) generateObjects(Theme.FOREST);
         }
 
@@ -137,18 +137,20 @@ namespace SupHero.Components.Level {
             mask = ~mask;*/
             Collider[] overlap = Physics.OverlapBox(placement, objectBounds.extents, Quaternion.identity, Physics.AllLayers, QueryTriggerInteraction.Ignore);
             if (overlap.Length > 3) {
-                Debug.Log("Object overlap with something");
+                Debug.Log("Object overlaps with something");
                 return false;
             }
             else return true;
         }
 
         // Generating objects into plate here
-        void generateObjects(Theme theme) {
+        public void generateObjects(Theme theme) {
             EnvironmentData data = Data.Instance.getEnvByTheme(theme);
             // Interior
-            for (int i = 0; i < 5; i++) {
-                GameObject instance = Instantiate(Utils.getRandomElement(data.interior)) as GameObject;
+            for (int i = 0; i < plateData.interiorAmount; i++) {
+                //GameObject instance = Instantiate(Utils.getRandomElement(data.interior)) as GameObject;
+                InteriorData interiorData = Utils.getRandomElement(data.interiors);
+                GameObject instance = Instantiate(interiorData.prefab) as GameObject;
                 instance.transform.SetParent(interior.transform);
                 Bounds objectBounds = instance.GetComponent<Collider>().bounds;
                 // Random location
@@ -165,6 +167,7 @@ namespace SupHero.Components.Level {
 
                 // If we didn't succeeded in placement, remove object
                 if (!placed) {
+                    Debug.Log("Oops, can't find a place for a interior, screw it then!");
                     Destroy(instance.gameObject);
                 }
                 else {
@@ -175,8 +178,9 @@ namespace SupHero.Components.Level {
                 }
             }
             // Covers
-            for (int i = 0; i < 7; i++) {
-                GameObject instance = Instantiate(Utils.getRandomElement(data.covers)) as GameObject;
+            for (int i = 0; i < plateData.coverAmount; i++) {
+                CoverData coverData = Utils.getRandomElement(data.covers);
+                GameObject instance = Instantiate(coverData.prefab) as GameObject;
                 instance.transform.SetParent(covers.transform);
                 Bounds objectBounds = instance.GetComponent<Collider>().bounds;
                 // Random location
@@ -193,6 +197,7 @@ namespace SupHero.Components.Level {
 
                 // If we didn't succeeded in placement, remove object
                 if (!placed) {
+                    Debug.Log("Oops, can't find a place for a cover, screw it then!");
                     Destroy(instance.gameObject);
                 }
                 else {

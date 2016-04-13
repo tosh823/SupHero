@@ -14,13 +14,15 @@ namespace SupHero.Components.Level {
         private Map constructor;
 
         void Awake() {
-            spawner = GetComponent<Spawner>();
-            constructor = GetComponent<Map>();
+            
         }
 
         void Start() {
+            spawner = GetComponent<Spawner>();
+            constructor = GetComponent<Map>();
+
             if (LevelController.Instance != null) {
-                constructor.createRouteExperimental(7);
+                constructor.constructZone(5);
                 spawnPlayers(LevelController.Instance.level.players);
             }
         }

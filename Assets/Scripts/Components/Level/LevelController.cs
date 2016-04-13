@@ -15,8 +15,9 @@ namespace SupHero.Components.Level {
         public CameraController view { get; private set; }
         public Data data { get; private set; } 
         public GameObject zonePrefab;
+        public int turn { get; private set; }
 
-        private GameObject zoneObject;
+        private ZoneController zone;
 
         private Timer timer;
 
@@ -40,6 +41,7 @@ namespace SupHero.Components.Level {
             data = GetComponent<Data>();
 
             createZone();
+            turn = 1;
 
             timer = gameObject.AddComponent<Timer>();
             timer.time = data.mainSettings.turnTime;
@@ -60,6 +62,7 @@ namespace SupHero.Components.Level {
 
         public void newTurn() {
             if (level.changeRoles()) {
+                turn++;
                 transferToZone();
                 timer = gameObject.AddComponent<Timer>();
                 timer.time = data.mainSettings.turnTime;
@@ -75,16 +78,17 @@ namespace SupHero.Components.Level {
 
         public void transferToZone() {
             // Destroying current zone
-            zoneObject.GetComponent<ZoneController>().destroyPlayers();
+            zone.destroyPlayers();
             HUD.clearPlayerUIs();
-            Destroy(zoneObject.gameObject);
+            Destroy(zone.gameObject);
             // Creating new one
             createZone();
         }
 
         private void createZone() {
-            zoneObject = Instantiate(zonePrefab);
-            zoneObject.transform.SetParent(transform);
+            GameObject zoneInstance = Instantiate(zonePrefab) as GameObject;
+            zoneInstance.transform.SetParent(transform);
+            zone = zoneInstance.GetComponent<ZoneController>();
         }
     }
 }

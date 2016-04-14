@@ -25,6 +25,13 @@ namespace SupHero {
     }
 
     [System.Serializable]
+    public struct ProjectileData {
+        public string name;
+        public float speed;
+        public GameObject prefab;
+    }
+
+    [System.Serializable]
     public class WeaponData {
         // Fields
         public int id;
@@ -44,6 +51,8 @@ namespace SupHero {
 
         public bool hasEffect = false;
         public EffectData effect;
+
+        public ProjectileData projectile;
 
         public AudioClip triggerSound;
         public AudioClip reloadSound;

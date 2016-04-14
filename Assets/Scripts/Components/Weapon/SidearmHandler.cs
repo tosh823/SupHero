@@ -22,6 +22,9 @@ namespace SupHero.Components.Weapon {
 
         protected override void trigger() {
             playTriggerSound();
+            Projectile instance = projectiles.popOrCreate(weapon.projectile.prefab.GetComponent<Projectile>(), barrelEnd.transform.position, Quaternion.identity);
+            instance.gun = this;
+            instance.Launch(barrelEnd.transform.position, owner.transform.forward);
             ammo--;
         }
 

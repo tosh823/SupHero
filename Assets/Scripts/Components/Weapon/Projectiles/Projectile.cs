@@ -53,6 +53,7 @@ namespace SupHero.Components.Weapon {
         public virtual void Launch(Vector3 start, Vector3 direction) {
             initialPosition = start;
             this.direction = direction;
+            speed = gun.weapon.projectile.speed;
             launched = true;
         }
 

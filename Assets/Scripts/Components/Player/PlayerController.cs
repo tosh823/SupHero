@@ -21,6 +21,7 @@ namespace SupHero.Components.Character {
 
         // Variables
         public Player player;
+        public string name;
         public bool gamePadControl = false;
         public bool isHero = true;
         

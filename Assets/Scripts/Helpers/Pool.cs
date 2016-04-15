@@ -45,8 +45,9 @@ namespace SupHero {
         }
 
         protected T pop(Vector3 position, Quaternion rotation) {
-            T item = items[items.Count - 1];
-            items.Remove(item);
+            int index = items.Count - 1;
+            T item = items[index];
+            items.RemoveAt(index);
             item.transform.position = position;
             item.transform.rotation = rotation;
             return item;

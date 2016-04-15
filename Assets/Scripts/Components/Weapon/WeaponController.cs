@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using SupHero.Components.Character;
 
 namespace SupHero.Components.Weapon {
@@ -37,8 +36,16 @@ namespace SupHero.Components.Weapon {
         }
 
         public virtual bool returnProjectile(Projectile projectile) {
-            if (projectiles.push(projectile)) return true;
-            else return false;
+            projectile.transform.position = transform.position;
+            projectile.transform.SetParent(transform);
+            if (projectiles.push(projectile)) {
+                projectile.gameObject.SetActive(false);
+                return true;
+            }
+            else {
+                Destroy(projectile.gameObject);
+                return false;
+            }
         }
 
         // Check availability of weapon
@@ -49,13 +56,14 @@ namespace SupHero.Components.Weapon {
             else return false;
         }
 
-        // Try to trigger
+        // Must do a check in PlayerController before shooting
+        // Refresh timer and trigger
         public virtual void useWeapon() {
-            if (canUseWeapon()) {
+            //if (canUseWeapon()) {
                 timeBetweenUsage = 0f;
                 // Shot!
                 trigger();
-            }
+            //}
         }
 
         protected virtual void trigger() {

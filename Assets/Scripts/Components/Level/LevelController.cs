@@ -3,19 +3,21 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using SupHero.Model;
+using SupHero.Components.UI;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Level {
     public class LevelController : MonoBehaviour {
 
         public static LevelController Instance = null;
 
-        public Level level { get; private set; }
+        public Model.Level level { get; private set; }
         public HUDController HUD { get; private set; }
         public CameraController view { get; private set; }
-        public Data data;
+        public Data data { get; private set; } 
         public GameObject zonePrefab;
+        public int turn { get; private set; }
 
-        private GameObject zoneObject;
+        private ZoneController zone;
 
         private Timer timer;
 
@@ -31,7 +33,7 @@ namespace SupHero.Components {
         }
 
         void Start() {
-            level = new Level();
+            level = new Model.Level();
             level.createPlayers();
 
             HUD = GameObject.FindGameObjectWithTag(Tags.MainUI).GetComponent<HUDController>();
@@ -39,6 +41,7 @@ namespace SupHero.Components {
             data = GetComponent<Data>();
 
             createZone();
+            turn = 1;
 
             timer = gameObject.AddComponent<Timer>();
             timer.time = data.mainSettings.turnTime;
@@ -59,6 +62,7 @@ namespace SupHero.Components {
 
         public void newTurn() {
             if (level.changeRoles()) {
+                turn++;
                 transferToZone();
                 timer = gameObject.AddComponent<Timer>();
                 timer.time = data.mainSettings.turnTime;
@@ -74,16 +78,17 @@ namespace SupHero.Components {
 
         public void transferToZone() {
             // Destroying current zone
-            zoneObject.GetComponent<ZoneController>().destroyPlayers();
+            zone.destroyPlayers();
             HUD.clearPlayerUIs();
-            Destroy(zoneObject.gameObject);
+            Destroy(zone.gameObject);
             // Creating new one
             createZone();
         }
 
         private void createZone() {
-            zoneObject = Instantiate(zonePrefab);
-            zoneObject.transform.SetParent(transform);
+            GameObject zoneInstance = Instantiate(zonePrefab) as GameObject;
+            zoneInstance.transform.SetParent(transform);
+            zone = zoneInstance.GetComponent<ZoneController>();
         }
     }
 }

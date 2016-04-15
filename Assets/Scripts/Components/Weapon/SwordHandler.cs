@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SupHero.Components.Character;
 using SupHero.Model;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Weapon {
     public class SwordHandler : WeaponController {
 
         private Collider edge;

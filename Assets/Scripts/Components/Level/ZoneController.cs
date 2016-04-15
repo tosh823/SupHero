@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using SupHero.Model;
+using SupHero.Components.Character;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Level {
     public class ZoneController : MonoBehaviour {
         
         // Store
@@ -13,13 +14,15 @@ namespace SupHero.Components {
         private Map constructor;
 
         void Awake() {
-            spawner = GetComponent<Spawner>();
-            constructor = GetComponent<Map>();
+            
         }
 
         void Start() {
+            spawner = GetComponent<Spawner>();
+            constructor = GetComponent<Map>();
+
             if (LevelController.Instance != null) {
-                constructor.createRoute(7);
+                constructor.constructZone(5);
                 spawnPlayers(LevelController.Instance.level.players);
             }
         }

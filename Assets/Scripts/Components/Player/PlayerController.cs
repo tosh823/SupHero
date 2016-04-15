@@ -2,8 +2,10 @@
 using System.Collections;
 using SupHero;
 using SupHero.Model;
+using SupHero.Components.Level;
+using SupHero.Components.Weapon;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Character {
 
     public struct State {
         public static string MOVING = "moving";
@@ -20,6 +22,7 @@ namespace SupHero.Components {
         // Variables
         public Player player;
         public bool gamePadControl = false;
+        public bool isHero = true;
         
         private GameObject playerUI; // Ref to UI for this player, possibly unnessecary
         private Vector3 moveVector; // Vector for moving character
@@ -41,14 +44,27 @@ namespace SupHero.Components {
         void Start() {
             if (player == null) {
                 // For standalone unit, like for test scene
-                player = new Hero(1);
-                if (gamePadControl) {
-                    player.inputType = InputType.GAMEPAD;
-                    player.gamepadNumber = 1;
+                if (isHero) {
+                    player = new Hero(1);
+                    if (gamePadControl) {
+                        player.inputType = InputType.GAMEPAD;
+                        player.gamepadNumber = 1;
+                    }
+                    else {
+                        player.inputType = InputType.KEYBOARD;
+                    }
                 }
                 else {
-                    player.inputType = InputType.KEYBOARD;
+                    player = new Guard(1);
+                    if (gamePadControl) {
+                        player.inputType = InputType.GAMEPAD;
+                        player.gamepadNumber = 1;
+                    }
+                    else {
+                        player.inputType = InputType.KEYBOARD;
+                    }
                 }
+                
             }
             playerRigidbody = GetComponent<Rigidbody>();
             mecanim = GetComponent<Animator>();
@@ -144,7 +160,13 @@ namespace SupHero.Components {
 
         // Draw primary weapon from inventory
         public void drawPrimary() {
-            mecanim.runtimeAnimatorController = inventory.primaryWeapon.weapon.controller;
+            if (player is Hero) {
+                mecanim.runtimeAnimatorController = inventory.primaryWeapon.weapon.controller;
+            }
+            else {
+                mecanim.runtimeAnimatorController = inventory.primaryWeapon.weapon.guardVersion;
+            }
+            
             hideWeapon(inventory.secondaryWeapon);
             inventory.primaryWeapon.gameObject.SetActive(true);
         }

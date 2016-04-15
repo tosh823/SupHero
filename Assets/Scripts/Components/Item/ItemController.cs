@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SupHero.Components.Character;
+using UnityEngine;
 
 namespace SupHero.Components {
     public class ItemController : MonoBehaviour {

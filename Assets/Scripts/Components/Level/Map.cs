@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Level {
     public class Map : MonoBehaviour {
 
         private ZoneController zone;
-        public GameObject plate;
         public GameObject transfer;
-        public GameObject[] prefabs;
+        
+        public bool generateRoute = false;
+        public int length = 1;
 
-        public List<GameObject> plates; // All the plates
+        public List<Plate> plates { get; private set; } // All the plates
         public Plate battleField { get; private set; } // Current plate where hero is
 
         void Awake() {
@@ -17,48 +18,71 @@ namespace SupHero.Components {
         }
 
         void Start() {
-            plates = new List<GameObject>();
-            if (prefabs.Length > 0) createRouteExperimental(6);
+            if (generateRoute && length > 0) {
+                createRouteExperimental(length);
+                //generateLandscape();
+            }
+        }
+
+        public void constructZone(int length) {
+            createRouteExperimental(length);
+            //generateLandscape();
         }
 
         void Update() {
 
         }
 
-        public List<GameObject> getPlatesByType(Side side) {
-            List<GameObject> result = new List<GameObject>();
-            foreach (GameObject prefab in prefabs) {
-                List<Connector> connectors = prefab.GetComponent<Plate>().getAllConnectors();
+        public List<PlateData> getPlatesByType(PlateData[] data, Side side) {
+            List<PlateData> result = new List<PlateData>();
+            foreach (PlateData dict in data) {
+                List<Connector> connectors = dict.prefab.GetComponent<Plate>().getAllConnectors();
                 if (connectors.Find(x => x.type == side) != null) {
-                    result.Add(prefab);
+                    result.Add(dict);
                 }
             }
             return result;
         }
 
         public void createRouteExperimental(int length) {
-            GameObject plateInstance = Instantiate(plate) as GameObject;
+            // New list of plates
+            plates = new List<Plate>();
+            EnvironmentData data = Data.Instance.getEnvByTheme(Theme.FOREST);
+            PlateData[] options = data.plates;
+
+            if (options.Length == 0) {
+                Debug.Log("Plates data is empty");
+                return;
+            }
+
+            // Assume, that first is always exist 
+            GameObject plateInstance = Instantiate(options[0].prefab) as GameObject;
             plateInstance.transform.SetParent(transform);
             plateInstance.transform.position = transform.position;
+            Plate plate = plateInstance.GetComponent<Plate>();
             // Shift base plate to north
-            plateInstance.transform.Translate(plateInstance.GetComponent<Plate>().north.transform.localPosition);
-            plateInstance.GetComponent<Plate>().southConnector.isFree = false;
+            plateInstance.transform.Translate(plate.north.transform.localPosition);
+            plate.southConnector.isFree = false;
             // The first plate will be the first battlefield
-            battleField = plateInstance.GetComponent<Plate>();
-            plates.Add(plateInstance);
+            battleField = plate;
+            plate.plateData = options[0];
+            plates.Add(plate);
+
             for (int index = 1; index < length; index++) {
 
                 // Choosing free connector
                 Plate last = plates[index - 1].GetComponent<Plate>();
                 List<Connector> free = last.getFreeConnectors();
                 Connector chosen = Utils.getRandomElement(free);
-                Debug.Log("Chosen is " + chosen.type);
-                List<GameObject> solutions = getPlatesByType(chosen.compatibleType);
+                List<PlateData> solutions = getPlatesByType(options, chosen.compatibleType);
 
                 if (solutions.Count > 0) {
-                    plateInstance = Instantiate(Utils.getRandomElement(solutions)) as GameObject;
+                    PlateData plateData = Utils.getRandomElement(solutions);
+                    plateInstance = Instantiate(plateData.prefab) as GameObject;
                     plateInstance.transform.SetParent(transform);
-                    plateInstance.GetComponent<Plate>().connectTo(chosen);
+                    plate = plateInstance.GetComponent<Plate>();
+
+                    plate.connectTo(chosen);
                     chosen.isFree = false;
 
                     // Place transfer at last
@@ -69,17 +93,24 @@ namespace SupHero.Components {
                     }*/
 
                     // When hero steps on this plate, made it current battlefield
-                    plateInstance.GetComponent<Plate>().OnHeroCome += delegate () {
-                        battleField = plateInstance.GetComponent<Plate>();
+                    plate.OnHeroCome += delegate () {
+                        battleField = plate;
                     };
 
-                    plates.Add(plateInstance);
+                    plate.plateData = plateData;
+                    plates.Add(plate);
                 }
             }
         }
 
-        // Constructing a zone route
-        public void createRoute(int length) {
+        private void generateLandscape() {
+            foreach (Plate plate in plates) {
+                plate.generateObjects(Theme.FOREST);
+            }
+        }
+
+        // Constructing a zone route out of square plates
+        /*public void createRoute(int length) {
             // Building first, base plate
             GameObject plateInstance = Instantiate(plate) as GameObject;
             plateInstance.transform.SetParent(transform);
@@ -129,6 +160,6 @@ namespace SupHero.Components {
 
                 plates.Add(plateInstance);
             }
-        }
+        }*/
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using SupHero;
 using SupHero.Model;
 
-namespace SupHero.Components {
+namespace SupHero.Components.UI {
 
     public enum UILocation {
         TOP,

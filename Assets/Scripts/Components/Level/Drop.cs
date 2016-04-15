@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SupHero.Components.Character;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Level {
     public class Drop : MonoBehaviour {
 
         public GameObject dropItem;

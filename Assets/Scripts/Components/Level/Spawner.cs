@@ -3,7 +3,7 @@ using System.Collections;
 using SupHero;
 using SupHero.Model;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Level {
     public class Spawner : MonoBehaviour {
 
         // Prefabs for instantiating

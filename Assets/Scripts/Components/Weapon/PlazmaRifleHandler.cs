@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Weapon {
     public class PlazmaRifleHandler : WeaponController {
 
         public Transform barrelEnd;

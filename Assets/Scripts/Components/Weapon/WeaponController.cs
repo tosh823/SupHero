@@ -1,6 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using SupHero.Components.Character;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Weapon {
+
+    public class Magazine : Pool<Projectile> {
+        
+    }
+
     public class WeaponController : MonoBehaviour {
 
         public WeaponData weapon; // Data of this weapon
@@ -11,9 +18,13 @@ namespace SupHero.Components {
         protected AudioSource audioSource; // AudioSource attached to the weapon
         protected float timeBetweenUsage; // timer to handle rate of usage
 
+        protected Magazine projectiles; // Storage for pooling
+
         public virtual void Start() {
             owner = GetComponentInParent<PlayerController>();
             audioSource = GetComponent<AudioSource>();
+            projectiles = gameObject.AddComponent<Magazine>();
+            projectiles.Init(weapon.ammo);
             timeBetweenUsage = weapon.rate;
             ammo = weapon.ammo;
             reloading = false;
@@ -23,6 +34,11 @@ namespace SupHero.Components {
             if (timeBetweenUsage < weapon.rate) {
                 timeBetweenUsage += Time.deltaTime;
             }
+        }
+
+        public virtual bool returnProjectile(Projectile projectile) {
+            if (projectiles.push(projectile)) return true;
+            else return false;
         }
 
         // Check availability of weapon

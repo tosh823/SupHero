@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Character {
     public class Effect : MonoBehaviour {
 
         public EffectData effect;

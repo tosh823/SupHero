@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using SupHero.Model;
+using SupHero.Components.Character;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Weapon {
     public class PistolHandler : WeaponController {
 
         public GameObject barrelEnd;

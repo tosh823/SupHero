@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Level {
 
     public enum Side {
         NORTH,
@@ -58,6 +58,8 @@ namespace SupHero.Components {
         public GameObject south;
         public GameObject west;
 
+        public Transform surface;
+
         public bool generateView = true;
 
         public Connector northConnector;
@@ -66,8 +68,10 @@ namespace SupHero.Components {
         public Connector westConnector;
         public GameObject covers;
         public GameObject interior;
+        public PlateData plateData;
 
         private Bounds bounds;
+        private int numberOfAttempts = 3;
 
         // Events
         public delegate void heroIncoming();
@@ -89,41 +93,119 @@ namespace SupHero.Components {
 
         }
 
-        // Generating objects into plate here
+        private Vector3 getRandomPointOnMesh(float offsetX = 0f, float offsetZ = 0f) {
+            Collider collider = surface.GetComponent<Collider>();
+            // Assuming that all plates are far smaller
+            float length = 100f;
+            // Getting random point far away
+            // And raycasting from it to the center of the plate
+            // Thus getting point on the edge of the plate
+            Vector3 direction = Random.onUnitSphere;
+            direction.y = 0;
+            /*Vector3 from = surface.transform.position;
+            from.y += 0.5f;*/
+            Vector3 from = transform.position;
+            from.y -= 2f;
+            Vector3 faraway = from + direction * length;
+            Ray ray = new Ray(faraway, -direction);
+            RaycastHit hit;
+            if (collider.Raycast(ray, out hit, length * 2)) {
+                // Now, getting random point between edge and center
+                Vector3 edgePoint = hit.point;
+                // Randomize X
+                Vector3 result = Vector3.zero;
+                if (edgePoint.x > from.x) {
+                    result.x = Random.Range(transform.position.x + offsetX, edgePoint.x - offsetX);
+                }
+                else result.x = Random.Range(edgePoint.x + offsetX, transform.position.x - offsetX);
 
-        void generateObjects(Theme theme) {
+                // Randomize Z
+                if (edgePoint.z > from.z) {
+                    result.z = Random.Range(transform.position.z + offsetZ, edgePoint.z - offsetZ);
+                }
+                else result.z = Random.Range(edgePoint.z + offsetZ, transform.position.z - offsetZ);
+
+                return result;
+            }
+            else {
+                return surface.transform.position;
+            }
+        }
+
+        private bool placeAvailable(Bounds objectBounds, Vector3 placement) {
+            /*int mask = 1 << LayerMask.GetMask(Layers.Surface);
+            mask = ~mask;*/
+            Collider[] overlap = Physics.OverlapBox(placement, objectBounds.extents, Quaternion.identity, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+            if (overlap.Length > 3) {
+                Debug.Log("Object overlaps with something");
+                return false;
+            }
+            else return true;
+        }
+
+        // Generating objects into plate here
+        public void generateObjects(Theme theme) {
             EnvironmentData data = Data.Instance.getEnvByTheme(theme);
             // Interior
-            for (int i = 0; i < 7; i++) {
-                GameObject instance = Instantiate(Utils.getRandomElement(data.interior)) as GameObject;
-                //Random.InitState(i);
-                Bounds objectBounds = instance.GetComponent<Collider>().bounds;
-                float xPos = Random.Range(bounds.min.x + objectBounds.size.x, bounds.max.x - objectBounds.size.x);
-                float zPos = Random.Range(bounds.min.z + objectBounds.size.z, bounds.max.z - objectBounds.size.z);
-                // Random location
-                Vector3 pos = new Vector3(xPos, instance.transform.position.y, zPos);
+            for (int i = 0; i < plateData.interiorAmount; i++) {
+                //GameObject instance = Instantiate(Utils.getRandomElement(data.interior)) as GameObject;
+                InteriorData interiorData = Utils.getRandomElement(data.interiors);
+                GameObject instance = Instantiate(interiorData.prefab) as GameObject;
                 instance.transform.SetParent(interior.transform);
-                instance.transform.position = pos;
-                // Random rotation
-                Vector3 euler = instance.transform.eulerAngles;
-                euler.y = Random.Range(0f, 360f);
-                instance.transform.eulerAngles = euler;
+                Bounds objectBounds = instance.GetComponent<Collider>().bounds;
+                // Random location
+                Vector3 pos;
+                int attempt = 0;
+                bool placed = false;
+                do {
+                    pos = getRandomPointOnMesh(Mathf.Abs(objectBounds.extents.x), Mathf.Abs(objectBounds.extents.z));
+                    pos.y = instance.transform.position.y;
+                    instance.transform.position = pos;
+                    placed = placeAvailable(objectBounds, pos);
+                    attempt++;
+                } while (!placed && attempt <= numberOfAttempts);
+
+                // If we didn't succeeded in placement, remove object
+                if (!placed) {
+                    Debug.Log("Oops, can't find a place for a interior, screw it then!");
+                    Destroy(instance.gameObject);
+                }
+                else {
+                    // Random rotation
+                    Vector3 euler = instance.transform.eulerAngles;
+                    euler.y = Random.Range(0f, 360f);
+                    instance.transform.eulerAngles = euler;
+                }
             }
             // Covers
-            for (int i = 0; i < 7; i++) {
-                GameObject instance = Instantiate(Utils.getRandomElement(data.covers)) as GameObject;
-                //Random.InitState(i);
-                Bounds objectBounds = instance.GetComponent<Collider>().bounds;
-                float xPos = Random.Range(bounds.min.x + objectBounds.size.x, bounds.max.x - objectBounds.size.x);
-                float zPos = Random.Range(bounds.min.z + objectBounds.size.z, bounds.max.z - objectBounds.size.z);
-                // Random location
-                Vector3 pos = new Vector3(xPos, instance.transform.position.y, zPos);
+            for (int i = 0; i < plateData.coverAmount; i++) {
+                CoverData coverData = Utils.getRandomElement(data.covers);
+                GameObject instance = Instantiate(coverData.prefab) as GameObject;
                 instance.transform.SetParent(covers.transform);
-                instance.transform.position = pos;
-                // Random rotation
-                Vector3 euler = instance.transform.eulerAngles;
-                euler.y = Random.Range(0f, 360f);
-                instance.transform.eulerAngles = euler;
+                Bounds objectBounds = instance.GetComponent<Collider>().bounds;
+                // Random location
+                Vector3 pos;
+                int attempt = 0;
+                bool placed = false;
+                do {
+                    pos = getRandomPointOnMesh(Mathf.Abs(objectBounds.extents.x), Mathf.Abs(objectBounds.extents.z));
+                    pos.y = instance.transform.position.y;
+                    instance.transform.position = pos;
+                    placed = placeAvailable(objectBounds, pos);
+                    attempt++;
+                } while (!placed && attempt <= numberOfAttempts);
+
+                // If we didn't succeeded in placement, remove object
+                if (!placed) {
+                    Debug.Log("Oops, can't find a place for a cover, screw it then!");
+                    Destroy(instance.gameObject);
+                }
+                else {
+                    // Random rotation
+                    Vector3 euler = instance.transform.eulerAngles;
+                    euler.y = Random.Range(0f, 360f);
+                    instance.transform.eulerAngles = euler;
+                }
             }
         }
 
@@ -174,7 +256,7 @@ namespace SupHero.Components {
                     southConnector.isFree = false;
                     transform.position = connector.place.transform.position;
                     move = -southConnector.place.transform.localPosition;
-                    move.y = 0f;
+                    //move.y = 0f;
                     //move.z = connector.place.transform.localPosition.z;
                     transform.Translate(move);
                     break;
@@ -182,7 +264,7 @@ namespace SupHero.Components {
                     westConnector.isFree = false;
                     transform.position = connector.place.transform.position;
                     move = -westConnector.place.transform.localPosition;
-                    move.y = 0f;
+                    //move.y = 0f;
                     //move.x = connector.place.transform.localPosition.x;
                     transform.Translate(move);
                     break;
@@ -190,7 +272,7 @@ namespace SupHero.Components {
                     northConnector.isFree = false;
                     transform.position = connector.place.transform.position;
                     move = -northConnector.place.transform.localPosition;
-                    move.y = 0f;
+                    //move.y = 0f;
                     //move.z = connector.place.transform.localPosition.z;
                     transform.Translate(move);
                     break;
@@ -198,7 +280,7 @@ namespace SupHero.Components {
                     eastConnector.isFree = false; 
                     transform.position = connector.place.transform.position;
                     move = -eastConnector.place.transform.localPosition;
-                    move.y = 0f;
+                    //move.y = 0f;
                     //move.x = connector.place.transform.localPosition.x;
                     transform.Translate(move);
                     break;

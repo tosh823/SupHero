@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Character {
     public class FireEffect : Effect {
 
         public override void Start() {

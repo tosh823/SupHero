@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Weapon {
     public class SidearmHandler : WeaponController {
 
         public Transform barrelEnd;
@@ -22,6 +22,9 @@ namespace SupHero.Components {
 
         protected override void trigger() {
             playTriggerSound();
+            Projectile instance = projectiles.popOrCreate(weapon.projectile.prefab.GetComponent<Projectile>(), barrelEnd.transform.position, Quaternion.identity);
+            instance.gun = this;
+            instance.Launch(barrelEnd.transform.position, owner.transform.forward);
             ammo--;
         }
 

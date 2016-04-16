@@ -70,16 +70,16 @@ namespace SupHero.Model {
         }
 
         protected override void setupDefaultProperties() {
-            health = Data.Instance.mainSettings.heroHealth;
-            armor = Data.Instance.mainSettings.heroArmor;
-            shield = Data.Instance.mainSettings.heroShield;
-            replenishWaitTime = Data.Instance.mainSettings.shieldReplenishTime;
-            speed = Data.Instance.mainSettings.heroSpeed;
+            health = Data.Instance.mainSettings.hero.health;
+            armor = Data.Instance.mainSettings.hero.armor;
+            shield = Data.Instance.mainSettings.hero.shield;
+            replenishWaitTime = Data.Instance.mainSettings.hero.shieldReplenishTime;
+            speed = Data.Instance.mainSettings.hero.speed;
             haveTakenDamage = false;
             isStunned = false;
 
-            primaryId = Data.Instance.mainSettings.starterPrimary;
-            secondaryId = Data.Instance.mainSettings.starterSecondary;
+            primaryId = Data.Instance.mainSettings.hero.starterPrimary;
+            secondaryId = Data.Instance.mainSettings.guard.starterSecondary;
 
             isAlive = true;
         }

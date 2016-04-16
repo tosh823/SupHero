@@ -54,8 +54,8 @@ namespace SupHero.Components.Level {
 
         private GameObject createPlayerGameObject(Player player) {
             GameObject prefab;
-            if (player is Hero) prefab = Data.Instance.mainSettings.heroPrefab;
-            else prefab = Data.Instance.mainSettings.guardPrefab;
+            if (player is Hero) prefab = Data.Instance.mainSettings.hero.prefab;
+            else prefab = Data.Instance.mainSettings.guard.prefab;
             GameObject pawn = Instantiate(prefab) as GameObject;
             pawn.transform.SetParent(transform);
             return pawn;

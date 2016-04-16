@@ -15,6 +15,7 @@ namespace SupHero.Components.Character {
         public static string HOR = "horizontal";
         public static string VERT = "vertical";
         public static string DIE = "die";
+        public static string RATE = "rate";
     }
 
     public class PlayerController : MonoBehaviour {
@@ -167,16 +168,22 @@ namespace SupHero.Components.Character {
             else {
                 mecanim.runtimeAnimatorController = inventory.primaryWeapon.weapon.guardVersion;
             }
-            
             hideWeapon(inventory.secondaryWeapon);
             inventory.primaryWeapon.gameObject.SetActive(true);
+            mecanim.SetFloat(State.RATE, inventory.primaryWeapon.weapon.rate / 60f);
         }
 
         // Draw secondary weapon from inventory
         public void drawSecondary() {
-            mecanim.runtimeAnimatorController = inventory.secondaryWeapon.weapon.controller;
+            if (player is Hero) {
+                mecanim.runtimeAnimatorController = inventory.secondaryWeapon.weapon.controller;
+            }
+            else {
+                mecanim.runtimeAnimatorController = inventory.secondaryWeapon.weapon.guardVersion;
+            }
             hideWeapon(inventory.primaryWeapon);
             inventory.secondaryWeapon.gameObject.SetActive(true);
+            mecanim.SetFloat(State.RATE, inventory.secondaryWeapon.weapon.rate / 60f);
         }
 
         // Hide weapon

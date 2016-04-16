@@ -131,18 +131,18 @@ namespace SupHero {
                             settingsDB.getSettingsAtIndex(dbIndex).turnTime = EditorGUILayout.FloatField("Turn Time", settingsDB.getSettingsAtIndex(dbIndex).turnTime);
                             GUILayout.Space(20);
                             GUILayout.Label("Default hero settings");
-                            settingsDB.getSettingsAtIndex(dbIndex).heroHealth = EditorGUILayout.FloatField("Hero health", settingsDB.getSettingsAtIndex(dbIndex).heroHealth);
-                            settingsDB.getSettingsAtIndex(dbIndex).heroArmor = EditorGUILayout.FloatField("Hero armor", settingsDB.getSettingsAtIndex(dbIndex).heroArmor);
-                            settingsDB.getSettingsAtIndex(dbIndex).heroShield = EditorGUILayout.FloatField("Hero shield", settingsDB.getSettingsAtIndex(dbIndex).heroShield);
-                            settingsDB.getSettingsAtIndex(dbIndex).shieldReplenishTime = EditorGUILayout.FloatField("Shield replenish time", settingsDB.getSettingsAtIndex(dbIndex).shieldReplenishTime);
-                            settingsDB.getSettingsAtIndex(dbIndex).heroSpeed = EditorGUILayout.FloatField("Hero speed", settingsDB.getSettingsAtIndex(dbIndex).heroSpeed);
-                            settingsDB.getSettingsAtIndex(dbIndex).heroPrefab = EditorGUILayout.ObjectField("Hero prefab", settingsDB.getSettingsAtIndex(dbIndex).heroPrefab, typeof(GameObject), true) as GameObject;
+                            settingsDB.getSettingsAtIndex(dbIndex).hero.health = EditorGUILayout.FloatField("Hero health", settingsDB.getSettingsAtIndex(dbIndex).hero.health);
+                            settingsDB.getSettingsAtIndex(dbIndex).hero.armor = EditorGUILayout.FloatField("Hero armor", settingsDB.getSettingsAtIndex(dbIndex).hero.armor);
+                            settingsDB.getSettingsAtIndex(dbIndex).hero.shield = EditorGUILayout.FloatField("Hero shield", settingsDB.getSettingsAtIndex(dbIndex).hero.shield);
+                            settingsDB.getSettingsAtIndex(dbIndex).hero.shieldReplenishTime = EditorGUILayout.FloatField("Shield replenish time", settingsDB.getSettingsAtIndex(dbIndex).hero.shieldReplenishTime);
+                            settingsDB.getSettingsAtIndex(dbIndex).hero.speed = EditorGUILayout.FloatField("Hero speed", settingsDB.getSettingsAtIndex(dbIndex).hero.speed);
+                            settingsDB.getSettingsAtIndex(dbIndex).hero.prefab = EditorGUILayout.ObjectField("Hero prefab", settingsDB.getSettingsAtIndex(dbIndex).hero.prefab, typeof(GameObject), true) as GameObject;
                             GUILayout.Space(20);
                             GUILayout.Label("Default guard settings");
-                            settingsDB.getSettingsAtIndex(dbIndex).guardHealth = EditorGUILayout.FloatField("Guard health", settingsDB.getSettingsAtIndex(dbIndex).guardHealth);
-                            settingsDB.getSettingsAtIndex(dbIndex).guardArmor = EditorGUILayout.FloatField("Guard armor", settingsDB.getSettingsAtIndex(dbIndex).guardArmor);
-                            settingsDB.getSettingsAtIndex(dbIndex).guardSpeed = EditorGUILayout.FloatField("Guard speed", settingsDB.getSettingsAtIndex(dbIndex).guardSpeed);
-                            settingsDB.getSettingsAtIndex(dbIndex).guardPrefab = EditorGUILayout.ObjectField("Guard prefab", settingsDB.getSettingsAtIndex(dbIndex).guardPrefab, typeof(GameObject), true) as GameObject;
+                            settingsDB.getSettingsAtIndex(dbIndex).guard.health = EditorGUILayout.FloatField("Guard health", settingsDB.getSettingsAtIndex(dbIndex).guard.health);
+                            settingsDB.getSettingsAtIndex(dbIndex).guard.armor = EditorGUILayout.FloatField("Guard armor", settingsDB.getSettingsAtIndex(dbIndex).guard.armor);
+                            settingsDB.getSettingsAtIndex(dbIndex).guard.speed = EditorGUILayout.FloatField("Guard speed", settingsDB.getSettingsAtIndex(dbIndex).guard.speed);
+                            settingsDB.getSettingsAtIndex(dbIndex).guard.prefab = EditorGUILayout.ObjectField("Guard prefab", settingsDB.getSettingsAtIndex(dbIndex).guard.prefab, typeof(GameObject), true) as GameObject;
                             GUILayout.Space(10);
                         }
                         else {

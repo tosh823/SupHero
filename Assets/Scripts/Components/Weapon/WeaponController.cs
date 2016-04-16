@@ -15,7 +15,6 @@ namespace SupHero.Components.Weapon {
 
         protected PlayerController owner; // Player-owner
         protected AudioSource audioSource; // AudioSource attached to the weapon
-        protected float timeBetweenUsage; // timer to handle rate of usage
 
         protected Magazine projectiles; // Storage for pooling
 
@@ -24,15 +23,12 @@ namespace SupHero.Components.Weapon {
             audioSource = GetComponent<AudioSource>();
             projectiles = gameObject.AddComponent<Magazine>();
             projectiles.Init(weapon.ammo);
-            timeBetweenUsage = weapon.rate;
             ammo = weapon.ammo;
             reloading = false;
         }
 
         public virtual void Update() {
-            if (timeBetweenUsage < weapon.rate) {
-                timeBetweenUsage += Time.deltaTime;
-            }
+            
         }
 
         public virtual bool returnProjectile(Projectile projectile) {
@@ -51,19 +47,15 @@ namespace SupHero.Components.Weapon {
         // Check availability of weapon
         // Check additional stuff in subclasses
         public virtual bool canUseWeapon() {
-            bool ready = (timeBetweenUsage >= weapon.rate); // Is enough time went since last usage
-            if (ready && !reloading) return true;
+            if (!reloading) return true;
             else return false;
         }
 
         // Must do a check in PlayerController before shooting
         // Refresh timer and trigger
         public virtual void useWeapon() {
-            //if (canUseWeapon()) {
-                timeBetweenUsage = 0f;
-                // Shot!
-                trigger();
-            //}
+            // Shot!
+            trigger();
         }
 
         protected virtual void trigger() {

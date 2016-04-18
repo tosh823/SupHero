@@ -173,6 +173,7 @@ namespace SupHero.Components.Character {
             }
             hideWeapon(inventory.secondaryWeapon);
             inventory.primaryWeapon.gameObject.SetActive(true);
+            Debug.Log("Weapon rate per second = " + inventory.primaryWeapon.weapon.rate / 60f);
             mecanim.SetFloat(State.RATE, inventory.primaryWeapon.weapon.rate / 60f);
         }
 

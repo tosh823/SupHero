@@ -16,6 +16,7 @@ namespace SupHero.Components.Character {
         public static string VERT = "vertical";
         public static string DIE = "die";
         public static string RATE = "rate";
+        public static string SPEED = "speed";
     }
 
     public class PlayerController : MonoBehaviour {
@@ -123,6 +124,7 @@ namespace SupHero.Components.Character {
                     if (transform.right.x < 0f) horizontalRelative = -moveVector.x;
                     else horizontalRelative = moveVector.x;
                 }
+                mecanim.SetFloat(State.SPEED, player.speed);
                 mecanim.SetFloat(State.VERT, verticalRelative);
                 mecanim.SetFloat(State.HOR, horizontalRelative);
                 // For moving relative to camera
@@ -136,6 +138,7 @@ namespace SupHero.Components.Character {
                 playerRigidbody.MovePosition(transform.position + moveVector);
             }
             else {
+                mecanim.SetFloat(State.SPEED, player.speed);
                 mecanim.SetFloat(State.VERT, 0f);
                 mecanim.SetFloat(State.HOR, 0f);
                 mecanim.SetBool(State.MOVING, false);

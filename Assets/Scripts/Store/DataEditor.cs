@@ -258,7 +258,7 @@ namespace SupHero {
                             int dbIndex = viewIndex - 1;
                             itemDB.getItemAtIndex(dbIndex).name = EditorGUILayout.TextField("Item Name", itemDB.getItemAtIndex(dbIndex).name as string);
                             itemDB.getItemAtIndex(dbIndex).description = EditorGUILayout.TextField("Weapon Description", itemDB.getItemAtIndex(dbIndex).description as string);
-                            itemDB.getItemAtIndex(dbIndex).itemPrefab = EditorGUILayout.ObjectField("Weapon Prefab", itemDB.getItemAtIndex(dbIndex).itemPrefab, typeof(GameObject), true) as GameObject;
+                            itemDB.getItemAtIndex(dbIndex).prefab = EditorGUILayout.ObjectField("Weapon Prefab", itemDB.getItemAtIndex(dbIndex).prefab, typeof(GameObject), true) as GameObject;
                             GUILayout.Space(10);
                         }
                         else {

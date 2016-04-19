@@ -1,7 +1,7 @@
 ﻿using SupHero.Components.Character;
 using UnityEngine;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Item {
     public class ItemController : MonoBehaviour {
 
         public ItemData item;
@@ -9,32 +9,43 @@ namespace SupHero.Components {
         protected PlayerController owner;
         protected AudioSource audioSource;
         protected float timeBetweenUsage;
+        protected bool active;
 
         public virtual void Start() {
             owner = GetComponentInParent<PlayerController>();
             audioSource = GetComponent<AudioSource>();
+            // If item has passive attributes, turn them on
+            if (item.hasPassive) enablePassive();
         }
 
         public virtual void Update() {
 
         }
 
-        public virtual bool canUseItem() {
-            return true;
+        public virtual bool activeReady() {
+            if (item.hasActive) {
+                // Check cooldown here
+                return true;
+            }
+            else return false;
         }
 
-        public virtual void useItem() {
-            if (canUseItem()) {
+        public virtual void activate() {
+            if (activeReady()) {
                 trigger();
             }
         }
 
+        // ATTENTION: Assuming all checks
+        // are made before trigger
+        // Overdrive this method in children
+        // to add custom behavior on using
         protected virtual void trigger() {
-            // Overdrive this method in children
-            // to add custom behavior on using
+            
+        }
 
-            // ATTENTION: Assuming all checks
-            // are made before trigger
+        protected virtual void enablePassive() {
+
         }
 
         protected virtual void playSound(AudioClip sound, bool inLoop = false) {
@@ -43,6 +54,10 @@ namespace SupHero.Components {
                 audioSource.loop = inLoop;
                 audioSource.Play();
             }
+        }
+
+        protected void playActivationSound() {
+            playSound(item.activationSound);
         }
     }
 }

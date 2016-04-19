@@ -1,4 +1,5 @@
 ﻿using SupHero.Components.Weapon;
+using SupHero.Components.Item;
 using UnityEngine;
 
 namespace SupHero.Components.Character {

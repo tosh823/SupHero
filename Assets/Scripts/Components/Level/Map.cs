@@ -24,13 +24,13 @@ namespace SupHero.Components.Level {
             }
         }
 
+        void Update() {
+
+        }
+
         public void constructZone(int length) {
             createRouteExperimental(length);
             //generateLandscape();
-        }
-
-        void Update() {
-
         }
 
         public List<PlateData> getPlatesByType(PlateData[] data, Side side) {

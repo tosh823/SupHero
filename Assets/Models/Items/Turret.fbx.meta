@@ -1,0 +1,230 @@
+fileFormatVersion: 2
+guid: 8d8de494e434eab46a3171e027757546
+timeCreated: 1461237824
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Gun
+    100004: Gun_end
+    100006: GunRotate
+    100008: Leg1.L
+    100010: Leg1.R
+    100012: Leg2.L
+    100014: Leg2.L_end
+    100016: Leg2.R
+    100018: Leg2.R_end
+    100020: LegBack1
+    100022: LegBack2
+    100024: LegBack2_end
+    100026: Main
+    100028: //RootNode
+    100030: Turret
+    400000: Armature
+    400002: Gun
+    400004: Gun_end
+    400006: GunRotate
+    400008: Leg1.L
+    400010: Leg1.R
+    400012: Leg2.L
+    400014: Leg2.L_end
+    400016: Leg2.R
+    400018: Leg2.R_end
+    400020: LegBack1
+    400022: LegBack2
+    400024: LegBack2_end
+    400026: Main
+    400028: //RootNode
+    400030: Turret
+    4300000: Turret
+    7400000: Power down
+    7400002: Deploy
+    7400004: Armature|Deploy
+    7400006: Armature|Power down
+    9500000: //RootNode
+    13700000: Turret
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Power down
+      takeName: Power down
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Main
+        weight: 1
+      - path: Armature/Main/GunRotate
+        weight: 1
+      - path: Armature/Main/GunRotate/Gun
+        weight: 1
+      - path: Armature/Main/GunRotate/Gun/Gun_end
+        weight: 1
+      - path: Armature/Main/Leg1.L
+        weight: 1
+      - path: Armature/Main/Leg1.L/Leg2.L
+        weight: 1
+      - path: Armature/Main/Leg1.L/Leg2.L/Leg2.L_end
+        weight: 1
+      - path: Armature/Main/Leg1.R
+        weight: 1
+      - path: Armature/Main/Leg1.R/Leg2.R
+        weight: 1
+      - path: Armature/Main/Leg1.R/Leg2.R/Leg2.R_end
+        weight: 1
+      - path: Armature/Main/LegBack1
+        weight: 1
+      - path: Armature/Main/LegBack1/LegBack2
+        weight: 1
+      - path: Armature/Main/LegBack1/LegBack2/LegBack2_end
+        weight: 1
+      - path: Turret
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Deploy
+      takeName: Deploy
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Main
+        weight: 1
+      - path: Armature/Main/GunRotate
+        weight: 1
+      - path: Armature/Main/GunRotate/Gun
+        weight: 1
+      - path: Armature/Main/GunRotate/Gun/Gun_end
+        weight: 1
+      - path: Armature/Main/Leg1.L
+        weight: 1
+      - path: Armature/Main/Leg1.L/Leg2.L
+        weight: 1
+      - path: Armature/Main/Leg1.L/Leg2.L/Leg2.L_end
+        weight: 1
+      - path: Armature/Main/Leg1.R
+        weight: 1
+      - path: Armature/Main/Leg1.R/Leg2.R
+        weight: 1
+      - path: Armature/Main/Leg1.R/Leg2.R/Leg2.R_end
+        weight: 1
+      - path: Armature/Main/LegBack1
+        weight: 1
+      - path: Armature/Main/LegBack1/LegBack2
+        weight: 1
+      - path: Armature/Main/LegBack1/LegBack2/LegBack2_end
+        weight: 1
+      - path: Turret
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 3
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

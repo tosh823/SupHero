@@ -42,5 +42,10 @@ namespace SupHero {
         // Players
         public HeroData hero;
         public GuardData guard;
+
+        // Music
+        public AudioClip menuClip;
+        public AudioClip gameClip;
+        public AudioClip resultsClip;
     }
 }

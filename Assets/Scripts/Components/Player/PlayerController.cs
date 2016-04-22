@@ -74,6 +74,7 @@ namespace SupHero.Components.Character {
             zone = GetComponentInParent<ZoneController>();
             inventory = GetComponent<Inventory>();
             inventory.setupWeapons();
+            inventory.setupItems();
             drawPrimary();
         }
 

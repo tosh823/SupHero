@@ -3,6 +3,22 @@ using System.Collections;
 
 namespace SupHero {
 
+    public enum BodySlot {
+        HEAD,
+        NOSE,
+        LEFT_HAND,
+        LEFT_FOREARM,
+        RIGHT_HAND,
+        RIGHT_FOREARM,
+        CHEST,
+        BACK,
+        LEFT_LEG,
+        LEFT_SHIN,
+        RIGHT_LEG,
+        RIGHT_SHIN,
+        NONE
+    }
+
     [System.Serializable]
     public struct PassiveAbility {
         public string name;
@@ -36,6 +52,8 @@ namespace SupHero {
         public ActiveAbility activeData;
 
         public GameObject prefab;
+
+        public BodySlot[] placement;
 
         public AudioClip activationSound;
 

@@ -9,7 +9,6 @@ namespace SupHero.Components.Item {
         protected PlayerController owner;
         protected AudioSource audioSource;
         protected float timeBetweenUsage;
-        protected bool active;
 
         public virtual void Start() {
             owner = GetComponentInParent<PlayerController>();

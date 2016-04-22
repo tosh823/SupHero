@@ -1,0 +1,200 @@
+fileFormatVersion: 2
+guid: 1ab49facf140b594596b53ce687cf909
+timeCreated: 1461237824
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bottom
+    100002: Bottom.L
+    100004: Bottom.L_end
+    100006: Bottom.R
+    100008: Bottom.R_end
+    100010: cover
+    100012: Cover armature
+    100014: //RootNode
+    100016: Link1
+    100018: Link2
+    100020: Middle
+    100022: Middle.L
+    100024: Middle.L_end
+    100026: Middle.R
+    100028: Middle.R_end
+    100030: Spike.L
+    100032: Spike.L_end
+    100034: Spike.R
+    100036: Spike.R_end
+    100038: Top
+    100040: Top.L
+    100042: Top.L_end
+    100044: Top.R
+    100046: Top.R_end
+    400000: Bottom
+    400002: Bottom.L
+    400004: Bottom.L_end
+    400006: Bottom.R
+    400008: Bottom.R_end
+    400010: cover
+    400012: Cover armature
+    400014: //RootNode
+    400016: Link1
+    400018: Link2
+    400020: Middle
+    400022: Middle.L
+    400024: Middle.L_end
+    400026: Middle.R
+    400028: Middle.R_end
+    400030: Spike.L
+    400032: Spike.L_end
+    400034: Spike.R
+    400036: Spike.R_end
+    400038: Top
+    400040: Top.L
+    400042: Top.L_end
+    400044: Top.R
+    400046: Top.R_end
+    4300000: cover
+    7400000: Cover_opening
+    7400002: Cover armature|Cover_opening
+    9500000: //RootNode
+    13700000: cover
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Cover_opening
+      takeName: Cover_opening
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: cover
+        weight: 1
+      - path: Cover armature
+        weight: 1
+      - path: Cover armature/Bottom
+        weight: 1
+      - path: Cover armature/Bottom/Bottom.L
+        weight: 1
+      - path: Cover armature/Bottom/Bottom.L/Bottom.L_end
+        weight: 1
+      - path: Cover armature/Bottom/Bottom.R
+        weight: 1
+      - path: Cover armature/Bottom/Bottom.R/Bottom.R_end
+        weight: 1
+      - path: Cover armature/Bottom/Link1
+        weight: 1
+      - path: Cover armature/Bottom/Link1/Middle
+        weight: 1
+      - path: Cover armature/Bottom/Link1/Middle/Link2
+        weight: 1
+      - path: Cover armature/Bottom/Link1/Middle/Link2/Top
+        weight: 1
+      - path: Cover armature/Bottom/Link1/Middle/Link2/Top/Top.L
+        weight: 1
+      - path: Cover armature/Bottom/Link1/Middle/Link2/Top/Top.L/Top.L_end
+        weight: 1
+      - path: Cover armature/Bottom/Link1/Middle/Link2/Top/Top.R
+        weight: 1
+      - path: Cover armature/Bottom/Link1/Middle/Link2/Top/Top.R/Top.R_end
+        weight: 1
+      - path: Cover armature/Bottom/Link1/Middle/Middle.L
+        weight: 1
+      - path: Cover armature/Bottom/Link1/Middle/Middle.L/Middle.L_end
+        weight: 1
+      - path: Cover armature/Bottom/Link1/Middle/Middle.R
+        weight: 1
+      - path: Cover armature/Bottom/Link1/Middle/Middle.R/Middle.R_end
+        weight: 1
+      - path: Cover armature/Bottom/Spike.L
+        weight: 1
+      - path: Cover armature/Bottom/Spike.L/Spike.L_end
+        weight: 1
+      - path: Cover armature/Bottom/Spike.R
+        weight: 1
+      - path: Cover armature/Bottom/Spike.R/Spike.R_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

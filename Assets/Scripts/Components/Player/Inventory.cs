@@ -113,7 +113,9 @@ namespace SupHero.Components.Character {
                     instance.transform.SetParent(placement);
                     instance.transform.localEulerAngles = itemData.prefab.transform.rotation.eulerAngles;
                 }
-                return itemData.prefab.GetComponent<ItemController>();
+                ItemController ic = itemData.prefab.GetComponent<ItemController>();
+                ic.item = itemData;
+                return ic;
             }
             else return null;
         }

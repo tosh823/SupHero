@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using SupHero;
 using SupHero.Model;
 using SupHero.Components.Level;
 using SupHero.Components.Weapon;
+using SupHero.Components.Item;
 
 namespace SupHero.Components.Character {
 
@@ -23,14 +25,23 @@ namespace SupHero.Components.Character {
 
         // Variables
         public Player player;
-        public string name;
+        public string tokenName;
         public bool gamePadControl = false;
         public bool isHero = true;
+        public Transform directionMark;
         
         private GameObject playerUI; // Ref to UI for this player, possibly unnessecary
         private Vector3 moveVector; // Vector for moving character
         private Vector3 rotation; // Vector for rotating character
         private Vector3 oldLookRotation;
+
+        // Input
+        private bool usePrimaryWeapon;
+        private bool useSecondaryWeapon;
+        private bool useFirstItem;
+        private bool useSecondItem;
+
+        private bool aimMode;
 
         // Components
         private ZoneController zone; // Ref to current zone
@@ -43,6 +54,15 @@ namespace SupHero.Components.Character {
         public event dieAction OnDie;
         public delegate void receiveDamageAction();
         public event receiveDamageAction OnDamageReceived;
+
+        public delegate void primaryDownAction();
+        public event primaryDownAction OnPrimaryDown;
+        public delegate void primaryHoldAction();
+        public event primaryHoldAction OnPrimaryHold;
+        public delegate void primaryUpAction();
+        public event primaryUpAction OnPrimaryUp;
+
+        private primaryUpAction prepareItemUpAction;
 
         void Start() {
             if (player == null) {
@@ -76,6 +96,12 @@ namespace SupHero.Components.Character {
             inventory.setupWeapons();
             inventory.setupItems();
             drawPrimary();
+            usePrimaryWeapon = false;
+            useSecondaryWeapon = false;
+            useFirstItem = false;
+            useSecondItem = false;
+            aimMode = false;
+            directionMark.gameObject.SetActive(false);
         }
 
         public void setAnimator(AnimatorOverrideController controller) {
@@ -91,7 +117,10 @@ namespace SupHero.Components.Character {
                     // Record rotate input
                     rotation = getRotation();
                     // Record actions
-                    readWeaponInput();
+                    readInput();
+                    // Processing gathered input
+                    processWeaponInput();
+                    processItemInput();
                 }
             }
             else {
@@ -101,6 +130,7 @@ namespace SupHero.Components.Character {
         }
 
         // In fixed update we apply motion and rotaion
+        // According to move and rotation vectors
         void FixedUpdate() {
             // Moving
             if (moveVector != null && moveVector != Vector3.zero) {
@@ -277,26 +307,70 @@ namespace SupHero.Components.Character {
             }
         }
 
+        public void enableAimMode() {
+            aimMode = true;
+            directionMark.gameObject.SetActive(true);
+        }
+
+        public void disableAimMode() {
+            aimMode = false;
+            directionMark.gameObject.SetActive(false);
+        }
+
         // Reading weapon input
-        private void readWeaponInput() {
-            bool usePrimaryWeapon = false;
-            bool useSecondaryWeapon = false;
+        private void readInput() {
+            bool primaryDown, primaryHold, primaryUp;
             switch (player.inputType) {
                 case InputType.KEYBOARD:
+                    // For processing
                     usePrimaryWeapon = Input.GetButton(Control.LeftMouse);
                     useSecondaryWeapon = Input.GetButton(Control.RightMouse);
+                    useFirstItem = Input.GetButtonUp(Control.Q);
+                    useSecondItem = Input.GetButtonUp(Control.E);
+
+                    // For firing events
+                    primaryDown = Input.GetButtonDown(Control.LeftMouse);
+                    primaryHold = Input.GetButton(Control.LeftMouse);
+                    primaryUp = Input.GetButtonUp(Control.LeftMouse);
+
                     break;
                 case InputType.GAMEPAD:
                     float rightTrigger = Input.GetAxis(Utils.getControlForPlayer(Control.RightTrigger, player.gamepadNumber));
                     float leftTrigger = Input.GetAxis(Utils.getControlForPlayer(Control.LeftTrigger, player.gamepadNumber));
-                    usePrimaryWeapon = (rightTrigger > 0f);
+
+                    // usePrimaryWeapon holds old value
+                    // so we could use it for defining down, hold and up events
+                    primaryDown = (!usePrimaryWeapon && (rightTrigger > 0f));
+                    primaryHold = (rightTrigger > 0f);
+                    primaryUp = (usePrimaryWeapon && (rightTrigger <= 0.1f));
+
+                    usePrimaryWeapon = primaryHold;
                     useSecondaryWeapon = (leftTrigger > 0f);
+                    useFirstItem = Input.GetButtonUp(Utils.getControlForPlayer(Control.LeftBumper, player.gamepadNumber));
+                    useSecondItem = Input.GetButtonUp(Utils.getControlForPlayer(Control.RightBumper, player.gamepadNumber));
+
                     break;
                 default:
+                    usePrimaryWeapon = false;
+                    useSecondaryWeapon = false;
+                    useFirstItem = false;
+                    useSecondItem = false;
+                    primaryDown = false;
+                    primaryHold = false;
+                    primaryUp = false;
                     break;
             }
+
+            // Firing freakin events
+            if (primaryDown && OnPrimaryDown != null) OnPrimaryDown();
+            if (primaryHold && OnPrimaryHold != null) OnPrimaryHold();
+            if (primaryUp && OnPrimaryUp != null) OnPrimaryUp();
+
+        }
+
+        private void processWeaponInput() {
             // Attack with primary
-            if (usePrimaryWeapon) {
+            if (!aimMode && usePrimaryWeapon) {
                 // New behavior
                 if (isWeaponActive(inventory.primaryWeapon)) {
                     mecanim.SetBool(State.STEADY, true);
@@ -308,7 +382,7 @@ namespace SupHero.Components.Character {
                 }
             }
             // Attack with secondary
-            else if (useSecondaryWeapon) {
+            else if (!aimMode && useSecondaryWeapon) {
                 if (isWeaponActive(inventory.secondaryWeapon)) {
                     mecanim.SetBool(State.STEADY, true);
                     if (inventory.secondaryWeapon.canUseWeapon()) mecanim.SetBool(State.TRIGGER, true);
@@ -325,6 +399,41 @@ namespace SupHero.Components.Character {
             }
         }
 
+        private void processItemInput() {
+            if (useFirstItem) {
+                tryUseItem(inventory.firstItem);
+            }
+            else if (useSecondItem) {
+                tryUseItem(inventory.secondItem);
+            }
+        }
+
+        private void tryUseItem(ItemController item) {
+            ItemStatus status = item.checkStatus();
+            switch (status) {
+                case ItemStatus.ACTIVE_READY:
+                    useItem(item);
+                    break;
+                case ItemStatus.NEED_AIM:
+                    enableAimMode();
+                    prepareItemUpAction = delegate () {
+                        Debug.Log("Item aimed");
+                        disableAimMode();
+                        useItem(item);
+                    };
+                    OnPrimaryUp += prepareItemUpAction;
+                    break;
+                case ItemStatus.COOLDOWN:
+                    Debug.Log("Item is cooling down");
+                    break;
+                case ItemStatus.ONLY_PASSIVE:
+                    Debug.Log("Item doesn't have active ability");
+                    break;
+                default:
+                    break;
+            }
+        }
+
         public void useWeapon() {
             if (isWeaponActive(inventory.primaryWeapon)) {
                 inventory.primaryWeapon.useWeapon();
@@ -332,6 +441,12 @@ namespace SupHero.Components.Character {
             else if (isWeaponActive(inventory.secondaryWeapon)) {
                 inventory.secondaryWeapon.useWeapon();
             }
+        }
+
+        public void useItem(ItemController item) {
+            Debug.Log("Use item");
+            item.activate();
+            if (prepareItemUpAction != null) OnPrimaryUp -= prepareItemUpAction;
         }
 
         // Reading movement input

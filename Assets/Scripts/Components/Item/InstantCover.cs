@@ -13,6 +13,13 @@ namespace SupHero.Components.Item {
 
         }
 
+        public override ItemStatus checkStatus() {
+            if (activeReady()) {
+                return ItemStatus.NEED_AIM;
+            }
+            else return ItemStatus.COOLDOWN;
+        }
+
         protected override void trigger() {
 
         }

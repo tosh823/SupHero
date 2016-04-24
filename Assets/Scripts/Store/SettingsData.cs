@@ -16,6 +16,7 @@ namespace SupHero {
         public int starterSecondary;
 
         public GameObject prefab;
+        public GameObject shieldPrefab;
     }
 
     [System.Serializable]

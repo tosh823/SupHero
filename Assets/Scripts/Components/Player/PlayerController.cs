@@ -121,6 +121,9 @@ namespace SupHero.Components.Character {
                     // Processing gathered input
                     processWeaponInput();
                     processItemInput();
+
+                    move();
+                    rotate();
                 }
             }
             else {
@@ -129,11 +132,75 @@ namespace SupHero.Components.Character {
             }
         }
 
+        private void move() {
+            if (moveVector != null && moveVector != Vector3.zero) {
+                mecanim.SetBool(State.MOVING, true);
+                // For animation accordingly to look orientation
+                float verticalRelative;
+                if (moveVector.z > 0f) {
+                    if (transform.forward.z > 0f) verticalRelative = moveVector.z;
+                    else verticalRelative = -moveVector.z;
+                }
+                else {
+                    if (transform.forward.z < 0f) verticalRelative = -moveVector.z;
+                    else verticalRelative = moveVector.z;
+                }
+
+                float horizontalRelative;
+                if (moveVector.x > 0f) {
+                    if (transform.right.x > 0f) horizontalRelative = moveVector.x;
+                    else horizontalRelative = -moveVector.x;
+                }
+                else {
+                    if (transform.right.x < 0f) horizontalRelative = -moveVector.x;
+                    else horizontalRelative = moveVector.x;
+                }
+                mecanim.SetFloat(State.SPEED, player.speed);
+                mecanim.SetFloat(State.VERT, verticalRelative);
+                mecanim.SetFloat(State.HOR, horizontalRelative);
+                // For moving relative to camera
+                Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
+                forward.y = 0f;
+                forward = forward.normalized;
+                Vector3 right = new Vector3(forward.z, 0f, -forward.x);
+                moveVector = (moveVector.x * right + moveVector.z * forward);
+                // Finally, moving!
+                moveVector = moveVector.normalized * player.speed * Time.deltaTime;
+                playerRigidbody.MovePosition(transform.position + moveVector);
+            }
+            else {
+                mecanim.SetFloat(State.SPEED, player.speed);
+                mecanim.SetFloat(State.VERT, 0f);
+                mecanim.SetFloat(State.HOR, 0f);
+                mecanim.SetBool(State.MOVING, false);
+            }
+        }
+
+        private void rotate() {
+            if (rotation != null && rotation != Vector3.zero) {
+                float smoothing = 4f;
+                Quaternion rotate = Quaternion.LookRotation(rotation);
+                Quaternion smoothRotation = Quaternion.Lerp(transform.rotation, rotate, smoothing * Time.deltaTime);
+                transform.rotation = smoothRotation;
+                // If we have old rotation, check if need to apply animation
+                if (oldLookRotation != null) {
+                    float threshold = 0.2f;
+                    if (Mathf.Abs(rotation.x - oldLookRotation.x) >= threshold) {
+                        mecanim.SetFloat(State.ROTATION, rotation.normalized.x);
+                    }
+                    else {
+                        mecanim.SetFloat(State.ROTATION, 0f);
+                    }
+                }
+                oldLookRotation = rotation;
+            }
+        }
+
         // In fixed update we apply motion and rotaion
         // According to move and rotation vectors
         void FixedUpdate() {
             // Moving
-            if (moveVector != null && moveVector != Vector3.zero) {
+            /*if (moveVector != null && moveVector != Vector3.zero) {
                 mecanim.SetBool(State.MOVING, true);
                 // For animation accordingly to look orientation
                 float verticalRelative;
@@ -191,7 +258,7 @@ namespace SupHero.Components.Character {
                     }
                 }
                 oldLookRotation = rotation;
-            }
+            }*/
         }
 
         // Draw primary weapon from inventory

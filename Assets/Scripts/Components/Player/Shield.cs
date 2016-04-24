@@ -3,14 +3,20 @@ using System.Collections;
 using SupHero;
 using SupHero.Model;
 
-namespace SupHero.Components {
+namespace SupHero.Components.Character {
     public class Shield : MonoBehaviour {
 
         public Hero owner;
+        private PlayerController player;
         private float timer;
+        private GameObject shield;
 
         void Start() {
             timer = 0f;
+            player = gameObject.GetComponent<PlayerController>();
+            shield = Instantiate(Data.Instance.mainSettings.hero.shieldPrefab);
+            shield.transform.SetParent(player.transform);
+            shield.transform.position = player.transform.position;
         }
 
         void Update() {

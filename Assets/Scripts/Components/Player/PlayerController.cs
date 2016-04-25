@@ -122,6 +122,7 @@ namespace SupHero.Components.Character {
                     processWeaponInput();
                     processItemInput();
 
+                    // Stearing
                     move();
                     rotate();
                 }
@@ -138,22 +139,22 @@ namespace SupHero.Components.Character {
                 // For animation accordingly to look orientation
                 float verticalRelative;
                 if (moveVector.z > 0f) {
-                    if (transform.forward.z > 0f) verticalRelative = moveVector.z;
-                    else verticalRelative = -moveVector.z;
+                    if (transform.forward.z > 0f) verticalRelative = moveVector.normalized.z;
+                    else verticalRelative = -moveVector.normalized.z;
                 }
                 else {
-                    if (transform.forward.z < 0f) verticalRelative = -moveVector.z;
-                    else verticalRelative = moveVector.z;
+                    if (transform.forward.z < 0f) verticalRelative = -moveVector.normalized.z;
+                    else verticalRelative = moveVector.normalized.z;
                 }
 
                 float horizontalRelative;
                 if (moveVector.x > 0f) {
-                    if (transform.right.x > 0f) horizontalRelative = moveVector.x;
-                    else horizontalRelative = -moveVector.x;
+                    if (transform.right.x > 0f) horizontalRelative = moveVector.normalized.x;
+                    else horizontalRelative = -moveVector.normalized.x;
                 }
                 else {
-                    if (transform.right.x < 0f) horizontalRelative = -moveVector.x;
-                    else horizontalRelative = moveVector.x;
+                    if (transform.right.x < 0f) horizontalRelative = -moveVector.normalized.x;
+                    else horizontalRelative = moveVector.normalized.x;
                 }
                 mecanim.SetFloat(State.SPEED, player.speed);
                 mecanim.SetFloat(State.VERT, verticalRelative);
@@ -198,76 +199,18 @@ namespace SupHero.Components.Character {
 
         // In fixed update we apply motion and rotaion
         // According to move and rotation vectors
+        // Better not to
         void FixedUpdate() {
-            // Moving
-            /*if (moveVector != null && moveVector != Vector3.zero) {
-                mecanim.SetBool(State.MOVING, true);
-                // For animation accordingly to look orientation
-                float verticalRelative;
-                if (moveVector.z > 0f) {
-                    if (transform.forward.z > 0f) verticalRelative = moveVector.z;
-                    else verticalRelative = -moveVector.z;
-                }
-                else {
-                    if (transform.forward.z < 0f) verticalRelative = -moveVector.z;
-                    else verticalRelative = moveVector.z;
-                }
-
-                float horizontalRelative;
-                if (moveVector.x > 0f) {
-                    if (transform.right.x > 0f) horizontalRelative = moveVector.x;
-                    else horizontalRelative = -moveVector.x;
-                }
-                else {
-                    if (transform.right.x < 0f) horizontalRelative = -moveVector.x;
-                    else horizontalRelative = moveVector.x;
-                }
-                mecanim.SetFloat(State.SPEED, player.speed);
-                mecanim.SetFloat(State.VERT, verticalRelative);
-                mecanim.SetFloat(State.HOR, horizontalRelative);
-                // For moving relative to camera
-                Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
-                forward.y = 0f;
-                forward = forward.normalized;
-                Vector3 right = new Vector3(forward.z, 0f, -forward.x);
-                moveVector = (moveVector.x * right + moveVector.z * forward);
-                // Finally, moving!
-                moveVector = moveVector.normalized * player.speed * Time.deltaTime;
-                playerRigidbody.MovePosition(transform.position + moveVector);
-            }
-            else {
-                mecanim.SetFloat(State.SPEED, player.speed);
-                mecanim.SetFloat(State.VERT, 0f);
-                mecanim.SetFloat(State.HOR, 0f);
-                mecanim.SetBool(State.MOVING, false);
-            }
-            // Turning
-            if (rotation != null && rotation != Vector3.zero) {
-                float smoothing = 2.8f;
-                Quaternion rotate = Quaternion.LookRotation(rotation);
-                Quaternion smoothRotation = Quaternion.Lerp(transform.rotation, rotate, smoothing * Time.deltaTime);
-                playerRigidbody.MoveRotation(smoothRotation);
-                // If we have old rotation, check if need to apply animation
-                if (oldLookRotation != null) {
-                    float threshold = 0.2f;
-                    if (Mathf.Abs(rotation.x - oldLookRotation.x) >= threshold) {
-                        mecanim.SetFloat(State.ROTATION, rotation.normalized.x);
-                    }
-                    else {
-                        mecanim.SetFloat(State.ROTATION, 0f);
-                    }
-                }
-                oldLookRotation = rotation;
-            }*/
+            
         }
 
         // Draw primary weapon from inventory
         public void drawPrimary() {
             if (player is Hero) {
-                mecanim.runtimeAnimatorController = inventory.primaryWeapon.weapon.controller;
+                mecanim.runtimeAnimatorController = inventory.primaryWeapon.weapon.heroController;
             }
             else {
-                mecanim.runtimeAnimatorController = inventory.primaryWeapon.weapon.guardVersion;
+                mecanim.runtimeAnimatorController = inventory.primaryWeapon.weapon.guardController;
             }
             hideWeapon(inventory.secondaryWeapon);
             inventory.primaryWeapon.gameObject.SetActive(true);
@@ -277,10 +220,10 @@ namespace SupHero.Components.Character {
         // Draw secondary weapon from inventory
         public void drawSecondary() {
             if (player is Hero) {
-                mecanim.runtimeAnimatorController = inventory.secondaryWeapon.weapon.controller;
+                mecanim.runtimeAnimatorController = inventory.secondaryWeapon.weapon.heroController;
             }
             else {
-                mecanim.runtimeAnimatorController = inventory.secondaryWeapon.weapon.guardVersion;
+                mecanim.runtimeAnimatorController = inventory.secondaryWeapon.weapon.guardController;
             }
             hideWeapon(inventory.primaryWeapon);
             inventory.secondaryWeapon.gameObject.SetActive(true);
@@ -354,6 +297,7 @@ namespace SupHero.Components.Character {
         public void die() {
             if (OnDie != null) {
                 player.die();
+                Destroy(gameObject);
                 OnDie(player);
             }
         }

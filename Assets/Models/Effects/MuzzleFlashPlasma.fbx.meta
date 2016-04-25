@@ -1,20 +1,24 @@
 fileFormatVersion: 2
-guid: 95bc4abf27372ba4c92721b61f8817a8
-timeCreated: 1461317088
+guid: 555beaa7ddb3ce943a012543bc4907b0
+timeCreated: 1461576086
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: Armature
     100002: Cube
-    100004: Main
-    100006: Main_end
-    100008: //RootNode
+    100004: Flame
+    100006: Flame_end
+    100008: Lightning
+    100010: Lightning_end
+    100012: //RootNode
     400000: Armature
     400002: Cube
-    400004: Main
-    400006: Main_end
-    400008: //RootNode
+    400004: Flame
+    400006: Flame_end
+    400008: Lightning
+    400010: Lightning_end
+    400012: //RootNode
     4300000: Cube
     7400000: Flash
     7400002: Armature|Flash
@@ -70,9 +74,13 @@ ModelImporter:
         weight: 1
       - path: Armature
         weight: 1
-      - path: Armature/Main
+      - path: Armature/Flame
         weight: 1
-      - path: Armature/Main/Main_end
+      - path: Armature/Flame/Flame_end
+        weight: 1
+      - path: Armature/Lightning
+        weight: 1
+      - path: Armature/Lightning/Lightning_end
         weight: 1
       - path: Cube
         weight: 1

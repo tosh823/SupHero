@@ -1,7 +1,4 @@
 ﻿using UnityEngine;
-using System;
-using System.Collections;
-using SupHero;
 using SupHero.Model;
 using SupHero.Components.Level;
 using SupHero.Components.Weapon;
@@ -131,7 +128,7 @@ namespace SupHero.Components.Character {
         }
 
         private void Move() {
-            if (moveVector != null && moveVector != Vector3.zero) {
+            if (moveVector != Vector3.zero) {
                 mecanim.SetBool(State.MOVING, true);
                 // For animation accordingly to look orientation
                 float verticalRelative;
@@ -175,14 +172,14 @@ namespace SupHero.Components.Character {
         }
 
         private void Rotate() {
-            if (rotation != null && rotation != Vector3.zero) {
+            if (rotation != Vector3.zero) {
                 float smoothing = 1f;
                 Quaternion rotate = Quaternion.LookRotation(rotation);
                 Quaternion smoothRotation = Quaternion.Lerp(transform.rotation, rotate, smoothing * Time.deltaTime);
                 //transform.rotation = smoothRotation;
                 transform.rotation = rotate;
                 // If we have old rotation, check if need to apply animation
-                if (oldLookRotation != null) {
+                if (oldLookRotation != Vector3.zero) {
                     float threshold = 0.2f;
                     if (Mathf.Abs(rotation.x - oldLookRotation.x) >= threshold) {
                         mecanim.SetFloat(State.ROTATION, rotation.normalized.x);

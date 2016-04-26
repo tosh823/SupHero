@@ -13,7 +13,6 @@ namespace SupHero.Components.Level {
         public Model.Level level { get; private set; }
         public HUDController HUD { get; private set; }
         public CameraController view { get; private set; }
-        public Data data { get; private set; } 
         public GameObject zonePrefab;
         public int turn { get; private set; }
 
@@ -23,6 +22,7 @@ namespace SupHero.Components.Level {
 
         // Singleton realization
         void Awake() {
+            Debug.Log("Awake of the new game");
             if (Instance == null) {
                 Instance = this;
             }
@@ -32,19 +32,21 @@ namespace SupHero.Components.Level {
             DontDestroyOnLoad(gameObject);
         }
 
+
         void Start() {
+            Debug.Log("Alright, starting a new game");
             level = new Model.Level();
             level.createPlayers();
 
             HUD = GameObject.FindGameObjectWithTag(Tags.MainUI).GetComponent<HUDController>();
+            HUD.createTimer();
             view = Camera.main.GetComponent<CameraController>();
-            data = GetComponent<Data>();
 
             createZone();
             turn = 1;
 
             timer = gameObject.AddComponent<Timer>();
-            timer.time = data.mainSettings.turnTime;
+            timer.time = Data.Instance.mainSettings.turnTime;
             timer.OnTick += updateTimer;
             timer.OnEnd += newTurn;
             timer.launch();
@@ -65,7 +67,7 @@ namespace SupHero.Components.Level {
                 turn++;
                 transferToZone();
                 timer = gameObject.AddComponent<Timer>();
-                timer.time = data.mainSettings.turnTime;
+                timer.time = Data.Instance.mainSettings.turnTime;
                 timer.OnTick += updateTimer;
                 timer.OnEnd += newTurn;
                 timer.launch();

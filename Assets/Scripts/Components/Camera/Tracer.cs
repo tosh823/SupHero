@@ -8,12 +8,9 @@ namespace SupHero.Components {
         public Transform target;
         public float smoothing = 5f;
 
-        private Camera cameraComponent;
         private Vector3 cameraOffset;
 
         void Start() {
-            cameraComponent = GetComponent<Camera>();
-            transform.LookAt(target.position);
             cameraOffset = transform.position - target.position;
         }
         

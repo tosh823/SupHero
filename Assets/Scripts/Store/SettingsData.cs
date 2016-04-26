@@ -12,6 +12,9 @@ namespace SupHero {
         public float speed;
         public float shieldReplenishTime;
 
+        public float spawnDistance;
+        public float viewRadius;
+
         public int starterPrimary;
         public int starterSecondary;
 

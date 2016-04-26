@@ -12,12 +12,7 @@ namespace SupHero.Components {
 
     public class CameraController : MonoBehaviour {
 
-        // TODO!!!
-        // Don't forget to delete all references to mark
-        public GameObject mark;
         public Vector3 center;
-
-        private LevelController levelController;
         private Camera cameraComponent;
         private GameObject target;
         private Vector3 offset;
@@ -27,10 +22,9 @@ namespace SupHero.Components {
         
         // Use this for initialization
         void Start() {
-            levelController = GetComponentInParent<LevelController>();
             cameraComponent = GetComponent<Camera>();
             surfaceMask = LayerMask.GetMask(Layers.Floor);
-            minDistance = Constants.heroDistance;
+            minDistance = Data.Instance.mainSettings.hero.viewRadius;
         }
 
         void FixedUpdate() {
@@ -57,10 +51,9 @@ namespace SupHero.Components {
                 Vector3 hitPoint = hit.point;
                 hitPoint.y = 0f;
                 center = hitPoint;
-                center.z -= 5f;
-                center.x += 2f;
+                //center.z -= 5f;
+                //center.x += 2f;
                 offset = transform.position - center;
-                //mark.transform.position = center;
             }
         }
 

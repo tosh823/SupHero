@@ -12,6 +12,10 @@ namespace SupHero.Components.UI {
         BOTTOM
     }
 
+    // TODO!!!
+    // Need to remake TimerController class
+    // and interaction with it
+
     public class HUDController : MonoBehaviour {
 
         public GameObject timerPrefab;
@@ -20,18 +24,22 @@ namespace SupHero.Components.UI {
         public GameObject popUpPrefab;
 
         private RectTransform rectTransform;
-        private GameObject timerInstance;
+        private TimerController timerInstance;
         private List<GameObject> playerUIs;
 
         void Start() {
             rectTransform = gameObject.GetComponent<RectTransform>();
             playerUIs = new List<GameObject>();
-            timerInstance = Instantiate(timerPrefab);
-            timerInstance.transform.SetParent(transform, false);
         }
 
         public void updateTimer(float time) {
-            timerInstance.GetComponent<TimerController>().updateTimer(getTime(time));
+            timerInstance.updateTimer(getTime(time));
+        }
+
+        public void createTimer() {
+            GameObject instance = Instantiate(timerPrefab) as GameObject;
+            instance.transform.SetParent(transform, false);
+            timerInstance = instance.GetComponent<TimerController>();
         }
 
         public void showMessage(string message, float fadeOut = 2f) {

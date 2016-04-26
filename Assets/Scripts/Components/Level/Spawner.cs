@@ -63,7 +63,7 @@ namespace SupHero.Components.Level {
 
         public Vector3 getPosInsideBounds() {
             Vector3 pos = Vector3.zero;
-            Area visibleArea = LevelController.Instance.view.getVisibleArea();
+            Area visibleArea = Camera.main.GetComponent<CameraController>().getVisibleArea();
             float visibleXmin = surfaceBounds.min.x;
             float visibleXmax = surfaceBounds.max.x;
             float visibleZmin = surfaceBounds.min.z;
@@ -107,7 +107,7 @@ namespace SupHero.Components.Level {
 
         private Vector3 getSpawnPosition() {
             Vector3 position = zoneController.getHero().transform.position;
-            Vector3 rng = Random.onUnitSphere * Constants.heroDistance;
+            Vector3 rng = Random.onUnitSphere * Data.Instance.mainSettings.hero.spawnDistance;
             // Checking availability of point
             bool beyoundMaxX = ((position.x + rng.x) >= surfaceBounds.max.x);
             bool belowMinX = ((position.x + rng.x) <= surfaceBounds.min.x);
@@ -141,11 +141,6 @@ namespace SupHero.Components.Level {
             for (int index = 0; index < guardsSpawnPoints.Length; index++) {
                 guardsSpawnPoints[index].SetActive(true);
             }
-        }
-
-        private void createMark(Vector3 pos) {
-            GameObject mark = Instantiate(LevelController.Instance.view.mark, pos, Quaternion.identity) as GameObject;
-            mark.transform.SetParent(transform);
         }
     }
 }

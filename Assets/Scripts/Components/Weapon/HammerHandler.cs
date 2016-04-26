@@ -6,12 +6,12 @@ using SupHero.Model;
 namespace SupHero.Components.Weapon {
     public class HammerHandler : WeaponController {
 
-        private Collider edge;
+        //private Collider edge;
         private bool doingSlash;
 
         public override void Start() {
             base.Start();
-            edge = GetComponent<Collider>();
+            //edge = GetComponent<Collider>();
             doingSlash = false;
         }
 

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
-using UnityEditor;
-using System.Collections;
 using System.Collections.Generic;
+
+#if UNITY_EDITOR
+using UnityEditor;
 
 namespace SupHero {
 
@@ -411,3 +412,5 @@ namespace SupHero {
         }*/
     }
 }
+
+#endif

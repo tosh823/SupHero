@@ -33,12 +33,20 @@ namespace SupHero {
     }
 
     [System.Serializable]
+    public struct Points {
+        public int fragHero;
+        public int fragGuard;
+        public int plateFinished;
+    }
+
+    [System.Serializable]
     public class SettingsData {
 
         public string name = "Main Settings";
 
         // Fields
         public float turnTime = 120;
+        public Points points;
 
         // Players
         public HeroData hero;

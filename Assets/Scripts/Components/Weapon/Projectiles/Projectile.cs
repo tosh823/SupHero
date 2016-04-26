@@ -23,7 +23,7 @@ namespace SupHero.Components.Weapon {
         public virtual void OnTriggerEnter(Collider other) {
             GameObject target = other.gameObject;
             if (target.CompareTag(Tags.Player)) {
-                DamageResult hit = target.GetComponent<PlayerController>().receiveDamage(gun.weapon.damage);
+                gun.dealDamageTo(target.GetComponent<PlayerController>());
                 Stop();
             }
             else if (target.CompareTag(Tags.Cover)) {

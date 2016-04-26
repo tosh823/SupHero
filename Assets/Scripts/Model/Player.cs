@@ -7,7 +7,8 @@ namespace SupHero.Model {
         SHIELD_HIT,
         ARMOR_HIT,
         HEALTH_HIT,
-        MORTAL_HIT
+        MORTAL_HIT,
+        NONE,
     }
 
     [System.Serializable]

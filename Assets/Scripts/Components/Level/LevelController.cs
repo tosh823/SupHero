@@ -73,6 +73,10 @@ namespace SupHero.Components.Level {
             }
             else {
                 // Go to reward section
+                // DEBUG display results info
+                foreach (Player player in level.players) {
+                    Debug.Log("Player " + player.number + " : " + player.points);
+                }
             }
         }
 

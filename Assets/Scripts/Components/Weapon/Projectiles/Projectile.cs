@@ -6,11 +6,11 @@ namespace SupHero.Components.Weapon {
     public class Projectile : MonoBehaviour {
         
         public float speed;
-        private bool launched = false;
+        protected bool launched = false;
         public WeaponController gun;
-        private Vector3 direction;
-        private Vector3 initialPosition;
-        private float madeDistance {
+        protected Vector3 direction;
+        protected Vector3 initialPosition;
+        protected float madeDistance {
             get {
                 return Vector3.Distance(transform.position, initialPosition);
             }
@@ -23,19 +23,16 @@ namespace SupHero.Components.Weapon {
         public virtual void OnTriggerEnter(Collider other) {
             GameObject target = other.gameObject;
             if (target.CompareTag(Tags.Player)) {
-                Debug.Log("Hit player " + target.GetComponent<PlayerController>().tokenName);
                 DamageResult hit = target.GetComponent<PlayerController>().receiveDamage(gun.weapon.damage);
                 Stop();
             }
             else if (target.CompareTag(Tags.Cover)) {
-                Debug.Log("Hit cover");
                 target.GetComponent<CoverController>().takeDamage(gun.weapon.damage);
                 Stop();
             }
         }
 
         public virtual void OnCollisionEnter(Collision collision) {
-            Debug.Log("Hit " + collision.gameObject);
             Stop();
         }
 
@@ -62,13 +59,12 @@ namespace SupHero.Components.Weapon {
             gun.returnProjectile(this);
         }
 
-        void OnBecameVisible() {
+        protected void OnBecameVisible() {
             
         }
 
-        void OnBecameInvisible() {
+        protected void OnBecameInvisible() {
             if (launched) {
-                Debug.Log("Projectile becomes invisible");
                 Stop();
             }
         }

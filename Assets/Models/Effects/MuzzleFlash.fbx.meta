@@ -16,7 +16,7 @@ ModelImporter:
     400006: Main_end
     400008: //RootNode
     4300000: Cube
-    7400000: Flash
+    7400000: Run
     7400002: Armature|Flash
     9500000: //RootNode
     13700000: Cube
@@ -42,7 +42,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Flash
+      name: Run
       takeName: Flash
       firstFrame: 0
       lastFrame: 10

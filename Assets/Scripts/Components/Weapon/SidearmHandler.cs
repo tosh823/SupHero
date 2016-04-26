@@ -5,9 +5,11 @@ namespace SupHero.Components.Weapon {
     public class SidearmHandler : WeaponController {
 
         public Transform barrelEnd;
+        private Animator mecanim;
 
         public override void Start() {
             base.Start();
+            mecanim = GetComponentInChildren<Animator>();
         }
 
         public override void Update() {
@@ -29,6 +31,9 @@ namespace SupHero.Components.Weapon {
             instance.Launch(barrelEnd.transform.position, owner.transform.forward);
             playTriggerSound();
             ammo--;
+            // Animation doesn't really work
+            // It shifts object to root 
+            //mecanim.SetTrigger(WeaponAnimState.SHOT);
         }
 
         private void disableEffects() {

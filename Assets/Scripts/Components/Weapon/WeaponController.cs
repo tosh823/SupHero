@@ -3,6 +3,11 @@ using SupHero.Components.Character;
 
 namespace SupHero.Components.Weapon {
 
+    public struct WeaponAnimState {
+        public static string SHOT = "shot";
+        public static string RELOAD = "reload";
+    }
+
     public class Magazine : Pool<Projectile> {
         
     }

@@ -6,12 +6,12 @@ using SupHero.Model;
 namespace SupHero.Components.Weapon {
     public class LanceHandler : WeaponController {
 
-        private Collider edge;
+        //private Collider edge;
         private bool doingSlash;
 
         public override void Start() {
             base.Start();
-            edge = GetComponent<Collider>();
+            //edge = GetComponent<Collider>();
             doingSlash = false;
         }
 
@@ -22,10 +22,7 @@ namespace SupHero.Components.Weapon {
         void OnTriggerEnter(Collider other) {
             GameObject target = other.gameObject;
             if (doingSlash && target.CompareTag(Tags.Player)) {
-                DamageResult result = target.GetComponent<PlayerController>().receiveDamage(weapon.damage);
-                if (result == DamageResult.MORTAL_HIT) {
-                    owner.player.applyPoints(10);
-                }
+                dealDamageTo(target.GetComponent<PlayerController>());
             }
         }
 

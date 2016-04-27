@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using SupHero.Components.Character;
+using SupHero.Model;
 
 namespace SupHero.Components.Level {
 
@@ -72,6 +74,7 @@ namespace SupHero.Components.Level {
 
         private Bounds bounds;
         private int numberOfAttempts = 3;
+        private bool visited;
 
         // Events
         public delegate void heroIncoming();
@@ -87,6 +90,7 @@ namespace SupHero.Components.Level {
         void Start() {
             bounds = GetComponent<Collider>().bounds;
             if (generateView) generateObjects(Theme.FOREST);
+            visited = false;
         }
 
         void Update() {
@@ -217,6 +221,10 @@ namespace SupHero.Components.Level {
         void OnTriggerEnter(Collider other) {
             Transform incoming = other.gameObject.transform;
             if (incoming.CompareTag(Tags.Player)) {
+                PlayerController pc = incoming.GetComponent<PlayerController>();
+                if (!visited && (pc.player is Hero)) {
+                    pc.player.applyPoints(Data.Instance.mainSettings.points.plateFinished);
+                }
                 // Player came to this plate
                 if (OnHeroCome != null) {
                     OnHeroCome();

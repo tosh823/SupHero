@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using SupHero.Components.Character;
+using SupHero.Model;
 
 namespace SupHero.Components.Weapon {
 
@@ -86,6 +87,19 @@ namespace SupHero.Components.Weapon {
                 };
                 reload.launch();
                 playReloadSound();
+            }
+        }
+
+        public virtual void dealDamageTo(PlayerController pc) {
+            if (pc == null) return;
+            DamageResult result = pc.receiveDamage(weapon.damage);
+            if (result == DamageResult.MORTAL_HIT) {
+                if ((owner.player is Guard) && (pc.player is Hero)) {
+                    owner.player.applyPoints(Data.Instance.mainSettings.points.fragHero);
+                }
+                if ((owner.player is Hero) && (pc.player is Guard)) {
+                    owner.player.applyPoints(Data.Instance.mainSettings.points.fragGuard);
+                }
             }
         }
 

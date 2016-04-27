@@ -1,7 +1,4 @@
 ﻿using UnityEngine;
-using System;
-using System.Collections;
-using SupHero;
 using SupHero.Model;
 using SupHero.Components.Level;
 using SupHero.Components.Weapon;
@@ -27,6 +24,7 @@ namespace SupHero.Components.Character {
         public Player player;
         public string tokenName;
         public bool gamePadControl = false;
+        public int gamePadNumber = 0;
         public bool isHero = true;
         public Transform directionMark;
         
@@ -71,7 +69,7 @@ namespace SupHero.Components.Character {
                     player = new Hero(1);
                     if (gamePadControl) {
                         player.inputType = InputType.GAMEPAD;
-                        player.gamepadNumber = 1;
+                        player.gamepadNumber = gamePadNumber;
                     }
                     else {
                         player.inputType = InputType.KEYBOARD;
@@ -81,7 +79,7 @@ namespace SupHero.Components.Character {
                     player = new Guard(1);
                     if (gamePadControl) {
                         player.inputType = InputType.GAMEPAD;
-                        player.gamepadNumber = 1;
+                        player.gamepadNumber = gamePadNumber;
                     }
                     else {
                         player.inputType = InputType.KEYBOARD;
@@ -123,18 +121,14 @@ namespace SupHero.Components.Character {
                     processItemInput();
 
                     // Stearing
-                    move();
-                    rotate();
+                    Move();
+                    Rotate();
                 }
-            }
-            else {
-                // Invoking die in animation event
-                mecanim.SetTrigger(State.DIE);
             }
         }
 
-        private void move() {
-            if (moveVector != null && moveVector != Vector3.zero) {
+        private void Move() {
+            if (moveVector != Vector3.zero) {
                 mecanim.SetBool(State.MOVING, true);
                 // For animation accordingly to look orientation
                 float verticalRelative;
@@ -177,14 +171,15 @@ namespace SupHero.Components.Character {
             }
         }
 
-        private void rotate() {
-            if (rotation != null && rotation != Vector3.zero) {
-                float smoothing = 4f;
+        private void Rotate() {
+            if (rotation != Vector3.zero) {
+                float smoothing = 1f;
                 Quaternion rotate = Quaternion.LookRotation(rotation);
                 Quaternion smoothRotation = Quaternion.Lerp(transform.rotation, rotate, smoothing * Time.deltaTime);
-                transform.rotation = smoothRotation;
+                //transform.rotation = smoothRotation;
+                transform.rotation = rotate;
                 // If we have old rotation, check if need to apply animation
-                if (oldLookRotation != null) {
+                if (oldLookRotation != Vector3.zero) {
                     float threshold = 0.2f;
                     if (Mathf.Abs(rotation.x - oldLookRotation.x) >= threshold) {
                         mecanim.SetFloat(State.ROTATION, rotation.normalized.x);
@@ -194,6 +189,9 @@ namespace SupHero.Components.Character {
                     }
                 }
                 oldLookRotation = rotation;
+            }
+            else {
+                mecanim.SetFloat(State.ROTATION, 0f);
             }
         }
 
@@ -247,10 +245,17 @@ namespace SupHero.Components.Character {
 
         // Receive damage
         public DamageResult receiveDamage(float damage) {
-            if (OnDamageReceived != null) {
-                OnDamageReceived();
+            if (player.isAlive) {
+                if (OnDamageReceived != null) {
+                    OnDamageReceived();
+                }
+                DamageResult result = player.receiveDamage(damage);
+                if (result == DamageResult.MORTAL_HIT) {
+                    mecanim.SetTrigger(State.DIE);
+                }
+                return result;
             }
-            return player.receiveDamage(damage);
+            else return DamageResult.NONE;
         }
 
         // Apply effect
@@ -294,12 +299,13 @@ namespace SupHero.Components.Character {
             playerUI = ui;
         }
 
-        public void die() {
+        public void Death() {
+            Debug.Log(tokenName + " is dead, should disappear");
+            player.die();
             if (OnDie != null) {
-                player.die();
-                Destroy(gameObject);
                 OnDie(player);
             }
+            Destroy(gameObject);
         }
 
         public void receiveDrop(Entity type, int id) {

@@ -26,6 +26,14 @@ namespace SupHero {
             else return false;
         }
 
+        public static int getRandomRange(int min, int max) {
+            float minFloat = min;
+            float maxFloat = max;
+            float value = UnityEngine.Random.Range(minFloat, maxFloat);
+            int result = Mathf.FloorToInt(value);
+            return result;
+        }
+
         public static T getRandomElement<T>(List<T> list) {
             float rand = UnityEngine.Random.Range(0f, list.Count);
             int item = Mathf.FloorToInt(rand);

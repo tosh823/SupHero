@@ -5,7 +5,8 @@ namespace SupHero {
     public enum Entity {
         WEAPON,
         ITEM,
-        SUPPLY
+        SUPPLY,
+        NONE
     }
 
     public class Data : MonoBehaviour {
@@ -40,6 +41,11 @@ namespace SupHero {
                 }
             }
             return null;
+        }
+
+        public int getRandomWeaponId() {
+            int id = Utils.getRandomRange(2, weaponsDB.weapons.Count);
+            return id;
         }
 
         public EnvironmentData getEnvByTheme(Theme theme) {

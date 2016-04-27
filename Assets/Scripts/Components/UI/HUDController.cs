@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using SupHero;
 using SupHero.Model;
+using SupHero.Components.Character;
 
 namespace SupHero.Components.UI {
 

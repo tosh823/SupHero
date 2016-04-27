@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using SupHero;
 using SupHero.Model;
 
 namespace SupHero.Components.Character {
@@ -21,6 +19,16 @@ namespace SupHero.Components.Character {
 
         void Update() {
             if (owner.isAlive && !owner.isShieldFull) {
+
+                // Disappear shield if empty
+                // TODO!!! Make it better later
+                if (owner.isShieldEmpty) {
+                    if (shield.activeSelf) shield.SetActive(false);
+                }
+                else {
+                    if (!shield.activeSelf) shield.SetActive(true);
+                }
+
                 // Ticking timer
                 if (timer >= owner.replenishWaitTime) {
                     owner.replenishShield();

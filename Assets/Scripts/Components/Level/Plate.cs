@@ -211,6 +211,32 @@ namespace SupHero.Components.Level {
                     instance.transform.eulerAngles = euler;
                 }
             }
+
+            // Just for showcase, placing weapon drops
+            for (int i = 0; i < 3; i++) {
+                int weaponId = Data.Instance.getRandomWeaponId();
+                GameObject dropInstance = Instantiate(data.dropPrefab) as GameObject;
+                dropInstance.transform.SetParent(transform);
+                dropInstance.GetComponent<Drop>().createWeaponDrop(weaponId);
+                Bounds objectBounds = dropInstance.GetComponent<Collider>().bounds;
+                // Random location
+                Vector3 pos;
+                int attempt = 0;
+                bool placed = false;
+                do {
+                    pos = getRandomPointOnMesh(Mathf.Abs(objectBounds.extents.x), Mathf.Abs(objectBounds.extents.z));
+                    pos.y = dropInstance.transform.position.y;
+                    dropInstance.transform.position = pos;
+                    placed = placeAvailable(objectBounds, pos);
+                    attempt++;
+                } while (!placed && attempt <= numberOfAttempts);
+
+                // If we didn't succeeded in placement, remove object
+                if (!placed) {
+                    Debug.Log("Oops, can't find a place for a cover, screw it then!");
+                    Destroy(dropInstance.gameObject);
+                }
+            }
         }
 
         public void dropItem() {

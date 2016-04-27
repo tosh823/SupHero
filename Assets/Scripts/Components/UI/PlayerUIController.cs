@@ -16,6 +16,7 @@ namespace SupHero.Components.UI {
         public Text healthText;
         public Text playerName;
         public Text playerPoints;
+        public Text ammo;
 
         void Start() {
 
@@ -31,7 +32,7 @@ namespace SupHero.Components.UI {
                     shieldPanel.SetActive(false);
                 }
                 armorText.text = player.armor.ToString();
-                //healthText.text = player.health.ToString();
+                
                 playerName.text = player.playerName;
                 playerPoints.text = player.points.ToString();
             }

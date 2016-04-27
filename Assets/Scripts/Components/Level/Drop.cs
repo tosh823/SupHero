@@ -5,7 +5,7 @@ using SupHero.Components.Character;
 namespace SupHero.Components.Level {
     public class Drop : MonoBehaviour {
 
-        private Light light;
+        private Light neon;
 
         public GameObject dropItem;
         public bool autoDestroy = true;
@@ -14,17 +14,33 @@ namespace SupHero.Components.Level {
         public int id;
 
         void Start() {
-            light = GetComponent<Light>();
+            neon = GetComponent<Light>();
 
-            dropItem = Instantiate(dropItem) as GameObject;
-            dropItem.transform.SetParent(transform);
-            dropItem.transform.position = transform.position;
-            dropItem.transform.eulerAngles = new Vector3(-90f, 0f, 0f);
-            configureLight();
+            if (dropItem != null) {
+                dropItem = Instantiate(dropItem) as GameObject;
+                dropItem.transform.SetParent(transform);
+                dropItem.transform.position = transform.position;
+                dropItem.transform.eulerAngles = new Vector3(-90f, 0f, 0f);
+                configureLight();
+            }
+            else {
+                Destroy(gameObject);
+            }
         }
 
         void Update() {
             transform.Rotate(new Vector3(0f, 20f, 0f) * Time.deltaTime);
+        }
+
+        public void createWeaponDrop(int id) {
+            entity = Entity.WEAPON;
+            this.id = id;
+            dropItem = Data.Instance.getWeaponById(id).prefab;
+        }
+
+        public void createDrop(Entity type, int id) {
+            entity = type;
+            this.id = id;
         }
 
         void OnTriggerEnter(Collider other) {
@@ -39,15 +55,16 @@ namespace SupHero.Components.Level {
         void configureLight() {
             switch (entity) {
                 case Entity.WEAPON:
-                    light.color = Color.cyan;
-                    light.intensity = 1f;
+                    neon.color = Color.cyan;
+                    neon.range = 8f;
+                    neon.intensity = 1f;
                     break;
                 case Entity.ITEM:
-                    light.color = Color.red;
-                    light.intensity = 4f;
+                    neon.color = Color.red;
+                    neon.intensity = 4f;
                     break;
                 case Entity.SUPPLY:
-                    light.color = Color.white;
+                    neon.color = Color.white;
                     break;
                 default:
                     break;

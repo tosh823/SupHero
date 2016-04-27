@@ -19,8 +19,10 @@ namespace SupHero.Components.UI {
     public class HUDController : MonoBehaviour {
 
         public GameObject timerPrefab;
-        public GameObject playerUIPrefabLeft;
-        public GameObject playerUIPrefabRight;
+        public GameObject playerUIPrefab1;
+        public GameObject playerUIPrefab2;
+        public GameObject playerUIPrefab3;
+        public GameObject playerUIPrefab4;
         public GameObject popUpPrefab;
 
         private RectTransform rectTransform;
@@ -59,27 +61,27 @@ namespace SupHero.Components.UI {
             GameObject hud;
             switch (player.number) {
                 case 1:
-                    hud = Instantiate(playerUIPrefabLeft);
+                    hud = Instantiate(playerUIPrefab1);
                     hud.transform.SetParent(transform, false);
-                    positionUI(hud, UILocation.BOTTOM);
+                    //positionUI(hud, UILocation.BOTTOM);
                     hud.GetComponent<PlayerUIController>().setPlayer(player);
                     break;
                 case 2:
-                    hud = Instantiate(playerUIPrefabLeft);
+                    hud = Instantiate(playerUIPrefab2);
                     hud.transform.SetParent(transform, false);
-                    positionUI(hud, UILocation.TOP);
+                    //positionUI(hud, UILocation.TOP);
                     hud.GetComponent<PlayerUIController>().setPlayer(player);
                     break;
                 case 3:
-                    hud = Instantiate(playerUIPrefabRight);
+                    hud = Instantiate(playerUIPrefab3);
                     hud.transform.SetParent(transform, false);
-                    positionUI(hud, UILocation.TOP);
+                    //positionUI(hud, UILocation.TOP);
                     hud.GetComponent<PlayerUIController>().setPlayer(player);
                     break;
                 case 4:
-                    hud = Instantiate(playerUIPrefabRight);
+                    hud = Instantiate(playerUIPrefab4);
                     hud.transform.SetParent(transform, false);
-                    positionUI(hud, UILocation.BOTTOM);
+                    //positionUI(hud, UILocation.BOTTOM);
                     hud.GetComponent<PlayerUIController>().setPlayer(player);
                     break;
                 default:

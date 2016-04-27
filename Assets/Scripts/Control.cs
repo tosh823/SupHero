@@ -10,6 +10,8 @@ namespace SupHero {
         public static string Vertical = "Vertical";
         public static string LeftMouse = "Fire1";
         public static string RightMouse = "Fire2";
+        public static string Q = "Q";
+        public static string E = "E";
 
         // Gamepad
         public static string LeftStickX = "LeftStickX";

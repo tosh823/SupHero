@@ -2,6 +2,14 @@
 using UnityEngine;
 
 namespace SupHero.Components.Item {
+
+    public enum ItemStatus {
+        ACTIVE_READY,
+        NEED_AIM,
+        COOLDOWN,
+        ONLY_PASSIVE
+    }
+
     public class ItemController : MonoBehaviour {
 
         public ItemData item;
@@ -19,6 +27,12 @@ namespace SupHero.Components.Item {
 
         public virtual void Update() {
 
+        }
+
+        // Must define in child classes
+        // Otherwise it is useless
+        public virtual ItemStatus checkStatus() {
+            return ItemStatus.ACTIVE_READY;
         }
 
         public virtual bool activeReady() {

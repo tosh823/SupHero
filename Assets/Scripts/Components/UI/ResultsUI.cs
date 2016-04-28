@@ -18,7 +18,7 @@ namespace SupHero.Components.UI {
         }
 
         private void setUpTexts() {
-            Dictionary<string, int> stats = LevelController.Instance.getStatistics();
+            Dictionary<string, int> stats = Data.Instance.getStatistics();
             var sorted = from pair in stats orderby pair.Value descending select pair;
             Dictionary<string, int> dict = sorted.ToDictionary(x => x.Key, x => x.Value); 
 

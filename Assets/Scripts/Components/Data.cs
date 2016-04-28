@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using SupHero.Model;
 
 namespace SupHero {
 
@@ -7,6 +9,10 @@ namespace SupHero {
         ITEM,
         SUPPLY,
         NONE
+    }
+
+    public struct SessionData {
+        public List<Player> players;
     }
 
     public class Data : MonoBehaviour {
@@ -22,6 +28,8 @@ namespace SupHero {
                 else return null;
             }
         }
+
+        public SessionData session;
 
         // Singleton realization
         void Awake() {
@@ -60,6 +68,14 @@ namespace SupHero {
                 }
             }
             return null;
+        }
+
+        public Dictionary<string, int> getStatistics() {
+            Dictionary<string, int> stats = new Dictionary<string, int>();
+            foreach (Player player in session.players) {
+                stats.Add(player.playerName, player.points);
+            }
+            return stats;
         }
     }
 }

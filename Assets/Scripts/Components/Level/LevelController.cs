@@ -28,13 +28,13 @@ namespace SupHero.Components.Level {
             else if (Instance != this) {
                 Destroy(gameObject);
             }
-            DontDestroyOnLoad(gameObject);
-            startLevel();
+            //DontDestroyOnLoad(gameObject);
+            //startLevel();
         }
 
 
         void Start() {
-            //startLevel();
+            startLevel();
         }
 
         public void startLevel() {
@@ -77,12 +77,11 @@ namespace SupHero.Components.Level {
             else {
                 // Go to reward section
                 // DEBUG display results info
-                foreach (Player player in level.players) {
-                    Debug.Log("Player " + player.number + " : " + player.points);
-                }
                 zone.destroyPlayers();
                 HUD.clearPlayerUIs();
                 Destroy(zone.gameObject);
+                // Saving data
+                Data.Instance.session.players = level.players;
 
                 Game.Instance.loadResults();
             }

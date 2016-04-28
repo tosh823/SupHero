@@ -180,7 +180,7 @@ namespace SupHero.Components.Character {
                 transform.rotation = rotate;
                 // If we have old rotation, check if need to apply animation
                 if (oldLookRotation != Vector3.zero) {
-                    float threshold = 0.2f;
+                    float threshold = 0.1f;
                     if (Mathf.Abs(rotation.x - oldLookRotation.x) >= threshold) {
                         mecanim.SetFloat(State.ROTATION, rotation.normalized.x);
                     }

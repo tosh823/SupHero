@@ -37,7 +37,6 @@ namespace SupHero.Model {
             isStunned = false;
             playerName = string.Format("{0} {1}", "Player", this.number);
             points = 0;
-
         }
 
         protected abstract void setupDefaultProperties();

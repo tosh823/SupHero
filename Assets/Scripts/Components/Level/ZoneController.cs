@@ -45,20 +45,27 @@ namespace SupHero.Components.Level {
                 pc.OnDie += spawnPlayer;
 
                 players.Add(pawn);
+                player.resurrect();
             }
             spawner.resetSpawnPoints();
         }
         
         // Using for respawning players after death
         public void spawnPlayer(Player player) {
-            GameObject pawn = spawner.spawnPlayer(player);
-            PlayerController pc = pawn.GetComponent<PlayerController>();
+            if (player is Hero) {
+                destroyPlayers();
+                spawnPlayers(LevelController.Instance.level.players);
+            }
+            else {
+                GameObject pawn = spawner.spawnPlayer(player);
+                PlayerController pc = pawn.GetComponent<PlayerController>();
 
-            pc.setPlayer(player);
-            pc.OnDie += spawnPlayer;
+                pc.setPlayer(player);
+                pc.OnDie += spawnPlayer;
 
-            players.Add(pawn);
-            player.resurrect();
+                players.Add(pawn);
+                player.resurrect();
+            }
         }
 
         // Kill all the players

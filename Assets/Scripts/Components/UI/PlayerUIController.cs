@@ -4,11 +4,13 @@ using System.Collections;
 
 using SupHero;
 using SupHero.Model;
+using SupHero.Components.Character;
+using SupHero.Components.Weapon;
 
 namespace SupHero.Components.UI {
     public class PlayerUIController : MonoBehaviour {
 
-        public Player player { get; protected set; }
+        public PlayerController pc { get; protected set; }
 
         public GameObject shieldPanel;
         public Text shieldText;
@@ -23,23 +25,28 @@ namespace SupHero.Components.UI {
         }
 
         void Update() {
-            if (player != null) {
-                if (player is Hero) {
-                    Hero hero = player as Hero;
+            if (pc != null) {
+                if (pc.player is Hero) {
+                    Hero hero = pc.player as Hero;
                     shieldText.text = string.Format("{0}%", ((int)hero.shieldPercentage).ToString());
                 }
                 else {
                     shieldPanel.SetActive(false);
                 }
-                armorText.text = player.armor.ToString();
-                
-                playerName.text = player.playerName;
-                playerPoints.text = player.points.ToString();
+                armorText.text = pc.player.armor.ToString();
+                playerName.text = pc.player.playerName;
+                playerPoints.text = pc.player.points.ToString();
+
+                WeaponController weapon = pc.activeWeapon();
+                if (weapon != null) {
+                    if (weapon.weapon.slot == WeaponSlot.PRIMARY) ammo.text = weapon.ammo.ToString();
+                    else ammo.text = "Unlimited";
+                }
             }
         }
 
-        public void setPlayer(Player player) {
-            this.player = player;
+        public void setPlayer(PlayerController pc) {
+            this.pc = pc;
         }
     }
 }

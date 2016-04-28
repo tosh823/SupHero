@@ -243,6 +243,12 @@ namespace SupHero.Components.Character {
             else return false;
         }
 
+        public WeaponController activeWeapon() {
+            if (inventory.primaryWeapon.gameObject.activeInHierarchy) return inventory.primaryWeapon;
+            else if (inventory.secondaryWeapon.gameObject.activeInHierarchy) return inventory.secondaryWeapon;
+            else return null;
+        }
+
         // Receive damage
         public DamageResult receiveDamage(float damage) {
             if (player.isAlive) {
@@ -293,6 +299,7 @@ namespace SupHero.Components.Character {
                 sc.owner = (Hero) player;
                 OnDamageReceived += sc.refreshTimer;
             }
+            playerUI = LevelController.Instance.HUD.findUIforPlayer(this);
         }
 
         public void setUI(GameObject ui) {

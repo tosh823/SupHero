@@ -39,11 +39,9 @@ namespace SupHero.Components.Level {
                 // Creating new player gameObject
                 GameObject pawn = spawner.spawnPlayer(player, true);
                 PlayerController pc = pawn.GetComponent<PlayerController>();
-                GameObject ui = LevelController.Instance.HUD.findUIforPlayer(player);
 
                 // Then, give it soul
                 pc.setPlayer(player);
-                pc.setUI(ui);
                 pc.OnDie += spawnPlayer;
 
                 players.Add(pawn);
@@ -55,10 +53,8 @@ namespace SupHero.Components.Level {
         public void spawnPlayer(Player player) {
             GameObject pawn = spawner.spawnPlayer(player);
             PlayerController pc = pawn.GetComponent<PlayerController>();
-            GameObject ui = LevelController.Instance.HUD.findUIforPlayer(player);
 
             pc.setPlayer(player);
-            pc.setUI(ui);
             pc.OnDie += spawnPlayer;
 
             players.Add(pawn);

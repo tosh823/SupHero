@@ -74,7 +74,7 @@ namespace SupHero.Components.Level {
 
         private Bounds bounds;
         private int numberOfAttempts = 3;
-        private bool visited;
+        private bool visited = false;
 
         // Events
         public delegate void heroIncoming();
@@ -90,7 +90,6 @@ namespace SupHero.Components.Level {
         void Start() {
             bounds = GetComponent<Collider>().bounds;
             if (generateView) generateObjects(Theme.FOREST);
-            visited = false;
         }
 
         void Update() {
@@ -250,6 +249,7 @@ namespace SupHero.Components.Level {
                 PlayerController pc = incoming.GetComponent<PlayerController>();
                 if (!visited && (pc.player is Hero)) {
                     pc.player.applyPoints(Data.Instance.mainSettings.points.plateFinished);
+                    visited = true;
                 }
                 // Player came to this plate
                 if (OnHeroCome != null) {

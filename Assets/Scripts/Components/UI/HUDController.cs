@@ -58,32 +58,32 @@ namespace SupHero.Components.UI {
             return string.Format("{0}:{1:D2}", minutes, seconds);
         }
 
-        public GameObject createUIforPlayer(Player player) {
+        public GameObject createUIforPlayer(PlayerController pawn) {
             GameObject hud;
-            switch (player.number) {
+            switch (pawn.player.number) {
                 case 1:
                     hud = Instantiate(playerUIPrefab1);
                     hud.transform.SetParent(transform, false);
                     //positionUI(hud, UILocation.BOTTOM);
-                    hud.GetComponent<PlayerUIController>().setPlayer(player);
+                    hud.GetComponent<PlayerUIController>().setPlayer(pawn);
                     break;
                 case 2:
                     hud = Instantiate(playerUIPrefab2);
                     hud.transform.SetParent(transform, false);
                     //positionUI(hud, UILocation.TOP);
-                    hud.GetComponent<PlayerUIController>().setPlayer(player);
+                    hud.GetComponent<PlayerUIController>().setPlayer(pawn);
                     break;
                 case 3:
                     hud = Instantiate(playerUIPrefab3);
                     hud.transform.SetParent(transform, false);
                     //positionUI(hud, UILocation.TOP);
-                    hud.GetComponent<PlayerUIController>().setPlayer(player);
+                    hud.GetComponent<PlayerUIController>().setPlayer(pawn);
                     break;
                 case 4:
                     hud = Instantiate(playerUIPrefab4);
                     hud.transform.SetParent(transform, false);
                     //positionUI(hud, UILocation.BOTTOM);
-                    hud.GetComponent<PlayerUIController>().setPlayer(player);
+                    hud.GetComponent<PlayerUIController>().setPlayer(pawn);
                     break;
                 default:
                     hud = new GameObject();
@@ -100,17 +100,17 @@ namespace SupHero.Components.UI {
             playerUIs.Clear();
         }
 
-        public GameObject findUIforPlayer(Player player) {
+        public GameObject findUIforPlayer(PlayerController pawn) {
             foreach (GameObject ui in playerUIs) {
-                PlayerUIController pc = ui.GetComponent<PlayerUIController>();
-                if (pc.player.number == player.number) {
+                PlayerUIController uiPC = ui.GetComponent<PlayerUIController>();
+                if (uiPC.pc.player.number == pawn.player.number) {
                     // Found, return existing UI
-                    pc.setPlayer(player);
+                    uiPC.setPlayer(pawn);
                     return ui;
                 }
             }
             // Not found, create one
-            return createUIforPlayer(player);
+            return createUIforPlayer(pawn);
         }
 
         private void positionUI(GameObject ui, UILocation location) {

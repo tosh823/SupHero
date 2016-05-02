@@ -35,8 +35,8 @@ namespace SupHero {
 
         public string name = "Forest theme";
         public Theme theme = Theme.FOREST;
-        //public GameObject[] covers;
-        //public GameObject[] interior;
+
+        public GameObject dropPrefab;
 
         public PlateData[] plates;
         public CoverData[] covers;

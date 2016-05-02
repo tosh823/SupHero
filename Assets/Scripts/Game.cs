@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using SupHero.Components.Level;
 using System;
 
 namespace SupHero {
@@ -20,8 +21,16 @@ namespace SupHero {
             
         }
 
+        public void loadLounge() {
+            SceneManager.LoadScene("Lounge");
+        }
+
         public void loadLevel() {
             SceneManager.LoadScene("Level");
+        }
+
+        public void loadResults() {
+            SceneManager.LoadScene("EndResult");
         }
 
     }

@@ -10,12 +10,18 @@ namespace SupHero.Model {
         public bool haveTakenDamage;
         public float shieldPercentage {
             get {
-                return (shield / Constants.shield) * 100;
+                return (shield / Data.Instance.mainSettings.hero.shield) * 100;
             }
         }
         public bool isShieldFull {
             get {
-                if (shield >= Constants.shield) return true;
+                if (shield >= Data.Instance.mainSettings.hero.shield) return true;
+                else return false;
+            }
+        }
+        public bool isShieldEmpty {
+            get {
+                if (shield <= 0f) return true;
                 else return false;
             }
         }

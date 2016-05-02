@@ -180,7 +180,7 @@ namespace SupHero.Components.Character {
                 transform.rotation = rotate;
                 // If we have old rotation, check if need to apply animation
                 if (oldLookRotation != Vector3.zero) {
-                    float threshold = 0.2f;
+                    float threshold = 0.1f;
                     if (Mathf.Abs(rotation.x - oldLookRotation.x) >= threshold) {
                         mecanim.SetFloat(State.ROTATION, rotation.normalized.x);
                     }
@@ -243,6 +243,12 @@ namespace SupHero.Components.Character {
             else return false;
         }
 
+        public WeaponController activeWeapon() {
+            if (inventory.primaryWeapon.gameObject.activeInHierarchy) return inventory.primaryWeapon;
+            else if (inventory.secondaryWeapon.gameObject.activeInHierarchy) return inventory.secondaryWeapon;
+            else return null;
+        }
+
         // Receive damage
         public DamageResult receiveDamage(float damage) {
             if (player.isAlive) {
@@ -293,6 +299,7 @@ namespace SupHero.Components.Character {
                 sc.owner = (Hero) player;
                 OnDamageReceived += sc.refreshTimer;
             }
+            playerUI = LevelController.Instance.HUD.findUIforPlayer(this);
         }
 
         public void setUI(GameObject ui) {

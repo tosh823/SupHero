@@ -39,7 +39,6 @@ namespace SupHero.Components.Weapon {
         public virtual void Update() {
             if (launched) {
                 transform.Translate(direction * speed * Time.deltaTime);
-                Debug.DrawLine(initialPosition, transform.position, Color.cyan, Time.deltaTime);
                 // If prjectile flew more then 3 effective ranges, return it
                 if (madeDistance >= (3 * gun.weapon.range)) {
                     Stop();

@@ -1,0 +1,204 @@
+fileFormatVersion: 2
+guid: 0b1c27ed438548b41be0e5ce3a114fda
+timeCreated: 1462279326
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Bone1
+    100004: Bone10
+    100006: Bone10_end
+    100008: Bone1_end
+    100010: Bone2
+    100012: Bone2_end
+    100014: Bone3
+    100016: Bone3_end
+    100018: Bone4
+    100020: Bone4_end
+    100022: Bone5
+    100024: Bone5_end
+    100026: Bone6
+    100028: Bone6_end
+    100030: Bone7
+    100032: Bone7_end
+    100034: Bone8
+    100036: Bone8_end
+    100038: Bone9
+    100040: Bone9_end
+    100042: Cube
+    100044: Energy
+    100046: Energy_end
+    100048: //RootNode
+    400000: Armature
+    400002: Bone1
+    400004: Bone10
+    400006: Bone10_end
+    400008: Bone1_end
+    400010: Bone2
+    400012: Bone2_end
+    400014: Bone3
+    400016: Bone3_end
+    400018: Bone4
+    400020: Bone4_end
+    400022: Bone5
+    400024: Bone5_end
+    400026: Bone6
+    400028: Bone6_end
+    400030: Bone7
+    400032: Bone7_end
+    400034: Bone8
+    400036: Bone8_end
+    400038: Bone9
+    400040: Bone9_end
+    400042: Cube
+    400044: Energy
+    400046: Energy_end
+    400048: //RootNode
+    4300000: Cube
+    7400000: Blast
+    7400002: Armature|Blast
+    9500000: //RootNode
+    13700000: Cube
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Blast
+      takeName: Blast
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Bone1
+        weight: 1
+      - path: Armature/Bone1/Bone1_end
+        weight: 1
+      - path: Armature/Bone2
+        weight: 1
+      - path: Armature/Bone2/Bone2_end
+        weight: 1
+      - path: Armature/Bone3
+        weight: 1
+      - path: Armature/Bone3/Bone3_end
+        weight: 1
+      - path: Armature/Bone4
+        weight: 1
+      - path: Armature/Bone4/Bone4_end
+        weight: 1
+      - path: Armature/Bone5
+        weight: 1
+      - path: Armature/Bone5/Bone5_end
+        weight: 1
+      - path: Armature/Bone6
+        weight: 1
+      - path: Armature/Bone6/Bone6_end
+        weight: 1
+      - path: Armature/Bone7
+        weight: 1
+      - path: Armature/Bone7/Bone7_end
+        weight: 1
+      - path: Armature/Bone8
+        weight: 1
+      - path: Armature/Bone8/Bone8_end
+        weight: 1
+      - path: Armature/Bone9
+        weight: 1
+      - path: Armature/Bone9/Bone9_end
+        weight: 1
+      - path: Armature/Bone10
+        weight: 1
+      - path: Armature/Bone10/Bone10_end
+        weight: 1
+      - path: Armature/Energy
+        weight: 1
+      - path: Armature/Energy/Energy_end
+        weight: 1
+      - path: Cube
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

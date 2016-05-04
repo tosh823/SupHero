@@ -5,11 +5,11 @@ namespace SupHero.Components.Weapon {
     public class SidearmHandler : WeaponController {
 
         public Transform barrelEnd;
-        private Animator mecanim;
+        private Animator shotMecanim;
 
         public override void Start() {
             base.Start();
-            mecanim = GetComponentInChildren<Animator>();
+            shotMecanim = barrelEnd.GetComponentInChildren<Animator>();
         }
 
         public override void Update() {
@@ -23,6 +23,7 @@ namespace SupHero.Components.Weapon {
         }
 
         protected override void trigger() {
+            shotMecanim.SetTrigger(WeaponAnimState.TRIGGER);
             Projectile instance = projectiles.popOrCreate(weapon.projectile.prefab.GetComponent<Projectile>(), barrelEnd.transform.position, Quaternion.identity);
             instance.gameObject.SetActive(true);
             instance.transform.parent = null;
@@ -33,7 +34,6 @@ namespace SupHero.Components.Weapon {
             ammo--;
             // Animation doesn't really work
             // It shifts object to root 
-            //mecanim.SetTrigger(WeaponAnimState.SHOT);
         }
 
         private void disableEffects() {

@@ -30,8 +30,8 @@ namespace SupHero.Components.Character {
         
         private GameObject playerUI; // Ref to UI for this player, possibly unnessecary
         private Vector3 moveVector; // Vector for moving character
-        private Vector3 rotation; // Vector for rotating character
-        private Vector3 oldLookRotation;
+        private Vector3 rotationVector; // Vector for rotating character
+        private Vector3 prevRotationVector;
 
         // Input
         private bool usePrimaryWeapon;
@@ -113,7 +113,7 @@ namespace SupHero.Components.Character {
                     // Record move input
                     moveVector = getMovementVector();
                     // Record rotate input
-                    rotation = getRotation();
+                    rotationVector = getRotation();
                     // Record actions
                     readInput();
                     // Processing gathered input
@@ -138,9 +138,8 @@ namespace SupHero.Components.Character {
                 }
                 else {
                     if (transform.forward.z < 0f) verticalRelative = -moveVector.normalized.z;
-                    else verticalRelative = moveVector.normalized.z;
+                    else verticalRelative = moveVector.normalized.z;   
                 }
-
                 float horizontalRelative;
                 if (moveVector.x > 0f) {
                     if (transform.right.x > 0f) horizontalRelative = moveVector.normalized.x;
@@ -172,23 +171,21 @@ namespace SupHero.Components.Character {
         }
 
         private void Rotate() {
-            if (rotation != Vector3.zero) {
-                float smoothing = 1f;
-                Quaternion rotate = Quaternion.LookRotation(rotation);
-                Quaternion smoothRotation = Quaternion.Lerp(transform.rotation, rotate, smoothing * Time.deltaTime);
-                //transform.rotation = smoothRotation;
-                transform.rotation = rotate;
-                // If we have old rotation, check if need to apply animation
-                if (oldLookRotation != Vector3.zero) {
-                    float threshold = 0.1f;
-                    if (Mathf.Abs(rotation.x - oldLookRotation.x) >= threshold) {
-                        mecanim.SetFloat(State.ROTATION, rotation.normalized.x);
-                    }
-                    else {
-                        mecanim.SetFloat(State.ROTATION, 0f);
-                    }
+            float deadzone = 0.2f;
+            if (rotationVector != Vector3.zero && rotationVector.sqrMagnitude > deadzone) {
+                // Precise aiming
+                Vector3 preciseRotation = rotationVector.normalized * ((rotationVector.magnitude - deadzone) / (1 - deadzone));
+                Quaternion rotation = Quaternion.LookRotation(preciseRotation, transform.up);
+                playerRigidbody.rotation = rotation;
+                // If we have old rotation, check if need to apply rotation animation
+                float threshold = 0.1f;
+                if (Mathf.Abs(rotationVector.x - prevRotationVector.x) >= threshold) {
+                    mecanim.SetFloat(State.ROTATION, rotationVector.normalized.x);
                 }
-                oldLookRotation = rotation;
+                else {
+                    mecanim.SetFloat(State.ROTATION, 0f);
+                }
+                prevRotationVector = rotationVector;
             }
             else {
                 mecanim.SetFloat(State.ROTATION, 0f);
@@ -501,14 +498,12 @@ namespace SupHero.Components.Character {
                 case InputType.GAMEPAD:
                     float x = Input.GetAxis(Utils.getControlForPlayer(Control.RightStickX, player.gamepadNumber));
                     float z = Input.GetAxis(Utils.getControlForPlayer(Control.RightStickY, player.gamepadNumber));
-                    if (x != 0f && z != 0f) {
-                        rotation = new Vector3(x, 0f, z);
-                    }
+                    rotation = new Vector3(x, 0f, z);
                     break;
                 case InputType.KEYBOARD:
                     Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
                     RaycastHit floorHit;
-                    if (Physics.Raycast(camRay, out floorHit)) {
+                    if (Physics.Raycast(camRay, out floorHit, 100f, LayerMask.GetMask(Layers.Floor))) {
                         Vector3 playerToMouse = floorHit.point - transform.position;
                         playerToMouse.y = 0f;
                         rotation = playerToMouse;

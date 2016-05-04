@@ -10,20 +10,19 @@ namespace SupHero.Components.Level {
         // Store
         public List<GameObject> players;
 
-        private Spawner spawner;
-        private Map constructor;
+        public Spawner spawner;
+        public Map constructor;
 
         void Awake() {
             
         }
 
         void Start() {
-            spawner = GetComponent<Spawner>();
             constructor = GetComponent<Map>();
-
+            spawner = GetComponent<Spawner>();
             if (LevelController.Instance != null) {
                 constructor.constructZone(5);
-                spawnPlayers(LevelController.Instance.level.players);
+                spawnAll(LevelController.Instance.level.players);
             }
         }
 
@@ -32,7 +31,7 @@ namespace SupHero.Components.Level {
         }
 
         // Initial respawn on zone
-        public void spawnPlayers(List<Player> toSpawn) {
+        public void spawnAll(List<Player> toSpawn) {
             players = new List<GameObject>();
             foreach (Player player in toSpawn) {
                 // First, give it body
@@ -54,7 +53,7 @@ namespace SupHero.Components.Level {
         public void spawnPlayer(Player player) {
             if (player is Hero) {
                 destroyPlayers();
-                spawnPlayers(LevelController.Instance.level.players);
+                spawnAll(LevelController.Instance.level.players);
             }
             else {
                 GameObject pawn = spawner.spawnPlayer(player);
@@ -75,14 +74,6 @@ namespace SupHero.Components.Level {
                 Destroy(player.gameObject);
             }
             players.Clear();
-        }
-
-        // Log info about players to console
-        public void logInfoAboutPlayers() {
-            foreach (GameObject player in players) {
-                Player objectPlayer = player.GetComponent<PlayerController>().player;
-                Debug.Log(objectPlayer.GetType().ToString() + " " + objectPlayer.playerName + " with number " + objectPlayer.number);
-            }
         }
 
         // Find player gameObject

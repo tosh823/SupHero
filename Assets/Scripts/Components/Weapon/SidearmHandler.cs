@@ -23,7 +23,6 @@ namespace SupHero.Components.Weapon {
         }
 
         protected override void trigger() {
-            shotMecanim.SetTrigger(WeaponAnimState.TRIGGER);
             Projectile instance = projectiles.popOrCreate(weapon.projectile.prefab.GetComponent<Projectile>(), barrelEnd.transform.position, Quaternion.identity);
             instance.gameObject.SetActive(true);
             instance.transform.parent = null;

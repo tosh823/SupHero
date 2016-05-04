@@ -108,22 +108,23 @@ namespace SupHero.Components.Character {
 
         // In update we read input and check state of the player
         void Update() {
-            if (player.isAlive && transform.position.y >= -10f) {
-                if (!player.isStunned) {
-                    // Record move input
-                    moveVector = getMovementVector();
-                    // Record rotate input
-                    rotationVector = getRotation();
-                    // Record actions
-                    readInput();
-                    // Processing gathered input
-                    processWeaponInput();
-                    processItemInput();
+            if (player.isAlive && !player.isStunned) {
+                // Record move input
+                moveVector = getMovementVector();
+                // Record rotate input
+                rotationVector = getRotation();
+                // Record actions
+                readInput();
+                // Processing gathered input
+                processWeaponInput();
+                processItemInput();
 
-                    // Stearing
-                    Move();
-                    Rotate();
-                }
+                // Stearing
+                Move();
+                Rotate();
+            }
+            if (transform.position.y <= -2f) {
+                Death();
             }
         }
 

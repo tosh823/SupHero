@@ -28,8 +28,6 @@ namespace SupHero.Components.Level {
             else if (Instance != this) {
                 Destroy(gameObject);
             }
-            //DontDestroyOnLoad(gameObject);
-            //startLevel();
         }
 
 
@@ -46,6 +44,7 @@ namespace SupHero.Components.Level {
             view = Camera.main.GetComponent<CameraController>();
 
             createZone();
+
             turn = 1;
 
             timer = gameObject.AddComponent<Timer>();
@@ -82,7 +81,6 @@ namespace SupHero.Components.Level {
                 Destroy(zone.gameObject);
                 // Saving data
                 Data.Instance.session.players = level.players;
-
                 Game.Instance.loadResults();
             }
         }

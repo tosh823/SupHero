@@ -6,17 +6,13 @@ using SupHero.Model;
 namespace SupHero.Components.Level {
     public class Spawner : MonoBehaviour {
 
-        // Prefabs for instantiating
-        public GameObject playerPrefab;
         public GameObject heroSpawnPoint;
         public GameObject[] guardsSpawnPoints;
 
         private ZoneController zoneController; // Ref to GameObject ZoneController
-        private Bounds surfaceBounds; // The dimensions of available surface
 
         void Awake() {
             zoneController = GetComponent<ZoneController>();
-            surfaceBounds = GameObject.FindGameObjectWithTag(Tags.Surface).GetComponent<Collider>().bounds;
         }
 
         void Start() {
@@ -46,7 +42,7 @@ namespace SupHero.Components.Level {
                 if (isInitial) spawnPosition = getInitialSpawnPosition();
                 else spawnPosition = getSpawnPosition();
             }
-            spawnPosition.y = playerPrefab.transform.position.y;
+            spawnPosition.y = Data.Instance.mainSettings.hero.prefab.transform.position.y;
             pawn.transform.position = spawnPosition;
 
             return pawn;  
@@ -64,6 +60,7 @@ namespace SupHero.Components.Level {
         public Vector3 getPosInsideBounds() {
             Vector3 pos = Vector3.zero;
             Area visibleArea = Camera.main.GetComponent<CameraController>().getVisibleArea();
+            Bounds surfaceBounds = zoneController.constructor.battleField.GetComponent<Collider>().bounds;
             float visibleXmin = surfaceBounds.min.x;
             float visibleXmax = surfaceBounds.max.x;
             float visibleZmin = surfaceBounds.min.z;
@@ -108,6 +105,7 @@ namespace SupHero.Components.Level {
         private Vector3 getSpawnPosition() {
             Vector3 position = zoneController.getHero().transform.position;
             Vector3 rng = Random.onUnitSphere * Data.Instance.mainSettings.hero.spawnDistance;
+            Bounds surfaceBounds = zoneController.constructor.battleField.GetComponent<Collider>().bounds;
             // Checking availability of point
             bool beyoundMaxX = ((position.x + rng.x) >= surfaceBounds.max.x);
             bool belowMinX = ((position.x + rng.x) <= surfaceBounds.min.x);

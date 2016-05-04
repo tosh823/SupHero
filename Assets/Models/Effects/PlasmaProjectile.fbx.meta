@@ -16,7 +16,7 @@ ModelImporter:
     400006: Main_end
     400008: //RootNode
     4300000: Cube
-    7400000: Run
+    7400000: ProjectileAction
     7400002: Armature|ProjectileAction
     9500000: //RootNode
     13700000: Cube
@@ -28,7 +28,7 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
-    optimizeGameObjects: 0
+    optimizeGameObjects: 1
     motionNodeName: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -42,7 +42,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Run
+      name: ProjectileAction
       takeName: ProjectileAction
       firstFrame: 0
       lastFrame: 9

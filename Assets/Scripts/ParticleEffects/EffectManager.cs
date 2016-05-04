@@ -7,6 +7,6 @@ public class EffectManager : MonoBehaviour {
 
 	public void PlayEffect(int currentEffect)
 	{
-		effects [currentEffect].GetComponent<Animator> ().SetTrigger ("activated");
+		effects [currentEffect].GetComponent<Animator> ().SetTrigger ("activate");
 	}
 }

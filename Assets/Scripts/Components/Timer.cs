@@ -23,9 +23,6 @@ namespace SupHero.Components {
                     // Ticking the clock
                     if (OnTick != null) OnTick();
                     time -= Time.deltaTime;
-                    /*if ((time % 1) == 0) {
-                        if (OnTick != null) OnTick();
-                    }*/
                 }
                 else {
                     // Time is ended
@@ -36,11 +33,11 @@ namespace SupHero.Components {
             }
         }
 
-        public void refresh() {
+        public void Refresh() {
             time = 30f;
         }
 
-        public void launch() {
+        public void Launch() {
             if (OnStart != null) OnStart();
             isRunning = true;
         }

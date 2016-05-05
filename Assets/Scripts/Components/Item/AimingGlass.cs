@@ -12,7 +12,7 @@ namespace SupHero.Components.Item {
             base.Update();
         }
 
-        protected override void trigger() {
+        protected override void Trigger() {
 
         }
     }

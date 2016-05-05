@@ -54,7 +54,7 @@ ModelImporter:
     400044: Top.R
     400046: Top.R_end
     4300000: cover
-    7400000: Cover_opening
+    7400000: Deploy
     7400002: Cover armature|Cover_opening
     9500000: //RootNode
     13700000: cover
@@ -80,7 +80,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Cover_opening
+      name: Deploy
       takeName: Cover_opening
       firstFrame: 0
       lastFrame: 30

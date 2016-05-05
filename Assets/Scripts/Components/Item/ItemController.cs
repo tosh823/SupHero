@@ -7,22 +7,20 @@ namespace SupHero.Components.Item {
         ACTIVE_READY,
         NEED_AIM,
         COOLDOWN,
-        ONLY_PASSIVE
+        ONLY_PASSIVE,
+        NONE
     }
 
     public class ItemController : MonoBehaviour {
 
         public ItemData item;
+        public PlayerController owner;
 
-        protected PlayerController owner;
         protected AudioSource audioSource;
-        protected float timeBetweenUsage;
+        protected bool ready = true;
 
         public virtual void Start() {
-            owner = GetComponentInParent<PlayerController>();
             audioSource = GetComponent<AudioSource>();
-            // If item has passive attributes, turn them on
-            if (item.hasPassive) enablePassive();
         }
 
         public virtual void Update() {
@@ -32,32 +30,36 @@ namespace SupHero.Components.Item {
         // Must define in child classes
         // Otherwise it is useless
         public virtual ItemStatus checkStatus() {
-            return ItemStatus.ACTIVE_READY;
+            return ItemStatus.NONE;
         }
 
-        public virtual bool activeReady() {
-            if (item.hasActive) {
-                // Check cooldown here
-                return true;
-            }
-            else return false;
-        }
-
-        public virtual void activate() {
-            if (activeReady()) {
-                trigger();
-            }
+        public virtual void Activate() {
+            Trigger();
         }
 
         // ATTENTION: Assuming all checks
         // are made before trigger
         // Overdrive this method in children
         // to add custom behavior on using
-        protected virtual void trigger() {
+        protected virtual void Trigger() {
             
         }
 
+        protected virtual void Cooldown() {
+            Timer cooldown = gameObject.AddComponent<Timer>();
+            cooldown.time = item.activeData.cooldown;
+            cooldown.OnEnd += delegate () {
+                ready = true;
+                Debug.Log(item.name + " is ready");
+            };
+            cooldown.Launch();
+        }
+
         protected virtual void enablePassive() {
+
+        }
+
+        protected virtual void disablePassive() {
 
         }
 

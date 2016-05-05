@@ -437,16 +437,16 @@ namespace SupHero.Components.Character {
                     useItem(item);
                     break;
                 case ItemStatus.NEED_AIM:
+                    Debug.Log(item.item.name + " needs aiming");
                     enableAimMode();
                     prepareItemUpAction = delegate () {
-                        Debug.Log("Item aimed");
                         disableAimMode();
                         useItem(item);
                     };
                     OnPrimaryUp += prepareItemUpAction;
                     break;
                 case ItemStatus.COOLDOWN:
-                    Debug.Log("Item is cooling down");
+                    Debug.Log(item.item.name + " is cooling down");
                     break;
                 case ItemStatus.ONLY_PASSIVE:
                     Debug.Log("Item doesn't have active ability");
@@ -466,8 +466,8 @@ namespace SupHero.Components.Character {
         }
 
         public void useItem(ItemController item) {
-            Debug.Log("Use item");
-            item.activate();
+            Debug.Log("Use " + item.item.name);
+            item.Activate();
             if (prepareItemUpAction != null) OnPrimaryUp -= prepareItemUpAction;
         }
 

@@ -10,18 +10,33 @@ namespace SupHero.Components.Item {
 
         public override void Update() {
             base.Update();
-
         }
 
         public override ItemStatus checkStatus() {
-            if (activeReady()) {
-                return ItemStatus.NEED_AIM;
-            }
+            if (ready) return ItemStatus.NEED_AIM;
             else return ItemStatus.COOLDOWN;
         }
 
-        protected override void trigger() {
+        protected override void Trigger() {
+            Debug.Log("Deploy cover");
+            ready = false;
 
+            // Find rotation of deployment
+            Vector3 rotation = owner.directionMark.rotation.eulerAngles;
+            rotation.x = 0f;
+            // Create shield
+            GameObject instance = Instantiate(item.prefab, owner.directionMark.position, Quaternion.Euler(rotation)) as GameObject;
+            instance.transform.SetParent(owner.transform.parent);
+            instance.GetComponent<CoverController>().durability = item.activeData.value;
+            
+            Timer life = instance.AddComponent<Timer>();
+            life.time = item.activeData.duration;
+            life.OnEnd += delegate () {
+                Destroy(instance.gameObject);
+            };
+            life.Launch();
+
+            Cooldown();
         }
 
         protected override void enablePassive() {

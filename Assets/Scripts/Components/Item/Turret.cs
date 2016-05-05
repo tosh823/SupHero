@@ -14,14 +14,24 @@ namespace SupHero.Components.Item {
         }
 
         public override ItemStatus checkStatus() {
-            if (activeReady()) {
-                return ItemStatus.NEED_AIM;
-            }
+            if (ready) return ItemStatus.NEED_AIM;
             else return ItemStatus.COOLDOWN;
         }
 
-        protected override void trigger() {
+        protected override void Trigger() {
+            Debug.Log("Deploy turret");
+            GameObject instance = Instantiate(item.prefab, owner.directionMark.position, owner.directionMark.rotation) as GameObject;
+            instance.transform.SetParent(owner.transform.parent);
+            ready = false;
 
+            Timer life = gameObject.AddComponent<Timer>();
+            life.time = item.activeData.duration;
+            life.OnEnd += delegate () {
+                Destroy(instance.gameObject);
+            };
+            life.Launch();
+
+            Cooldown();
         }
 
         protected override void enablePassive() {

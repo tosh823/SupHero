@@ -11,6 +11,14 @@ namespace SupHero.Components {
 
         }
 
+        public virtual void OnTriggerEnter(Collider other) {
+           
+        }
+
+        public virtual void OnCollisionEnter(Collision collision) {
+            
+        }
+
         void Update() {
             if (durability <= 0f) {
                 Destroy(gameObject);

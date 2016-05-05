@@ -6,14 +6,43 @@ namespace SupHero.Components.Item {
 
         public override void Start() {
             base.Start();
+            enablePassive();
         }
 
         public override void Update() {
             base.Update();
         }
 
-        protected override void trigger() {
+        public override ItemStatus checkStatus() {
+            if (ready) return ItemStatus.ACTIVE_READY;
+            else return ItemStatus.COOLDOWN;
+        }
 
+        protected override void Trigger() {
+            Debug.Log("Activate runners");
+            ready = false;
+
+            Timer effect = gameObject.AddComponent<Timer>();
+            effect.time = item.activeData.duration;
+            effect.OnStart += delegate () {
+                owner.player.speed += item.activeData.value;
+                Debug.Log(item.name + " effect turned on");
+            };
+            effect.OnEnd += delegate () {
+                owner.player.speed -= item.activeData.value;
+                Debug.Log(item.name + " effect turned off");
+            };
+            effect.Launch();
+
+            Cooldown();
+        }
+
+        protected override void enablePassive() {
+            owner.player.speed += item.passiveData.value;
+        }
+
+        protected override void disablePassive() {
+            owner.player.speed -= item.passiveData.value;
         }
     }
 }

@@ -106,15 +106,17 @@ namespace SupHero.Components.Character {
         public ItemController equipItem(int id) {
             ItemData itemData = Data.Instance.getItemById(id);
             if (itemData != null) {
+                ItemController ic = null;
                 foreach (BodySlot slot in itemData.placement) {
-                    if (slot == BodySlot.NONE) continue;
                     Transform placement = getPlacement(slot);
                     GameObject instance = Instantiate(itemData.prefab, placement.position, Quaternion.identity) as GameObject;
                     instance.transform.SetParent(placement);
                     instance.transform.localEulerAngles = itemData.prefab.transform.rotation.eulerAngles;
+                    if (slot == BodySlot.NONE) instance.SetActive(false);
+                    ic = instance.GetComponent<ItemController>();
+                    ic.owner = owner;
+                    ic.item = itemData;
                 }
-                ItemController ic = itemData.prefab.GetComponent<ItemController>();
-                ic.item = itemData;
                 return ic;
             }
             else return null;

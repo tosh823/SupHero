@@ -51,7 +51,7 @@ namespace SupHero.Components.Level {
             timer.time = Data.Instance.mainSettings.turnTime;
             timer.OnTick += updateTimer;
             timer.OnEnd += newTurn;
-            timer.launch();
+            timer.Launch();
         }
 
         void Update() {
@@ -70,7 +70,7 @@ namespace SupHero.Components.Level {
                 timer.time = Data.Instance.mainSettings.turnTime;
                 timer.OnTick += updateTimer;
                 timer.OnEnd += newTurn;
-                timer.launch();
+                timer.Launch();
                 HUD.showMessage("New Turn!", 1f);
             }
             else {

@@ -15,7 +15,7 @@ namespace SupHero.Components.Character {
             timer.OnStart += onEffectStart;
             timer.OnTick += onEffectTick;
             timer.OnEnd += onEffectFinish;
-            timer.launch();
+            timer.Launch();
         }
 
         public virtual void Update() {

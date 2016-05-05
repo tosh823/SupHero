@@ -89,7 +89,7 @@ namespace SupHero.Components.Weapon {
                     reloading = false;
                     audioSource.Stop();
                 };
-                reload.launch();
+                reload.Launch();
                 playReloadSound();
             }
         }

@@ -53,7 +53,8 @@ namespace SupHero.Components.Weapon {
 
         public virtual void Stop() {
             launched = false;
-            gun.returnProjectile(this);
+            if (gun != null) gun.returnProjectile(this);
+            else Destroy(gameObject);
         }
 
         protected void OnBecameVisible() {

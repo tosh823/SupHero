@@ -33,8 +33,7 @@ namespace SupHero.Model {
         }
 
         public override void die() {
-            health = Constants.health;
-            armor = Constants.armor;
+            isAlive = false;
         }
 
         public override void resurrect() {

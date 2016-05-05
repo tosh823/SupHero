@@ -23,10 +23,10 @@ namespace SupHero.Components.Weapon {
         public int ammo; // Curent amount of ammo
         public bool reloading; // Do we reloading weapon now?
 
-        protected PlayerController owner; // Player-owner
+        public PlayerController owner; // Player-owner
         protected AudioSource audioSource; // AudioSource attached to the weapon
 
-        protected Magazine projectiles; // Storage for pooling
+        public Magazine projectiles; // Storage for pooling
 
         public virtual void Start() {
             owner = GetComponentInParent<PlayerController>();
@@ -95,14 +95,15 @@ namespace SupHero.Components.Weapon {
         }
 
         public virtual void dealDamageTo(PlayerController pc) {
-            if (pc == null) return;
-            DamageResult result = pc.receiveDamage(weapon.damage);
-            if (result == DamageResult.MORTAL_HIT) {
-                if ((owner.player is Guard) && (pc.player is Hero)) {
-                    owner.player.applyPoints(Data.Instance.mainSettings.points.fragHero);
-                }
-                if ((owner.player is Hero) && (pc.player is Guard)) {
-                    owner.player.applyPoints(Data.Instance.mainSettings.points.fragGuard);
+            if (pc != null) {
+                DamageResult result = pc.receiveDamage(weapon.damage);
+                if (result == DamageResult.MORTAL_HIT) {
+                    if ((owner.player is Guard) && (pc.player is Hero)) {
+                        owner.player.applyPoints(Data.Instance.mainSettings.points.fragHero);
+                    }
+                    if ((owner.player is Hero) && (pc.player is Guard)) {
+                        owner.player.applyPoints(Data.Instance.mainSettings.points.fragGuard);
+                    }
                 }
             }
         }
@@ -115,11 +116,11 @@ namespace SupHero.Components.Weapon {
             }
         }
 
-        protected virtual void playTriggerSound() {
+        public virtual void playTriggerSound() {
             playSound(weapon.triggerSound);
         }
 
-        protected virtual void playReloadSound() {
+        public virtual void playReloadSound() {
             playSound(weapon.reloadSound, true);
         }
     }

@@ -91,9 +91,7 @@ namespace SupHero.Model {
         }
 
         public override void die() {
-            shield = Constants.shield;
-            health = Constants.health;
-            armor = Constants.armor;
+            isAlive = false;
         }
 
         public override void resurrect() {

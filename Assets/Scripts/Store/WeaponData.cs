@@ -13,7 +13,8 @@ namespace SupHero {
 
     public enum WeaponSlot {
         PRIMARY,
-        SECONDARY
+        SECONDARY,
+        NONE
     }
 
     [System.Serializable]

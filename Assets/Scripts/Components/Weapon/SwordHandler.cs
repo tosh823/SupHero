@@ -22,7 +22,7 @@ namespace SupHero.Components.Weapon {
         void OnTriggerEnter(Collider other) {
             GameObject target = other.gameObject;
             if (doingSlash && target.CompareTag(Tags.Player)) {
-                dealDamageTo(target.GetComponent<PlayerController>());
+                dealDamageTo(target.GetComponent<PlayerController>(), true);
             }
         }
 

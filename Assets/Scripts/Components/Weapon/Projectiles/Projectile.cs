@@ -25,13 +25,16 @@ namespace SupHero.Components.Weapon {
             if (target.CompareTag(Tags.Player)) {
                 Debug.Log("Hit " + target);
                 gun.dealDamageTo(target.GetComponent<PlayerController>());
-                Stop();
             }
             if (target.CompareTag(Tags.Cover)) {
                 Debug.Log("Hit " + target);
                 target.GetComponent<CoverController>().takeDamage(gun.weapon.damage);
-                Stop();
             }
+            if (target.CompareTag(Tags.Shield)) {
+                Debug.Log("Hit " + target);
+                gun.dealDamageTo(target.GetComponent<PlayerController>());
+            }
+            Stop();
         }
 
         public virtual void Update() {

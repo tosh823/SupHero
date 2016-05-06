@@ -19,7 +19,6 @@ namespace SupHero.Components.Character {
 
         void Update() {
             if (owner.isAlive && !owner.isShieldFull) {
-
                 // Disappear shield if empty
                 // TODO!!! Make it better later
                 if (owner.isShieldEmpty) {

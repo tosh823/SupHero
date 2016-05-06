@@ -48,10 +48,10 @@ namespace SupHero.Model {
             setupDefaultProperties();
         }
 
-        public override DamageResult receiveDamage(float damage) {
+        public DamageResult receiveDamage(float damage, bool ignoreShield) {
             // If have shield active, make it take dmg on it
             haveTakenDamage = true;
-            if (shield > 0) {
+            if (shield > 0 && !ignoreShield) {
                 // If damage is too high, take the rest to your body
                 if (damage >= shield) {
                     float rest = damage - shield;

@@ -248,12 +248,18 @@ namespace SupHero.Components.Character {
         }
 
         // Receive damage
-        public DamageResult receiveDamage(float damage) {
+        public DamageResult receiveDamage(float damage, bool ignoreShield) {
             if (player.isAlive) {
                 if (OnDamageReceived != null) {
                     OnDamageReceived();
                 }
-                DamageResult result = player.receiveDamage(damage);
+                DamageResult result = DamageResult.NONE;
+                if (player is Hero && ignoreShield) {
+                   result = (player as Hero).receiveDamage(damage, ignoreShield);
+                }
+                else {
+                   result = player.receiveDamage(damage);
+                }
                 if (result == DamageResult.MORTAL_HIT) {
                     mecanim.SetTrigger(State.DIE);
                 }

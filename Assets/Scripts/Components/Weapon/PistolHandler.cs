@@ -37,7 +37,7 @@ namespace SupHero.Components.Weapon {
                 GameObject target = shootHit.transform.gameObject;
                 lazer.SetPosition(1, shootHit.point);
                 if (target.CompareTag(Tags.Player)) {
-                    DamageResult result = target.GetComponent<PlayerController>().receiveDamage(weapon.damage);
+                    DamageResult result = target.GetComponent<PlayerController>().receiveDamage(weapon.damage, false);
                     if (weapon.hasEffect) target.GetComponent<PlayerController>().applyEffect(weapon.effect);
                     if (result == DamageResult.MORTAL_HIT) {
                         owner.player.applyPoints(10);

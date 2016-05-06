@@ -94,9 +94,9 @@ namespace SupHero.Components.Weapon {
             }
         }
 
-        public virtual void dealDamageTo(PlayerController pc) {
+        public virtual void dealDamageTo(PlayerController pc, bool ignoreShield = false) {
             if (pc != null) {
-                DamageResult result = pc.receiveDamage(weapon.damage);
+                DamageResult result = pc.receiveDamage(weapon.damage, ignoreShield);
                 if (result == DamageResult.MORTAL_HIT) {
                     if ((owner.player is Guard) && (pc.player is Hero)) {
                         owner.player.applyPoints(Data.Instance.mainSettings.points.fragHero);

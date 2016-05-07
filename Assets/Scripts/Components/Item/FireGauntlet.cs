@@ -22,19 +22,19 @@ namespace SupHero.Components.Item {
         protected override void Trigger() {
             ready = false;
 
-            // Find rotation
+            // Find location
             Vector3 rotation = owner.directionMark.rotation.eulerAngles;
             rotation.x = 0f;
-            // Create shield
-            GameObject instance = Instantiate(fireball, owner.directionMark.position, Quaternion.Euler(rotation)) as GameObject;
+            Vector3 position = owner.directionMark.position;
+            position.y = 0f;
+            // Create fireball
+            GameObject instance = Instantiate(fireball, position, Quaternion.identity) as GameObject;
             instance.transform.SetParent(owner.transform.parent);
-
-            Timer life = instance.AddComponent<Timer>();
-            life.time = item.activeData.duration;
-            life.OnEnd += delegate () {
-                Destroy(instance.gameObject);
-            };
-            life.Launch();
+            Physics.IgnoreCollision(instance.GetComponent<Collider>(), owner.GetComponent<Collider>());
+            Fireball projectile = instance.GetComponent<Fireball>();
+            projectile.data = item;
+            projectile.owner = owner;
+            projectile.Launch(position, owner.transform.forward, item.activeData.range);
 
             Cooldown();
         }

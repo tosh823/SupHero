@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SupHero.Components.Character;
 
 namespace SupHero.Components.Weapon {
     public class SidearmHandler : WeaponController {
@@ -30,9 +31,7 @@ namespace SupHero.Components.Weapon {
             instance.gun = this;
             instance.Launch(barrelEnd.transform.position, owner.transform.forward);
             playTriggerSound();
-            ammo--;
-            // Animation doesn't really work
-            // It shifts object to root 
+            ammo--; 
         }
 
         private void disableEffects() {

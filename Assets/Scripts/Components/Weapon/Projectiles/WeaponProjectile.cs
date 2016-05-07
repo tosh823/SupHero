@@ -16,16 +16,22 @@ namespace SupHero.Components.Weapon {
             if (target.CompareTag(Tags.Player)) {
                 Debug.Log("Hit " + target);
                 gun.dealDamageTo(target.GetComponent<PlayerController>());
+                Stop();
             }
-            if (target.CompareTag(Tags.Cover)) {
+            else if (target.CompareTag(Tags.Cover)) {
                 Debug.Log("Hit " + target);
                 target.GetComponent<CoverController>().takeDamage(gun.weapon.damage);
+                Stop();
             }
-            if (target.CompareTag(Tags.Shield)) {
-                Debug.Log("Hit " + target);
-                gun.dealDamageTo(target.GetComponent<PlayerController>());
+            else if (target.CompareTag(Tags.Shield)) {
+                if (gun.owner.player is Guard) {
+                    Debug.Log("Hit " + target);
+                    gun.dealDamageTo(target.GetComponent<PlayerController>());
+                }
             }
-            Stop();
+            else {
+                Stop();
+            }
         }
 
         public override void Update() {

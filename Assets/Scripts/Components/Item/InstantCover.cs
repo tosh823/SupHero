@@ -4,6 +4,8 @@ using System.Collections;
 namespace SupHero.Components.Item {
     public class InstantCover : ItemController {
 
+        public GameObject shield;
+
         public override void Start() {
             base.Start();
         }
@@ -24,7 +26,7 @@ namespace SupHero.Components.Item {
             Vector3 rotation = owner.directionMark.rotation.eulerAngles;
             rotation.x = 0f;
             // Create shield
-            GameObject instance = Instantiate(item.prefab, owner.directionMark.position, Quaternion.Euler(rotation)) as GameObject;
+            GameObject instance = Instantiate(shield, owner.directionMark.position, Quaternion.Euler(rotation)) as GameObject;
             instance.transform.SetParent(owner.transform.parent);
             instance.GetComponent<CoverController>().durability = item.activeData.value;
             

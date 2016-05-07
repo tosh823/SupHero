@@ -26,6 +26,8 @@ ModelImporter:
     4300000: Cube
     7400000: Open
     7400002: Armature|Open
+    7400004: Idle
+    7400006: Close
     9500000: //RootNode
     13700000: Cube
   materials:
@@ -72,7 +74,115 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events:
+      - time: 1
+        functionName: createVortex
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 84c0ef71188cc8c448c824f0547dc695,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/LowHalf
+        weight: 1
+      - path: Armature/LowHalf/LowHalf_end
+        weight: 1
+      - path: Armature/Main
+        weight: 1
+      - path: Armature/Main/Main_end
+        weight: 1
+      - path: Armature/UpHalf
+        weight: 1
+      - path: Armature/UpHalf/UpHalf_end
+        weight: 1
+      - path: Cube
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle
+      takeName: Open
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
       events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/LowHalf
+        weight: 1
+      - path: Armature/LowHalf/LowHalf_end
+        weight: 1
+      - path: Armature/Main
+        weight: 1
+      - path: Armature/Main/Main_end
+        weight: 1
+      - path: Armature/UpHalf
+        weight: 1
+      - path: Armature/UpHalf/UpHalf_end
+        weight: 1
+      - path: Cube
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Close
+      takeName: Open
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 1
+        functionName: Disable
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 84c0ef71188cc8c448c824f0547dc695,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

@@ -49,7 +49,7 @@ namespace SupHero.Components.Item {
         private void Shoot() {
             timeBetweenShots = 0f;
             Debug.Log("Shoot!");
-            Projectile instance = machineGun.projectiles.popOrCreate(machineGun.weapon.projectile.prefab.GetComponent<Projectile>(), turret.barrelEnd.transform.position, Quaternion.identity);
+            WeaponProjectile instance = machineGun.projectiles.popOrCreate(machineGun.weapon.projectile.prefab.GetComponent<WeaponProjectile>(), turret.barrelEnd.transform.position, Quaternion.identity);
             instance.gameObject.SetActive(true);
             instance.transform.parent = null;
             instance.gun = machineGun;

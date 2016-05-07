@@ -3,7 +3,7 @@ using SupHero.Components.Character;
 using SupHero.Model;
 
 namespace SupHero.Components.Weapon {
-    public class Projectile : MonoBehaviour {
+    public class WeaponProjectile : MonoBehaviour {
         
         public float speed;
         protected bool launched = false;

@@ -13,7 +13,7 @@ namespace SupHero.Components.Weapon {
         public static string RUN = "run";
     }
 
-    public class Magazine : Pool<Projectile> {
+    public class Magazine : Pool<WeaponProjectile> {
         
     }
 
@@ -41,7 +41,7 @@ namespace SupHero.Components.Weapon {
             
         }
 
-        public virtual bool returnProjectile(Projectile projectile) {
+        public virtual bool returnProjectile(WeaponProjectile projectile) {
             projectile.transform.position = transform.position;
             projectile.transform.SetParent(transform);
             if (projectiles.push(projectile)) {

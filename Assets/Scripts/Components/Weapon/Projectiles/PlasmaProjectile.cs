@@ -3,7 +3,7 @@ using System.Collections;
 
 
 namespace SupHero.Components.Weapon {
-    public class PlasmaProjectile : Projectile {
+    public class PlasmaProjectile : WeaponProjectile {
 
         private Animator mecanim;
 

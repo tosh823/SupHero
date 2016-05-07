@@ -21,7 +21,7 @@ namespace SupHero.Components.Weapon {
         }
 
         protected override void trigger() {
-            Projectile instance = projectiles.popOrCreate(weapon.projectile.prefab.GetComponent<Projectile>(), barrelEnd.transform.position, Quaternion.identity);
+            WeaponProjectile instance = projectiles.popOrCreate(weapon.projectile.prefab.GetComponent<WeaponProjectile>(), barrelEnd.transform.position, Quaternion.identity);
             instance.gameObject.SetActive(true);
             instance.transform.parent = null;
             Physics.IgnoreCollision(instance.GetComponent<Collider>(), owner.GetComponent<Collider>());

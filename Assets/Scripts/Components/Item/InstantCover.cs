@@ -18,7 +18,6 @@ namespace SupHero.Components.Item {
         }
 
         protected override void Trigger() {
-            Debug.Log("Deploy cover");
             ready = false;
 
             // Find rotation of deployment

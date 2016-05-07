@@ -30,7 +30,7 @@ namespace SupHero.Components.Weapon {
             float end = scatter / 2f + 1;
             while (angle < end) {
                 Vector3 direction = Quaternion.AngleAxis(angle, Vector3.up) * owner.transform.forward;
-                Projectile instance = projectiles.popOrCreate(weapon.projectile.prefab.GetComponent<Projectile>(), barrelEnd.transform.position, Quaternion.identity);
+                WeaponProjectile instance = projectiles.popOrCreate(weapon.projectile.prefab.GetComponent<WeaponProjectile>(), barrelEnd.transform.position, Quaternion.identity);
                 instance.gameObject.SetActive(true);
                 instance.transform.parent = null;
                 Physics.IgnoreCollision(instance.GetComponent<Collider>(), owner.GetComponent<Collider>());

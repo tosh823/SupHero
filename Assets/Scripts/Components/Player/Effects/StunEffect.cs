@@ -14,6 +14,7 @@ namespace SupHero.Components.Character {
 
         protected override void onEffectStart() {
             owner.player.isStunned = true;
+            Debug.Log(owner + " is stunned");
         }
 
         protected override void onEffectTick() {
@@ -22,6 +23,7 @@ namespace SupHero.Components.Character {
 
         protected override void onEffectFinish() {
             owner.player.isStunned = false;
+            Debug.Log(owner + " is free to go");
         }
     }
 }

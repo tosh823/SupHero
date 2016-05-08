@@ -21,7 +21,6 @@ namespace SupHero.Components.Item {
         }
 
         protected override void Trigger() {
-            Debug.Log("Deploy turret");
             ready = false;
 
             // Find rotation of deployment

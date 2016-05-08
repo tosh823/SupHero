@@ -265,7 +265,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 1
+        functionName: shotWave
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 89bee62a1eb03b04dba6479e1d1ffca6,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -323,7 +331,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.99512196
+        functionName: Deactivate
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 89bee62a1eb03b04dba6479e1d1ffca6,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

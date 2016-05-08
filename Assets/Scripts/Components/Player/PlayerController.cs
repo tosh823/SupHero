@@ -343,6 +343,7 @@ namespace SupHero.Components.Character {
         public void disableAimMode() {
             aimMode = false;
             directionMark.gameObject.SetActive(false);
+            if (prepareItemUpAction != null) OnPrimaryUp -= prepareItemUpAction;
         }
 
         // Reading weapon input
@@ -429,10 +430,12 @@ namespace SupHero.Components.Character {
 
         private void processItemInput() {
             if (useFirstItem) {
-                tryUseItem(inventory.firstItem);
+                if (aimMode) disableAimMode();
+                else tryUseItem(inventory.firstItem);
             }
             else if (useSecondItem) {
-                tryUseItem(inventory.secondItem);
+                if (aimMode) disableAimMode();
+                else tryUseItem(inventory.secondItem);
             }
         }
 

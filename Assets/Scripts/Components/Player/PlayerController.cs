@@ -313,6 +313,8 @@ namespace SupHero.Components.Character {
                 OnDamageReceived += sc.refreshTimer;
             }
             playerUI = LevelController.Instance.HUD.findUIforPlayer(this).GetComponent<PlayerUIController>();
+            gamePadControl = (player.inputType == InputType.GAMEPAD);
+            gamePadNumber = player.gamepadNumber;
         }
 
         public void setUI(PlayerUIController ui) {

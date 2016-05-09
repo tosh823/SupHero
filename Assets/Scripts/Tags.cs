@@ -10,5 +10,7 @@ namespace SupHero {
         public static string Data = "Data";
         public static string Surface = "Surface";
         public static string Shield = "Shield";
+        public static string Weapon = "Weapon";
+        public static string Item = "Item";
     }
 }

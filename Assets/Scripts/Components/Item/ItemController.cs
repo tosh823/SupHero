@@ -27,6 +27,10 @@ namespace SupHero.Components.Item {
 
         }
 
+        public virtual void Unequip() {
+
+        }
+
         // Must define in child classes
         // Otherwise it is useless
         public virtual ItemStatus checkStatus() {

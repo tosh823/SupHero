@@ -159,8 +159,10 @@ namespace SupHero.Components.Character {
                             break;
                     }
                 }
-                if (itemData.slot == ItemSlot.FIRST) owner.playerUI.updateFirstItem();
-                else owner.playerUI.updateSecondItem();
+                if (owner.playerUI != null) {
+                    if (itemData.slot == ItemSlot.FIRST) owner.playerUI.updateFirstItem();
+                    else owner.playerUI.updateSecondItem();
+                }
                 return ic;
             }
             else return null;

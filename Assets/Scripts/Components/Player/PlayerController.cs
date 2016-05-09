@@ -149,7 +149,7 @@ namespace SupHero.Components.Character {
                     if (transform.right.x < 0f) horizontalRelative = -moveVector.normalized.x;
                     else horizontalRelative = moveVector.normalized.x;
                 }
-                mecanim.SetFloat(State.SPEED, player.speed);
+                mecanim.SetFloat(State.SPEED, player.speed * moveVector.sqrMagnitude);
                 mecanim.SetFloat(State.VERT, verticalRelative);
                 mecanim.SetFloat(State.HOR, horizontalRelative);
                 // For moving relative to camera
@@ -210,7 +210,7 @@ namespace SupHero.Components.Character {
             hideWeapon(inventory.secondaryWeapon);
             inventory.primaryWeapon.gameObject.SetActive(true);
             mecanim.SetFloat(State.RATE, inventory.primaryWeapon.weapon.rate / 60f);
-            playerUI.updateWeapon();
+            if (playerUI != null) playerUI.updateWeapon();
         }
 
         // Draw secondary weapon from inventory
@@ -224,7 +224,7 @@ namespace SupHero.Components.Character {
             hideWeapon(inventory.primaryWeapon);
             inventory.secondaryWeapon.gameObject.SetActive(true);
             mecanim.SetFloat(State.RATE, inventory.secondaryWeapon.weapon.rate / 60f);
-            playerUI.updateWeapon();
+            if (playerUI != null) playerUI.updateWeapon();
         }
 
         // Hide weapon

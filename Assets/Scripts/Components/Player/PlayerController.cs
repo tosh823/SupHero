@@ -264,7 +264,7 @@ namespace SupHero.Components.Character {
                 }
                 DamageResult result = DamageResult.NONE;
                 if (player is Hero && ignoreShield) {
-                   result = (player as Hero).receiveDamage(damage, ignoreShield);
+                   result = (player as Hero).receiveDamageIgnoreShield(damage);
                 }
                 else {
                    result = player.receiveDamage(damage);

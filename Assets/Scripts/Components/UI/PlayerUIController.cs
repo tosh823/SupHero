@@ -41,7 +41,6 @@ namespace SupHero.Components.UI {
                 armorText.text = pc.player.armor.ToString();
                 playerName.text = pc.player.playerName;
                 playerPoints.text = pc.player.points.ToString();
-
                 updateAmmo();
             }
         }

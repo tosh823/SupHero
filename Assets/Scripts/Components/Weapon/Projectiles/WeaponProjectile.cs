@@ -14,12 +14,10 @@ namespace SupHero.Components.Weapon {
         void OnTriggerEnter(Collider other) {
             GameObject target = other.gameObject;
             if (target.CompareTag(Tags.Player)) {
-                Debug.Log("Hit " + target);
                 gun.dealDamageTo(target.GetComponent<PlayerController>());
                 Stop();
             }
             else if (target.CompareTag(Tags.Cover)) {
-                Debug.Log("Hit " + target);
                 target.GetComponent<CoverController>().takeDamage(gun.weapon.damage);
                 Stop();
             }
@@ -27,6 +25,7 @@ namespace SupHero.Components.Weapon {
                 if (gun.owner.player is Guard) {
                     Debug.Log("Hit " + target);
                     gun.dealDamageTo(target.GetComponent<PlayerController>());
+                    Stop();
                 }
             }
             else {

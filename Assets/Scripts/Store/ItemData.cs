@@ -63,6 +63,7 @@ namespace SupHero {
         public BodySlot[] placement;
 
         public AudioClip activationSound;
+        public Sprite image;
 
         public ItemData() {
 

@@ -58,6 +58,8 @@ namespace SupHero {
         public AudioClip triggerSound;
         public AudioClip reloadSound;
 
+        public Sprite image;
+
         public WeaponData() {
 
         }

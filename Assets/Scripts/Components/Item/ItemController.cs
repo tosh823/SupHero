@@ -52,6 +52,11 @@ namespace SupHero.Components.Item {
         protected virtual void Cooldown() {
             Timer cooldown = gameObject.AddComponent<Timer>();
             cooldown.time = item.activeData.cooldown;
+            if (owner.playerUI != null) {
+                cooldown.OnTick += delegate () {
+                    owner.playerUI.updateItemCooldown(this, cooldown.time);
+                };
+            }
             cooldown.OnEnd += delegate () {
                 ready = true;
                 Debug.Log(item.name + " is ready");

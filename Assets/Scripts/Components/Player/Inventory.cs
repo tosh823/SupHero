@@ -143,7 +143,6 @@ namespace SupHero.Components.Character {
                     GameObject instance = Instantiate(itemData.prefab, placement.position, Quaternion.identity) as GameObject;
                     instance.transform.SetParent(placement);
                     instance.transform.localEulerAngles = itemData.prefab.transform.rotation.eulerAngles;
-                    if (slot == BodySlot.NONE) instance.SetActive(false);
                     ic = instance.GetComponent<ItemController>();
                     ic.owner = owner;
                     ic.item = itemData;
@@ -160,6 +159,8 @@ namespace SupHero.Components.Character {
                             break;
                     }
                 }
+                if (itemData.slot == ItemSlot.FIRST) owner.playerUI.updateFirstItem();
+                else owner.playerUI.updateSecondItem();
                 return ic;
             }
             else return null;

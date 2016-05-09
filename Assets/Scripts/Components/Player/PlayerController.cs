@@ -3,6 +3,7 @@ using SupHero.Model;
 using SupHero.Components.Level;
 using SupHero.Components.Weapon;
 using SupHero.Components.Item;
+using SupHero.Components.UI;
 
 namespace SupHero.Components.Character {
 
@@ -28,18 +29,18 @@ namespace SupHero.Components.Character {
         public bool isHero = true;
         public Transform directionMark;
         
-        private GameObject playerUI; // Ref to UI for this player, possibly unnessecary
+        public PlayerUIController playerUI;
         private Vector3 moveVector; // Vector for moving character
         private Vector3 rotationVector; // Vector for rotating character
         private Vector3 prevRotationVector;
 
         // Input
-        private bool usePrimaryWeapon;
-        private bool useSecondaryWeapon;
-        private bool useFirstItem;
-        private bool useSecondItem;
+        private bool usePrimaryWeapon = false;
+        private bool useSecondaryWeapon = false;
+        private bool useFirstItem = false;
+        private bool useSecondItem = false;
 
-        private bool aimMode;
+        private bool aimMode = false;
 
         // Components
         private ZoneController zone; // Ref to current zone
@@ -87,6 +88,8 @@ namespace SupHero.Components.Character {
                 }
                 
             }
+
+            // Components;
             playerRigidbody = GetComponent<Rigidbody>();
             mecanim = GetComponent<Animator>();
             zone = GetComponentInParent<ZoneController>();
@@ -94,11 +97,7 @@ namespace SupHero.Components.Character {
             inventory.setupWeapons();
             inventory.setupItems();
             drawPrimary();
-            usePrimaryWeapon = false;
-            useSecondaryWeapon = false;
-            useFirstItem = false;
-            useSecondItem = false;
-            aimMode = false;
+            
             directionMark.gameObject.SetActive(false);
         }
 
@@ -211,6 +210,7 @@ namespace SupHero.Components.Character {
             hideWeapon(inventory.secondaryWeapon);
             inventory.primaryWeapon.gameObject.SetActive(true);
             mecanim.SetFloat(State.RATE, inventory.primaryWeapon.weapon.rate / 60f);
+            playerUI.updateWeapon();
         }
 
         // Draw secondary weapon from inventory
@@ -224,6 +224,7 @@ namespace SupHero.Components.Character {
             hideWeapon(inventory.primaryWeapon);
             inventory.secondaryWeapon.gameObject.SetActive(true);
             mecanim.SetFloat(State.RATE, inventory.secondaryWeapon.weapon.rate / 60f);
+            playerUI.updateWeapon();
         }
 
         // Hide weapon
@@ -245,6 +246,14 @@ namespace SupHero.Components.Character {
             if (inventory.primaryWeapon.gameObject.activeInHierarchy) return inventory.primaryWeapon;
             else if (inventory.secondaryWeapon.gameObject.activeInHierarchy) return inventory.secondaryWeapon;
             else return null;
+        }
+
+        public ItemController firstItem() {
+            return inventory.firstItem;
+        }
+
+        public ItemController secondItem() {
+            return inventory.secondItem;
         }
 
         // Receive damage
@@ -303,10 +312,10 @@ namespace SupHero.Components.Character {
                 sc.owner = (Hero) player;
                 OnDamageReceived += sc.refreshTimer;
             }
-            playerUI = LevelController.Instance.HUD.findUIforPlayer(this);
+            playerUI = LevelController.Instance.HUD.findUIforPlayer(this).GetComponent<PlayerUIController>();
         }
 
-        public void setUI(GameObject ui) {
+        public void setUI(PlayerUIController ui) {
             playerUI = ui;
         }
 

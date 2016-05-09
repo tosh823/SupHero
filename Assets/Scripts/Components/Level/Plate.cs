@@ -216,7 +216,7 @@ namespace SupHero.Components.Level {
                 int weaponId = Data.Instance.getRandomWeaponId();
                 GameObject dropInstance = Instantiate(data.dropPrefab) as GameObject;
                 dropInstance.transform.SetParent(transform);
-                dropInstance.GetComponent<Drop>().createWeaponDrop(weaponId);
+                dropInstance.GetComponent<Drop>().createDrop(Entity.WEAPON, weaponId);
                 Bounds objectBounds = dropInstance.GetComponent<Collider>().bounds;
                 // Random location
                 Vector3 pos;

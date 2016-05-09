@@ -5,37 +5,32 @@ using SupHero.Components.Character;
 namespace SupHero.Components.Level {
     public class Drop : MonoBehaviour {
 
-        private Light neon;
-
-        public GameObject dropItem;
         public bool autoDestroy = true;
-
         public Entity entity;
         public int id;
 
+        protected Light neon;
+        protected GameObject dropItem;
+
         void Start() {
             neon = GetComponent<Light>();
-
-            if (dropItem != null) {
-                dropItem = Instantiate(dropItem) as GameObject;
-                dropItem.transform.SetParent(transform);
-                dropItem.transform.position = transform.position;
-                dropItem.transform.eulerAngles = new Vector3(-90f, 0f, 0f);
-                configureLight();
-            }
-            else {
-                Destroy(gameObject);
+            switch (entity) {
+                case Entity.WEAPON:
+                    createWeaponDrop();
+                    break;
+                case Entity.ITEM:
+                    createItemDrop();
+                    break;
+                case Entity.SUPPLY:
+                    createSupplyDrop();
+                    break;
+                default:
+                    break;
             }
         }
 
         void Update() {
             transform.Rotate(new Vector3(0f, 20f, 0f) * Time.deltaTime);
-        }
-
-        public void createWeaponDrop(int id) {
-            entity = Entity.WEAPON;
-            this.id = id;
-            dropItem = Data.Instance.getWeaponById(id).prefab;
         }
 
         public void createDrop(Entity type, int id) {
@@ -52,19 +47,63 @@ namespace SupHero.Components.Level {
             }
         }
 
+        protected void createWeaponDrop() {
+            WeaponData data = Data.Instance.getWeaponById(id);
+            if (data != null) {
+                Vector3 position = transform.position;
+                position.y += 1f;
+                Quaternion rotation = Random.rotationUniform;
+                dropItem = Instantiate(data.prefab, position, rotation) as GameObject;
+                dropItem.transform.SetParent(transform);
+                configureLight();
+            }
+            else Destroy(gameObject);
+        }
+
+        protected void createItemDrop() {
+            ItemData data = Data.Instance.getItemById(id);
+            if (data != null) {
+                Vector3 position = transform.position;
+                position.y += 1f;
+                Quaternion rotation = Random.rotationUniform;
+                dropItem = Instantiate(data.prefab, position, rotation) as GameObject;
+                dropItem.transform.SetParent(transform);
+                configureLight();
+            }
+            else Destroy(gameObject);
+        }
+
+        protected void createSupplyDrop() {
+            SupplyData data = Data.Instance.getSupplyById(id);
+            if (data != null) {
+                Vector3 position = transform.position;
+                position.y += 1f;
+                Quaternion rotation = Quaternion.Euler(-90f, 0f, 90f);
+                dropItem = Instantiate(data.prefab, position, rotation) as GameObject;
+                dropItem.transform.SetParent(transform);
+                configureLight();
+            }
+            else {
+                Destroy(gameObject);
+            }
+        }
+
         void configureLight() {
             switch (entity) {
                 case Entity.WEAPON:
                     neon.color = Color.cyan;
-                    neon.range = 8f;
+                    neon.range = 4f;
                     neon.intensity = 1f;
                     break;
                 case Entity.ITEM:
-                    neon.color = Color.red;
-                    neon.intensity = 4f;
+                    neon.color = Color.yellow;
+                    neon.range = 4f;
+                    neon.intensity = 1f;
                     break;
                 case Entity.SUPPLY:
                     neon.color = Color.white;
+                    neon.range = 4f;
+                    neon.intensity = 1f;
                     break;
                 default:
                     break;

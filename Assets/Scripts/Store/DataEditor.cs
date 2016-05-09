@@ -13,13 +13,15 @@ namespace SupHero {
             SETTINGS,
             WEAPONS,
             ITEMS,
-            ENVIRONMENTS
+            ENVIRONMENTS,
+            SUPPLIES
         }
 
         public WeaponDatabase weaponDB;
         public ItemDatabase itemDB;
         public SettingsDatabase settingsDB;
         public EnvironmentDatabase envDB;
+        public SupplyDatabase supplyDB;
         public string dir;
 
         private int viewIndex;
@@ -59,6 +61,12 @@ namespace SupHero {
                 envDB = AssetDatabase.LoadAssetAtPath<EnvironmentDatabase>(path);
             }
             else envDB = AssetDatabase.LoadAssetAtPath<EnvironmentDatabase>("Assets/Data/EnvDB.asset");
+
+            if (EditorPrefs.HasKey("SupplyPath")) {
+                string path = EditorPrefs.GetString("SupplyPath");
+                supplyDB = AssetDatabase.LoadAssetAtPath<SupplyDatabase>(path);
+            }
+            else supplyDB = AssetDatabase.LoadAssetAtPath<SupplyDatabase>("Assets/Data/SupplyDB.asset");
         }
 
         void OnGUI() {
@@ -83,6 +91,11 @@ namespace SupHero {
                 EditorUtility.FocusProjectWindow();
                 Selection.activeObject = envDB;
                 toShow = SHOW.ENVIRONMENTS;
+            }
+            if (GUILayout.Button("Supply DB", GUILayout.ExpandWidth(false))) {
+                EditorUtility.FocusProjectWindow();
+                Selection.activeObject = supplyDB;
+                toShow = SHOW.SUPPLIES;
             }
             GUILayout.EndVertical();
 
@@ -315,6 +328,55 @@ namespace SupHero {
                         }
                     }
                     break;
+                case SHOW.SUPPLIES:
+                    if (supplyDB == null) {
+                        GUILayout.BeginHorizontal();
+                        GUILayout.Space(10);
+                        if (GUILayout.Button("Create New Supply List", GUILayout.ExpandWidth(false))) {
+                            createNewSupplyDB();
+                        }
+                        GUILayout.EndHorizontal();
+                    }
+                    GUILayout.Space(20);
+                    if (supplyDB != null) {
+                        GUILayout.BeginHorizontal();
+                        GUILayout.Space(10);
+                        if (GUILayout.Button("Prev", GUILayout.ExpandWidth(false))) {
+                            if (viewIndex > 1)
+                                viewIndex--;
+                        }
+                        GUILayout.Space(5);
+                        if (GUILayout.Button("Next", GUILayout.ExpandWidth(false))) {
+                            if (viewIndex < supplyDB.supplies.Count) {
+                                viewIndex++;
+                            }
+                        }
+                        GUILayout.Space(60);
+                        if (GUILayout.Button("Add Supply", GUILayout.ExpandWidth(false))) {
+                            supplyDB.add();
+                            viewIndex = supplyDB.supplies.Count;
+                        }
+                        if (GUILayout.Button("Delete Supply", GUILayout.ExpandWidth(false))) {
+                            supplyDB.removeSupplyAtIndex(viewIndex - 1);
+                            viewIndex = supplyDB.supplies.Count;
+                        }
+                        GUILayout.EndHorizontal();
+                        if (supplyDB.supplies.Count > 0) {
+                            GUILayout.BeginHorizontal();
+                            viewIndex = Mathf.Clamp(EditorGUILayout.IntField("Current Item", viewIndex, GUILayout.ExpandWidth(false)), 1, supplyDB.supplies.Count);
+                            EditorGUILayout.LabelField("of   " + supplyDB.supplies.Count.ToString() + "  items", "", GUILayout.ExpandWidth(false));
+                            GUILayout.EndHorizontal();
+                            int dbIndex = viewIndex - 1;
+                            supplyDB.getSupplyAtIndex(dbIndex).name = EditorGUILayout.TextField("Name", supplyDB.getSupplyAtIndex(dbIndex).name as string);
+                            supplyDB.getSupplyAtIndex(dbIndex).description = EditorGUILayout.TextField("Description", supplyDB.getSupplyAtIndex(dbIndex).description as string);
+                            supplyDB.getSupplyAtIndex(dbIndex).prefab = EditorGUILayout.ObjectField("Prefab", supplyDB.getSupplyAtIndex(dbIndex).prefab, typeof(GameObject), true) as GameObject;
+                            GUILayout.Space(10);
+                        }
+                        else {
+                            GUILayout.Label("The supply list is empty");
+                        }
+                    }
+                    break;
                 case SHOW.NOTHING:
                     GUILayout.Label("Press on content button you want to edit");
                     break;
@@ -326,6 +388,7 @@ namespace SupHero {
                 if (itemDB != null) EditorUtility.SetDirty(itemDB);
                 if (settingsDB != null) EditorUtility.SetDirty(settingsDB);
                 if (envDB != null) EditorUtility.SetDirty(envDB);
+                if (supplyDB != null) EditorUtility.SetDirty(supplyDB);
             }
         }
 
@@ -359,6 +422,21 @@ namespace SupHero {
                 EditorPrefs.SetString("EnvPath", relPath);
                 EditorUtility.FocusProjectWindow();
                 Selection.activeObject = envDB;
+            }
+        }
+
+        void createNewSupplyDB() {
+            viewIndex = 1;
+            supplyDB = CreateInstance<SupplyDatabase>();
+            string destintation = dir + "SupplyDB.asset";
+            AssetDatabase.CreateAsset(supplyDB, destintation);
+            AssetDatabase.SaveAssets();
+            if (supplyDB) {
+                supplyDB.supplies = new List<SupplyData>();
+                string relPath = AssetDatabase.GetAssetPath(supplyDB);
+                EditorPrefs.SetString("SupplyPath", relPath);
+                EditorUtility.FocusProjectWindow();
+                Selection.activeObject = supplyDB;
             }
         }
 
@@ -397,19 +475,6 @@ namespace SupHero {
                 Selection.activeObject = settingsDB;
             }
         }
-
-        /*void OpenItemList() {
-            string absPath = EditorUtility.OpenFilePanel("Select Inventory Item List", "", "");
-            if (absPath.StartsWith(Application.dataPath)) {
-                string relPath = absPath.Substring(Application.dataPath.Length - "Assets".Length);
-                weaponDB = AssetDatabase.LoadAssetAtPath(relPath, typeof(WeaponDatabase)) as WeaponDatabase;
-                if (weaponDB.weapons == null)
-                    weaponDB.weapons = new List<WeaponData>();
-                if (weaponDB) {
-                    EditorPrefs.SetString("ObjectPath", relPath);
-                }
-            }
-        }*/
     }
 }
 

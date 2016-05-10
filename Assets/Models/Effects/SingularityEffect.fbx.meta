@@ -1,32 +1,25 @@
 fileFormatVersion: 2
-guid: 564c098e4ceab3c4fa8ad9b5b447f11e
-timeCreated: 1462356946
+guid: e679c408da4a32546b5fe24db4c2e0a4
+timeCreated: 1462863103
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: Armature
     100002: Cube
-    100004: //RootNode
-    100006: Main
-    100008: Main_end
-    100010: MainL
-    100012: MainL_end
-    100014: MainR
-    100016: MainR_end
+    100004: Main
+    100006: Main_end
+    100008: //RootNode
     400000: Armature
     400002: Cube
-    400004: //RootNode
-    400006: Main
-    400008: Main_end
-    400010: MainL
-    400012: MainL_end
-    400014: MainR
-    400016: MainR_end
+    400004: Main
+    400006: Main_end
+    400008: //RootNode
     4300000: Cube
-    7400000: Effect
-    7400002: Armature|Effect
-    7400004: Effect0
+    7400000: Rotation
+    7400002: Armature|Rotation
+    7400004: Armature|Rotation.001
+    7400006: Cube|Rotation.001
     9500000: //RootNode
     13700000: Cube
   materials:
@@ -38,12 +31,12 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 0
     optimizeGameObjects: 1
-    motionNodeName: 
+    motionNodeName: Armature
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 0
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -51,17 +44,17 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Effect
-      takeName: Effect
+      name: Rotation
+      takeName: Rotation
       firstFrame: 0
-      lastFrame: 10
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -82,60 +75,6 @@ ModelImporter:
       - path: Armature/Main
         weight: 1
       - path: Armature/Main/Main_end
-        weight: 1
-      - path: Armature/MainL
-        weight: 1
-      - path: Armature/MainL/MainL_end
-        weight: 1
-      - path: Armature/MainR
-        weight: 1
-      - path: Armature/MainR/MainR_end
-        weight: 1
-      - path: Cube
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Effect0
-      takeName: Effect
-      firstFrame: 0
-      lastFrame: 0
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Armature
-        weight: 1
-      - path: Armature/Main
-        weight: 1
-      - path: Armature/Main/Main_end
-        weight: 1
-      - path: Armature/MainL
-        weight: 1
-      - path: Armature/MainL/MainL_end
-        weight: 1
-      - path: Armature/MainR
-        weight: 1
-      - path: Armature/MainR/MainR_end
         weight: 1
       - path: Cube
         weight: 1

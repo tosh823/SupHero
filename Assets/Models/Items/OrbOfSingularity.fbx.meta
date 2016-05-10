@@ -28,6 +28,7 @@ ModelImporter:
     7400002: Armature|Open
     7400004: Idle
     7400006: Close
+    7400008: OpenIdle
     9500000: //RootNode
     13700000: Cube
   materials:
@@ -37,8 +38,8 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleCurves: 1
-    optimizeGameObjects: 0
+    resampleCurves: 0
+    optimizeGameObjects: 1
     motionNodeName: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -109,7 +110,7 @@ ModelImporter:
       name: Idle
       takeName: Open
       firstFrame: 0
-      lastFrame: 1
+      lastFrame: 0
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -199,6 +200,52 @@ ModelImporter:
       - path: Armature/UpHalf
         weight: 1
       - path: Armature/UpHalf/UpHalf_end
+        weight: 1
+      - path: Cube
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: OpenIdle
+      takeName: Open
+      firstFrame: 20
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Main
+        weight: 1
+      - path: Armature/Main/Main_end
+        weight: 1
+      - path: Armature/UpHalf
+        weight: 1
+      - path: Armature/UpHalf/UpHalf_end
+        weight: 1
+      - path: Armature/LowHalf
+        weight: 1
+      - path: Armature/LowHalf/LowHalf_end
         weight: 1
       - path: Cube
         weight: 1

@@ -8,6 +8,7 @@ namespace SupHero.Components.Item {
 
         public override void Start() {
             base.Start();
+            if (owner != null && item.hasPassive) enablePassive();
         }
 
         public override void Update() {

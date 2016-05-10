@@ -48,10 +48,10 @@ namespace SupHero.Model {
             setupDefaultProperties();
         }
 
-        public DamageResult receiveDamage(float damage, bool ignoreShield) {
+        public override DamageResult receiveDamage(float damage) {
             // If have shield active, make it take dmg on it
             haveTakenDamage = true;
-            if (shield > 0 && !ignoreShield) {
+            if (shield > 0) {
                 // If damage is too high, take the rest to your body
                 if (damage >= shield) {
                     float rest = damage - shield;
@@ -66,6 +66,36 @@ namespace SupHero.Model {
             // Else take damage as normal
             else {
                 return base.receiveDamage(damage);
+            };
+        }
+
+        public DamageResult receiveDamageIgnoreShield(float damage) {
+            // If have shield active, make it take dmg on it
+            // If have armor, make it take dmg on it
+            if (armor > 0) {
+                // If damage is too high, take the rest to your body
+                if (damage >= armor) {
+                    float rest = damage - armor;
+                    armor = 0;
+                    return receiveDamageIgnoreShield(rest);
+                }
+                else {
+                    armor -= damage;
+                    return DamageResult.ARMOR_HIT;
+                }
+            }
+            // Else take damage directly to your body
+            else {
+                // If damage is too high, accept your death
+                if (damage >= health) {
+                    health = 0;
+                    isAlive = false;
+                    return DamageResult.MORTAL_HIT;
+                }
+                else {
+                    health -= damage;
+                    return DamageResult.HEALTH_HIT;
+                }
             }
         }
 

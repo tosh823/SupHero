@@ -21,8 +21,8 @@ namespace SupHero.Components {
             if (isRunning) {
                 if (time > 0) {
                     // Ticking the clock
-                    if (OnTick != null) OnTick();
                     time -= Time.deltaTime;
+                    if (OnTick != null) OnTick();
                 }
                 else {
                     // Time is ended

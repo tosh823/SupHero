@@ -1,6 +1,7 @@
 ﻿using SupHero.Components.Weapon;
 using SupHero.Components.Item;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace SupHero.Components.Character {
 
@@ -26,7 +27,9 @@ namespace SupHero.Components.Character {
         public WeaponController secondaryWeapon { get; private set; }
 
         public ItemController firstItem { get; private set; }
+        private List<Transform> firstItemVisuals;
         public ItemController secondItem { get; private set; }
+        private List<Transform> secondItemVisuals;
 
         // For item tests
         public int firstItemId;
@@ -50,11 +53,13 @@ namespace SupHero.Components.Character {
         }
 
         public void setupItems() {
+            firstItemVisuals = new List<Transform>();
+            secondItemVisuals = new List<Transform>();
             if (firstItemId >= 0) {
-                firstItem = equipItem(firstItemId);
+                equipItem(firstItemId);
             }
             if (secondItemId >= 0 && secondItemId != firstItemId) {
-                secondItem = equipItem(secondItemId);
+                equipItem(secondItemId);
             }
         }
 
@@ -107,15 +112,56 @@ namespace SupHero.Components.Character {
             ItemData itemData = Data.Instance.getItemById(id);
             if (itemData != null) {
                 ItemController ic = null;
+                // Let's make make some checks before equiping a new item
+                if (firstItem != null && itemData.slot == ItemSlot.FIRST) {
+                    // If item is the same as first, abort
+                    if (firstItem.item.id == itemData.id) {
+                        Debug.Log("Trying to equip the same first item, aborting");
+                        return firstItem;
+                    }
+                    // Unequip item to disable passive effects and destroy visuals
+                    firstItem.Unequip();
+                    foreach (Transform visual in firstItemVisuals) {
+                        Destroy(visual.gameObject);
+                    }
+                }
+                if (secondItem != null && itemData.slot == ItemSlot.SECOND) {
+                    // If item is the same as second, abort
+                    if (secondItem.item.id == itemData.id) {
+                        Debug.Log("Trying to equip the same second item, aborting");
+                        return secondItem;
+                    }
+                    // Unequip item to disable passive effects and destroy visuals
+                    secondItem.Unequip();
+                    foreach (Transform visual in secondItemVisuals) {
+                        Destroy(visual.gameObject);
+                    }
+                }
+                // Finally create new visual if needed and new ref
                 foreach (BodySlot slot in itemData.placement) {
                     Transform placement = getPlacement(slot);
                     GameObject instance = Instantiate(itemData.prefab, placement.position, Quaternion.identity) as GameObject;
                     instance.transform.SetParent(placement);
                     instance.transform.localEulerAngles = itemData.prefab.transform.rotation.eulerAngles;
-                    if (slot == BodySlot.NONE) instance.SetActive(false);
                     ic = instance.GetComponent<ItemController>();
                     ic.owner = owner;
                     ic.item = itemData;
+                    switch (itemData.slot) {
+                        case ItemSlot.FIRST:
+                            firstItem = ic;
+                            firstItemVisuals.Add(instance.transform);
+                            break;
+                        case ItemSlot.SECOND:
+                            secondItem = ic;
+                            secondItemVisuals.Add(instance.transform);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if (owner.playerUI != null) {
+                    if (itemData.slot == ItemSlot.FIRST) owner.playerUI.updateFirstItem();
+                    else owner.playerUI.updateSecondItem();
                 }
                 return ic;
             }

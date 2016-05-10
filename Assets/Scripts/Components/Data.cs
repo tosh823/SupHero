@@ -22,6 +22,7 @@ namespace SupHero {
         public ItemDatabase itemsDB;
         public EnvironmentDatabase envDB;
         public SettingsDatabase settings;
+        public SupplyDatabase supplyDB;
         public SettingsData mainSettings {
             get {
                 if (settings != null) return settings.getSettingsAtIndex(0);
@@ -63,6 +64,15 @@ namespace SupHero {
 
         public ItemData getItemById(int id) {
             foreach (ItemData data in itemsDB.items) {
+                if (data.id == id) {
+                    return data;
+                }
+            }
+            return null;
+        }
+
+        public SupplyData getSupplyById(int id) {
+            foreach (SupplyData data in supplyDB.supplies) {
                 if (data.id == id) {
                     return data;
                 }

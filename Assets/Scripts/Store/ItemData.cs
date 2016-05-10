@@ -19,6 +19,11 @@ namespace SupHero {
         NONE
     }
 
+    public enum ItemSlot {
+        FIRST,
+        SECOND
+    }
+
     [System.Serializable]
     public struct PassiveAbility {
         public string name;
@@ -46,6 +51,8 @@ namespace SupHero {
         public string name = "New item";
         public string description = "Default item description";
 
+        public ItemSlot slot;
+
         public bool hasPassive = false;
         public PassiveAbility passiveData;
         public bool hasActive = false;
@@ -56,6 +63,7 @@ namespace SupHero {
         public BodySlot[] placement;
 
         public AudioClip activationSound;
+        public Sprite image;
 
         public ItemData() {
 

@@ -7,6 +7,7 @@ namespace SupHero.Components.Item {
 
         public ItemData data;
         public PlayerController owner;
+        public GameObject effect;
 
         private bool activated = false;
 
@@ -79,6 +80,9 @@ namespace SupHero.Components.Item {
                 disableForces();
             };
             life.Launch();
+
+            GameObject singularity = Instantiate(effect, transform.position, Quaternion.identity) as GameObject;
+            singularity.transform.SetParent(transform);
         }
     }
 }

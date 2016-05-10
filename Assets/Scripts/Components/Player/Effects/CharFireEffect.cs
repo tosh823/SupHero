@@ -2,7 +2,7 @@
 using System.Collections;
 
 namespace SupHero.Components.Character {
-    public class FireEffect : Effect {
+    public class CharFireEffect : CharEffect {
 
         public override void Start() {
             base.Start();

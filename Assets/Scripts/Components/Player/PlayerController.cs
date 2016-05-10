@@ -281,19 +281,19 @@ namespace SupHero.Components.Character {
         public void applyEffect(EffectData effect) {
             switch (effect.type) {
                 case EffectType.FIRE:
-                    FireEffect fire = gameObject.AddComponent<FireEffect>();
+                    CharFireEffect fire = gameObject.AddComponent<CharFireEffect>();
                     fire.effect = effect;
                     break;
                 case EffectType.POISON:
-                    PoisonEffect poison = gameObject.AddComponent<PoisonEffect>();
+                    CharPoisonEffect poison = gameObject.AddComponent<CharPoisonEffect>();
                     poison.effect = effect;
                     break;
                 case EffectType.SLOWDOWN:
-                    SlowdownEffect slow = gameObject.AddComponent<SlowdownEffect>();
+                    CharSlowdownEffect slow = gameObject.AddComponent<CharSlowdownEffect>();
                     slow.effect = effect;
                     break;
                 case EffectType.STUN:
-                    StunEffect stun = gameObject.AddComponent<StunEffect>();
+                    CharStunEffect stun = gameObject.AddComponent<CharStunEffect>();
                     stun.effect = effect;
                     break;
                 default:

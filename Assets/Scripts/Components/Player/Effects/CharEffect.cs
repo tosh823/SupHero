@@ -2,7 +2,7 @@
 using System.Collections;
 
 namespace SupHero.Components.Character {
-    public class Effect : MonoBehaviour {
+    public class CharEffect : MonoBehaviour {
 
         public EffectData effect;
         protected PlayerController owner;

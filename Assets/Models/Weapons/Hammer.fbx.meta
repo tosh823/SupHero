@@ -6,10 +6,22 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Armature
+    100004: Bone
+    100006: Bone_end
+    100008: Cube
     400000: //RootNode
+    400002: Armature
+    400004: Bone
+    400006: Bone_end
+    400008: Cube
     2300000: //RootNode
+    2300002: Cube
     3300000: //RootNode
+    3300002: Cube
     4300000: Cube
+    9500000: //RootNode
+    13700000: Cube
   materials:
     importMaterials: 1
     materialName: 0
@@ -17,14 +29,14 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
-    optimizeGameObjects: 0
+    resampleCurves: 1
+    optimizeGameObjects: 1
     motionNodeName: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -68,7 +80,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

@@ -72,7 +72,7 @@ namespace SupHero.Components.Level {
         public GameObject interior;
         public PlateData plateData;
 
-        private Bounds bounds;
+        //private Bounds bounds;
         private int numberOfAttempts = 3;
         private bool visited = false;
 
@@ -88,7 +88,7 @@ namespace SupHero.Components.Level {
         }
 
         void Start() {
-            bounds = GetComponent<Collider>().bounds;
+            //bounds = GetComponent<Collider>().bounds;
             if (generateView) generateObjects(Theme.FOREST);
         }
 

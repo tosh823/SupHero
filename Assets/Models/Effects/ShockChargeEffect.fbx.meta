@@ -1,26 +1,37 @@
 fileFormatVersion: 2
-guid: 95bc4abf27372ba4c92721b61f8817a8
-timeCreated: 1461317088
+guid: d9b8cfe9080e6e742bf248ab518c04e6
+timeCreated: 1462965322
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: Armature
-    100002: Cube
-    100004: Main
-    100006: Main_end
-    100008: //RootNode
+    100002: Main
+    100004: Main_end
+    100006: Ring1
+    100008: Ring1_end
+    100010: Ring2
+    100012: Ring2_end
+    100014: Ring3
+    100016: Ring3_end
+    100018: //RootNode
+    100020: Sphere
     400000: Armature
-    400002: Cube
-    400004: Main
-    400006: Main_end
-    400008: //RootNode
-    4300000: Cube
-    7400000: Flash
-    7400002: Armature|Flash
-    7400004: Flash0
+    400002: Main
+    400004: Main_end
+    400006: Ring1
+    400008: Ring1_end
+    400010: Ring2
+    400012: Ring2_end
+    400014: Ring3
+    400016: Ring3_end
+    400018: //RootNode
+    400020: Sphere
+    4300000: Sphere
+    7400000: Effect
+    7400002: Armature|Effect
     9500000: //RootNode
-    13700000: Cube
+    13700000: Sphere
   materials:
     importMaterials: 1
     materialName: 0
@@ -30,7 +41,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 0
     optimizeGameObjects: 1
-    motionNodeName: <Root Transform>
+    motionNodeName: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -43,62 +54,16 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Flash
-      takeName: Flash
-      firstFrame: 0
-      lastFrame: 5
+      name: Effect
+      takeName: Effect
+      firstFrame: 1
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events:
-      - time: 1
-        functionName: destroyEffect
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 3c17acd3236f29c4ab3b9bde3e34ffcd,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Armature
-        weight: 1
-      - path: Armature/Main
-        weight: 1
-      - path: Armature/Main/Main_end
-        weight: 1
-      - path: Cube
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Flash0
-      takeName: Flash
-      firstFrame: 0
-      lastFrame: 0
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 1
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
@@ -121,7 +86,19 @@ ModelImporter:
         weight: 1
       - path: Armature/Main/Main_end
         weight: 1
-      - path: Cube
+      - path: Armature/Ring1
+        weight: 1
+      - path: Armature/Ring1/Ring1_end
+        weight: 1
+      - path: Armature/Ring2
+        weight: 1
+      - path: Armature/Ring2/Ring2_end
+        weight: 1
+      - path: Armature/Ring3
+        weight: 1
+      - path: Armature/Ring3/Ring3_end
+        weight: 1
+      - path: Sphere
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
@@ -129,7 +106,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.8
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -160,7 +137,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    rootMotionBoneName: Main
+    rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2

@@ -6,11 +6,13 @@ namespace SupHero.Components.Weapon {
     public class WeaponProjectile : BaseProjectile {
         
         public WeaponController gun;
+        public GameObject hitEffect;
 
         public override void Start() {
             base.Start();
         }
 
+        // If trigger
         void OnTriggerEnter(Collider other) {
             GameObject target = other.gameObject;
             if (target.CompareTag(Tags.Player)) {
@@ -23,7 +25,6 @@ namespace SupHero.Components.Weapon {
             }
             else if (target.CompareTag(Tags.Shield)) {
                 if (gun.owner.player is Guard) {
-                    Debug.Log("Hit " + target);
                     gun.dealDamageTo(target.GetComponent<PlayerController>());
                     Stop();
                 }
@@ -31,6 +32,36 @@ namespace SupHero.Components.Weapon {
             else {
                 Stop();
             }
+        }
+
+        // If collider
+        void OnCollisionEnter(Collision collision) {
+            GameObject target = collision.gameObject;
+            // Effect
+            makeHit(collision.contacts[0]);
+            if (target.CompareTag(Tags.Player)) {
+                gun.dealDamageTo(target.GetComponent<PlayerController>());
+                Stop();
+            }
+            else if (target.CompareTag(Tags.Cover)) {
+                target.GetComponent<CoverController>().takeDamage(gun.weapon.damage);
+                Stop();
+            }
+            else if (target.CompareTag(Tags.Shield)) {
+                if (gun.owner.player is Guard) {
+                    gun.dealDamageTo(target.GetComponent<PlayerController>());
+                    Stop();
+                }
+            }
+            else {
+                Stop();
+            }
+        }
+
+        protected virtual void makeHit(ContactPoint contact) {
+            Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
+            Vector3 pos = contact.point;
+            Instantiate(hitEffect, pos, rot);
         }
 
         public override void Update() {

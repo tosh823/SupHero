@@ -2,7 +2,7 @@
 using System.Collections;
 
 namespace SupHero.Components.Character {
-    public class PoisonEffect : Effect {
+    public class CharPoisonEffect : CharEffect {
 
         public override void Start() {
             base.Start();

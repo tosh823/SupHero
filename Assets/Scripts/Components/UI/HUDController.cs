@@ -115,9 +115,9 @@ namespace SupHero.Components.UI {
 
         private void positionUI(GameObject ui, UILocation location) {
             RectTransform rt = ui.GetComponent<RectTransform>();
-            float w = rectTransform.sizeDelta.x;
+            //float w = rectTransform.sizeDelta.x;
             float h = rectTransform.sizeDelta.y;
-            float uiWidth = rt.sizeDelta.x * rt.localScale.x;
+            //float uiWidth = rt.sizeDelta.x * rt.localScale.x;
             float uiHeight = rt.sizeDelta.y * rt.localScale.y;
             float pos;
             switch (location) {

@@ -43,7 +43,7 @@ namespace SupHero.Components.Character {
         private bool aimMode = false;
 
         // Components
-        private ZoneController zone; // Ref to current zone
+        //private ZoneController zone; // Ref to current zone
         private Rigidbody playerRigidbody;
         private Animator mecanim; // Animator, attached to this player
         private Inventory inventory; // Store for weapons and items
@@ -92,7 +92,7 @@ namespace SupHero.Components.Character {
             // Components;
             playerRigidbody = GetComponent<Rigidbody>();
             mecanim = GetComponent<Animator>();
-            zone = GetComponentInParent<ZoneController>();
+            //zone = GetComponentInParent<ZoneController>();
             inventory = GetComponent<Inventory>();
             inventory.setupWeapons();
             inventory.setupItems();
@@ -281,19 +281,19 @@ namespace SupHero.Components.Character {
         public void applyEffect(EffectData effect) {
             switch (effect.type) {
                 case EffectType.FIRE:
-                    FireEffect fire = gameObject.AddComponent<FireEffect>();
+                    CharFireEffect fire = gameObject.AddComponent<CharFireEffect>();
                     fire.effect = effect;
                     break;
                 case EffectType.POISON:
-                    PoisonEffect poison = gameObject.AddComponent<PoisonEffect>();
+                    CharPoisonEffect poison = gameObject.AddComponent<CharPoisonEffect>();
                     poison.effect = effect;
                     break;
                 case EffectType.SLOWDOWN:
-                    SlowdownEffect slow = gameObject.AddComponent<SlowdownEffect>();
+                    CharSlowdownEffect slow = gameObject.AddComponent<CharSlowdownEffect>();
                     slow.effect = effect;
                     break;
                 case EffectType.STUN:
-                    StunEffect stun = gameObject.AddComponent<StunEffect>();
+                    CharStunEffect stun = gameObject.AddComponent<CharStunEffect>();
                     stun.effect = effect;
                     break;
                 default:

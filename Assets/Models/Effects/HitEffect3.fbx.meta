@@ -54,7 +54,7 @@ ModelImporter:
       name: Effect
       takeName: Effect
       firstFrame: 0
-      lastFrame: 10
+      lastFrame: 6
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -73,7 +73,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 1
+        functionName: destroyEffect
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 3c17acd3236f29c4ab3b9bde3e34ffcd,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -145,7 +153,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.5
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1

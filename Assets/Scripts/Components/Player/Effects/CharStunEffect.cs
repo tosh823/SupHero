@@ -2,7 +2,7 @@
 using System.Collections;
 
 namespace SupHero.Components.Character {
-    public class SlowdownEffect : Effect {
+    public class CharStunEffect : CharEffect {
 
         public override void Start() {
             base.Start();
@@ -12,10 +12,9 @@ namespace SupHero.Components.Character {
             base.Update();
         }
 
-        // TODO!!!
-        // Later come up with better way of slowing down the player
         protected override void onEffectStart() {
-            owner.player.speed -= 2f;
+            owner.player.isStunned = true;
+            Debug.Log(owner + " is stunned");
         }
 
         protected override void onEffectTick() {
@@ -23,7 +22,8 @@ namespace SupHero.Components.Character {
         }
 
         protected override void onEffectFinish() {
-            owner.player.speed += 2f;
+            owner.player.isStunned = false;
+            Debug.Log(owner + " is free to go");
         }
     }
 }

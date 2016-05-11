@@ -169,7 +169,19 @@ namespace SupHero.Components.Character {
         }
 
         public void useSupply(int id) {
-
+			SupplyData data = Data.Instance.getSupplyById(id);
+			if (data != null) {
+				switch (data.kind) {
+					case SupplyType.HEALTH:
+						owner.player.applyhealth(data.value);
+						break;
+					case SupplyType.ARMOR:
+						owner.player.armor += data.value;
+						break;
+					default:
+						break;
+				}
+			}
         }
 
         private Transform getPlacement(BodySlot slot) {

@@ -30,6 +30,14 @@ namespace SupHero.Model {
             setupDefaultProperties();
         }
 
+		public override void applyhealth(float amount) {
+			float maxHealth = Data.Instance.mainSettings.hero.health;
+			if (health + amount <= maxHealth) {
+				health += amount;
+			} 
+			else health = maxHealth;
+		}
+
         public Hero(Player player) {
             // Copying data
             playerName = player.playerName;

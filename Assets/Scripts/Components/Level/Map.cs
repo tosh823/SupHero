@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace SupHero.Components.Level {
     public class Map : MonoBehaviour {
 
-        private ZoneController zone;
+        //private ZoneController zone;
         public GameObject transfer;
         
         public bool generateRoute = false;
@@ -14,7 +14,7 @@ namespace SupHero.Components.Level {
         public Plate battleField { get; private set; } // Current plate where hero is
 
         void Awake() {
-            zone = GetComponent<ZoneController>();
+            //zone = GetComponent<ZoneController>();
         }
 
         void Start() {

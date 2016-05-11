@@ -32,6 +32,14 @@ namespace SupHero.Model {
             setupDefaultProperties();
         }
 
+		public override void applyhealth(float amount) {
+			float maxHealth = Data.Instance.mainSettings.guard.health;
+			if (health + amount <= maxHealth) {
+				health += amount;
+			} 
+			else health = maxHealth;
+		}
+
         public override void die() {
             isAlive = false;
         }

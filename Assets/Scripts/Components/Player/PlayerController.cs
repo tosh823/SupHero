@@ -43,7 +43,7 @@ namespace SupHero.Components.Character {
         private bool aimMode = false;
 
         // Components
-        private ZoneController zone; // Ref to current zone
+        //private ZoneController zone; // Ref to current zone
         private Rigidbody playerRigidbody;
         private Animator mecanim; // Animator, attached to this player
         private Inventory inventory; // Store for weapons and items
@@ -92,7 +92,7 @@ namespace SupHero.Components.Character {
             // Components;
             playerRigidbody = GetComponent<Rigidbody>();
             mecanim = GetComponent<Animator>();
-            zone = GetComponentInParent<ZoneController>();
+            //zone = GetComponentInParent<ZoneController>();
             inventory = GetComponent<Inventory>();
             inventory.setupWeapons();
             inventory.setupItems();

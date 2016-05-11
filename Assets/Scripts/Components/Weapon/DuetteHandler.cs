@@ -2,9 +2,10 @@
 using System.Collections;
 
 namespace SupHero.Components.Weapon {
-    public class DuettesHandler : WeaponController {
+    public class DuetteHandler : WeaponController {
 
         public Transform barrelEnd;
+        public GameObject flashPrefab;
 
         public override void Start() {
             base.Start();
@@ -21,6 +22,12 @@ namespace SupHero.Components.Weapon {
         }
 
         protected override void trigger() {
+            // Flashmuzzle
+            GameObject flash = Instantiate(flashPrefab) as GameObject;
+            flash.transform.position = barrelEnd.transform.position;
+            flash.transform.rotation = Quaternion.LookRotation(barrelEnd.transform.forward, barrelEnd.transform.up);
+            flash.transform.SetParent(transform);
+            // Shot
             WeaponProjectile instance = projectiles.popOrCreate(weapon.projectile.prefab.GetComponent<WeaponProjectile>(), barrelEnd.transform.position, Quaternion.identity);
             instance.gameObject.SetActive(true);
             instance.transform.parent = null;
@@ -29,6 +36,8 @@ namespace SupHero.Components.Weapon {
             instance.Launch(barrelEnd.transform.position, owner.transform.forward);
             playTriggerSound();
             ammo--;
+            // Triggering left weapon
+            base.trigger();
         }
 
         private void disableEffects() {

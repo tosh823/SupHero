@@ -7,6 +7,7 @@ namespace SupHero.Components.Item {
 
         public ItemData data;
         public PlayerController owner;
+        public GameObject explosion;
 
         public override void Start() {
             base.Start();
@@ -18,6 +19,9 @@ namespace SupHero.Components.Item {
 
         void OnTriggerEnter(Collider other) {
             GameObject target = other.gameObject;
+            // Explostion
+            GameObject effect = Instantiate(explosion, transform.position, Quaternion.identity) as GameObject;
+            effect.transform.SetParent(transform.parent);
             if (target.CompareTag(Tags.Player) || target.CompareTag(Tags.Shield)) {
                 Debug.Log("Hit " + target);
                 target.GetComponent<PlayerController>().receiveDamage(data.activeData.value, false);

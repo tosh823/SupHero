@@ -19,14 +19,25 @@ namespace SupHero.Components.Weapon {
 
     public class WeaponController : MonoBehaviour {
 
+        public PlayerController owner; // Player-owner
         public WeaponData weapon; // Data of this weapon
+        public Magazine projectiles; // Storage for pooling
         public int ammo; // Curent amount of ammo
         public bool reloading; // Do we reloading weapon now?
-
-        public PlayerController owner; // Player-owner
+        
         protected AudioSource audioSource; // AudioSource attached to the weapon
 
-        public Magazine projectiles; // Storage for pooling
+        // Events
+        public delegate void onDrawAction();
+        public event onDrawAction OnDraw;
+        public delegate void onHideAction();
+        public event onHideAction OnHide;
+        public delegate void onUnEquipAction();
+        public event onUnEquipAction OnUnEquip;
+        public delegate void onTriggerAction();
+        public event onTriggerAction OnTrigger;
+        public delegate void onReloadStartAction();
+        public event onReloadStartAction OnReloadStart;
 
         public virtual void Start() {
             owner = GetComponentInParent<PlayerController>();
@@ -54,6 +65,21 @@ namespace SupHero.Components.Weapon {
             }
         }
 
+        public virtual void drawWeapon() {
+            if (OnDraw != null) OnDraw();
+            gameObject.SetActive(true);
+        }
+
+        public virtual void hideWeapon() {
+            if (OnHide != null) OnHide();
+            gameObject.SetActive(false);
+        }
+
+        public virtual void unequipWeapon() {
+            if (OnUnEquip != null) OnUnEquip();
+            Destroy(gameObject);
+        }
+
         // Check availability of weapon
         // Check additional stuff in subclasses
         public virtual bool canUseWeapon() {
@@ -69,6 +95,7 @@ namespace SupHero.Components.Weapon {
         }
 
         protected virtual void trigger() {
+            if (OnTrigger != null) OnTrigger();
             // Overdrive this method in children
             // to add custom behavior on using
 
@@ -89,6 +116,7 @@ namespace SupHero.Components.Weapon {
                     reloading = false;
                     audioSource.Stop();
                 };
+                if (OnReloadStart != null) OnReloadStart();
                 reload.Launch();
                 playReloadSound();
             }

@@ -32,6 +32,12 @@ namespace SupHero {
         public GameObject prefab;
     }
 
+    public enum WeaponType {
+        RIGHT_HAND,
+        LEFT_HAND,
+        BOTH
+    }
+
     [System.Serializable]
     public class WeaponData {
         // Fields
@@ -39,6 +45,7 @@ namespace SupHero {
         public string name = "New weapon";
         public string description = "Default weapon description";
         public WeaponSlot slot;
+        public WeaponType weaponType;
 
         public GameObject prefab;
         public AnimatorOverrideController heroController;

@@ -24,7 +24,6 @@ namespace SupHero.Components.Weapon {
 
         protected override void trigger() {
             // Create flash
-            //GameObject flash = Instantiate(flashPrefab, barrelEnd.transform.position, Quaternion.identity) as GameObject;
             GameObject flash = Instantiate(flashPrefab) as GameObject;
             flash.transform.position = barrelEnd.transform.position;
             flash.transform.rotation = Quaternion.LookRotation(barrelEnd.transform.forward, barrelEnd.transform.up);

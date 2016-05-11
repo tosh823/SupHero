@@ -207,8 +207,8 @@ namespace SupHero.Components.Character {
             else {
                 mecanim.runtimeAnimatorController = inventory.primaryWeapon.weapon.guardController;
             }
-            hideWeapon(inventory.secondaryWeapon);
-            inventory.primaryWeapon.gameObject.SetActive(true);
+            inventory.secondaryWeapon.hideWeapon();
+            inventory.primaryWeapon.drawWeapon();
             mecanim.SetFloat(State.RATE, inventory.primaryWeapon.weapon.rate / 60f);
             if (playerUI != null) playerUI.updateWeapon();
         }
@@ -221,8 +221,8 @@ namespace SupHero.Components.Character {
             else {
                 mecanim.runtimeAnimatorController = inventory.secondaryWeapon.weapon.guardController;
             }
-            hideWeapon(inventory.primaryWeapon);
-            inventory.secondaryWeapon.gameObject.SetActive(true);
+            inventory.primaryWeapon.hideWeapon();
+            inventory.secondaryWeapon.drawWeapon();
             mecanim.SetFloat(State.RATE, inventory.secondaryWeapon.weapon.rate / 60f);
             if (playerUI != null) playerUI.updateWeapon();
         }
@@ -322,7 +322,6 @@ namespace SupHero.Components.Character {
         }
 
         public void Death() {
-            Debug.Log(tokenName + " is dead, should disappear");
             player.die();
             if (OnDie != null) {
                 OnDie(player);

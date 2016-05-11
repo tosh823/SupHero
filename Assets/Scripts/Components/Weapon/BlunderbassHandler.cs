@@ -5,6 +5,7 @@ namespace SupHero.Components.Weapon {
     public class BlunderbassHandler : WeaponController {
 
         public Transform barrelEnd;
+        public GameObject flashPrefab;
         public int fractionAmount; // Number of frags in one shot
         public float scatter; // Degrees of scatter
 
@@ -24,6 +25,12 @@ namespace SupHero.Components.Weapon {
         }
 
         protected override void trigger() {
+            // Muzzleflash
+            GameObject flash = Instantiate(flashPrefab) as GameObject;
+            flash.transform.position = barrelEnd.transform.position;
+            flash.transform.rotation = Quaternion.LookRotation(barrelEnd.transform.forward, barrelEnd.transform.up);
+            flash.transform.SetParent(transform);
+            // Shot
             float perShot = scatter / fractionAmount;
             float start = -scatter / 2f;
             float angle = start;

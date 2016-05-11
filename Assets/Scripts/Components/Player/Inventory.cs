@@ -7,8 +7,6 @@ namespace SupHero.Components.Character {
 
     public class Inventory : MonoBehaviour {
 
-        // InGame weapon representation
-        public Transform rightHand;
         // Parts of the body
         public Transform hairPlace;
         public Transform eyesPlace;
@@ -82,28 +80,67 @@ namespace SupHero.Components.Character {
         public void equipWeapon(int id, bool draw = false) {
             WeaponData weaponData = Data.Instance.getWeaponById(id);
             if (weaponData != null) {
-                //owner.setAnimator(weaponData.controller);
-                GameObject instance = Instantiate(weaponData.prefab, rightHand.position, Quaternion.identity) as GameObject;
-                instance.transform.SetParent(rightHand);
-                // I spent the whole 06.04.2016 of fixing fucking weapon rotation
-                // Still don't know how it works, damn you Unity
-                instance.transform.localEulerAngles = weaponData.prefab.transform.rotation.eulerAngles;
-                instance.SetActive(false);
-                switch (weaponData.slot) {
-                    case WeaponSlot.PRIMARY:
-                        if (primaryWeapon != null) Destroy(primaryWeapon.gameObject);
-                        primaryWeapon = instance.GetComponent<WeaponController>();
-                        primaryWeapon.weapon = weaponData;
-                        if (draw) owner.drawPrimary();
-                        break;
-                    case WeaponSlot.SECONDARY:
-                        if (secondaryWeapon != null) Destroy(secondaryWeapon.gameObject);
-                        secondaryWeapon = instance.GetComponent<WeaponController>();
-                        secondaryWeapon.weapon = weaponData;
-                        if (draw) owner.drawSecondary();
-                        break;
-                    default:
-                        break;
+                if (weaponData.weaponType == WeaponType.LEFT_HAND || weaponData.weaponType == WeaponType.RIGHT_HAND) {
+                    Transform placement = ((weaponData.weaponType == WeaponType.RIGHT_HAND) ? rightHandPlace : leftHandPlace);
+                    GameObject instance = Instantiate(weaponData.prefab, placement.position, Quaternion.identity) as GameObject;
+                    instance.transform.SetParent(placement);
+                    // I spent the whole 06.04.2016 of fixing fucking weapon rotation
+                    // Still don't know how it works, damn you Unity
+                    instance.transform.localEulerAngles = weaponData.prefab.transform.rotation.eulerAngles;
+                    instance.SetActive(false);
+                    switch (weaponData.slot) {
+                        case WeaponSlot.PRIMARY:
+                            if (primaryWeapon != null) primaryWeapon.unequipWeapon();
+                            primaryWeapon = instance.GetComponent<WeaponController>();
+                            primaryWeapon.weapon = weaponData;
+                            if (draw) owner.drawPrimary();
+                            break;
+                        case WeaponSlot.SECONDARY:
+                            if (secondaryWeapon != null) secondaryWeapon.unequipWeapon();
+                            secondaryWeapon = instance.GetComponent<WeaponController>();
+                            secondaryWeapon.weapon = weaponData;
+                            if (draw) owner.drawSecondary();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else if (weaponData.weaponType == WeaponType.BOTH) {
+                    // For the sake of duettes
+                    // Left instance
+                    GameObject leftGun = Instantiate(weaponData.prefab, leftHandPlace.position, Quaternion.identity) as GameObject;
+                    leftGun.transform.SetParent(leftHandPlace);
+                    leftGun.transform.localEulerAngles = weaponData.prefab.transform.rotation.eulerAngles;
+                    WeaponController leftWC = leftGun.GetComponent<WeaponController>();
+                    leftWC.weapon = weaponData;
+                    leftGun.SetActive(false);
+                    // Right instance
+                    GameObject rightGun = Instantiate(weaponData.prefab, rightHandPlace.position, Quaternion.identity) as GameObject;
+                    rightGun.transform.SetParent(rightHandPlace);
+                    rightGun.transform.localEulerAngles = weaponData.prefab.transform.rotation.eulerAngles;
+                    // Setting events for using with left weapon
+                    WeaponController rightWC = rightGun.GetComponent<WeaponController>();
+                    rightWC.weapon = weaponData;
+                    rightWC.OnDraw += leftWC.drawWeapon;
+                    rightWC.OnHide += leftWC.hideWeapon;
+                    rightWC.OnTrigger += leftWC.useWeapon;
+                    rightWC.OnUnEquip += leftWC.unequipWeapon;
+                    rightGun.SetActive(false);
+
+                    switch (weaponData.slot) {
+                        case WeaponSlot.PRIMARY:
+                            if (primaryWeapon != null) primaryWeapon.unequipWeapon();
+                            primaryWeapon = rightWC;
+                            if (draw) owner.drawPrimary();
+                            break;
+                        case WeaponSlot.SECONDARY:
+                            if (secondaryWeapon != null) secondaryWeapon.unequipWeapon();
+                            secondaryWeapon = rightWC;
+                            if (draw) owner.drawSecondary();
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
@@ -205,7 +242,7 @@ namespace SupHero.Components.Character {
                 case BodySlot.RIGHT_FOREARM:
                     return rightForearmPlace;
                 case BodySlot.RIGHT_HAND:
-                    return rightHand;
+                    return rightHandPlace;
                 case BodySlot.RIGHT_LEG:
                     return rightLegPlace;
                 case BodySlot.RIGHT_SHIN:

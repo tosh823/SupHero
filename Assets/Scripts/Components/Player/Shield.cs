@@ -5,9 +5,10 @@ namespace SupHero.Components.Character {
     public class Shield : MonoBehaviour {
 
         public Hero owner;
+        public GameObject shield;
+
         private PlayerController player;
         private float timer;
-        private GameObject shield;
 
         void Start() {
             timer = 0f;

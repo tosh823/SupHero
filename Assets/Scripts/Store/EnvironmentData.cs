@@ -37,6 +37,9 @@ namespace SupHero {
         public Theme theme = Theme.FOREST;
 
         public GameObject dropPrefab;
+        public float weaponDropTime = 20f;
+        public float itemDropTime = 30f;
+        public float supplyDropTime = 20f;
 
         public PlateData[] plates;
         public CoverData[] covers;

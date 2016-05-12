@@ -98,7 +98,6 @@ namespace SupHero.Components.Weapon {
             if (OnTrigger != null) OnTrigger();
             // Overdrive this method in children
             // to add custom behavior on using
-
             // ATTENTION: Assuming all checks
             // are made before trigger
         }

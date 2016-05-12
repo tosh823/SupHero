@@ -71,6 +71,11 @@ namespace SupHero {
             return null;
         }
 
+        public int getRandomItemId() {
+            int id = Utils.getRandomRange(0, itemsDB.items.Count);
+            return id;
+        }
+
         public SupplyData getSupplyById(int id) {
             foreach (SupplyData data in supplyDB.supplies) {
                 if (data.id == id) {
@@ -78,6 +83,11 @@ namespace SupHero {
                 }
             }
             return null;
+        }
+
+        public int getRandomSupplyId() {
+            int id = Utils.getRandomRange(0, supplyDB.supplies.Count);
+            return id;
         }
 
         public Dictionary<string, int> getStatistics() {

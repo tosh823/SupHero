@@ -105,8 +105,6 @@ namespace SupHero.Components.Level {
             // Thus getting point on the edge of the plate
             Vector3 direction = Random.onUnitSphere;
             direction.y = 0;
-            /*Vector3 from = surface.transform.position;
-            from.y += 0.5f;*/
             Vector3 from = transform.position;
             from.y -= 2f;
             Vector3 faraway = from + direction * length;
@@ -140,10 +138,25 @@ namespace SupHero.Components.Level {
             mask = ~mask;*/
             Collider[] overlap = Physics.OverlapBox(placement, objectBounds.extents, Quaternion.identity, Physics.AllLayers, QueryTriggerInteraction.Ignore);
             if (overlap.Length > 3) {
-                Debug.Log("Object overlaps with something");
                 return false;
             }
             else return true;
+        }
+
+        private bool placeObject(GameObject obj) {
+            Bounds objectBounds = obj.GetComponent<Collider>().bounds;
+            // Trying to find location
+            Vector3 pos;
+            int attempt = 0;
+            bool placed = false;
+            do {
+                pos = getRandomPointOnMesh(Mathf.Abs(objectBounds.extents.x), Mathf.Abs(objectBounds.extents.z));
+                pos.y = obj.transform.position.y;
+                obj.transform.position = pos;
+                placed = placeAvailable(objectBounds, pos);
+                attempt++;
+            } while (!placed && attempt <= numberOfAttempts);
+            return placed;
         }
 
         // Generating objects into plate here
@@ -151,96 +164,55 @@ namespace SupHero.Components.Level {
             EnvironmentData data = Data.Instance.getEnvByTheme(theme);
             // Interior
             for (int i = 0; i < plateData.interiorAmount; i++) {
-                //GameObject instance = Instantiate(Utils.getRandomElement(data.interior)) as GameObject;
                 InteriorData interiorData = Utils.getRandomElement(data.interiors);
                 GameObject instance = Instantiate(interiorData.prefab) as GameObject;
                 instance.transform.SetParent(interior.transform);
-                Bounds objectBounds = instance.GetComponent<Collider>().bounds;
-                // Random location
-                Vector3 pos;
-                int attempt = 0;
-                bool placed = false;
-                do {
-                    pos = getRandomPointOnMesh(Mathf.Abs(objectBounds.extents.x), Mathf.Abs(objectBounds.extents.z));
-                    pos.y = instance.transform.position.y;
-                    instance.transform.position = pos;
-                    placed = placeAvailable(objectBounds, pos);
-                    attempt++;
-                } while (!placed && attempt <= numberOfAttempts);
-
-                // If we didn't succeeded in placement, remove object
-                if (!placed) {
-                    Debug.Log("Oops, can't find a place for a interior, screw it then!");
-                    Destroy(instance.gameObject);
-                }
-                else {
+                if (placeObject(instance)) {
                     // Random rotation
                     Vector3 euler = instance.transform.eulerAngles;
                     euler.y = Random.Range(0f, 360f);
                     instance.transform.eulerAngles = euler;
                 }
+                else Destroy(instance.gameObject);
             }
             // Covers
             for (int i = 0; i < plateData.coverAmount; i++) {
                 CoverData coverData = Utils.getRandomElement(data.covers);
                 GameObject instance = Instantiate(coverData.prefab) as GameObject;
                 instance.transform.SetParent(covers.transform);
-                Bounds objectBounds = instance.GetComponent<Collider>().bounds;
-                // Random location
-                Vector3 pos;
-                int attempt = 0;
-                bool placed = false;
-                do {
-                    pos = getRandomPointOnMesh(Mathf.Abs(objectBounds.extents.x), Mathf.Abs(objectBounds.extents.z));
-                    pos.y = instance.transform.position.y;
-                    instance.transform.position = pos;
-                    placed = placeAvailable(objectBounds, pos);
-                    attempt++;
-                } while (!placed && attempt <= numberOfAttempts);
-
-                // If we didn't succeeded in placement, remove object
-                if (!placed) {
-                    Debug.Log("Oops, can't find a place for a cover, screw it then!");
-                    Destroy(instance.gameObject);
-                }
-                else {
+                if (placeObject(instance)) {
                     // Random rotation
                     Vector3 euler = instance.transform.eulerAngles;
                     euler.y = Random.Range(0f, 360f);
                     instance.transform.eulerAngles = euler;
                 }
+                else Destroy(instance.gameObject);
             }
 
-            // Just for showcase, placing weapon drops
-            for (int i = 0; i < 3; i++) {
+            // Placing weapon drops
+            for (int i = 0; i < 2; i++) {
                 int weaponId = Data.Instance.getRandomWeaponId();
                 GameObject dropInstance = Instantiate(data.dropPrefab) as GameObject;
                 dropInstance.transform.SetParent(transform);
-                dropInstance.GetComponent<Drop>().createDrop(Entity.WEAPON, weaponId);
-                Bounds objectBounds = dropInstance.GetComponent<Collider>().bounds;
-                // Random location
-                Vector3 pos;
-                int attempt = 0;
-                bool placed = false;
-                do {
-                    pos = getRandomPointOnMesh(Mathf.Abs(objectBounds.extents.x), Mathf.Abs(objectBounds.extents.z));
-                    pos.y = dropInstance.transform.position.y;
-                    dropInstance.transform.position = pos;
-                    placed = placeAvailable(objectBounds, pos);
-                    attempt++;
-                } while (!placed && attempt <= numberOfAttempts);
+                dropInstance.GetComponent<Drop>().createDropSimple(Entity.WEAPON, weaponId);
+                if (!placeObject(dropInstance)) Destroy(dropInstance.gameObject);
+            }
 
-                // If we didn't succeeded in placement, remove object
-                if (!placed) {
-                    Debug.Log("Oops, can't find a place for a cover, screw it then!");
-                    Destroy(dropInstance.gameObject);
-                }
+            // Placing item drops
+            for (int i = 0; i < 2; i++) {
+                int itemId = Data.Instance.getRandomItemId();
+                GameObject dropInstance = Instantiate(data.dropPrefab) as GameObject;
+                dropInstance.transform.SetParent(transform);
+                dropInstance.GetComponent<Drop>().createDropSimple(Entity.ITEM, itemId);
+                if (!placeObject(dropInstance)) Destroy(dropInstance.gameObject);
             }
         }
 
-        public void dropItem() {
-            // Drop weapons, items and supplies here
-
+        public void Drop(Drop drop) {
+            if (drop != null && drop.entity != Entity.NONE) {
+                drop.transform.SetParent(transform);
+                if (!placeObject(drop.gameObject)) Destroy(drop.gameObject);
+            }
         }
 
         void OnTriggerEnter(Collider other) {

@@ -3,11 +3,21 @@ using System.Collections;
 using SupHero.Components.Character;
 
 namespace SupHero.Components.Level {
+
+    public enum DropType {
+        SIMPLE,
+        LIMITED_AMOUNT,
+        LIMITED_TIME
+    }
+
     public class Drop : MonoBehaviour {
 
-        public bool autoDestroy = true;
+        public DropType type = DropType.SIMPLE;
         public Entity entity;
         public int id;
+
+        public int amount;
+        public float duration;
 
         protected Light neon;
         protected GameObject dropItem;
@@ -33,9 +43,34 @@ namespace SupHero.Components.Level {
             transform.Rotate(new Vector3(0f, 20f, 0f) * Time.deltaTime);
         }
 
-        public void createDrop(Entity type, int id) {
-            entity = type;
+        // Creates simple drop that dissolves when taken
+        public void createDropSimple(Entity entity, int id) {
+            this.entity = entity;
             this.id = id;
+            type = DropType.SIMPLE;
+        }
+
+        // Creates simple drop that dissolves after certain amount of take
+        public void createDropLimitedAmount(Entity entity, int id, int amount) {
+            this.entity = entity;
+            this.id = id;
+            type = DropType.LIMITED_AMOUNT;
+            this.amount = amount;
+        }
+
+        // Creates simple drop that dissolves after certain time
+        public void createDropLimitedTime(Entity entity, int id, float time) {
+            this.entity = entity;
+            this.id = id;
+            type = DropType.LIMITED_TIME;
+            duration = time;
+            // Create lifetime
+            Timer life = gameObject.AddComponent<Timer>();
+            life.time = duration;
+            life.OnEnd += delegate () {
+                Destroy(gameObject);
+            };
+            life.Launch();
         }
 
         void OnTriggerEnter(Collider other) {
@@ -43,7 +78,17 @@ namespace SupHero.Components.Level {
             if (incoming.CompareTag(Tags.Player)) {
                 // Detecting player to receive drop
                 incoming.GetComponent<PlayerController>().receiveDrop(entity, id);
-                if (autoDestroy) Destroy(gameObject);
+                switch (type) {
+                    case DropType.SIMPLE:
+                        Destroy(gameObject);
+                        break;
+                    case DropType.LIMITED_AMOUNT:
+                        amount--;
+                        if (amount <= 0) Destroy(gameObject);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 

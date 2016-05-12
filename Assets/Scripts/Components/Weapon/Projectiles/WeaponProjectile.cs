@@ -10,52 +10,45 @@ namespace SupHero.Components.Weapon {
 
         public override void Start() {
             base.Start();
+            if (gun.owner.player is Hero) {
+                Shield shield = gun.owner.GetComponent<Shield>();
+                if (shield != null) {
+                    Physics.IgnoreCollision(GetComponent<Collider>(), shield.shield.GetComponent<Collider>());
+                } 
+            }
         }
 
         // If trigger
         void OnTriggerEnter(Collider other) {
-            GameObject target = other.gameObject;
+            /*GameObject target = other.gameObject;
+            Debug.Log("Trigger: Hit " + target);
             if (target.CompareTag(Tags.Player)) {
                 gun.dealDamageTo(target.GetComponent<PlayerController>());
-                Stop();
             }
-            else if (target.CompareTag(Tags.Cover)) {
+            if (target.CompareTag(Tags.Cover)) {
                 target.GetComponent<CoverController>().takeDamage(gun.weapon.damage);
-                Stop();
             }
-            else if (target.CompareTag(Tags.Shield)) {
-                if (gun.owner.player is Guard) {
-                    gun.dealDamageTo(target.GetComponent<PlayerController>());
-                    Stop();
-                }
+            if (target.CompareTag(Tags.Shield)) {
+                gun.dealDamageTo(target.GetComponent<PlayerController>());
             }
-            else {
-                Stop();
-            }
+            Stop();*/
         }
 
         // If collider
         void OnCollisionEnter(Collision collision) {
             GameObject target = collision.gameObject;
-            // Effect
-            makeHit(collision.contacts[0]);
+            Debug.Log("Collision: Hit " + target);
             if (target.CompareTag(Tags.Player)) {
                 gun.dealDamageTo(target.GetComponent<PlayerController>());
-                Stop();
             }
-            else if (target.CompareTag(Tags.Cover)) {
+            if (target.CompareTag(Tags.Cover)) {
                 target.GetComponent<CoverController>().takeDamage(gun.weapon.damage);
-                Stop();
             }
-            else if (target.CompareTag(Tags.Shield)) {
-                if (gun.owner.player is Guard) {
-                    gun.dealDamageTo(target.GetComponent<PlayerController>());
-                    Stop();
-                }
+            if (target.CompareTag(Tags.Shield)) {
+                gun.dealDamageTo(target.GetComponent<PlayerController>());
             }
-            else {
-                Stop();
-            }
+            makeHit(collision.contacts[0]);
+            Stop();
         }
 
         protected virtual void makeHit(ContactPoint contact) {

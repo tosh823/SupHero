@@ -21,6 +21,7 @@ namespace SupHero.Components.Level {
             if (generateRoute && length > 0) {
                 createRoute(length);
             }
+            createDrops();
         }
 
         void Update() {
@@ -29,6 +30,61 @@ namespace SupHero.Components.Level {
 
         public void constructZone(int length) {
             createRoute(length);
+        }
+
+        private void createDrops() {
+            EnvironmentData data = Data.Instance.getEnvByTheme(Theme.FOREST);
+            // Weapon
+            initWeaponDrop();
+            // Item
+            initItemDrop();
+            // Supply
+            initSupplyDrop();
+        }
+
+        private void initWeaponDrop() {
+            EnvironmentData data = Data.Instance.getEnvByTheme(Theme.FOREST);
+            Timer weapon = gameObject.AddComponent<Timer>();
+            weapon.time = data.weaponDropTime;
+            weapon.OnEnd += delegate () {
+                int weaponId = Data.Instance.getRandomWeaponId();
+                GameObject dropInstance = Instantiate(data.dropPrefab) as GameObject;
+                Drop drop = dropInstance.GetComponent<Drop>();
+                drop.createDropLimitedAmount(Entity.WEAPON, weaponId, 2);
+                battleField.Drop(drop);
+                initWeaponDrop();
+            };
+            weapon.Launch();
+        }
+
+        private void initItemDrop() {
+            EnvironmentData data = Data.Instance.getEnvByTheme(Theme.FOREST);
+            Timer item = gameObject.AddComponent<Timer>();
+            item.time = data.itemDropTime;
+            item.OnEnd += delegate () {
+                int itemId = Data.Instance.getRandomItemId();
+                GameObject dropInstance = Instantiate(data.dropPrefab) as GameObject;
+                Drop drop = dropInstance.GetComponent<Drop>();
+                drop.createDropLimitedAmount(Entity.ITEM, itemId, 2);
+                battleField.Drop(drop);
+                initItemDrop();
+            };
+            item.Launch();
+        }
+
+        private void initSupplyDrop() {
+            EnvironmentData data = Data.Instance.getEnvByTheme(Theme.FOREST);
+            Timer supply = gameObject.AddComponent<Timer>();
+            supply.time = data.supplyDropTime;
+            supply.OnEnd += delegate () {
+                int supplyId = Data.Instance.getRandomSupplyId();
+                GameObject dropInstance = Instantiate(data.dropPrefab) as GameObject;
+                Drop drop = dropInstance.GetComponent<Drop>();
+                drop.createDropLimitedTime(Entity.SUPPLY, supplyId, 20f);
+                battleField.Drop(drop);
+                initSupplyDrop();
+            };
+            supply.Launch();
         }
 
         public List<PlateData> getPlatesByType(PlateData[] data, Side side) {

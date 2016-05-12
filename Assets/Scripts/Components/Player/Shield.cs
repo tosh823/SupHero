@@ -14,14 +14,13 @@ namespace SupHero.Components.Character {
             timer = 0f;
             player = gameObject.GetComponent<PlayerController>();
             shield = Instantiate(Data.Instance.mainSettings.hero.shieldPrefab);
-            shield.transform.SetParent(player.transform);
-            shield.transform.position = player.transform.position;
+            shield.transform.SetParent(transform);
+            shield.transform.position = transform.position;
+            Physics.IgnoreCollision(GetComponent<Collider>(), shield.GetComponent<Collider>());
         }
 
         void Update() {
             if (owner.isAlive && !owner.isShieldFull) {
-                // Disappear shield if empty
-                // TODO!!! Make it better later
                 if (owner.isShieldEmpty) {
                     if (shield.activeSelf) shield.SetActive(false);
                 }

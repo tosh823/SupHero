@@ -86,6 +86,9 @@ namespace SupHero.Components.Level {
                         amount--;
                         if (amount <= 0) Destroy(gameObject);
                         break;
+                    case DropType.LIMITED_TIME:
+                        Destroy(gameObject);
+                        break;
                     default:
                         break;
                 }

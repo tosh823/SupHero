@@ -12,5 +12,6 @@ namespace SupHero {
         public static string Shield = "Shield";
         public static string Weapon = "Weapon";
         public static string Item = "Item";
+        public static string Projectile = "Projectile";
     }
 }

@@ -10,12 +10,7 @@ namespace SupHero.Components.Weapon {
 
         public override void Start() {
             base.Start();
-            if (gun.owner.player is Hero) {
-                Shield shield = gun.owner.GetComponent<Shield>();
-                if (shield != null) {
-                    Physics.IgnoreCollision(GetComponent<Collider>(), shield.shield.GetComponent<Collider>());
-                } 
-            }
+            
         }
 
         // If trigger
@@ -52,7 +47,7 @@ namespace SupHero.Components.Weapon {
         }
 
         protected virtual void makeHit(ContactPoint contact) {
-            Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
+            Quaternion rot = Quaternion.FromToRotation(-Vector3.forward, contact.normal);
             Vector3 pos = contact.point;
             Instantiate(hitEffect, pos, rot);
         }
@@ -66,6 +61,12 @@ namespace SupHero.Components.Weapon {
 
         public void Launch(Vector3 start, Vector3 direction) {
             speed = gun.weapon.projectile.speed;
+            if (gun.owner.player is Hero) {
+                Shield shield = gun.owner.GetComponent<Shield>();
+                if (shield != null) {
+                    Physics.IgnoreCollision(GetComponent<Collider>(), shield.shield.GetComponent<Collider>());
+                }
+            }
             base.Launch(start, direction, speed);
         }
 

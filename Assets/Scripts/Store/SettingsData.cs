@@ -20,6 +20,7 @@ namespace SupHero {
 
         public GameObject prefab;
         public GameObject shieldPrefab;
+        public GameObject shieldHitPrefab;
     }
 
     [System.Serializable]

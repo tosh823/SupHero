@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using SupHero.Components.Character;
+using SupHero.Model;
 
 namespace SupHero.Components.Item {
     public class FrostArrow : BaseProjectile {
@@ -10,6 +11,12 @@ namespace SupHero.Components.Item {
 
         public override void Start() {
             base.Start();
+            if (owner.player is Hero) {
+                Shield shield = owner.GetComponent<Shield>();
+                if (shield != null) {
+                    Physics.IgnoreCollision(GetComponent<Collider>(), shield.shield.GetComponent<Collider>());
+                }
+            }
         }
 
         public override void Update() {

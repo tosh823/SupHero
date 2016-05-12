@@ -1,38 +1,42 @@
 fileFormatVersion: 2
-guid: d9b8cfe9080e6e742bf248ab518c04e6
-timeCreated: 1462965322
+guid: 3525cf3692a4d5d4a8582858d36f72a1
+timeCreated: 1463037133
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: Armature
-    100002: Main
-    100004: Main_end
-    100006: Ring1
-    100008: Ring1_end
-    100010: Ring2
-    100012: Ring2_end
-    100014: Ring3
-    100016: Ring3_end
-    100018: //RootNode
-    100020: Sphere
+    100002: Cube
+    100004: Main
+    100006: Main.001
+    100008: Main.001_end
+    100010: Main.002
+    100012: Main.002_end
+    100014: Main_end
+    100016: //RootNode
+    100018: ShockIn
+    100020: ShockIn_end
+    100022: ShockOut
+    100024: ShockOut_end
     400000: Armature
-    400002: Main
-    400004: Main_end
-    400006: Ring1
-    400008: Ring1_end
-    400010: Ring2
-    400012: Ring2_end
-    400014: Ring3
-    400016: Ring3_end
-    400018: //RootNode
-    400020: Sphere
-    4300000: Sphere
-    7400000: Effect
-    7400002: Armature|Effect
-    7400004: Effect0
+    400002: Cube
+    400004: Main
+    400006: Main.001
+    400008: Main.001_end
+    400010: Main.002
+    400012: Main.002_end
+    400014: Main_end
+    400016: //RootNode
+    400018: ShockIn
+    400020: ShockIn_end
+    400022: ShockOut
+    400024: ShockOut_end
+    4300000: Cube
+    7400000: Blast
+    7400002: Armature|Blast
+    7400004: Blast0
     9500000: //RootNode
-    13700000: Sphere
+    13700000: Cube
   materials:
     importMaterials: 1
     materialName: 0
@@ -55,17 +59,17 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Effect
-      takeName: Effect
-      firstFrame: 1
-      lastFrame: 20
+      name: Blast
+      takeName: Blast
+      firstFrame: 0
+      lastFrame: 10
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -87,26 +91,30 @@ ModelImporter:
         weight: 1
       - path: Armature/Main/Main_end
         weight: 1
-      - path: Armature/Ring1
+      - path: Armature/Main.001
         weight: 1
-      - path: Armature/Ring1/Ring1_end
+      - path: Armature/Main.001/Main.001_end
         weight: 1
-      - path: Armature/Ring2
+      - path: Armature/Main.002
         weight: 1
-      - path: Armature/Ring2/Ring2_end
+      - path: Armature/Main.002/Main.002_end
         weight: 1
-      - path: Armature/Ring3
+      - path: Armature/ShockIn
         weight: 1
-      - path: Armature/Ring3/Ring3_end
+      - path: Armature/ShockIn/ShockIn_end
         weight: 1
-      - path: Sphere
+      - path: Armature/ShockOut
+        weight: 1
+      - path: Armature/ShockOut/ShockOut_end
+        weight: 1
+      - path: Cube
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Effect0
-      takeName: Effect
+      name: Blast0
+      takeName: Blast
       firstFrame: 0
       lastFrame: 0
       wrapMode: 0
@@ -137,19 +145,23 @@ ModelImporter:
         weight: 1
       - path: Armature/Main/Main_end
         weight: 1
-      - path: Armature/Ring1
+      - path: Armature/Main.001
         weight: 1
-      - path: Armature/Ring1/Ring1_end
+      - path: Armature/Main.001/Main.001_end
         weight: 1
-      - path: Armature/Ring2
+      - path: Armature/Main.002
         weight: 1
-      - path: Armature/Ring2/Ring2_end
+      - path: Armature/Main.002/Main.002_end
         weight: 1
-      - path: Armature/Ring3
+      - path: Armature/ShockIn
         weight: 1
-      - path: Armature/Ring3/Ring3_end
+      - path: Armature/ShockIn/ShockIn_end
         weight: 1
-      - path: Sphere
+      - path: Armature/ShockOut
+        weight: 1
+      - path: Armature/ShockOut/ShockOut_end
+        weight: 1
+      - path: Cube
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}

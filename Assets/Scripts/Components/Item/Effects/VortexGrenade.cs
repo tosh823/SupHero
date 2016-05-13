@@ -22,20 +22,22 @@ namespace SupHero.Components.Item {
                 float maxPower = data.activeData.value;
                 Collider[] capturedObjects = Physics.OverlapSphere(transform.position, data.activeData.range);
                 foreach (Collider captured in capturedObjects) {
-                    GameObject target = captured.gameObject;
-                    Rigidbody body = target.GetComponent<Rigidbody>();
-                    // Don't affect ours
-                    if (body == GetComponent<Rigidbody>()) continue;
-                    // Affect objects
-                    if (body != null) {
-                        Vector3 distance = transform.position - body.transform.position;
-                        float fraction = distance.magnitude / maxDistance;
-                        if (fraction < 1f) {
-                            // Science, bitch!
-                            Vector3 force = Vector3.zero;
-                            force.x = distance.normalized.x * maxPower * (1f - fraction);
-                            force.z = distance.normalized.z * maxPower * (1f - fraction);
-                            body.AddForce(force);
+                    if (captured.GetComponent<Rigidbody>()) {
+                        GameObject target = captured.gameObject;
+                        Rigidbody body = target.GetComponent<Rigidbody>();
+                        // Don't affect ours
+                        if (body == GetComponent<Rigidbody>()) continue;
+                        // Affect objects
+                        if (body != null) {
+                            Vector3 distance = transform.position - body.transform.position;
+                            float fraction = distance.magnitude / maxDistance;
+                            if (fraction < 1f) {
+                                // Science, bitch!
+                                Vector3 force = Vector3.zero;
+                                force.x = distance.normalized.x * maxPower * (1f - fraction);
+                                force.z = distance.normalized.z * maxPower * (1f - fraction);
+                                body.AddForce(force);
+                            }
                         }
                     }
                 }

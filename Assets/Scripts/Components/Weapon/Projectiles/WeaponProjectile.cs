@@ -40,7 +40,7 @@ namespace SupHero.Components.Weapon {
                 target.GetComponent<CoverController>().takeDamage(gun.weapon.damage);
             }
             if (target.CompareTag(Tags.Shield)) {
-                gun.dealDamageTo(target.GetComponent<PlayerController>());
+                gun.dealDamageTo(target.GetComponent<Shield>().player);
             }
             makeHit(collision.contacts[0]);
             Stop();
@@ -61,10 +61,9 @@ namespace SupHero.Components.Weapon {
 
         public void Launch(Vector3 start, Vector3 direction) {
             speed = gun.weapon.projectile.speed;
-            if (gun.owner.player is Hero) {
-                Shield shield = gun.owner.GetComponent<Shield>();
-                if (shield != null) {
-                    Physics.IgnoreCollision(GetComponent<Collider>(), shield.shield.GetComponent<Collider>());
+            if (gun.owner.isHero()) {
+                if (gun.owner.shield != null) {
+                    Physics.IgnoreCollision(GetComponent<Collider>(), gun.owner.shield.GetComponent<Collider>());
                 }
             }
             base.Launch(start, direction, speed);

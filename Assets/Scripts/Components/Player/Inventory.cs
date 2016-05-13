@@ -79,6 +79,8 @@ namespace SupHero.Components.Character {
 
         public void equipWeapon(int id, bool draw = false) {
             WeaponData weaponData = Data.Instance.getWeaponById(id);
+            // If we are hero, we can't equip melee weapon
+            if (weaponData.slot == WeaponSlot.SECONDARY && owner.isHero()) return;
             if (weaponData != null) {
                 if (weaponData.weaponType == WeaponType.LEFT_HAND || weaponData.weaponType == WeaponType.RIGHT_HAND) {
                     Transform placement = ((weaponData.weaponType == WeaponType.RIGHT_HAND) ? rightHandPlace : leftHandPlace);

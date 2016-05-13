@@ -33,7 +33,6 @@ namespace SupHero.Components.Level {
         }
 
         private void createDrops() {
-            EnvironmentData data = Data.Instance.getEnvByTheme(Theme.FOREST);
             // Weapon
             initWeaponDrop();
             // Item

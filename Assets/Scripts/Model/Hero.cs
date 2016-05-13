@@ -5,8 +5,8 @@ using System;
 namespace SupHero.Model {
     public class Hero : Player {
 
-        public float shield { get; protected set; }
-        public float replenishWaitTime { get; protected set; }
+        public float shield;
+        public float replenishWaitTime;
         public bool haveTakenDamage;
         public float shieldPercentage {
             get {
@@ -107,6 +107,17 @@ namespace SupHero.Model {
             }
         }
 
+        public bool consumeShield(float value) {
+            if (!isShieldEmpty) {
+                if ((shield - value) > 0f) {
+                    shield -= value;
+                }
+                else shield = 0f;
+                return true;
+            }
+            else return false;
+        }
+
         public void replenishShield() {
             if (!isShieldFull) {
                 shield++;
@@ -123,7 +134,6 @@ namespace SupHero.Model {
             isStunned = false;
 
             primaryId = Data.Instance.mainSettings.hero.starterPrimary;
-            secondaryId = Data.Instance.mainSettings.guard.starterSecondary;
 
             isAlive = true;
         }

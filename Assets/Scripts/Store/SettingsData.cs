@@ -11,12 +11,16 @@ namespace SupHero {
         public float shield;
         public float speed;
         public float shieldReplenishTime;
+        public float minImpulse;
+        public float minRadius;
+        public float shieldUnitPerCharge;
+        public float maxImpulse;
+        public float maxRadius;
 
         public float spawnDistance;
         public float viewRadius;
 
         public int starterPrimary;
-        public int starterSecondary;
 
         public GameObject prefab;
         public GameObject shieldPrefab;

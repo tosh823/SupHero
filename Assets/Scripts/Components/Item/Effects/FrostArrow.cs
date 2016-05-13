@@ -11,10 +11,9 @@ namespace SupHero.Components.Item {
 
         public override void Start() {
             base.Start();
-            if (owner.player is Hero) {
-                Shield shield = owner.GetComponent<Shield>();
-                if (shield != null) {
-                    Physics.IgnoreCollision(GetComponent<Collider>(), shield.shield.GetComponent<Collider>());
+            if (owner.isHero()) {
+                if (owner.shield != null) {
+                    Physics.IgnoreCollision(GetComponent<Collider>(), owner.shield.GetComponent<Collider>());
                 }
             }
         }
@@ -25,12 +24,13 @@ namespace SupHero.Components.Item {
 
         void OnTriggerEnter(Collider other) {
             GameObject target = other.gameObject;
-            if (target.CompareTag(Tags.Player) || target.CompareTag(Tags.Shield)) {
-                Debug.Log("Hit " + target);
+            if (target.CompareTag(Tags.Player)) {
                 target.GetComponent<PlayerController>().receiveDamage(data.activeData.value, false);
             }
+            if (target.CompareTag(Tags.Shield)) {
+                target.GetComponent<Shield>().player.receiveDamage(data.activeData.value, false);
+            }
             if (target.CompareTag(Tags.Cover)) {
-                Debug.Log("Hit " + target);
                 target.GetComponent<CoverController>().takeDamage(data.activeData.value);
             }
             Stop();

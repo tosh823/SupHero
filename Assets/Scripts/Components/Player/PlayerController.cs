@@ -26,7 +26,7 @@ namespace SupHero.Components.Character {
         public string tokenName;
         public bool gamePadControl = false;
         public int gamePadNumber = 0;
-        public bool isHero = true;
+        public bool createHero = true;
         public Transform directionMark;
         
         public PlayerUIController playerUI;
@@ -39,7 +39,6 @@ namespace SupHero.Components.Character {
         private bool useSecondaryWeapon = false;
         private bool useFirstItem = false;
         private bool useSecondItem = false;
-
         private bool aimMode = false;
 
         // Components
@@ -47,6 +46,7 @@ namespace SupHero.Components.Character {
         private Rigidbody playerRigidbody;
         private Animator mecanim; // Animator, attached to this player
         private Inventory inventory; // Store for weapons and items
+        public Shield shield { get; private set; } // Ref to shield if exist
 
         // Events
         public delegate void dieAction(Player player);
@@ -61,12 +61,20 @@ namespace SupHero.Components.Character {
         public delegate void primaryUpAction();
         public event primaryUpAction OnPrimaryUp;
 
-        private primaryUpAction prepareItemUpAction;
+        public delegate void secondaryDownAction();
+        public event secondaryDownAction OnSecondaryDown;
+        public delegate void secondaryHoldAction();
+        public event secondaryHoldAction OnSecondaryHold;
+        public delegate void secondaryUpAction();
+        public event secondaryUpAction OnSecondaryUp;
+
+        private primaryUpAction primaryUp;
+        private secondaryUpAction secondaryUp;
 
         void Start() {
             if (player == null) {
                 // For standalone unit, like for test scene
-                if (isHero) {
+                if (createHero) {
                     player = new Hero(1);
                     if (gamePadControl) {
                         player.inputType = InputType.GAMEPAD;
@@ -201,36 +209,32 @@ namespace SupHero.Components.Character {
 
         // Draw primary weapon from inventory
         public void drawPrimary() {
-            if (player is Hero) {
-                mecanim.runtimeAnimatorController = inventory.primaryWeapon.weapon.heroController;
+            if (inventory.primaryWeapon != null) {
+                if (isHero()) mecanim.runtimeAnimatorController = inventory.primaryWeapon.weapon.heroController;
+                else mecanim.runtimeAnimatorController = inventory.primaryWeapon.weapon.guardController;
+                hideWeapon(inventory.secondaryWeapon);
+                inventory.primaryWeapon.drawWeapon();
+                mecanim.SetFloat(State.RATE, inventory.primaryWeapon.weapon.rate / 60f);
+                if (playerUI != null) playerUI.updateWeapon();
             }
-            else {
-                mecanim.runtimeAnimatorController = inventory.primaryWeapon.weapon.guardController;
-            }
-            inventory.secondaryWeapon.hideWeapon();
-            inventory.primaryWeapon.drawWeapon();
-            mecanim.SetFloat(State.RATE, inventory.primaryWeapon.weapon.rate / 60f);
-            if (playerUI != null) playerUI.updateWeapon();
         }
 
         // Draw secondary weapon from inventory
         public void drawSecondary() {
-            if (player is Hero) {
-                mecanim.runtimeAnimatorController = inventory.secondaryWeapon.weapon.heroController;
+            if (inventory.secondaryWeapon != null) {
+                if (isHero()) mecanim.runtimeAnimatorController = inventory.secondaryWeapon.weapon.heroController;
+                else mecanim.runtimeAnimatorController = inventory.secondaryWeapon.weapon.guardController;
+                hideWeapon(inventory.primaryWeapon);
+                inventory.secondaryWeapon.drawWeapon();
+                mecanim.SetFloat(State.RATE, inventory.secondaryWeapon.weapon.rate / 60f);
+                if (playerUI != null) playerUI.updateWeapon();
             }
-            else {
-                mecanim.runtimeAnimatorController = inventory.secondaryWeapon.weapon.guardController;
-            }
-            inventory.primaryWeapon.hideWeapon();
-            inventory.secondaryWeapon.drawWeapon();
-            mecanim.SetFloat(State.RATE, inventory.secondaryWeapon.weapon.rate / 60f);
-            if (playerUI != null) playerUI.updateWeapon();
         }
 
         // Hide weapon
         public void hideWeapon(WeaponController weapon) {
-            if (weapon != null && weapon.gameObject.activeInHierarchy) {
-                weapon.gameObject.SetActive(false);
+            if (weapon != null) {
+                weapon.hideWeapon();
             }
         }
 
@@ -239,6 +243,11 @@ namespace SupHero.Components.Character {
             if (weapon != null && weapon.gameObject.activeInHierarchy) {
                 return true;
             }
+            else return false;
+        }
+
+        public bool isHero() {
+            if (player is Hero) return true;
             else return false;
         }
 
@@ -307,10 +316,13 @@ namespace SupHero.Components.Character {
             if (player is Hero) {
                 // Set it as camera target
                 LevelController.Instance.view.setTarget(gameObject);
-                // Add to him a shield
-                Shield sc = gameObject.AddComponent<Shield>();
-                sc.owner = (Hero) player;
-                OnDamageReceived += sc.refreshTimer;
+                // Give him a shield
+                GameObject shieldInstance = Instantiate(Data.Instance.mainSettings.hero.shieldPrefab) as GameObject;
+                shieldInstance.transform.position = transform.position;
+                shieldInstance.transform.SetParent(transform);
+                shield = shieldInstance.GetComponent<Shield>();
+                shield.hero = (Hero) player;
+                OnDamageReceived += shield.refreshTimer;
             }
             playerUI = LevelController.Instance.HUD.findUIforPlayer(this).GetComponent<PlayerUIController>();
             gamePadControl = (player.inputType == InputType.GAMEPAD);
@@ -353,12 +365,13 @@ namespace SupHero.Components.Character {
         public void disableAimMode() {
             aimMode = false;
             directionMark.gameObject.SetActive(false);
-            if (prepareItemUpAction != null) OnPrimaryUp -= prepareItemUpAction;
+            if (primaryUp != null) OnPrimaryUp -= primaryUp;
         }
 
         // Reading weapon input
         private void readInput() {
             bool primaryDown, primaryHold, primaryUp;
+            bool secondaryDown, secondaryHold, secondaryUp;
             switch (player.inputType) {
                 case InputType.KEYBOARD:
                     // For processing
@@ -369,22 +382,26 @@ namespace SupHero.Components.Character {
 
                     // For firing events
                     primaryDown = Input.GetButtonDown(Control.LeftMouse);
-                    primaryHold = Input.GetButton(Control.LeftMouse);
+                    primaryHold = usePrimaryWeapon;
                     primaryUp = Input.GetButtonUp(Control.LeftMouse);
+                    secondaryDown = Input.GetButtonDown(Control.RightMouse);
+                    secondaryHold = useSecondaryWeapon;
+                    secondaryUp = Input.GetButtonUp(Control.RightMouse);
 
                     break;
                 case InputType.GAMEPAD:
                     float rightTrigger = Input.GetAxis(Utils.getControlForPlayer(Control.RightTrigger, player.gamepadNumber));
                     float leftTrigger = Input.GetAxis(Utils.getControlForPlayer(Control.LeftTrigger, player.gamepadNumber));
 
-                    // usePrimaryWeapon holds old value
-                    // so we could use it for defining down, hold and up events
                     primaryDown = (!usePrimaryWeapon && (rightTrigger > 0f));
                     primaryHold = (rightTrigger > 0f);
                     primaryUp = (usePrimaryWeapon && (rightTrigger <= 0.1f));
+                    secondaryDown = (!useSecondaryWeapon && (leftTrigger > 0f));
+                    secondaryHold = (leftTrigger > 0f);
+                    secondaryUp = (useSecondaryWeapon && (leftTrigger <= 0.1f));
 
                     usePrimaryWeapon = primaryHold;
-                    useSecondaryWeapon = (leftTrigger > 0f);
+                    useSecondaryWeapon = secondaryHold;
                     useFirstItem = Input.GetButtonUp(Utils.getControlForPlayer(Control.LeftBumper, player.gamepadNumber));
                     useSecondItem = Input.GetButtonUp(Utils.getControlForPlayer(Control.RightBumper, player.gamepadNumber));
 
@@ -397,14 +414,18 @@ namespace SupHero.Components.Character {
                     primaryDown = false;
                     primaryHold = false;
                     primaryUp = false;
+                    secondaryDown = false;
+                    secondaryHold = false;
+                    secondaryUp = false;
                     break;
             }
-
             // Firing freakin events
             if (primaryDown && OnPrimaryDown != null) OnPrimaryDown();
             if (primaryHold && OnPrimaryHold != null) OnPrimaryHold();
             if (primaryUp && OnPrimaryUp != null) OnPrimaryUp();
-
+            if (secondaryDown && OnSecondaryDown != null) OnSecondaryDown();
+            if (secondaryHold && OnSecondaryHold != null) OnSecondaryHold();
+            if (secondaryUp && OnSecondaryUp != null) OnSecondaryUp();
         }
 
         private void processWeaponInput() {
@@ -422,13 +443,25 @@ namespace SupHero.Components.Character {
             }
             // Attack with secondary
             else if (!aimMode && useSecondaryWeapon) {
-                if (isWeaponActive(inventory.secondaryWeapon)) {
-                    mecanim.SetBool(State.STEADY, true);
-                    if (inventory.secondaryWeapon.canUseWeapon()) mecanim.SetBool(State.TRIGGER, true);
-                    else mecanim.SetBool(State.TRIGGER, false);
+                if (isHero()) {
+                    shield.Charge();
+                    if (OnSecondaryUp == null) {
+                        secondaryUp = delegate () {
+                            shield.Exile();
+                            OnSecondaryUp -= secondaryUp;
+                        };
+                        OnSecondaryUp += secondaryUp;
+                    }
                 }
                 else {
-                    drawSecondary();
+                    if (isWeaponActive(inventory.secondaryWeapon)) {
+                        mecanim.SetBool(State.STEADY, true);
+                        if (inventory.secondaryWeapon.canUseWeapon()) mecanim.SetBool(State.TRIGGER, true);
+                        else mecanim.SetBool(State.TRIGGER, false);
+                    }
+                    else {
+                        drawSecondary();
+                    }
                 }
             }
             // No attacking at all
@@ -458,11 +491,11 @@ namespace SupHero.Components.Character {
                 case ItemStatus.NEED_AIM:
                     Debug.Log(item.item.name + " needs aiming");
                     enableAimMode();
-                    prepareItemUpAction = delegate () {
+                    primaryUp = delegate () {
                         disableAimMode();
                         useItem(item);
                     };
-                    OnPrimaryUp += prepareItemUpAction;
+                    OnPrimaryUp += primaryUp;
                     break;
                 case ItemStatus.COOLDOWN:
                     Debug.Log(item.item.name + " is cooling down");
@@ -485,9 +518,8 @@ namespace SupHero.Components.Character {
         }
 
         public void useItem(ItemController item) {
-            Debug.Log("Use " + item.item.name);
             item.Activate();
-            if (prepareItemUpAction != null) OnPrimaryUp -= prepareItemUpAction;
+            if (primaryUp != null) OnPrimaryUp -= primaryUp;
         }
 
         // Reading movement input

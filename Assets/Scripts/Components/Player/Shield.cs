@@ -6,6 +6,7 @@ namespace SupHero.Components.Character {
 
         public Hero hero;
         public PlayerController player;
+        public GameObject blastEffect;
         public bool charging { get; private set; }
 
         private bool active = true;
@@ -74,6 +75,11 @@ namespace SupHero.Components.Character {
 
         public void Exile() {
             Debug.Log("Exile");
+            // Effect
+            GameObject blast = Instantiate(blastEffect) as GameObject;
+            blast.transform.position = transform.position;
+            blast.transform.SetParent(transform);
+            // Blast
             float ratio = charge / maxCapacity;
             float radius = (maxRadius - minRadius) * ratio;
             float impulse = (maxImpulse - minImpulse) * ratio;

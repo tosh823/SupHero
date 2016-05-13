@@ -23,7 +23,7 @@ namespace SupHero.Components.Level {
         protected GameObject dropItem;
 
         void Start() {
-            neon = GetComponent<Light>();
+            //neon = GetComponent<Light>();
             switch (entity) {
                 case Entity.WEAPON:
                     createWeaponDrop();
@@ -37,6 +37,7 @@ namespace SupHero.Components.Level {
                 default:
                     break;
             }
+            configureMaterial();
         }
 
         void Update() {
@@ -103,7 +104,6 @@ namespace SupHero.Components.Level {
                 Quaternion rotation = Random.rotationUniform;
                 dropItem = Instantiate(data.prefab, position, rotation) as GameObject;
                 dropItem.transform.SetParent(transform);
-                configureLight();
             }
             else Destroy(gameObject);
         }
@@ -114,9 +114,9 @@ namespace SupHero.Components.Level {
                 Vector3 position = transform.position;
                 position.y += 1f;
                 Quaternion rotation = Random.rotationUniform;
+                
                 dropItem = Instantiate(data.prefab, position, rotation) as GameObject;
                 dropItem.transform.SetParent(transform);
-                configureLight();
             }
             else Destroy(gameObject);
         }
@@ -129,7 +129,6 @@ namespace SupHero.Components.Level {
                 Quaternion rotation = Quaternion.Euler(-90f, 0f, 90f);
                 dropItem = Instantiate(data.prefab, position, rotation) as GameObject;
                 dropItem.transform.SetParent(transform);
-                configureLight();
             }
             else {
                 Destroy(gameObject);
@@ -152,6 +151,24 @@ namespace SupHero.Components.Level {
                     neon.color = Color.white;
                     neon.range = 4f;
                     neon.intensity = 1f;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        void configureMaterial() {
+            EnvironmentData data = Data.Instance.getEnvByTheme(Theme.FOREST);
+            Renderer render = GetComponent<Renderer>();
+            switch (entity) {
+                case Entity.WEAPON:
+                    render.sharedMaterial = data.materials.weaponMaterial;
+                    break;
+                case Entity.ITEM:
+                    render.sharedMaterial = data.materials.itemMaterial;
+                    break;
+                case Entity.SUPPLY:
+                    render.sharedMaterial = data.materials.supplyMaterial;
                     break;
                 default:
                     break;

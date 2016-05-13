@@ -31,12 +31,22 @@ namespace SupHero {
     }
 
     [System.Serializable]
+    public struct Materials {
+        public string name;
+        public Material spawnMaterial;
+        public Material weaponMaterial;
+        public Material itemMaterial;
+        public Material supplyMaterial;
+    }
+
+    [System.Serializable]
     public class EnvironmentData {
 
         public string name = "Forest theme";
         public Theme theme = Theme.FOREST;
 
         public GameObject dropPrefab;
+        public Materials materials;
         public float weaponDropTime = 20f;
         public float itemDropTime = 30f;
         public float supplyDropTime = 20f;

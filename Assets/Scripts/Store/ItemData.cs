@@ -50,6 +50,7 @@ namespace SupHero {
         public int id;
         public string name = "New item";
         public string description = "Default item description";
+        public bool hasVisual = true;
 
         public ItemSlot slot;
 
@@ -59,6 +60,7 @@ namespace SupHero {
         public ActiveAbility activeData;
 
         public GameObject prefab;
+        public GameObject visualPrefab; // Jeez >__<
 
         public BodySlot[] placement;
 

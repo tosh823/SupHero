@@ -66,6 +66,7 @@ namespace SupHero {
         public AudioClip reloadSound;
 
         public Sprite image;
+        public GameObject visualPrefab;
 
         public WeaponData() {
 

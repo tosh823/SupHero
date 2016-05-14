@@ -100,9 +100,8 @@ namespace SupHero.Components.Level {
             WeaponData data = Data.Instance.getWeaponById(id);
             if (data != null) {
                 Vector3 position = transform.position;
-                position.y += 1f;
-                Quaternion rotation = Random.rotationUniform;
-                dropItem = Instantiate(data.prefab, position, rotation) as GameObject;
+                position.y += 0.5f;
+                dropItem = Instantiate(data.visualPrefab, position, data.visualPrefab.transform.rotation) as GameObject;
                 dropItem.transform.SetParent(transform);
             }
             else Destroy(gameObject);
@@ -112,10 +111,8 @@ namespace SupHero.Components.Level {
             ItemData data = Data.Instance.getItemById(id);
             if (data != null) {
                 Vector3 position = transform.position;
-                position.y += 1f;
-                Quaternion rotation = Random.rotationUniform;
-                
-                dropItem = Instantiate(data.prefab, position, rotation) as GameObject;
+                position.y += 0.2f;
+                dropItem = Instantiate(data.visualPrefab, position, data.visualPrefab.transform.rotation) as GameObject;
                 dropItem.transform.SetParent(transform);
             }
             else Destroy(gameObject);

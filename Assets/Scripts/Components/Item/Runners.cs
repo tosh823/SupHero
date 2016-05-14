@@ -37,6 +37,15 @@ namespace SupHero.Components.Item {
             Cooldown();
         }
 
+        public override void Unequip() {
+            disablePassive();
+            // If item was activated, remove active effect
+            if (GetComponent<Timer>() != null) {
+                owner.player.speed -= item.activeData.value;
+                Debug.Log(item.name + " effect turned off");
+            }
+        }
+
         protected override void enablePassive() {
             owner.player.speed += item.passiveData.value;
         }

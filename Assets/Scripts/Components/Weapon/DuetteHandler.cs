@@ -32,6 +32,11 @@ namespace SupHero.Components.Weapon {
             instance.gameObject.SetActive(true);
             instance.transform.parent = null;
             Physics.IgnoreCollision(instance.GetComponent<Collider>(), owner.GetComponent<Collider>());
+            if (owner.isHero()) {
+                if (owner.shield != null) {
+                    Physics.IgnoreCollision(instance.GetComponent<Collider>(), owner.shield.GetComponent<Collider>());
+                }
+            }
             instance.gun = this;
             instance.Launch(barrelEnd.transform.position, owner.transform.forward);
             playTriggerSound();

@@ -61,11 +61,6 @@ namespace SupHero.Components.Weapon {
 
         public void Launch(Vector3 start, Vector3 direction) {
             speed = gun.weapon.projectile.speed;
-            if (gun.owner.isHero()) {
-                if (gun.owner.shield != null) {
-                    Physics.IgnoreCollision(GetComponent<Collider>(), gun.owner.shield.GetComponent<Collider>());
-                }
-            }
             base.Launch(start, direction, speed);
         }
 

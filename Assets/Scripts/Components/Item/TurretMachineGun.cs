@@ -2,12 +2,13 @@
 using System.Collections;
 using SupHero.Components.Weapon;
 using SupHero.Components.Character;
+using SupHero.Model;
 
 namespace SupHero.Components.Item {
     public class TurretMachineGun : MonoBehaviour {
 
         public bool scanning = false;
-        public float speed = 30f;
+        public float rotationSpeed = 50f;
         public float scanAngle = 120f;
         public Transform machineGun;
         public Transform barrelEnd;
@@ -22,6 +23,7 @@ namespace SupHero.Components.Item {
         // Use this for initialization
         void Start() {
             gun = GetComponent<WeaponController>();
+            gun.owner = owner;
             gun.weapon.damage = data.activeData.value;
             gun.weapon.range = data.activeData.range;
             gun.weapon.rate = data.activeData.perSecond * 60f;
@@ -31,23 +33,20 @@ namespace SupHero.Components.Item {
         // Update is called once per frame
         void Update() {
             if (scanning) {
+                target = null;
                 Scan();
                 if (target != null) {
                     // Tracing target
-                    Quaternion q = Quaternion.LookRotation(target.position - transform.position);
-                    machineGun.rotation = Quaternion.RotateTowards(machineGun.rotation, q, speed * Time.deltaTime);
+                    Quaternion direction = Quaternion.LookRotation(target.position - transform.position);
+                    machineGun.rotation = Quaternion.RotateTowards(machineGun.rotation, direction, rotationSpeed * Time.deltaTime);
                     // According to rate of weapon, shooting
-                    if (timeBetweenShots <= rate) {
-                        timeBetweenShots += Time.deltaTime;
-                    }
-                    else {
-                        Shoot();
-                    }
+                    if (timeBetweenShots <= rate) timeBetweenShots += Time.deltaTime;
+                    else Shoot();
                 }
                 else {
                     // Back to forward direction
-                    Quaternion q = Quaternion.LookRotation(transform.forward);
-                    machineGun.rotation = Quaternion.RotateTowards(machineGun.rotation, q, speed * Time.deltaTime);
+                    Quaternion direction = Quaternion.LookRotation(transform.forward);
+                    machineGun.rotation = Quaternion.RotateTowards(machineGun.rotation, direction, rotationSpeed * Time.deltaTime);
                 }
             }
         }
@@ -59,16 +58,19 @@ namespace SupHero.Components.Item {
             instance.gameObject.SetActive(true);
             instance.transform.parent = null;
             instance.gun = gun;
-            instance.Launch(barrelEnd.transform.position, machineGun.transform.forward);
+            Physics.IgnoreCollision(instance.GetComponent<Collider>(), GetComponent<Collider>());
+            instance.Launch(barrelEnd.transform.position, barrelEnd.transform.forward);
             gun.playTriggerSound();
         }
 
         public void Launch() {
             scanning = true;
+            GetComponent<Animator>().enabled = false;
         }
 
         public void Stop() {
             scanning = false;
+            GetComponent<Animator>().enabled = true;
             GetComponent<Animator>().SetTrigger("disable");
         }
 
@@ -77,7 +79,6 @@ namespace SupHero.Components.Item {
         }
 
         private void Scan() {
-            target = null;
             float start = -scanAngle / 2f;
             float end = scanAngle / 2f;
             float angle = start;
@@ -89,8 +90,11 @@ namespace SupHero.Components.Item {
                     Transform found = hit.transform;
                     if (found.CompareTag(Tags.Player)) {
                         // If target is not the host of the turret
-                        PlayerController pc = found.GetComponent<PlayerController>();
-                        if (pc != owner && pc.player.isAlive) target = found;
+                        // And not on the same side
+                        PlayerController foundPC = found.GetComponent<PlayerController>();
+                        bool heroVSguard = ((owner.player is Hero) && (foundPC.player is Guard));
+                        bool guardVShero = ((owner.player is Guard) && (foundPC.player is Hero));
+                        if (heroVSguard || guardVShero) target = found;
                     }
                 }
                 angle++;

@@ -83,6 +83,7 @@ namespace SupHero.Components.Character {
                     else {
                         player.inputType = InputType.KEYBOARD;
                     }
+                    setPlayer(player);
                 }
                 else {
                     player = new Guard(1);
@@ -93,10 +94,9 @@ namespace SupHero.Components.Character {
                     else {
                         player.inputType = InputType.KEYBOARD;
                     }
+                    setPlayer(player);
                 }
-                
             }
-
             // Components;
             playerRigidbody = GetComponent<Rigidbody>();
             mecanim = GetComponent<Animator>();
@@ -315,7 +315,7 @@ namespace SupHero.Components.Character {
             // If player is a hero
             if (player is Hero) {
                 // Set it as camera target
-                LevelController.Instance.view.setTarget(gameObject);
+                if (LevelController.Instance != null) LevelController.Instance.view.setTarget(gameObject);
                 // Give him a shield
                 GameObject shieldInstance = Instantiate(Data.Instance.mainSettings.hero.shieldPrefab) as GameObject;
                 shieldInstance.transform.position = transform.position;
@@ -323,8 +323,18 @@ namespace SupHero.Components.Character {
                 shield = shieldInstance.GetComponent<Shield>();
                 shield.hero = (Hero) player;
                 OnDamageReceived += shield.refreshTimer;
+                // Create heads up display for hero
+                GameObject headsUp = Instantiate(Data.Instance.mainSettings.hero.headsUpDisplayPrefab) as GameObject;
+                headsUp.transform.SetParent(transform);
+                headsUp.transform.position = transform.position;
             }
-            playerUI = LevelController.Instance.HUD.findUIforPlayer(this).GetComponent<PlayerUIController>();
+            else {
+                // Create heads up display for guard
+                GameObject headsUp = Instantiate(Data.Instance.mainSettings.guard.headsUpDisplayPrefab) as GameObject;
+                headsUp.transform.SetParent(transform);
+                headsUp.transform.position = transform.position;
+            }
+            if (LevelController.Instance != null) playerUI = LevelController.Instance.HUD.findUIforPlayer(this).GetComponent<PlayerUIController>();
             gamePadControl = (player.inputType == InputType.GAMEPAD);
             gamePadNumber = player.gamepadNumber;
         }

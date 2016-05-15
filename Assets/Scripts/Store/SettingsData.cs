@@ -25,6 +25,7 @@ namespace SupHero {
         public GameObject prefab;
         public GameObject shieldPrefab;
         public GameObject shieldHitPrefab;
+        public GameObject headsUpDisplayPrefab;
     }
 
     [System.Serializable]
@@ -38,6 +39,7 @@ namespace SupHero {
         public int starterSecondary;
 
         public GameObject prefab;
+        public GameObject headsUpDisplayPrefab;
     }
 
     [System.Serializable]

@@ -137,7 +137,7 @@ namespace SupHero.Components.Level {
             /*int mask = 1 << LayerMask.GetMask(Layers.Surface);
             mask = ~mask;*/
             Collider[] overlap = Physics.OverlapBox(placement, objectBounds.extents, Quaternion.identity, Physics.AllLayers, QueryTriggerInteraction.Ignore);
-            if (overlap.Length > 3) {
+            if (overlap.Length > 2) {
                 return false;
             }
             else return true;

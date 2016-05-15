@@ -6,8 +6,9 @@ using SupHero.Model;
 namespace SupHero.Components.Level {
     public class Spawner : MonoBehaviour {
 
-        public GameObject heroSpawnPoint;
-        public GameObject[] guardsSpawnPoints;
+        public GameObject spawnPrefab;
+        public Transform heroSpawnPoint;
+        public Transform[] guardsSpawnPoints;
 
         private ZoneController zoneController; // Ref to GameObject ZoneController
 
@@ -36,7 +37,7 @@ namespace SupHero.Components.Level {
             Vector3 spawnPosition = Vector3.zero;
             if (player is Hero) {
                 // Hero always spawns in the beginning
-                spawnPosition = heroSpawnPoint.transform.position;
+                spawnPosition = heroSpawnPoint.position;
             }
             else {
                 if (isInitial) spawnPosition = getInitialSpawnPosition();
@@ -127,9 +128,9 @@ namespace SupHero.Components.Level {
         private Vector3 getInitialSpawnPosition() {
             Vector3 position = Vector3.zero;
             for (int index = 0; index < guardsSpawnPoints.Length; index++) {
-                if (guardsSpawnPoints[index].activeInHierarchy) {
-                    guardsSpawnPoints[index].SetActive(false);
-                    return guardsSpawnPoints[index].transform.position;
+                if (guardsSpawnPoints[index].gameObject.activeInHierarchy) {
+                    guardsSpawnPoints[index].gameObject.SetActive(false);
+                    return guardsSpawnPoints[index].position;
                 }
             }
             return position;
@@ -137,7 +138,7 @@ namespace SupHero.Components.Level {
 
         public void resetSpawnPoints() {
             for (int index = 0; index < guardsSpawnPoints.Length; index++) {
-                guardsSpawnPoints[index].SetActive(true);
+                guardsSpawnPoints[index].gameObject.SetActive(true);
             }
         }
     }

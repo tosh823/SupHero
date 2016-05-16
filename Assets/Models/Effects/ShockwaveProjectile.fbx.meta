@@ -1,0 +1,156 @@
+fileFormatVersion: 2
+guid: 8e0a0717688f29a4db7bc9c74b9b7a2d
+timeCreated: 1463387528
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: BackDust
+    100004: BackDust_end
+    100006: Cube
+    100008: FrontDust
+    100010: FrontDust_end
+    100012: Main1
+    100014: Main1_end
+    100016: Main2
+    100018: Main2_end
+    100020: Main3
+    100022: Main3_end
+    100024: //RootNode
+    400000: Armature
+    400002: BackDust
+    400004: BackDust_end
+    400006: Cube
+    400008: FrontDust
+    400010: FrontDust_end
+    400012: Main1
+    400014: Main1_end
+    400016: Main2
+    400018: Main2_end
+    400020: Main3
+    400022: Main3_end
+    400024: //RootNode
+    4300000: Cube
+    7400000: ProjectileAction
+    7400002: Armature|ProjectileAction
+    9500000: //RootNode
+    13700000: Cube
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 0
+    optimizeGameObjects: 1
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: ProjectileAction
+      takeName: ProjectileAction
+      firstFrame: 0
+      lastFrame: 15
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Main1
+        weight: 1
+      - path: Armature/Main1/Main1_end
+        weight: 1
+      - path: Armature/Main2
+        weight: 1
+      - path: Armature/Main2/Main2_end
+        weight: 1
+      - path: Armature/Main3
+        weight: 1
+      - path: Armature/Main3/Main3_end
+        weight: 1
+      - path: Armature/BackDust
+        weight: 1
+      - path: Armature/BackDust/BackDust_end
+        weight: 1
+      - path: Armature/FrontDust
+        weight: 1
+      - path: Armature/FrontDust/FrontDust_end
+        weight: 1
+      - path: Cube
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

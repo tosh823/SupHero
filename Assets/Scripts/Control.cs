@@ -12,6 +12,7 @@ namespace SupHero {
         public static string RightMouse = "Fire2";
         public static string Q = "Q";
         public static string E = "E";
+        public static string LeftAlt = "LeftAlt";
 
         // Gamepad
         public static string LeftStickX = "LeftStickX";
@@ -22,5 +23,9 @@ namespace SupHero {
         public static string LeftTrigger = "L2";
         public static string RightBumper = "R1";
         public static string RightTrigger = "R2";
+        public static string A = "A";
+        public static string B = "B";
+        public static string X = "X";
+        public static string Y = "Y";
     }
 }

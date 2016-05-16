@@ -59,23 +59,6 @@ namespace SupHero.Components.Level {
             return pawn;
         }
 
-        public void teleportToStart(Player player) {
-            // First, search for player
-            GameObject existing = zoneController.findPlayer(player);
-            if (existing != null) {
-                Vector3 spawnPosition = Vector3.zero;
-                if (player is Hero) {
-                    // Hero always spawns in the beginning
-                    spawnPosition = heroSpawnPoint.position;
-                }
-                else {
-                    spawnPosition = getInitialSpawnPosition();
-                }
-                spawnPosition.y = Data.Instance.mainSettings.hero.prefab.transform.position.y;
-                existing.transform.position = spawnPosition;
-            }
-        }
-
         private GameObject createPlayerGameObject(Player player) {
             GameObject prefab;
             if (player is Hero) prefab = Data.Instance.mainSettings.hero.prefab;
@@ -133,6 +116,28 @@ namespace SupHero.Components.Level {
         private Vector3 getSpawnPosition() {
             Vector3 position = zoneController.getHero().transform.position;
             Vector3 rng = Random.onUnitSphere * Data.Instance.mainSettings.hero.spawnDistance;
+            Bounds surfaceBounds = zoneController.constructor.battleField.GetComponent<Collider>().bounds;
+            // Checking availability of point
+            bool beyoundMaxX = ((position.x + rng.x) >= surfaceBounds.max.x);
+            bool belowMinX = ((position.x + rng.x) <= surfaceBounds.min.x);
+            if (beyoundMaxX || belowMinX) {
+                position.x -= rng.x;
+            }
+            else position.x += rng.x;
+
+            bool beyoundMaxZ = ((position.z + rng.z) >= surfaceBounds.max.z);
+            bool belowMinZ = ((position.z + rng.z) <= surfaceBounds.min.z);
+            if (beyoundMaxZ || belowMinZ) {
+                position.z -= rng.z;
+            }
+            else position.z += rng.z;
+
+            return position;
+        }
+
+        public Vector3 getRandomPositionNear(Vector3 location, float radius) {
+            Vector3 position = location;
+            Vector3 rng = Random.onUnitSphere * radius;
             Bounds surfaceBounds = zoneController.constructor.battleField.GetComponent<Collider>().bounds;
             // Checking availability of point
             bool beyoundMaxX = ((position.x + rng.x) >= surfaceBounds.max.x);

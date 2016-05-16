@@ -40,10 +40,11 @@ namespace SupHero.Components.Character {
         private bool useSecondaryWeapon = false;
         private bool useFirstItem = false;
         private bool useSecondItem = false;
+        private bool requestTeleport = false;
         private bool aimMode = false;
 
         // Components
-        //private ZoneController zone; // Ref to current zone
+        private ZoneController zone; // Ref to current zone
         private Rigidbody playerRigidbody;
         private Animator mecanim; // Animator, attached to this player
         private Inventory inventory; // Store for weapons and items
@@ -101,7 +102,7 @@ namespace SupHero.Components.Character {
             // Components;
             playerRigidbody = GetComponent<Rigidbody>();
             mecanim = GetComponent<Animator>();
-            //zone = GetComponentInParent<ZoneController>();
+            zone = GetComponentInParent<ZoneController>();
             inventory = GetComponent<Inventory>();
             inventory.setupWeapons();
             inventory.setupItems();
@@ -126,6 +127,11 @@ namespace SupHero.Components.Character {
                 // Processing gathered input
                 processWeaponInput();
                 processItemInput();
+
+                // Other input
+                if (player is Guard && requestTeleport) {
+                    zone.teleportObjectToHero(gameObject);
+                }
 
                 // Stearing
                 Move();
@@ -398,6 +404,7 @@ namespace SupHero.Components.Character {
                     secondaryDown = Input.GetButtonDown(Control.RightMouse);
                     secondaryHold = useSecondaryWeapon;
                     secondaryUp = Input.GetButtonUp(Control.RightMouse);
+                    requestTeleport = Input.GetButtonDown(Control.LeftAlt);
 
                     break;
                 case InputType.GAMEPAD:
@@ -415,6 +422,7 @@ namespace SupHero.Components.Character {
                     useSecondaryWeapon = secondaryHold;
                     useFirstItem = Input.GetButtonUp(Utils.getControlForPlayer(Control.LeftBumper, player.gamepadNumber));
                     useSecondItem = Input.GetButtonUp(Utils.getControlForPlayer(Control.RightBumper, player.gamepadNumber));
+                    requestTeleport = Input.GetButtonDown(Utils.getControlForPlayer(Control.X, player.gamepadNumber));
 
                     break;
                 default:
@@ -428,6 +436,7 @@ namespace SupHero.Components.Character {
                     secondaryDown = false;
                     secondaryHold = false;
                     secondaryUp = false;
+                    requestTeleport = false;
                     break;
             }
             // Firing freakin events

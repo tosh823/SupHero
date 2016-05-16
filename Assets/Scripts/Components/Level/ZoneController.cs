@@ -123,6 +123,14 @@ namespace SupHero.Components.Level {
             }
         }
 
+        public void teleportObjectToHero(GameObject obj) {
+            GameObject hero = getHero();
+            if (hero != null) {
+                Vector3 place = spawner.getRandomPositionNear(hero.transform.position, Data.Instance.mainSettings.hero.spawnDistance * 2f);
+                obj.transform.position = place;
+            }
+        }
+
         // Kill all the players
         public void killPlayers() {
             foreach (GameObject player in players) {

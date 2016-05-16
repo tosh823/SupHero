@@ -84,6 +84,7 @@ namespace SupHero.Components.Item {
             life.Launch();
 
             GameObject singularity = Instantiate(effect, transform.position, Quaternion.identity) as GameObject;
+			singularity.transform.Translate(0f, -0.1f, 0f);
             singularity.transform.SetParent(transform);
         }
     }

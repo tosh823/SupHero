@@ -32,6 +32,11 @@ namespace SupHero.Components.Item {
             GameObject instance = Instantiate(grenade, position, Quaternion.identity) as GameObject;
             instance.transform.SetParent(owner.transform.parent);
             Physics.IgnoreCollision(instance.GetComponent<Collider>(), owner.GetComponent<Collider>());
+			if (owner.isHero()) {
+				if (owner.shield != null) {
+					Physics.IgnoreCollision(instance.GetComponent<Collider>(), owner.shield.GetComponent<Collider>());
+				}
+			}
             VortexGrenade projectile = instance.GetComponent<VortexGrenade>();
             projectile.data = item;
             projectile.owner = owner;

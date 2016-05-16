@@ -38,6 +38,8 @@ namespace SupHero {
         public int starterPrimary;
         public int starterSecondary;
 
+        public float spawnDuration;
+
         public GameObject prefab;
         public GameObject headsUpDisplayPrefab;
     }

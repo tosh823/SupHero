@@ -28,6 +28,7 @@ namespace SupHero.Components.Character {
         public int gamePadNumber = 0;
         public bool createHero = true;
         public Transform directionMark;
+        public Vector3 originPosition;
         
         public PlayerUIController playerUI;
         private Vector3 moveVector; // Vector for moving character
@@ -348,7 +349,7 @@ namespace SupHero.Components.Character {
             if (OnDie != null) {
                 OnDie(player);
             }
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
 
         public void receiveDrop(Entity type, int id) {

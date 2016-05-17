@@ -7,6 +7,7 @@ namespace SupHero.Components.UI {
     public class HeadsUpController : MonoBehaviour {
 
         public Image healthBar;
+        public Text armorText;
 
         protected Camera mainCamera;
         protected PlayerController carry;
@@ -26,6 +27,10 @@ namespace SupHero.Components.UI {
         protected virtual void updateHealth() {
             float ratio = carry.player.health / maxHealth;
             healthBar.fillAmount = ratio;
+        }
+
+        protected virtual void updateArmor() {
+            armorText.text = carry.player.armor.ToString();
         }
     }
 }

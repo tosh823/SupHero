@@ -4,6 +4,7 @@ using System.Collections;
 
 using SupHero;
 using SupHero.Model;
+using SupHero.Components.Level;
 using SupHero.Components.Character;
 using SupHero.Components.Weapon;
 using SupHero.Components.Item;
@@ -13,9 +14,6 @@ namespace SupHero.Components.UI {
 
         public PlayerController pc { get; protected set; }
 
-        public GameObject shieldPanel;
-        public Text shieldText;
-        public Text armorText;
         public Text playerName;
         public Text playerPoints;
         public Image weapon;
@@ -24,24 +22,26 @@ namespace SupHero.Components.UI {
         public Image firstItemCooldown;
         public Image secondItem;
         public Image secondItemCooldown;
+        public Image direction;
+        private bool tracing = false;
+        private float scaleMultiplier;
 
         void Start() {
-
+            scaleMultiplier = (transform.localScale.y >= 0f ? -1f : 1f);
         }
 
         void Update() {
             if (pc != null) {
-                if (pc.player is Hero) {
-                    Hero hero = pc.player as Hero;
-                    shieldText.text = string.Format("{0}%", ((int)hero.shieldPercentage).ToString());
-                }
-                else {
-                    shieldPanel.SetActive(false);
-                }
-                armorText.text = pc.player.armor.ToString();
-                playerName.text = pc.player.playerName;
                 playerPoints.text = pc.player.points.ToString();
                 updateAmmo();
+                if (tracing) {
+                    Vector3 where = pc.zone.getHero().transform.position - pc.transform.position;
+                    Quaternion rotation = Quaternion.LookRotation(where);
+                    float y = -rotation.eulerAngles.y;
+                    if (scaleMultiplier <= 0f) y -= 180f;
+                    Vector3 ang = new Vector3(0f, 0f, y);
+                    direction.rectTransform.rotation = Quaternion.Lerp(direction.rectTransform.rotation, Quaternion.Euler(ang), 10f * Time.deltaTime);
+                }
             }
         }
 
@@ -88,8 +88,19 @@ namespace SupHero.Components.UI {
             }
         }
 
+        public void startTracing() {
+            tracing = true;
+            direction.gameObject.SetActive(true);
+        }
+
+        public void stopTracing() {
+            tracing = false;
+            direction.gameObject.SetActive(false);
+        }
+
         public void setPlayer(PlayerController pc) {
             this.pc = pc;
+            playerName.text = pc.player.playerName;
         }
     }
 }

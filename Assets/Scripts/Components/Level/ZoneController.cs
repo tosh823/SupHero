@@ -67,6 +67,7 @@ namespace SupHero.Components.Level {
             if (existing != null) {
                 // If player still exist, remove
                 removePlayer(existing);
+                players.Remove(existing);
             }
             // Immediate spawn in the beginning of the level
             // with teleporting guards there too
@@ -86,6 +87,7 @@ namespace SupHero.Components.Level {
             if (existing != null) {
                 // If player still exist, remove
                 removePlayer(existing);
+                players.Remove(existing);
             }
             // Create a SpawnPoint with duration
             SpawnPoint spawn = spawner.createSpawnPoint();
@@ -162,7 +164,6 @@ namespace SupHero.Components.Level {
         public void removePlayer(GameObject player) {
             player.GetComponent<PlayerController>().OnDie -= spawnPlayer;
             Destroy(player.gameObject);
-            players.Remove(player);
         }
     }
 }

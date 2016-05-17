@@ -14,6 +14,7 @@ namespace SupHero.Components.UI {
             base.Update();
             if (carry != null) {
                 updateHealth();
+                updateArmor();
             }
         }
     }

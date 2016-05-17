@@ -44,7 +44,7 @@ namespace SupHero.Components.Character {
         private bool aimMode = false;
 
         // Components
-        private ZoneController zone; // Ref to current zone
+        public ZoneController zone; // Ref to current zone
         private Rigidbody playerRigidbody;
         private Animator mecanim; // Animator, attached to this player
         private Inventory inventory; // Store for weapons and items
@@ -319,6 +319,7 @@ namespace SupHero.Components.Character {
 
         public void setPlayer(Player player) {
             this.player = player;
+            if (LevelController.Instance != null) playerUI = LevelController.Instance.HUD.findUIforPlayer(this).GetComponent<PlayerUIController>();
             // If player is a hero
             if (player is Hero) {
                 // Set it as camera target
@@ -341,7 +342,6 @@ namespace SupHero.Components.Character {
                 headsUp.transform.SetParent(transform);
                 headsUp.transform.position = transform.position;
             }
-            if (LevelController.Instance != null) playerUI = LevelController.Instance.HUD.findUIforPlayer(this).GetComponent<PlayerUIController>();
             gamePadControl = (player.inputType == InputType.GAMEPAD);
             gamePadNumber = player.gamepadNumber;
         }
@@ -585,6 +585,14 @@ namespace SupHero.Components.Character {
                     break;
             }
             return rotation;
+        }
+
+        void OnBecameVisible() {
+            playerUI.stopTracing();
+        }
+
+        void OnBecauseInVisible() {
+            if (player is Guard) playerUI.startTracing();
         }
     }
 }

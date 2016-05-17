@@ -63,9 +63,13 @@ namespace SupHero.Components.Level {
         }
 
         public void newTurn() {
+            // Destroying current zone
+            zone.killPlayers();
+            HUD.clearPlayerUIs();
+            Destroy(zone.gameObject);
             if (level.changeRoles()) {
                 turn++;
-                generateZone();
+                createZone();
                 timer = gameObject.AddComponent<Timer>();
                 timer.time = Data.Instance.mainSettings.turnTime;
                 timer.OnTick += updateTimer;
@@ -74,10 +78,6 @@ namespace SupHero.Components.Level {
                 HUD.showMessage("New Turn!", 1f);
             }
             else {
-                // Go to reward section
-                zone.killPlayers();
-                HUD.clearPlayerUIs();
-                Destroy(zone.gameObject);
                 // Saving data
                 Data.Instance.session.players = level.players;
                 Game.Instance.loadResults();
@@ -85,10 +85,6 @@ namespace SupHero.Components.Level {
         }
 
         public void generateZone() {
-            // Destroying current zone
-            zone.killPlayers();
-            HUD.clearPlayerUIs();
-            Destroy(zone.gameObject);
             // Creating new one
             createZone();
         }

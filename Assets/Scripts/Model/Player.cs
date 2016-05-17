@@ -42,7 +42,7 @@ namespace SupHero.Model {
         protected abstract void setupDefaultProperties();
 		public abstract void applyhealth(float amount);
         public abstract void die();
-        public abstract void resurrect();
+        public abstract void born();
 
         public virtual void applyPoints(int amount) {
             points += amount;

@@ -28,7 +28,7 @@ ModelImporter:
     400018: //RootNode
     400020: Sphere
     4300000: Sphere
-    7400000: Effect
+    7400000: ShockCharge
     7400002: Armature|Effect
     7400004: Effect0
     9500000: //RootNode
@@ -55,7 +55,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Effect
+      name: ShockCharge
       takeName: Effect
       firstFrame: 1
       lastFrame: 20

@@ -3,46 +3,45 @@ using System.Collections;
 using SupHero.Components.Character;
 
 namespace SupHero.Components.Item {
-    public class ShockWave : MonoBehaviour {
+    public class ShockWave : BaseVisualEffect {
 
-        public ItemData data;
-        public PlayerController owner;
+        public Teddy source;
+        public float range;
+        public float speed;
+        private bool launched = false;
+        private Vector3 initialPosition = Vector3.zero;
+        private Vector3 direction = Vector3.zero;
 
-        void Start() {
-            GetComponent<Animator>().SetTrigger("activate");
+        public override void Start() {
+            base.Start();
         }
 
-        void Update() {
-
-        }
-
-        public void Deactivate() {
-            Destroy(gameObject);
-        }
-
-        public void shotWave() {
-            Debug.Log("Shooting wave");
-            float start = -data.activeData.value / 2f;
-            float end = data.activeData.value / 2f;
-            float angle = start;
-            while (angle < end) {
-                Vector3 direction = Quaternion.AngleAxis(angle, Vector3.up) * transform.forward;
-                Ray ray = new Ray(transform.position, direction);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, data.activeData.range)) {
-                    Transform found = hit.transform;
-                    if (found.CompareTag(Tags.Player)) {
-                        // If target is not the host of the turret
-                        Debug.Log("Apply effect on " + found);
-                        PlayerController pc = found.GetComponent<PlayerController>();
-                        EffectData stun = new EffectData();
-                        stun.type = EffectType.STUN;
-                        stun.duration = data.activeData.duration;
-                        pc.applyEffect(stun);
-                    }
-                }
-                angle++;
+        void OnTriggerEnter(Collider other) {
+            GameObject target = other.gameObject;
+            if (target.CompareTag(Tags.Player)) {
+                PlayerController pc = target.GetComponent<PlayerController>();
+                pc.GetComponent<Rigidbody>().AddForce(-pc.transform.forward * 1.5f, ForceMode.Impulse);
+                EffectData stun = new EffectData();
+                stun.type = EffectType.STUN;
+                stun.duration = source.data.activeData.duration;
+                pc.applyEffect(stun);
             }
+        }
+
+        public override void Update() {
+            base.Update();
+            if (launched) {
+                if (Vector3.Distance(transform.position, initialPosition) >= range) {
+                    destroyEffect();
+                }
+                else transform.Translate(direction * speed * Time.deltaTime);
+            }
+        }
+
+        public void Launch(Vector3 direction) {
+            initialPosition = transform.position;
+            this.direction = direction;
+            launched = true;
         }
     }
 }

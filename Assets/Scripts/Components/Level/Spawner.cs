@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using SupHero;
+using SupHero.Components.Character;
 using SupHero.Model;
 
 namespace SupHero.Components.Level {
@@ -24,14 +25,17 @@ namespace SupHero.Components.Level {
 
         }
 
+        // Create a SpawnPoint in random place near a player
+        public SpawnPoint createSpawnPoint() {
+            Vector3 spawnPosition = getSpawnPosition();
+            spawnPosition.y = -0.9f;
+            GameObject instance = Instantiate(spawnPrefab, spawnPosition, Quaternion.identity) as GameObject;
+            instance.transform.SetParent(transform);
+            return instance.GetComponent<SpawnPoint>();
+        }
+
         // Spawn a player
-        public GameObject spawnPlayer(Player player, bool isInitial = false) {
-            // First, search for player
-            GameObject existing = zoneController.findPlayer(player);
-            if (existing != null) {
-                // If player already existed, remove
-                zoneController.removePlayer(existing);
-            }
+        public GameObject spawnPlayer(Player player) {
             // Creating new player object
             GameObject pawn = createPlayerGameObject(player);
             Vector3 spawnPosition = Vector3.zero;
@@ -39,14 +43,20 @@ namespace SupHero.Components.Level {
                 // Hero always spawns in the beginning
                 spawnPosition = heroSpawnPoint.position;
             }
-            else {
-                if (isInitial) spawnPosition = getInitialSpawnPosition();
-                else spawnPosition = getSpawnPosition();
-            }
+            else spawnPosition = getInitialSpawnPosition();
             spawnPosition.y = Data.Instance.mainSettings.hero.prefab.transform.position.y;
             pawn.transform.position = spawnPosition;
+            pawn.GetComponent<PlayerController>().originPosition = spawnPosition;
 
             return pawn;  
+        }
+
+        public GameObject spawnPlayer(Player player, Vector3 place) {
+            // Creating new player object
+            GameObject pawn = createPlayerGameObject(player);
+            pawn.transform.position = place;
+            pawn.GetComponent<PlayerController>().originPosition = getInitialSpawnPosition();
+            return pawn;
         }
 
         private GameObject createPlayerGameObject(Player player) {
@@ -106,6 +116,28 @@ namespace SupHero.Components.Level {
         private Vector3 getSpawnPosition() {
             Vector3 position = zoneController.getHero().transform.position;
             Vector3 rng = Random.onUnitSphere * Data.Instance.mainSettings.hero.spawnDistance;
+            Bounds surfaceBounds = zoneController.constructor.battleField.GetComponent<Collider>().bounds;
+            // Checking availability of point
+            bool beyoundMaxX = ((position.x + rng.x) >= surfaceBounds.max.x);
+            bool belowMinX = ((position.x + rng.x) <= surfaceBounds.min.x);
+            if (beyoundMaxX || belowMinX) {
+                position.x -= rng.x;
+            }
+            else position.x += rng.x;
+
+            bool beyoundMaxZ = ((position.z + rng.z) >= surfaceBounds.max.z);
+            bool belowMinZ = ((position.z + rng.z) <= surfaceBounds.min.z);
+            if (beyoundMaxZ || belowMinZ) {
+                position.z -= rng.z;
+            }
+            else position.z += rng.z;
+
+            return position;
+        }
+
+        public Vector3 getRandomPositionNear(Vector3 location, float radius) {
+            Vector3 position = location;
+            Vector3 rng = Random.onUnitSphere * radius;
             Bounds surfaceBounds = zoneController.constructor.battleField.GetComponent<Collider>().bounds;
             // Checking availability of point
             bool beyoundMaxX = ((position.x + rng.x) >= surfaceBounds.max.x);

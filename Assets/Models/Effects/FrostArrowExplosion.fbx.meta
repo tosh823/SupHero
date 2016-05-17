@@ -1,0 +1,180 @@
+fileFormatVersion: 2
+guid: 5884749873298ed4483455a113a6fa57
+timeCreated: 1463473133
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Cube
+    100004: //RootNode
+    100006: Main
+    100008: Main2
+    100010: Main2_end
+    100012: Main_end
+    100014: SteamGroundIn
+    100016: SteamGroundIn_end
+    100018: SteamGroundOut
+    100020: SteamGroundOut_end
+    100022: SteamHighIn
+    100024: SteamHighIn_end
+    100026: SteamHighOut
+    100028: SteamHighOut_end
+    100030: SteamMidIn
+    100032: SteamMidIn_end
+    100034: SteamMidOut
+    100036: SteamMidOut_end
+    400000: Armature
+    400002: Cube
+    400004: //RootNode
+    400006: Main
+    400008: Main2
+    400010: Main2_end
+    400012: Main_end
+    400014: SteamGroundIn
+    400016: SteamGroundIn_end
+    400018: SteamGroundOut
+    400020: SteamGroundOut_end
+    400022: SteamHighIn
+    400024: SteamHighIn_end
+    400026: SteamHighOut
+    400028: SteamHighOut_end
+    400030: SteamMidIn
+    400032: SteamMidIn_end
+    400034: SteamMidOut
+    400036: SteamMidOut_end
+    4300000: Cube
+    7400000: FrostExplosion
+    7400002: Armature|FrostExplosion
+    9500000: //RootNode
+    13700000: Cube
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 0
+    optimizeGameObjects: 1
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: FrostExplosion
+      takeName: FrostExplosion
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Main
+        weight: 1
+      - path: Armature/Main/Main_end
+        weight: 1
+      - path: Armature/Main2
+        weight: 1
+      - path: Armature/Main2/Main2_end
+        weight: 1
+      - path: Armature/SteamGroundIn
+        weight: 1
+      - path: Armature/SteamGroundIn/SteamGroundIn_end
+        weight: 1
+      - path: Armature/SteamGroundOut
+        weight: 1
+      - path: Armature/SteamGroundOut/SteamGroundOut_end
+        weight: 1
+      - path: Armature/SteamMidIn
+        weight: 1
+      - path: Armature/SteamMidIn/SteamMidIn_end
+        weight: 1
+      - path: Armature/SteamMidOut
+        weight: 1
+      - path: Armature/SteamMidOut/SteamMidOut_end
+        weight: 1
+      - path: Armature/SteamHighIn
+        weight: 1
+      - path: Armature/SteamHighIn/SteamHighIn_end
+        weight: 1
+      - path: Armature/SteamHighOut
+        weight: 1
+      - path: Armature/SteamHighOut/SteamHighOut_end
+        weight: 1
+      - path: Cube
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

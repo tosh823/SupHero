@@ -28,7 +28,7 @@ namespace SupHero.Components.Item {
             GameObject instance = Instantiate(teddy, owner.directionMark.position, Quaternion.Euler(rotation)) as GameObject;
             instance.transform.SetParent(owner.transform.parent);
             // Setting properties of the teddy
-            ShockWave shockWave = instance.GetComponent<ShockWave>();
+            Teddy shockWave = instance.GetComponent<Teddy>();
             shockWave.data = item;
             shockWave.owner = owner;
 

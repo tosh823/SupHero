@@ -142,7 +142,7 @@ namespace SupHero.Model {
             isAlive = false;
         }
 
-        public override void resurrect() {
+        public override void born() {
             setupDefaultProperties();
         }
     }

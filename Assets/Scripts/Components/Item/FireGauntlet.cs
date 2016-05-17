@@ -32,6 +32,11 @@ namespace SupHero.Components.Item {
             GameObject instance = Instantiate(fireball, position, Quaternion.identity) as GameObject;
             instance.transform.SetParent(owner.transform.parent);
             Physics.IgnoreCollision(instance.GetComponent<Collider>(), owner.GetComponent<Collider>());
+			if (owner.isHero()) {
+				if (owner.shield != null) {
+					Physics.IgnoreCollision(instance.GetComponent<Collider>(), owner.shield.GetComponent<Collider>());
+				}
+			}
             Fireball projectile = instance.GetComponent<Fireball>();
             projectile.data = item;
             projectile.owner = owner;

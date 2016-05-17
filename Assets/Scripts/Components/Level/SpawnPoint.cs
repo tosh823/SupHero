@@ -7,6 +7,7 @@ namespace SupHero.Components.Level {
     public class SpawnPoint : MonoBehaviour {
 
         public Player pilot;
+        private bool underControl = true;
         private Animator mecanim;
         
         void Start() {
@@ -15,7 +16,7 @@ namespace SupHero.Components.Level {
         }
 
         void Update() {
-            if (pilot != null) {
+            if (pilot != null && underControl) {
                 Vector3 moveVector = getMovement();
                 if (moveVector != Vector3.zero) {
                     // Relative movement
@@ -29,6 +30,11 @@ namespace SupHero.Components.Level {
                     transform.position += moveVector;
                 }
             }
+        }
+
+        public void Spawn() {
+            underControl = false;
+            Destroy(gameObject, 1f);
         }
 
         private Vector3 getMovement() {

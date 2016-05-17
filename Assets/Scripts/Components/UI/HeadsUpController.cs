@@ -30,7 +30,8 @@ namespace SupHero.Components.UI {
         }
 
         protected virtual void updateArmor() {
-            armorText.text = carry.player.armor.ToString();
+            int armor = (int)carry.player.armor;
+            armorText.text = armor.ToString();
         }
     }
 }

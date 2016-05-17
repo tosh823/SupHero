@@ -13,15 +13,15 @@ namespace SupHero.Components.Character {
         }
 
         protected override void onEffectStart() {
-
+            Debug.Log(owner + " is burning");
         }
 
         protected override void onEffectTick() {
-            owner.player.receiveDamage(effect.value);
+            owner.player.receiveDamage(effect.value * Time.deltaTime);
         }
 
         protected override void onEffectFinish() {
-
+            Debug.Log(owner + " stopped burning");
         }
     }
 }

@@ -21,19 +21,32 @@ namespace SupHero.Components.Item {
 
         public override void Update() {
             base.Update();
+            if (launched && distanceTraveled >= (3 * data.activeData.range)) {
+                Stop();
+            }
         }
 
-        void OnTriggerEnter(Collider other) {
-            GameObject target = other.gameObject;
+        void OnCollisionEnter(Collision collision) {
+            GameObject target = collision.gameObject;
             Debug.Log("Hit " + target);
             // Explostion
             GameObject effect = Instantiate(explosion, transform.position, Quaternion.identity) as GameObject;
             effect.transform.SetParent(transform.parent);
             if (target.CompareTag(Tags.Player)) {
                 target.GetComponent<PlayerController>().receiveDamage(data.activeData.value, false);
+                EffectData burn = new EffectData();
+                burn.type = EffectType.FIRE;
+                burn.duration = data.activeData.duration;
+                burn.value = data.activeData.value2;
+                target.GetComponent<PlayerController>().applyEffect(burn);
             }
             if (target.CompareTag(Tags.Shield)) {
                 target.GetComponent<Shield>().player.receiveDamage(data.activeData.value, false);
+                EffectData burn = new EffectData();
+                burn.type = EffectType.FIRE;
+                burn.duration = data.activeData.duration;
+                burn.value = data.activeData.value2;
+                target.GetComponent<Shield>().player.applyEffect(burn);
             }
             if (target.CompareTag(Tags.Cover)) {
                 target.GetComponent<CoverController>().takeDamage(data.activeData.value);

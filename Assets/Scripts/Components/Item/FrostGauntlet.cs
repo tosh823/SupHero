@@ -40,7 +40,7 @@ namespace SupHero.Components.Item {
             FrostArrow projectile = instance.GetComponent<FrostArrow>();
             projectile.data = item;
             projectile.owner = owner;
-            projectile.Launch(position, owner.transform.forward, item.activeData.range);
+            projectile.Launch(position, owner.transform.forward, item.activeData.perSecond);
 
             Cooldown();
         }

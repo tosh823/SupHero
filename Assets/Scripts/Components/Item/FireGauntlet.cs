@@ -40,7 +40,7 @@ namespace SupHero.Components.Item {
             Fireball projectile = instance.GetComponent<Fireball>();
             projectile.data = item;
             projectile.owner = owner;
-            projectile.Launch(position, owner.transform.forward, item.activeData.range);
+            projectile.Launch(position, owner.transform.forward, item.activeData.perSecond);
 
             Cooldown();
         }

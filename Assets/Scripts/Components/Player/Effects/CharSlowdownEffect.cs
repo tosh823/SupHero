@@ -15,7 +15,8 @@ namespace SupHero.Components.Character {
         // TODO!!!
         // Later come up with better way of slowing down the player
         protected override void onEffectStart() {
-            owner.player.speed -= 2f;
+            owner.player.speed -= effect.value;
+            Debug.Log(owner + " is slowed");
         }
 
         protected override void onEffectTick() {
@@ -23,7 +24,8 @@ namespace SupHero.Components.Character {
         }
 
         protected override void onEffectFinish() {
-            owner.player.speed += 2f;
+            owner.player.speed += effect.value;
+            Debug.Log(owner + " gets back to normal");
         }
     }
 }

@@ -38,6 +38,7 @@ namespace SupHero {
         public string name;
         public string description;
         public float value;
+        public float value2;
         public float duration;
         public float cooldown;
         public float range;

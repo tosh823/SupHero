@@ -8,6 +8,7 @@ namespace SupHero.Components.Item {
         public Teddy source;
         public float range;
         public float speed;
+        public GameObject shockPrefab;
         private bool launched = false;
         private Vector3 initialPosition = Vector3.zero;
         private Vector3 direction = Vector3.zero;
@@ -24,6 +25,7 @@ namespace SupHero.Components.Item {
                 EffectData stun = new EffectData();
                 stun.type = EffectType.STUN;
                 stun.duration = source.data.activeData.duration;
+                stun.prefab = shockPrefab;
                 pc.applyEffect(stun);
             }
         }

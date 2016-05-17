@@ -17,7 +17,7 @@ namespace SupHero.Components.UI {
         public virtual void Start() {
             mainCamera = Camera.main;
             carry = GetComponentInParent<PlayerController>();
-            transform.Translate(0f, 2.1f, 0f);
+            transform.Translate(0f, 2.4f, 0f);
         }
 
         public virtual void Update() {

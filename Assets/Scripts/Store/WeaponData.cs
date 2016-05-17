@@ -23,6 +23,7 @@ namespace SupHero {
         public EffectType type;
         public float value;
         public float duration;
+        public GameObject prefab;
     }
 
     [System.Serializable]

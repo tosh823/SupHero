@@ -16,8 +16,8 @@ ModelImporter:
     400006: Main_end
     400008: //RootNode
     4300000: Cylinder
-    7400000: StunAction
-    7400002: Armature|StunAction
+    7400000: Stun
+    7400002: Stun
     9500000: //RootNode
     13700000: Cylinder
   materials:
@@ -42,8 +42,8 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: StunAction
-      takeName: StunAction
+      name: Stun
+      takeName: Armature|StunAction
       firstFrame: 0
       lastFrame: 19
       wrapMode: 0

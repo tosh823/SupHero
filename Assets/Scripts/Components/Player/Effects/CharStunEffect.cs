@@ -4,6 +4,8 @@ using System.Collections;
 namespace SupHero.Components.Character {
     public class CharStunEffect : CharEffect {
 
+        private GameObject stars;
+
         public override void Start() {
             base.Start();
         }
@@ -14,6 +16,9 @@ namespace SupHero.Components.Character {
 
         protected override void onEffectStart() {
             owner.player.isStunned = true;
+            stars = Instantiate(effect.prefab, transform.position, Quaternion.identity) as GameObject;
+            stars.transform.SetParent(transform);
+            stars.transform.Translate(0f, 1.5f, 0f);
             Debug.Log(owner + " is stunned");
         }
 
@@ -23,6 +28,7 @@ namespace SupHero.Components.Character {
 
         protected override void onEffectFinish() {
             owner.player.isStunned = false;
+            stars.GetComponent<BaseVisualEffect>().destroyEffect();
             Debug.Log(owner + " is free to go");
         }
     }

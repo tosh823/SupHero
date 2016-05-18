@@ -22,6 +22,10 @@ namespace SupHero.Model {
         public int number { get; set; }
         public int primaryId { get; set; }
         public int secondaryId { get; set; }
+        public int firstItemId { get; set; }
+        public int secondItemId { get; set; }
+
+        public CharacterData character;
 
         public string playerName;
 

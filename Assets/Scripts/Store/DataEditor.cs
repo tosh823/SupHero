@@ -14,7 +14,8 @@ namespace SupHero {
             WEAPONS,
             ITEMS,
             ENVIRONMENTS,
-            SUPPLIES
+            SUPPLIES,
+            CHARS
         }
 
         public WeaponDatabase weaponDB;
@@ -22,6 +23,7 @@ namespace SupHero {
         public SettingsDatabase settingsDB;
         public EnvironmentDatabase envDB;
         public SupplyDatabase supplyDB;
+        public CharacterDatabase charDB;
         public string dir;
 
         private int viewIndex;
@@ -67,6 +69,12 @@ namespace SupHero {
                 supplyDB = AssetDatabase.LoadAssetAtPath<SupplyDatabase>(path);
             }
             else supplyDB = AssetDatabase.LoadAssetAtPath<SupplyDatabase>("Assets/Data/SupplyDB.asset");
+
+            if (EditorPrefs.HasKey("CharPath")) {
+                string path = EditorPrefs.GetString("CharPath");
+                charDB = AssetDatabase.LoadAssetAtPath<CharacterDatabase>(path);
+            }
+            else charDB = AssetDatabase.LoadAssetAtPath<CharacterDatabase>("Assets/Data/CharDB.asset");
         }
 
         void OnGUI() {
@@ -96,6 +104,11 @@ namespace SupHero {
                 EditorUtility.FocusProjectWindow();
                 Selection.activeObject = supplyDB;
                 toShow = SHOW.SUPPLIES;
+            }
+            if (GUILayout.Button("Char DB", GUILayout.ExpandWidth(false))) {
+                EditorUtility.FocusProjectWindow();
+                Selection.activeObject = charDB;
+                toShow = SHOW.CHARS;
             }
             GUILayout.EndVertical();
 
@@ -377,6 +390,53 @@ namespace SupHero {
                         }
                     }
                     break;
+                case SHOW.CHARS:
+                    if (charDB == null) {
+                        GUILayout.BeginHorizontal();
+                        GUILayout.Space(10);
+                        if (GUILayout.Button("Create New Char List", GUILayout.ExpandWidth(false))) {
+                            createNewCharDB();
+                        }
+                        GUILayout.EndHorizontal();
+                    }
+                    GUILayout.Space(20);
+                    if (charDB != null) {
+                        GUILayout.BeginHorizontal();
+                        GUILayout.Space(10);
+                        if (GUILayout.Button("Prev", GUILayout.ExpandWidth(false))) {
+                            if (viewIndex > 1)
+                                viewIndex--;
+                        }
+                        GUILayout.Space(5);
+                        if (GUILayout.Button("Next", GUILayout.ExpandWidth(false))) {
+                            if (viewIndex < charDB.lists.Count) {
+                                viewIndex++;
+                            }
+                        }
+                        GUILayout.Space(60);
+                        if (GUILayout.Button("Add List", GUILayout.ExpandWidth(false))) {
+                            charDB.add();
+                            viewIndex = charDB.lists.Count;
+                        }
+                        if (GUILayout.Button("Delete List", GUILayout.ExpandWidth(false))) {
+                            charDB.removeListAtIndex(viewIndex - 1);
+                            viewIndex = charDB.lists.Count;
+                        }
+                        GUILayout.EndHorizontal();
+                        if (charDB.lists.Count > 0) {
+                            GUILayout.BeginHorizontal();
+                            viewIndex = Mathf.Clamp(EditorGUILayout.IntField("Current List", viewIndex, GUILayout.ExpandWidth(false)), 1, charDB.lists.Count);
+                            EditorGUILayout.LabelField("of   " + charDB.lists.Count.ToString() + "  lists", "", GUILayout.ExpandWidth(false));
+                            GUILayout.EndHorizontal();
+                            int dbIndex = viewIndex - 1;
+                            charDB.getListAtIndex(dbIndex).name = EditorGUILayout.TextField("Name", charDB.getListAtIndex(dbIndex).name as string);
+                            GUILayout.Space(10);
+                        }
+                        else {
+                            GUILayout.Label("The char list is empty");
+                        }
+                    }
+                    break;
                 case SHOW.NOTHING:
                     GUILayout.Label("Press on content button you want to edit");
                     break;
@@ -389,6 +449,7 @@ namespace SupHero {
                 if (settingsDB != null) EditorUtility.SetDirty(settingsDB);
                 if (envDB != null) EditorUtility.SetDirty(envDB);
                 if (supplyDB != null) EditorUtility.SetDirty(supplyDB);
+                if (charDB != null) EditorUtility.SetDirty(charDB);
             }
         }
 
@@ -473,6 +534,24 @@ namespace SupHero {
                 EditorPrefs.SetString("SettingsPath", relPath);
                 EditorUtility.FocusProjectWindow();
                 Selection.activeObject = settingsDB;
+            }
+        }
+
+        void createNewCharDB() {
+            // There is no overwrite protection here!
+            // There is No "Are you sure you want to overwrite your existing object?" if it exists.
+            // This should probably get a string from the user to create a new name and pass it ...
+            viewIndex = 1;
+            charDB = CreateInstance<CharacterDatabase>();
+            string destintation = dir + "CharDB.asset";
+            AssetDatabase.CreateAsset(charDB, destintation);
+            AssetDatabase.SaveAssets();
+            if (charDB) {
+                charDB.lists = new List<CharactersInfo>();
+                string relPath = AssetDatabase.GetAssetPath(charDB);
+                EditorPrefs.SetString("CharPath", relPath);
+                EditorUtility.FocusProjectWindow();
+                Selection.activeObject = charDB;
             }
         }
     }

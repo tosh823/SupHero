@@ -29,6 +29,7 @@ namespace SupHero.Components.Character {
         public bool createHero = true;
         public Transform directionMark;
         public Vector3 originPosition;
+        public Renderer mainRender;
         
         public PlayerUIController playerUI;
         private Vector3 moveVector; // Vector for moving character
@@ -44,7 +45,7 @@ namespace SupHero.Components.Character {
         private bool aimMode = false;
 
         // Components
-        public ZoneController zone; // Ref to current zone
+        public ZoneController zone { get; private set; } // Ref to current zone
         private Rigidbody playerRigidbody;
         private Animator mecanim; // Animator, attached to this player
         private Inventory inventory; // Store for weapons and items
@@ -85,6 +86,8 @@ namespace SupHero.Components.Character {
                     else {
                         player.inputType = InputType.KEYBOARD;
                     }
+                    player.character = Data.Instance.getCharByGender(Gender.FEMALE);
+                    Debug.Log("Character color is " + player.character.color);
                     setPlayer(player);
                 }
                 else {
@@ -96,6 +99,8 @@ namespace SupHero.Components.Character {
                     else {
                         player.inputType = InputType.KEYBOARD;
                     }
+                    player.character = Data.Instance.getCharByGender(Gender.MALE);
+                    Debug.Log("Character color is " + player.character.color);
                     setPlayer(player);
                 }
             }
@@ -217,8 +222,8 @@ namespace SupHero.Components.Character {
         // Draw primary weapon from inventory
         public void drawPrimary() {
             if (inventory.primaryWeapon != null) {
-                if (isHero()) mecanim.runtimeAnimatorController = inventory.primaryWeapon.weapon.heroController;
-                else mecanim.runtimeAnimatorController = inventory.primaryWeapon.weapon.guardController;
+                if (player.character.gender == Gender.FEMALE) mecanim.runtimeAnimatorController = inventory.primaryWeapon.weapon.femaleController;
+                else mecanim.runtimeAnimatorController = inventory.primaryWeapon.weapon.maleController;
                 hideWeapon(inventory.secondaryWeapon);
                 inventory.primaryWeapon.drawWeapon();
                 mecanim.SetFloat(State.RATE, inventory.primaryWeapon.weapon.rate / 60f);
@@ -229,8 +234,8 @@ namespace SupHero.Components.Character {
         // Draw secondary weapon from inventory
         public void drawSecondary() {
             if (inventory.secondaryWeapon != null) {
-                if (isHero()) mecanim.runtimeAnimatorController = inventory.secondaryWeapon.weapon.heroController;
-                else mecanim.runtimeAnimatorController = inventory.secondaryWeapon.weapon.guardController;
+                if (player.character.gender == Gender.FEMALE) mecanim.runtimeAnimatorController = inventory.secondaryWeapon.weapon.femaleController;
+                else mecanim.runtimeAnimatorController = inventory.secondaryWeapon.weapon.maleController;
                 hideWeapon(inventory.primaryWeapon);
                 inventory.secondaryWeapon.drawWeapon();
                 mecanim.SetFloat(State.RATE, inventory.secondaryWeapon.weapon.rate / 60f);
@@ -342,6 +347,9 @@ namespace SupHero.Components.Character {
                 headsUp.transform.SetParent(transform);
                 headsUp.transform.position = transform.position;
             }
+            // Set texture
+            mainRender.material.SetTexture("_MainTex", player.character.texture);
+            // -----------
             gamePadControl = (player.inputType == InputType.GAMEPAD);
             gamePadNumber = player.gamepadNumber;
         }

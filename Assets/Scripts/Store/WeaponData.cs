@@ -49,8 +49,8 @@ namespace SupHero {
         public WeaponType weaponType;
 
         public GameObject prefab;
-        public AnimatorOverrideController heroController;
-        public AnimatorOverrideController guardController;
+        public AnimatorOverrideController femaleController;
+        public AnimatorOverrideController maleController;
 
         public float damage = Constants.damageMedium;
         public float rate = Constants.rateNormal;

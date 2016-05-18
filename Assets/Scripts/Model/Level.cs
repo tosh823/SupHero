@@ -38,6 +38,7 @@ namespace SupHero.Model {
                         hero.gamepadName = gamepads[index - 1];
                     }
                     else hero.inputType = InputType.KEYBOARD;
+                    hero.character = Data.Instance.getRandomChar();
                     players.Add(hero);
                 }
                 else {
@@ -53,6 +54,7 @@ namespace SupHero.Model {
                         guard.gamepadName = gamepads[index - 2];
                     }
                     else guard.inputType = InputType.NONE;
+                    guard.character = Data.Instance.getRandomChar();
                     guards.Add(guard);
                     players.Add(guard);
                 }

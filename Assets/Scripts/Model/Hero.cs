@@ -47,6 +47,11 @@ namespace SupHero.Model {
             // Weapon
             primaryId = player.primaryId;
             secondaryId = player.secondaryId;
+            // Item
+            firstItemId = player.firstItemId;
+            secondItemId = player.secondItemId;
+
+            character = player.character;
 
             // Input properties
             inputType = player.inputType;
@@ -143,7 +148,14 @@ namespace SupHero.Model {
         }
 
         public override void born() {
-            setupDefaultProperties();
+            health = Data.Instance.mainSettings.guard.health;
+            armor = Data.Instance.mainSettings.guard.armor;
+            shield = Data.Instance.mainSettings.hero.shield;
+            replenishWaitTime = Data.Instance.mainSettings.hero.shieldReplenishTime;
+            speed = Data.Instance.mainSettings.guard.speed;
+            isAlive = true;
+            isStunned = false;
+            haveTakenDamage = false;
         }
     }
 }

@@ -51,7 +51,7 @@ namespace SupHero.Components.Item {
                 target.GetComponent<Shield>().player.applyEffect(freeze);
             }
             if (target.CompareTag(Tags.Cover)) {
-                target.GetComponent<CoverController>().takeDamage(data.activeData.value);
+                target.GetComponent<BaseDestructable>().takeDamage(data.activeData.value);
             }
             Stop();
         }

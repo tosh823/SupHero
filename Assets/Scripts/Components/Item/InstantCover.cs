@@ -28,7 +28,7 @@ namespace SupHero.Components.Item {
             // Create shield
             GameObject instance = Instantiate(shield, owner.directionMark.position, Quaternion.Euler(rotation)) as GameObject;
             instance.transform.SetParent(owner.transform.parent);
-            instance.GetComponent<CoverController>().durability = item.activeData.value;
+            instance.GetComponent<BaseDestructable>().durability = item.activeData.value;
             
             Timer life = instance.AddComponent<Timer>();
             life.time = item.activeData.duration;

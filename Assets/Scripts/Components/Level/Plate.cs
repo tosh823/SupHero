@@ -180,6 +180,7 @@ namespace SupHero.Components.Level {
                 CoverData coverData = Utils.getRandomElement(data.covers);
                 GameObject instance = Instantiate(coverData.prefab) as GameObject;
                 instance.transform.SetParent(covers.transform);
+                instance.GetComponent<BaseDestructable>().durability = coverData.durability;
                 if (placeObject(instance)) {
                     // Random rotation
                     Vector3 euler = instance.transform.eulerAngles;

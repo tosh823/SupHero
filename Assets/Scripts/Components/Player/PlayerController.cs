@@ -87,7 +87,6 @@ namespace SupHero.Components.Character {
                         player.inputType = InputType.KEYBOARD;
                     }
                     player.character = Data.Instance.getCharByGender(Gender.FEMALE);
-                    Debug.Log("Character color is " + player.character.color);
                     setPlayer(player);
                 }
                 else {
@@ -100,7 +99,6 @@ namespace SupHero.Components.Character {
                         player.inputType = InputType.KEYBOARD;
                     }
                     player.character = Data.Instance.getCharByGender(Gender.MALE);
-                    Debug.Log("Character color is " + player.character.color);
                     setPlayer(player);
                 }
             }

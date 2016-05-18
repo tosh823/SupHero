@@ -14,8 +14,8 @@ namespace SupHero.Components.Weapon {
         }
 
         // If trigger
-        void OnTriggerEnter(Collider other) {
-            /*GameObject target = other.gameObject;
+        /*void OnTriggerEnter(Collider other) {
+            GameObject target = other.gameObject;
             Debug.Log("Trigger: Hit " + target);
             if (target.CompareTag(Tags.Player)) {
                 gun.dealDamageTo(target.GetComponent<PlayerController>());
@@ -26,8 +26,8 @@ namespace SupHero.Components.Weapon {
             if (target.CompareTag(Tags.Shield)) {
                 gun.dealDamageTo(target.GetComponent<PlayerController>());
             }
-            Stop();*/
-        }
+            Stop();
+        }*/
 
         // If collider
         void OnCollisionEnter(Collision collision) {
@@ -37,7 +37,7 @@ namespace SupHero.Components.Weapon {
                 gun.dealDamageTo(target.GetComponent<PlayerController>());
             }
             if (target.CompareTag(Tags.Cover)) {
-                target.GetComponent<CoverController>().takeDamage(gun.weapon.damage);
+                target.GetComponent<BaseDestructable>().takeDamage(gun.weapon.damage);
             }
             if (target.CompareTag(Tags.Shield)) {
                 gun.dealDamageTo(target.GetComponent<Shield>().player);

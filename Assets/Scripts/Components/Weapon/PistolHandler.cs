@@ -44,7 +44,7 @@ namespace SupHero.Components.Weapon {
                     }
                 }
                 else if (target.CompareTag(Tags.Cover)) {
-                    target.GetComponent<CoverController>().takeDamage(weapon.damage);
+                    target.GetComponent<BaseDestructable>().takeDamage(weapon.damage);
                 }
             }
 

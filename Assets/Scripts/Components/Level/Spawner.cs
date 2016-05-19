@@ -44,7 +44,7 @@ namespace SupHero.Components.Level {
                 spawnPosition = heroSpawnPoint.position;
             }
             else spawnPosition = getInitialSpawnPosition();
-            spawnPosition.y = Data.Instance.mainSettings.hero.prefab.transform.position.y;
+            spawnPosition.y = -1f;
             pawn.transform.position = spawnPosition;
             pawn.GetComponent<PlayerController>().originPosition = spawnPosition;
 

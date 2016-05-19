@@ -163,13 +163,11 @@ namespace SupHero {
                             settingsDB.getSettingsAtIndex(dbIndex).hero.shield = EditorGUILayout.FloatField("Hero shield", settingsDB.getSettingsAtIndex(dbIndex).hero.shield);
                             settingsDB.getSettingsAtIndex(dbIndex).hero.shieldReplenishTime = EditorGUILayout.FloatField("Shield replenish time", settingsDB.getSettingsAtIndex(dbIndex).hero.shieldReplenishTime);
                             settingsDB.getSettingsAtIndex(dbIndex).hero.speed = EditorGUILayout.FloatField("Hero speed", settingsDB.getSettingsAtIndex(dbIndex).hero.speed);
-                            settingsDB.getSettingsAtIndex(dbIndex).hero.prefab = EditorGUILayout.ObjectField("Hero prefab", settingsDB.getSettingsAtIndex(dbIndex).hero.prefab, typeof(GameObject), true) as GameObject;
                             GUILayout.Space(20);
                             GUILayout.Label("Default guard settings");
                             settingsDB.getSettingsAtIndex(dbIndex).guard.health = EditorGUILayout.FloatField("Guard health", settingsDB.getSettingsAtIndex(dbIndex).guard.health);
                             settingsDB.getSettingsAtIndex(dbIndex).guard.armor = EditorGUILayout.FloatField("Guard armor", settingsDB.getSettingsAtIndex(dbIndex).guard.armor);
                             settingsDB.getSettingsAtIndex(dbIndex).guard.speed = EditorGUILayout.FloatField("Guard speed", settingsDB.getSettingsAtIndex(dbIndex).guard.speed);
-                            settingsDB.getSettingsAtIndex(dbIndex).guard.prefab = EditorGUILayout.ObjectField("Guard prefab", settingsDB.getSettingsAtIndex(dbIndex).guard.prefab, typeof(GameObject), true) as GameObject;
                             GUILayout.Space(10);
                         }
                         else {

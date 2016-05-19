@@ -11,7 +11,8 @@ namespace SupHero.Components.Level {
             if (entered.CompareTag(Tags.Player)) {
                 // If hero reached the end of zone, go to new one
                 if (entered.GetComponent<PlayerController>().player is Hero) {
-                    LevelController.Instance.generateZone();
+                    Destroy(LevelController.Instance.GetComponent<Timer>());
+                    LevelController.Instance.newTurn();
                 }
             }
         }

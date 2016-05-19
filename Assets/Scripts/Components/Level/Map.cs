@@ -139,11 +139,11 @@ namespace SupHero.Components.Level {
                     chosen.isFree = false;
 
                     // Place transfer at last
-                    /*if (index == (length - 1)) {
+                    if (index == (length - 1)) {
                         GameObject transferInstance = Instantiate(transfer) as GameObject;
                         transferInstance.transform.SetParent(transform);
                         plateInstance.GetComponent<Plate>().placeTransfer(transferInstance);
-                    }*/
+                    }
 
                     // When hero steps on this plate, made it current battlefield
                     plate.OnHeroCome += delegate () {

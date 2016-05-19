@@ -22,7 +22,6 @@ namespace SupHero {
 
         public int starterPrimary;
 
-        public GameObject prefab;
         public GameObject shieldPrefab;
         public GameObject shieldHitPrefab;
         public GameObject headsUpDisplayPrefab;
@@ -40,7 +39,6 @@ namespace SupHero {
 
         public float spawnDuration;
 
-        public GameObject prefab;
         public GameObject headsUpDisplayPrefab;
     }
 

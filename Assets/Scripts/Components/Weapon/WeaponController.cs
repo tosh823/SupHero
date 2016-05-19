@@ -4,11 +4,6 @@ using SupHero.Model;
 
 namespace SupHero.Components.Weapon {
 
-    public struct WeaponAnimState {
-        public static string TRIGGER = "trigger";
-        public static string RELOAD = "reload";
-    }
-
     public struct EffectAnimState {
         public static string RUN = "run";
     }

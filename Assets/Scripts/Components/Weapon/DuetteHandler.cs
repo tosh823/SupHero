@@ -30,7 +30,7 @@ namespace SupHero.Components.Weapon {
             // Shot
             WeaponProjectile instance = projectiles.popOrCreate(weapon.projectile.prefab.GetComponent<WeaponProjectile>(), barrelEnd.transform.position, Quaternion.identity);
             instance.gameObject.SetActive(true);
-            instance.transform.parent = null;
+            instance.transform.parent = owner.transform.parent;
             Physics.IgnoreCollision(instance.GetComponent<Collider>(), owner.GetComponent<Collider>());
             if (owner.isHero()) {
                 if (owner.shield != null) {

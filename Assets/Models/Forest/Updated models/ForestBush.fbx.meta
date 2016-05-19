@@ -1,21 +1,15 @@
 fileFormatVersion: 2
-guid: c8745c83b8d93a146a21acc53d2c52f8
-timeCreated: 1462879713
+guid: c6a38f11a25196c40abaca45add48367
+timeCreated: 1463658080
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Camera
-    100002: Cylinder
-    100004: Lamp
-    100006: //RootNode
-    400000: Camera
-    400002: Cylinder
-    400004: Lamp
-    400006: //RootNode
-    2300000: Cylinder
-    3300000: Cylinder
-    4300000: Cylinder
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: ForestBush
   materials:
     importMaterials: 1
     materialName: 0

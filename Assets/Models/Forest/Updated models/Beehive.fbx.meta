@@ -1,21 +1,15 @@
 fileFormatVersion: 2
-guid: d23fbe15fa9fff34f9f8222bb71cb933
-timeCreated: 1462879713
+guid: 560c7e0c746df824491ade5b79257111
+timeCreated: 1463658079
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Camera
-    100002: //RootNode
-    100004: Lamp
-    100006: Sphere
-    400000: Camera
-    400002: //RootNode
-    400004: Lamp
-    400006: Sphere
-    2300000: Sphere
-    3300000: Sphere
-    4300000: Sphere
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: ForestBeehive
   materials:
     importMaterials: 1
     materialName: 0

@@ -16,7 +16,7 @@ ModelImporter:
     400006: Main_end
     400008: //RootNode
     4300000: Cube
-    7400000: EffectAction
+    7400000: SlashHit
     7400002: Armature|EffectAction
     9500000: //RootNode
     13700000: Cube
@@ -42,7 +42,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: EffectAction
+      name: SlashHit
       takeName: EffectAction
       firstFrame: 0
       lastFrame: 10

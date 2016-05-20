@@ -7,6 +7,7 @@ namespace SupHero.Components.Character {
         public Hero hero;
         public PlayerController player;
         public GameObject blastEffect;
+        public float capacity;
         public bool charging { get; private set; }
 
         private bool active = true;
@@ -31,6 +32,7 @@ namespace SupHero.Components.Character {
             maxImpulse = Data.Instance.mainSettings.hero.maxImpulse;
             shieldUnit = Data.Instance.mainSettings.hero.shieldUnitPerCharge;
             maxCapacity = Data.Instance.mainSettings.hero.shield;
+            capacity = maxCapacity;
         }
 
         // Creating effects
@@ -52,6 +54,8 @@ namespace SupHero.Components.Character {
                 // If shield is empty, hide it
                 if (hero.isShieldEmpty) hideShield();
                 else showShield();
+
+                capacity = hero.shield;
 
                 // Ticking timer
                 if (timer >= hero.replenishWaitTime && !charging) {

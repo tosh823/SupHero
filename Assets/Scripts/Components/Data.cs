@@ -100,6 +100,14 @@ namespace SupHero {
             return null;
         }
 
+        public List<ItemData> getFirstItems() {
+            return itemsDB.items.FindAll(x => x.slot == ItemSlot.FIRST);
+        }
+
+        public List<ItemData> getSecondItems() {
+            return itemsDB.items.FindAll(x => x.slot == ItemSlot.SECOND);
+        }
+
         public int getRandomItemId() {
             int id = Utils.getRandomRange(0, itemsDB.items.Count);
             return id;

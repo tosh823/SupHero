@@ -11,11 +11,19 @@ namespace SupHero.Components.UI {
 		public Button readyButton;
 
 		void Start () {
-	
+
 		}
 	
 		void Update () {
 	
 		}
+
+        public void changeColor() {
+
+        }
+
+        public void getReady() {
+
+        }
 	}
 }

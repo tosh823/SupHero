@@ -157,9 +157,10 @@ namespace SupHero.Components.UI {
         }
 
 		public void highlightSelection() {
-			if (currentSelection == firstItem.itemSelect || currentSelection == secondItem.itemSelect)
-				return;
-			ColorChanger pallete = currentSelection.GetComponent<ColorChanger>();
+			ColorChanger pallete;
+			if (currentSelection == firstItem.itemSelect) pallete = firstItem.GetComponent<ColorChanger> ();
+			else if (currentSelection == secondItem.itemSelect) pallete = secondItem.GetComponent<ColorChanger> ();
+			else pallete = currentSelection.GetComponent<ColorChanger>();
 			pallete.setHighlighted(color);
 		}
 
@@ -172,9 +173,11 @@ namespace SupHero.Components.UI {
 		}
 
 		public void clearSelection() {
-			if (currentSelection == firstItem.itemSelect || currentSelection == secondItem.itemSelect)
-				return;
-			ColorChanger pallete = currentSelection.GetComponent<ColorChanger>();
+			ColorChanger pallete;
+			if (currentSelection == firstItem.itemSelect) pallete = firstItem.GetComponent<ColorChanger> ();
+			else if (currentSelection == secondItem.itemSelect) pallete = secondItem.GetComponent<ColorChanger> ();
+			else pallete = currentSelection.GetComponent<ColorChanger>();
+
 			if (pallete.state != SelectionState.ACTIVE) {
 				pallete.setDefault(color);
 			}

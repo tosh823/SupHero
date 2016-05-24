@@ -25,13 +25,12 @@ namespace SupHero.Components.UI {
 		public Sprite yellowHighlighted;
 		public Sprite pinkHighlighted;
 
-		public SelectionState state;
+		public SelectionState state = SelectionState.DEFAULT;
 
 		private Image image;
 	
 		void Start () {
 			image = GetComponent<Image>();
-			state = SelectionState.DEFAULT;
 		}
 	
 		void Update () {

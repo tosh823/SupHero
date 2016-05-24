@@ -98,22 +98,26 @@ namespace SupHero.Components.UI {
 					ColorChanger pallete = currentSelection.GetComponent<ColorChanger>();
 					if (pallete.state != SelectionState.ACTIVE) {
 						activateSelection ();
+                        gender = Gender.MALE;
 						femaleButton.GetComponent<ColorChanger> ().setDefault (color);
 					} 
 					else {
 						pallete.setDefault(color);
-						femaleButton.GetComponent<ColorChanger> ().setActive (color);
+                        gender = Gender.FEMALE;
+                        femaleButton.GetComponent<ColorChanger> ().setActive (color);
 					}
 				} else if (currentSelection == femaleButton) {
 					Debug.Log (this + " is female");
 					ColorChanger pallete = currentSelection.GetComponent<ColorChanger>();
 					if (pallete.state != SelectionState.ACTIVE) {
 						activateSelection();
-						maleButton.GetComponent<ColorChanger> ().setDefault(color);
+                        gender = Gender.FEMALE;
+                        maleButton.GetComponent<ColorChanger> ().setDefault(color);
 					}
 					else {
 						pallete.setDefault(color);
-						maleButton.GetComponent<ColorChanger> ().setActive (color);
+                        gender = Gender.MALE;
+                        maleButton.GetComponent<ColorChanger> ().setActive (color);
 					}
 				}
             }

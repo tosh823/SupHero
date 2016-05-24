@@ -11,8 +11,12 @@ namespace SupHero.Components.UI {
         private List<ItemData> items;
         private int index = 0;
 
-        void Start() {
+        void Awake() {
             parent = GetComponentInParent<PlayerCard>();
+        }
+
+        void Start() {
+            
             itemSelect = itemImage.GetComponent<Selectable>();
         }
 

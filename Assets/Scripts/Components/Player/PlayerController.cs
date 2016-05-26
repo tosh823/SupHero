@@ -28,6 +28,10 @@ namespace SupHero.Components.Character {
         public bool gamePadControl = false;
         public int gamePadNumber = 0;
         public bool createHero = true;
+        // For item tests
+        public int firstItemId;
+        public int secondItemId;
+
         public Transform directionMark;
         public Vector3 originPosition;
         public Renderer mainRender;
@@ -88,6 +92,8 @@ namespace SupHero.Components.Character {
                         player.inputType = InputType.KEYBOARD;
                     }
                     player.character = Data.Instance.getCharByGender(Gender.FEMALE);
+                    player.firstItemId = firstItemId;
+                    player.secondItemId = secondItemId;
                     setPlayer(player);
                 }
                 else {
@@ -100,6 +106,8 @@ namespace SupHero.Components.Character {
                         player.inputType = InputType.KEYBOARD;
                     }
                     player.character = Data.Instance.getCharByGender(Gender.MALE);
+                    player.firstItemId = firstItemId;
+                    player.secondItemId = secondItemId;
                     setPlayer(player);
                 }
             }

@@ -39,7 +39,7 @@ namespace SupHero.Components.Item {
         }
 
         public void createWaveEffect(Vector3 direction) {
-            GameObject instance = Instantiate(waveEffectPrefab, transform.position + transform.forward * 2f, Quaternion.identity) as GameObject;
+            GameObject instance = Instantiate(waveEffectPrefab, transform.position, Quaternion.identity) as GameObject;
             instance.transform.SetParent(transform.parent);
             ShockWave wave = instance.GetComponent<ShockWave>();
             wave.source = this;

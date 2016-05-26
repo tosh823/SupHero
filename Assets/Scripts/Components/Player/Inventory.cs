@@ -29,10 +29,6 @@ namespace SupHero.Components.Character {
         public ItemController secondItem { get; private set; }
         private List<Transform> secondItemVisuals;
 
-        // For item tests
-        public int firstItemId;
-        public int secondItemId;
-
         private PlayerController owner;
 
         void Awake() {
@@ -56,7 +52,7 @@ namespace SupHero.Components.Character {
             if (owner.player.firstItemId >= 0) {
                 equipItem(owner.player.firstItemId);
             }
-            if (owner.player.secondItemId >= 0 && owner.player.secondItemId != firstItemId) {
+            if (owner.player.secondItemId >= 0) {
                 equipItem(owner.player.secondItemId);
             }
         }

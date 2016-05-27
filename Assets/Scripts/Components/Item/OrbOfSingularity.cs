@@ -40,7 +40,7 @@ namespace SupHero.Components.Item {
             VortexGrenade projectile = instance.GetComponent<VortexGrenade>();
             projectile.data = item;
             projectile.owner = owner;
-            projectile.Throw(position, owner.transform.forward, 2f, 6f);
+            projectile.Throw(position, owner.transform.forward, 2f, 7f);
 
             Cooldown();
         }

@@ -19,6 +19,7 @@ namespace SupHero.Components.Character {
         public static string STUN = "stun";
         public static string RATE = "rate";
         public static string SPEED = "speed";
+        public static string DODGE = "dodge";
     }
 
     public class PlayerController : MonoBehaviour {
@@ -142,7 +143,7 @@ namespace SupHero.Components.Character {
                 processItemInput();
 
                 // Other input
-                if (player is Guard && requestTeleport) {
+                if (player is Guard && requestTeleport && !isWithinCamera()) {
                     zone.teleportObjectToHero(gameObject);
                 }
 
@@ -204,7 +205,8 @@ namespace SupHero.Components.Character {
                 // Precise aiming
                 Vector3 preciseRotation = rotationVector.normalized * ((rotationVector.magnitude - deadzone) / (1 - deadzone));
                 Quaternion rotation = Quaternion.LookRotation(preciseRotation, transform.up);
-                playerRigidbody.rotation = rotation;
+                //playerRigidbody.rotation = rotation;
+                playerRigidbody.rotation = Quaternion.Lerp(transform.rotation, rotation, 3f * Time.deltaTime);
                 // If we have old rotation, check if need to apply rotation animation
                 float threshold = 0.1f;
                 if (Mathf.Abs(rotationVector.x - prevRotationVector.x) >= threshold) {
@@ -615,6 +617,12 @@ namespace SupHero.Components.Character {
                 if (visible) stopTracing();
                 else startTracing();
             }
+        }
+
+        private bool isWithinCamera() {
+            Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+            bool visible = GeometryUtility.TestPlanesAABB(planes, GetComponent<Collider>().bounds);
+            return visible;
         }
 
         public void startTracing() {

@@ -16,6 +16,7 @@ namespace SupHero.Components.Character {
         public static string HOR = "horizontal";
         public static string VERT = "vertical";
         public static string DIE = "die";
+        public static string STUN = "stun";
         public static string RATE = "rate";
         public static string SPEED = "speed";
     }
@@ -52,7 +53,7 @@ namespace SupHero.Components.Character {
         // Components
         public ZoneController zone { get; private set; } // Ref to current zone
         private Rigidbody playerRigidbody;
-        private Animator mecanim; // Animator, attached to this player
+        public Animator mecanim { get; private set; } // Animator, attached to this player
         private Inventory inventory; // Store for weapons and items
         public Shield shield { get; private set; } // Ref to shield if exist
 

@@ -19,6 +19,7 @@ namespace SupHero.Components.Character {
             stars = Instantiate(effect.prefab, transform.position, Quaternion.identity) as GameObject;
             stars.transform.SetParent(transform);
             stars.transform.Translate(0f, 1.5f, 0f);
+            owner.mecanim.SetBool(State.STUN, true);
             Debug.Log(owner + " is stunned");
         }
 
@@ -28,6 +29,7 @@ namespace SupHero.Components.Character {
 
         protected override void onEffectFinish() {
             owner.player.isStunned = false;
+            owner.mecanim.SetBool(State.STUN, false);
             stars.GetComponent<BaseVisualEffect>().destroyEffect();
             Debug.Log(owner + " is free to go");
         }

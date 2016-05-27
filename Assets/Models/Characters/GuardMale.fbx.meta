@@ -179,6 +179,9 @@ ModelImporter:
     7400088: Stamping_left
     7400090: Stamping_right
     7400092: Running
+    7400094: Idle_legs0
+    7400096: Stun
+    7400098: Dodge
     9500000: //RootNode
     13700000: Body
   materials:
@@ -197,42 +200,108 @@ ModelImporter:
       retargeting quality.\n\t'Leg.R' has scale animation that will be discarded.\n\nClip
       'Knockback' has import animation warnings that might lower retargeting quality:\nNote:
       Activate translation DOF on avatar to improve retargeting quality.\n\t'Leg.R'
-      has scale animation that will be discarded.\n\nClip 'Slash_sword' has import
+      has scale animation that will be discarded.\n\nClip 'Take cover' has import
       animation warnings that might lower retargeting quality:\nNote: Activate translation
       DOF on avatar to improve retargeting quality.\n\t'Leg.L' has scale animation
-      that will be discarded.\n\nClip 'Slash_dagger' has import animation warnings
+      that will be discarded.\n\nClip 'Slash_sword' has import animation warnings
       that might lower retargeting quality:\nNote: Activate translation DOF on avatar
       to improve retargeting quality.\n\t'Leg.L' has scale animation that will be
-      discarded.\n\nClip 'Armature|Fireball.001' has import animation warnings that
-      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
-      improve retargeting quality.\n\t'Leg.L' has scale animation that will be discarded.\n\t'Leg.R'
-      has scale animation that will be discarded.\n\nClip 'Armature|Get up' has import
-      animation warnings that might lower retargeting quality:\nNote: Activate translation
-      DOF on avatar to improve retargeting quality.\n\t'Leg.R' has scale animation
-      that will be discarded.\n\nClip 'Armature|Shoot_rifle' has import animation
-      warnings that might lower retargeting quality:\nNote: Activate translation DOF
-      on avatar to improve retargeting quality.\n\t'Leg.L' has scale animation that
-      will be discarded.\n\t'Leg.R' has scale animation that will be discarded.\n\nClip
-      'Armature|Slash_dagger' has import animation warnings that might lower retargeting
-      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'Leg.L'
-      has scale animation that will be discarded.\n\nClip 'Armature|Slash_lance' has
-      import animation warnings that might lower retargeting quality:\nNote: Activate
-      translation DOF on avatar to improve retargeting quality.\n\t'Arm.R' has scale
-      animation that will be discarded.\n\t'Leg.R' has scale animation that will be
-      discarded.\n\nClip 'Armature|Slash_sword' has import animation warnings that
-      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
-      improve retargeting quality.\n\t'Leg.L' has scale animation that will be discarded.\n\nClip
-      'Armature|Throw.001' has import animation warnings that might lower retargeting
-      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'Leg.L'
-      has scale animation that will be discarded.\n\t'Leg.R' has scale animation that
-      will be discarded.\n\nClip 'Armature|Turn_left' has import animation warnings
-      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'Leg.L' has scale animation that will be
-      discarded.\n\t'Leg.R' has scale animation that will be discarded.\n\nClip 'Armature|Turn_right'
+      discarded.\n\nClip 'Slash_dagger' has import animation warnings that might lower
+      retargeting quality:\nNote: Activate translation DOF on avatar to improve retargeting
+      quality.\n\t'Leg.L' has scale animation that will be discarded.\n\nClip 'Dodge'
       has import animation warnings that might lower retargeting quality:\nNote: Activate
       translation DOF on avatar to improve retargeting quality.\n\t'Leg.L' has scale
       animation that will be discarded.\n\t'Leg.R' has scale animation that will be
-      discarded.\n"
+      discarded.\n\nClip 'Armature|Aiming_duettes' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'Leg.L' has scale animation that will be discarded.\n\t'Leg.R'
+      has scale animation that will be discarded.\n\nClip 'Armature|Aiming_pistol'
+      has import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Leg.L' has scale
+      animation that will be discarded.\n\t'Leg.R' has scale animation that will be
+      discarded.\n\nClip 'Armature|Aiming_rifle' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'Leg.L' has scale animation that will be discarded.\n\t'Leg.R'
+      has scale animation that will be discarded.\n\nClip 'Armature|Death.001' has
+      import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Leg.L' has scale
+      animation that will be discarded.\n\t'Leg.R' has scale animation that will be
+      discarded.\n\nClip 'Armature|Dodge' has import animation warnings that might
+      lower retargeting quality:\nNote: Activate translation DOF on avatar to improve
+      retargeting quality.\n\t'Leg.L' has scale animation that will be discarded.\n\t'Leg.R'
+      has scale animation that will be discarded.\n\nClip 'Armature|Fireball.001'
+      has import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Leg.L' has scale
+      animation that will be discarded.\n\t'Leg.R' has scale animation that will be
+      discarded.\n\nClip 'Armature|Get up' has import animation warnings that might
+      lower retargeting quality:\nNote: Activate translation DOF on avatar to improve
+      retargeting quality.\n\t'Leg.L' has scale animation that will be discarded.\n\t'Leg.R'
+      has scale animation that will be discarded.\n\nClip 'Armature|Idle_dagger' has
+      import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Leg.L' has scale
+      animation that will be discarded.\n\t'Leg.R' has scale animation that will be
+      discarded.\n\nClip 'Armature|Idle_duettes' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'Leg.L' has scale animation that will be discarded.\n\t'Leg.R'
+      has scale animation that will be discarded.\n\nClip 'Armature|Idle_rifle' has
+      import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Leg.L' has scale
+      animation that will be discarded.\n\t'Leg.R' has scale animation that will be
+      discarded.\n\nClip 'Armature|Knockback.001' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'Leg.L' has scale animation that will be discarded.\n\t'Leg.R'
+      has scale animation that will be discarded.\n\nClip 'Armature|Move_dagger' has
+      import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Leg.L' has scale
+      animation that will be discarded.\n\t'Leg.R' has scale animation that will be
+      discarded.\n\nClip 'Armature|Move_duettes' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'Leg.L' has scale animation that will be discarded.\n\t'Leg.R'
+      has scale animation that will be discarded.\n\nClip 'Armature|Move_lance' has
+      import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Leg.L' has scale
+      animation that will be discarded.\n\t'Leg.R' has scale animation that will be
+      discarded.\n\nClip 'Armature|Move_rifle' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'Leg.L' has scale animation that will be discarded.\n\t'Leg.R'
+      has scale animation that will be discarded.\n\nClip 'Armature|Shoot_duettes'
+      has import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Leg.L' has scale
+      animation that will be discarded.\n\t'Leg.R' has scale animation that will be
+      discarded.\n\nClip 'Armature|Shoot_rifle' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'Leg.L' has scale animation that will be discarded.\n\t'Leg.R'
+      has scale animation that will be discarded.\n\nClip 'Armature|Slash_dagger'
+      has import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Leg.L' has scale
+      animation that will be discarded.\n\nClip 'Armature|Slash_lance' has import
+      animation warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'Leg.L' has scale animation
+      that will be discarded.\n\t'Leg.R' has scale animation that will be discarded.\n\nClip
+      'Armature|Slash_sword' has import animation warnings that might lower retargeting
+      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'Leg.L'
+      has scale animation that will be discarded.\n\nClip 'Armature|Stamping_left'
+      has import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Leg.L' has scale
+      animation that will be discarded.\n\t'Leg.R' has scale animation that will be
+      discarded.\n\nClip 'Armature|Stamping_right' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'Leg.L' has scale animation that will be discarded.\n\t'Leg.R'
+      has scale animation that will be discarded.\n\nClip 'Armature|Take cover.001'
+      has import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Leg.L' has scale
+      animation that will be discarded.\n\t'Leg.R' has scale animation that will be
+      discarded.\n\nClip 'Armature|Throw.001' has import animation warnings that might
+      lower retargeting quality:\nNote: Activate translation DOF on avatar to improve
+      retargeting quality.\n\t'Leg.L' has scale animation that will be discarded.\n\t'Leg.R'
+      has scale animation that will be discarded.\n\nClip 'Armature|Turn_left' has
+      import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Leg.L' has scale
+      animation that will be discarded.\n\t'Leg.R' has scale animation that will be
+      discarded.\n\nClip 'Armature|Turn_right' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'Leg.L' has scale animation that will be discarded.\n\t'Leg.R'
+      has scale animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 0
@@ -2119,12 +2188,12 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
@@ -2589,12 +2658,12 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
@@ -3357,14 +3426,14 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
@@ -5075,14 +5144,14 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
@@ -5237,14 +5306,14 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
@@ -6009,6 +6078,314 @@ ModelImporter:
       takeName: Running
       firstFrame: 0
       lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Main
+        weight: 1
+      - path: Armature/Main/Hips
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Neck
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.L/Eye.L_end
+        weight: 0
+      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.R/Eye.R_end
+        weight: 0
+      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Main eye
+        weight: 0
+      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Main eye/Main eye_end
+        weight: 0
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Finger1.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Finger1.L/Finger2.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Finger1.L/Finger2.L/Finger2.L_end
+        weight: 0
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L/Thumb3.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L/Thumb3.L/Thumb3.L_end
+        weight: 0
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Finger1.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Finger1.R/Finger2.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Finger1.R/Finger2.R/Finger2.R_end
+        weight: 0
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R/Thumb3.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R/Thumb3.R/Thumb3.R_end
+        weight: 0
+      - path: Armature/Main/Hips/Leg.L
+        weight: 1
+      - path: Armature/Main/Hips/Leg.L/Shin.L
+        weight: 1
+      - path: Armature/Main/Hips/Leg.L/Shin.L/Foot.L
+        weight: 1
+      - path: Armature/Main/Hips/Leg.L/Shin.L/Foot.L/Toe.L
+        weight: 1
+      - path: Armature/Main/Hips/Leg.L/Shin.L/Foot.L/Toe.L/Toe.L_end
+        weight: 0
+      - path: Armature/Main/Hips/Leg.R
+        weight: 1
+      - path: Armature/Main/Hips/Leg.R/Shin.R
+        weight: 1
+      - path: Armature/Main/Hips/Leg.R/Shin.R/Foot.R
+        weight: 1
+      - path: Armature/Main/Hips/Leg.R/Shin.R/Foot.R/Toe.R
+        weight: 1
+      - path: Armature/Main/Hips/Leg.R/Shin.R/Foot.R/Toe.R/Toe.R_end
+        weight: 0
+      - path: Armature/Elbow.L IK
+        weight: 0
+      - path: Armature/Elbow.L IK/Elbow.L IK_end
+        weight: 0
+      - path: Armature/Elbow.R IK
+        weight: 0
+      - path: Armature/Elbow.R IK/Elbow.R IK_end
+        weight: 0
+      - path: Armature/Hand.L IK
+        weight: 0
+      - path: Armature/Hand.L IK/Hand.L IK_end
+        weight: 0
+      - path: Armature/Hand.R IK
+        weight: 0
+      - path: Armature/Hand.R IK/Hand.R IK_end
+        weight: 0
+      - path: Armature/Foot.L IK
+        weight: 0
+      - path: Armature/Foot.L IK/Foot.L IK_end
+        weight: 0
+      - path: Armature/Foot.R IK
+        weight: 0
+      - path: Armature/Foot.R IK/Foot.R IK_end
+        weight: 0
+      - path: Armature/Knee.L IK
+        weight: 0
+      - path: Armature/Knee.L IK/Knee.L IK_end
+        weight: 0
+      - path: Armature/Knee.R IK
+        weight: 0
+      - path: Armature/Knee.R IK/Knee.R IK_end
+        weight: 0
+      - path: Body
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Stun
+      takeName: Stun
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Main
+        weight: 1
+      - path: Armature/Main/Hips
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Neck
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.L/Eye.L_end
+        weight: 0
+      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Eye.R/Eye.R_end
+        weight: 0
+      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Main eye
+        weight: 0
+      - path: Armature/Main/Hips/Abdomen/Chest/Neck/Head/Main eye/Main eye_end
+        weight: 0
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Finger1.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Finger1.L/Finger2.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Finger1.L/Finger2.L/Finger2.L_end
+        weight: 0
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L/Thumb3.L
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.L/Arm.L/Forearm.L/Hand.L/Thumb1.L/Thumb2.L/Thumb3.L/Thumb3.L_end
+        weight: 0
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Finger1.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Finger1.R/Finger2.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Finger1.R/Finger2.R/Finger2.R_end
+        weight: 0
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R/Thumb3.R
+        weight: 1
+      - path: Armature/Main/Hips/Abdomen/Chest/Shoulder.R/Arm.R/Forearm.R/Hand.R/Thumb1.R/Thumb2.R/Thumb3.R/Thumb3.R_end
+        weight: 0
+      - path: Armature/Main/Hips/Leg.L
+        weight: 1
+      - path: Armature/Main/Hips/Leg.L/Shin.L
+        weight: 1
+      - path: Armature/Main/Hips/Leg.L/Shin.L/Foot.L
+        weight: 1
+      - path: Armature/Main/Hips/Leg.L/Shin.L/Foot.L/Toe.L
+        weight: 1
+      - path: Armature/Main/Hips/Leg.L/Shin.L/Foot.L/Toe.L/Toe.L_end
+        weight: 0
+      - path: Armature/Main/Hips/Leg.R
+        weight: 1
+      - path: Armature/Main/Hips/Leg.R/Shin.R
+        weight: 1
+      - path: Armature/Main/Hips/Leg.R/Shin.R/Foot.R
+        weight: 1
+      - path: Armature/Main/Hips/Leg.R/Shin.R/Foot.R/Toe.R
+        weight: 1
+      - path: Armature/Main/Hips/Leg.R/Shin.R/Foot.R/Toe.R/Toe.R_end
+        weight: 0
+      - path: Armature/Elbow.L IK
+        weight: 0
+      - path: Armature/Elbow.L IK/Elbow.L IK_end
+        weight: 0
+      - path: Armature/Elbow.R IK
+        weight: 0
+      - path: Armature/Elbow.R IK/Elbow.R IK_end
+        weight: 0
+      - path: Armature/Hand.L IK
+        weight: 0
+      - path: Armature/Hand.L IK/Hand.L IK_end
+        weight: 0
+      - path: Armature/Hand.R IK
+        weight: 0
+      - path: Armature/Hand.R IK/Hand.R IK_end
+        weight: 0
+      - path: Armature/Foot.L IK
+        weight: 0
+      - path: Armature/Foot.L IK/Foot.L IK_end
+        weight: 0
+      - path: Armature/Foot.R IK
+        weight: 0
+      - path: Armature/Foot.R IK/Foot.R IK_end
+        weight: 0
+      - path: Armature/Knee.L IK
+        weight: 0
+      - path: Armature/Knee.L IK/Knee.L IK_end
+        weight: 0
+      - path: Armature/Knee.R IK
+        weight: 0
+      - path: Armature/Knee.R IK/Knee.R IK_end
+        weight: 0
+      - path: Body
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Dodge
+      takeName: Dodge
+      firstFrame: 0
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

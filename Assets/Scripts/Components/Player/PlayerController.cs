@@ -49,6 +49,7 @@ namespace SupHero.Components.Character {
         private bool useFirstItem = false;
         private bool useSecondItem = false;
         private bool requestTeleport = false;
+        private bool dodge = false;
         private bool aimMode = false;
 
         // Components
@@ -181,15 +182,22 @@ namespace SupHero.Components.Character {
                 mecanim.SetFloat(State.SPEED, player.speed * moveVector.sqrMagnitude);
                 mecanim.SetFloat(State.VERT, verticalRelative);
                 mecanim.SetFloat(State.HOR, horizontalRelative);
-                // For moving relative to camera
-                Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
-                forward.y = 0f;
-                forward = forward.normalized;
-                Vector3 right = new Vector3(forward.z, 0f, -forward.x);
-                moveVector = (moveVector.x * right + moveVector.z * forward);
-                // Finally, moving!
-                moveVector = moveVector.normalized * player.speed * Time.deltaTime;
-                playerRigidbody.MovePosition(transform.position + moveVector);
+                if (dodge) {
+                    mecanim.SetTrigger(State.DODGE);
+                }
+                else {
+                    // For moving relative to camera
+                    Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
+                    forward.y = 0f;
+                    forward = forward.normalized;
+                    Vector3 right = new Vector3(forward.z, 0f, -forward.x);
+                    moveVector = (moveVector.x * right + moveVector.z * forward);
+                    // Finally, moving!
+                    float speed = player.speed;
+                    if (moveVector.magnitude > 1f) speed = player.speed * 0.8f;
+                    moveVector = moveVector.normalized * speed * Time.deltaTime;
+                    playerRigidbody.MovePosition(transform.position + moveVector);
+                }
             }
             else {
                 mecanim.SetFloat(State.SPEED, player.speed);
@@ -427,6 +435,7 @@ namespace SupHero.Components.Character {
                     secondaryHold = useSecondaryWeapon;
                     secondaryUp = Input.GetButtonUp(Control.RightMouse);
                     requestTeleport = Input.GetButtonDown(Control.LeftAlt);
+                    dodge = Input.GetButtonDown(Control.Space);
 
                     break;
                 case InputType.GAMEPAD:
@@ -445,6 +454,7 @@ namespace SupHero.Components.Character {
                     useFirstItem = Input.GetButtonUp(Utils.getControlForPlayer(Control.LeftBumper, player.gamepadNumber));
                     useSecondItem = Input.GetButtonUp(Utils.getControlForPlayer(Control.RightBumper, player.gamepadNumber));
                     requestTeleport = Input.GetButtonDown(Utils.getControlForPlayer(Control.X, player.gamepadNumber));
+                    dodge = Input.GetButtonDown(Utils.getControlForPlayer(Control.B, player.gamepadNumber));
 
                     break;
                 default:
@@ -459,6 +469,7 @@ namespace SupHero.Components.Character {
                     secondaryHold = false;
                     secondaryUp = false;
                     requestTeleport = false;
+                    dodge = false;
                     break;
             }
             // Firing freakin events

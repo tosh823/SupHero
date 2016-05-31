@@ -15,6 +15,7 @@ namespace SupHero.Components.UI {
         public PlayerController pc { get; protected set; }
 
         public Image avatar;
+        public PlayerAvatar avatarBorder;
         public Text playerName;
         public Text playerPoints;
         public Image weapon;
@@ -104,6 +105,7 @@ namespace SupHero.Components.UI {
             playerName.text = pc.player.playerName;
             avatar.sprite = pc.player.character.avatar;
             direction.sprite = pc.player.character.arrow;
+            avatarBorder.createAvatar(pc.isHero());
         }
     }
 }

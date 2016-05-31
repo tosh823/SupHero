@@ -21,6 +21,10 @@ namespace SupHero {
             
         }
 
+        public void loadMainMenu() {
+            SceneManager.LoadScene("MainMenu");
+        }
+
         public void loadLounge() {
             SceneManager.LoadScene("Lounge");
         }

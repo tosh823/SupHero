@@ -24,6 +24,7 @@ namespace SupHero {
         public Texture texture;
         public Sprite avatar;
         public Sprite arrow;
+        public Sprite pose;
     }
 
     [System.Serializable]

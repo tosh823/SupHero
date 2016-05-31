@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using SupHero.Model;
 
@@ -166,10 +167,17 @@ namespace SupHero {
             session.players = players;
         }
 
-        public Dictionary<string, int> getStatistics() {
-            Dictionary<string, int> stats = new Dictionary<string, int>();
-            foreach (Player player in session.players) {
-                stats.Add(player.playerName, player.points);
+        public Dictionary<int, int> getStatistics() {
+            List<Player> playerSorted = session.players.OrderByDescending(x => x.points).ToList();
+            Dictionary<int, int> stats = new Dictionary<int, int>();
+            int place = 1;
+            for (int i = 0; i < playerSorted.Count; i++) {
+                if (i > 0) {
+                    if (playerSorted[i - 1].points != playerSorted[i].points) {
+                        place++;
+                    }
+                }
+                stats.Add(playerSorted[i].number, place);
             }
             return stats;
         }

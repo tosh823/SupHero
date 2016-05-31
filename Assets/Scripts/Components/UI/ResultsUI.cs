@@ -3,27 +3,27 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 using SupHero.Components.Level;
+using SupHero.Model;
 
 namespace SupHero.Components.UI {
     public class ResultsUI : MonoBehaviour {
 
-        public Text[] places;
+        public PlayerStat[] playerStats;
 
         void Start() {
-            setUpTexts();
+            createStats();
         }
         
         void Update() {
 
         }
 
-        private void setUpTexts() {
-            Dictionary<string, int> stats = Data.Instance.getStatistics();
-            var sorted = from pair in stats orderby pair.Value descending select pair;
-            Dictionary<string, int> dict = sorted.ToDictionary(x => x.Key, x => x.Value); 
-
-            for (int i = 0; i < dict.Count; i++) {
-                places[i].text = dict.ElementAt(i).Key + ": " + dict.ElementAt(i).Value;
+        private void createStats() {
+            Dictionary<int, int> stats = Data.Instance.getStatistics();
+            for (int i = 0; i < Data.Instance.session.players.Count; i++) {
+                Player player = Data.Instance.session.players[i];
+                int place = stats[player.number];
+                playerStats[i].createWithPlayer(player, place);
             }
         }
     }

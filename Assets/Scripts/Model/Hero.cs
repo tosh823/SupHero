@@ -148,11 +148,11 @@ namespace SupHero.Model {
         }
 
         public override void born() {
-            health = Data.Instance.mainSettings.guard.health;
-            armor = Data.Instance.mainSettings.guard.armor;
+            health = Data.Instance.mainSettings.hero.health;
+            armor = Data.Instance.mainSettings.hero.armor;
             shield = Data.Instance.mainSettings.hero.shield;
             replenishWaitTime = Data.Instance.mainSettings.hero.shieldReplenishTime;
-            speed = Data.Instance.mainSettings.guard.speed;
+            speed = Data.Instance.mainSettings.hero.speed;
             isAlive = true;
             isStunned = false;
             haveTakenDamage = false;

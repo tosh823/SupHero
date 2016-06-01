@@ -252,7 +252,7 @@ ModelImporter:
     13700000: Body
   materials:
     importMaterials: 1
-    materialName: 0
+    materialName: 2
     materialSearch: 0
   animations:
     legacyGenerateAnimations: 4

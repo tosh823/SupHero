@@ -56,7 +56,7 @@ namespace SupHero.Components.Item {
             Debug.Log("Shoot!");
             WeaponProjectile instance = gun.projectiles.popOrCreate(gun.weapon.projectile.prefab.GetComponent<WeaponProjectile>(), barrelEnd.transform.position, Quaternion.identity);
             instance.gameObject.SetActive(true);
-            instance.transform.parent = null;
+            instance.transform.parent = owner.transform.parent;
             instance.gun = gun;
             Physics.IgnoreCollision(instance.GetComponent<Collider>(), GetComponent<Collider>());
             instance.Launch(barrelEnd.transform.position, barrelEnd.transform.forward);

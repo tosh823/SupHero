@@ -12,7 +12,7 @@ namespace SupHero.Components.Item {
 
         public override void Start() {
             base.Start();
-            if (owner.isHero()) {
+            if (owner != null && owner.isHero()) {
                 if (owner.shield != null) {
                     Physics.IgnoreCollision(GetComponent<Collider>(), owner.shield.GetComponent<Collider>());
                 }
@@ -21,7 +21,7 @@ namespace SupHero.Components.Item {
 
         public override void Update() {
             base.Update();
-            if (launched && distanceTraveled >= (3 * data.activeData.range)) {
+            if (launched && distanceTraveled >= (data.activeData.range)) {
                 Stop();
             }
         }

@@ -29,9 +29,12 @@ namespace SupHero.Components.Item {
         void OnCollisionEnter(Collision collision) {
             GameObject target = collision.gameObject;
             Debug.Log("Hit " + target);
-            // Explostion
-            GameObject effect = Instantiate(explosion, transform.position, Quaternion.identity) as GameObject;
+            // Explosion
+            Quaternion rot = Quaternion.FromToRotation(Vector3.up, collision.contacts[0].normal);
+            Vector3 pos = collision.contacts[0].point;
+            GameObject effect = Instantiate(explosion, pos, rot) as GameObject;
             effect.transform.SetParent(transform.parent);
+            // ----------
             if (target.CompareTag(Tags.Player)) {
                 target.GetComponent<PlayerController>().receiveDamage(data.activeData.value, false);
                 EffectData burn = new EffectData();

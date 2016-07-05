@@ -4,6 +4,7 @@ using SupHero.Components.Level;
 using SupHero.Components.Weapon;
 using SupHero.Components.Item;
 using SupHero.Components.UI;
+using System.Collections;
 
 namespace SupHero.Components.Character {
 
@@ -213,9 +214,9 @@ namespace SupHero.Components.Character {
         // In fixed update we apply motion and rotaion
         // According to move and rotation vectors
         // Better not to
-        void FixedUpdate() {
+        /*void FixedUpdate() {
             
-        }
+        }*/
 
         // Draw primary weapon from inventory
         public void drawPrimary() {
@@ -350,6 +351,8 @@ namespace SupHero.Components.Character {
             // -----------
             gamePadControl = (player.inputType == InputType.GAMEPAD);
             gamePadNumber = player.gamepadNumber;
+            // Start tracing coroutine
+            StartCoroutine(defineVisibility());
         }
 
         public void setUI(PlayerUIController ui) {
@@ -357,6 +360,8 @@ namespace SupHero.Components.Character {
         }
 
         public void Death() {
+            // Stop tracing coroutine
+            StopCoroutine(defineVisibility());
             player.die();
             if (OnDie != null) {
                 OnDie(player);
@@ -593,12 +598,22 @@ namespace SupHero.Components.Character {
             return rotation;
         }
 
-        void OnBecameVisible() {
-            playerUI.stopTracing();
+        public IEnumerator defineVisibility() {
+            while (true) {
+                yield return new WaitForSeconds(5f);
+                Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+                bool visible = GeometryUtility.TestPlanesAABB(planes, GetComponent<Collider>().bounds);
+                if (visible) stopTracing();
+                else startTracing();
+            }
         }
 
-        void OnBecauseInVisible() {
-            if (player is Guard) playerUI.startTracing();
+        public void startTracing() {
+            if (player is Guard && playerUI != null) playerUI.startTracing();
+        }
+
+        public void stopTracing() {
+            if (playerUI != null) playerUI.stopTracing();
         }
     }
 }

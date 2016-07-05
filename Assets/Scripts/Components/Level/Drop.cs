@@ -18,8 +18,6 @@ namespace SupHero.Components.Level {
 
         public int amount;
         public float duration;
-
-        protected Light neon;
         protected GameObject dropItem;
 
         void Start() {
@@ -129,28 +127,6 @@ namespace SupHero.Components.Level {
             }
             else {
                 Destroy(gameObject);
-            }
-        }
-
-        void configureLight() {
-            switch (entity) {
-                case Entity.WEAPON:
-                    neon.color = Color.cyan;
-                    neon.range = 4f;
-                    neon.intensity = 1f;
-                    break;
-                case Entity.ITEM:
-                    neon.color = Color.yellow;
-                    neon.range = 4f;
-                    neon.intensity = 1f;
-                    break;
-                case Entity.SUPPLY:
-                    neon.color = Color.white;
-                    neon.range = 4f;
-                    neon.intensity = 1f;
-                    break;
-                default:
-                    break;
             }
         }
 

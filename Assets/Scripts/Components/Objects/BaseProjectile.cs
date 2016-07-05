@@ -22,13 +22,16 @@ namespace SupHero.Components {
 
         public virtual void Update() {
             if (launched) {
-                transform.Translate(direction * speed * Time.deltaTime);
+                Vector3 moveVector = new Vector3(0f, 0f, speed * Time.deltaTime);
+                //transform.Translate(direction * speed * Time.deltaTime);
+                transform.Translate(moveVector);
             }
         }
 
         public virtual void Launch(Vector3 start, Vector3 direction, float speed) {
             startPosition = start;
             this.direction = direction;
+            transform.rotation = Quaternion.LookRotation(direction); // New line
             this.speed = speed;
             launched = true;
         }

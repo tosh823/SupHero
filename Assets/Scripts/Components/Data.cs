@@ -119,6 +119,45 @@ namespace SupHero {
             return id;
         }
 
+        public void createSession() {
+            string[] gamepads = Input.GetJoystickNames();
+            session.players = new List<Player>();
+            // Firstly create a hero
+            Hero hero = new Hero(1);
+            if (gamepads.Length >= 4) {
+                hero.inputType = InputType.GAMEPAD;
+                hero.gamepadNumber = 1;
+                hero.gamepadName = gamepads[0];
+            }
+            else {
+                hero.inputType = InputType.KEYBOARD;
+                hero.gamepadNumber = 0;
+                hero.gamepadName = "None";
+            }
+            hero.character = Instance.getRandomChar();
+            session.players.Add(hero);
+            // Then, create guards
+            for (int index = 1; index < 4; index++) {
+                Guard guard = new Guard(index + 1);
+                if (gamepads.Length >= (hero.gamepadNumber + index)) {
+                    guard.inputType = InputType.GAMEPAD;
+                    guard.gamepadNumber = hero.gamepadNumber + index;
+                    guard.gamepadName = gamepads[hero.gamepadNumber + index - 1];
+                }
+                else {
+                    guard.inputType = InputType.NONE;
+                    guard.gamepadNumber = 0;
+                    guard.gamepadName = "None";
+                }
+                guard.character = Instance.getRandomChar();
+                session.players.Add(guard);
+            }
+        }
+
+        public void updateSession(List<Player> players) {
+            session.players = players;
+        }
+
         public Dictionary<string, int> getStatistics() {
             Dictionary<string, int> stats = new Dictionary<string, int>();
             foreach (Player player in session.players) {

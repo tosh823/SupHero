@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace SupHero.Components.Weapon {
     public class BlunderbassHandler : WeaponController {
@@ -35,23 +35,31 @@ namespace SupHero.Components.Weapon {
             float start = -scatter / 2f;
             float angle = start;
             float end = scatter / 2f + 1;
+            // Create list to store each fraction of charge
+            List<WeaponProjectile> charge = new List<WeaponProjectile>();
             while (angle < end) {
                 Vector3 direction = Quaternion.AngleAxis(angle, Vector3.up) * owner.transform.forward;
-                WeaponProjectile instance = projectiles.popOrCreate(weapon.projectile.prefab.GetComponent<WeaponProjectile>(), barrelEnd.transform.position, Quaternion.identity);
-                instance.gameObject.SetActive(true);
-                instance.transform.parent = null;
-                Physics.IgnoreCollision(instance.GetComponent<Collider>(), owner.GetComponent<Collider>());
+                WeaponProjectile projectile = projectiles.popOrCreate(weapon.projectile.prefab.GetComponent<WeaponProjectile>(), barrelEnd.transform.position, Quaternion.identity);
+                projectile.gameObject.SetActive(true);
+                projectile.transform.parent = owner.transform.parent;
+                Physics.IgnoreCollision(projectile.GetComponent<Collider>(), owner.GetComponent<Collider>());
                 if (owner.isHero()) {
                     if (owner.shield != null) {
-                        Physics.IgnoreCollision(instance.GetComponent<Collider>(), owner.shield.GetComponent<Collider>());
+                        Physics.IgnoreCollision(projectile.GetComponent<Collider>(), owner.shield.GetComponent<Collider>());
                     }
                 }
-                instance.gun = this;
-                instance.Launch(barrelEnd.transform.position, direction);
+                // Ignore collision with other fractions
+                foreach (WeaponProjectile other in charge) {
+                    Physics.IgnoreCollision(projectile.GetComponent<Collider>(), other.GetComponent<Collider>());
+                }
+                projectile.gun = this;
+                projectile.Launch(barrelEnd.transform.position, direction);
+                charge.Add(projectile);
                 angle = angle + perShot;
             }
             playTriggerSound();
             ammo--;
+            charge.Clear();
         }
 
         private void disableEffects() {

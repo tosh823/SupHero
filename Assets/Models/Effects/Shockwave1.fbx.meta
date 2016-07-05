@@ -20,7 +20,7 @@ ModelImporter:
     400010: Outer_end
     400012: //RootNode
     4300000: Cube
-    7400000: ShockwaveAction
+    7400000: ShockWave
     7400002: Armature|ShockwaveAction
     7400004: Cube|ShockwaveAction
     9500000: //RootNode
@@ -47,7 +47,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: ShockwaveAction
+      name: ShockWave
       takeName: ShockwaveAction
       firstFrame: 0
       lastFrame: 10

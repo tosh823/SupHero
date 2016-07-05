@@ -245,9 +245,17 @@ namespace SupHero.Components.Level {
             // Okay, do it manually :(
             if (northConnector != null && northConnector.isFree) free.Add(northConnector);
             if (eastConnector != null && eastConnector.isFree) free.Add(eastConnector);
-            if (southConnector != null && southConnector.isFree) free.Add(southConnector);
             if (westConnector != null && westConnector.isFree) free.Add(westConnector);
+            if (southConnector != null && southConnector.isFree) free.Add(southConnector);
             return free;
+        }
+
+        public Connector getEnabledConnector() {
+            if (northConnector != null && !northConnector.isFree) return northConnector;
+            else if (eastConnector != null && !eastConnector.isFree) return eastConnector;
+            else if (westConnector != null && !westConnector.isFree) return westConnector;
+            else if (southConnector != null && !southConnector.isFree) return southConnector;
+            else return null;
         }
 
         public bool hasFreeConnectorOfType(Side side) {
@@ -298,16 +306,49 @@ namespace SupHero.Components.Level {
 
         public void placeTransfer(GameObject transfer) {
             // Putting transfer to zone accordingly to direction
-            if (!westConnector.isFree) {
-                transfer.transform.position = east.transform.position;
-                transfer.transform.Rotate(new Vector3(0, 90, 0));
-            }
-            else if (!eastConnector.isFree) {
-                transfer.transform.Rotate(new Vector3(0, 90, 0));
-                transfer.transform.position = west.transform.position;
+            if (direction == Direction.ANY) {
+                Connector chosen = getEnabledConnector();
+                if (chosen != null) {
+                    switch (chosen.type) {
+                        case Side.EAST:
+                            transfer.transform.position = west.transform.position;
+                            transfer.transform.Rotate(new Vector3(0, 90, 0));
+                            break;
+                        case Side.NORTH:
+                            transfer.transform.position = south.transform.position;
+                            break;
+                        case Side.SOUTH:
+                            transfer.transform.position = north.transform.position;
+                            break;
+                        case Side.WEST:
+                            transfer.transform.position = east.transform.position;
+                            transfer.transform.Rotate(new Vector3(0, 90, 0));
+                            break;
+                    }
+                }
+                else Destroy(transfer.gameObject);
             }
             else {
-                transfer.transform.position = north.transform.position;
+                Connector free = getFreeConnectors()[0];
+                if (free != null) {
+                    switch (free.type) {
+                        case Side.EAST:
+                            transfer.transform.position = east.transform.position;
+                            transfer.transform.Rotate(new Vector3(0, 90, 0));
+                            break;
+                        case Side.NORTH:
+                            transfer.transform.position = north.transform.position;
+                            break;
+                        case Side.SOUTH:
+                            transfer.transform.position = south.transform.position;
+                            break;
+                        case Side.WEST:
+                            transfer.transform.position = west.transform.position;
+                            transfer.transform.Rotate(new Vector3(0, 90, 0));
+                            break;
+                    }
+                }
+                else Destroy(transfer.gameObject);
             }
         }
     }

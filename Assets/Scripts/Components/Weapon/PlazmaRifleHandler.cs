@@ -30,14 +30,14 @@ namespace SupHero.Components.Weapon {
             // Launch projectile
             WeaponProjectile instance = projectiles.popOrCreate(weapon.projectile.prefab.GetComponent<WeaponProjectile>(), barrelEnd.transform.position, Quaternion.identity);
             instance.gameObject.SetActive(true);
-            instance.transform.parent = null;
+            instance.transform.parent = owner.transform.parent;
+            instance.gun = this;
             Physics.IgnoreCollision(instance.GetComponent<Collider>(), owner.GetComponent<Collider>());
             if (owner.isHero()) {
                 if (owner.shield != null) {
                     Physics.IgnoreCollision(instance.GetComponent<Collider>(), owner.shield.GetComponent<Collider>());
                 }
             }
-            instance.gun = this;
             instance.Launch(barrelEnd.transform.position, owner.transform.forward);
             // Play sound
             playTriggerSound();

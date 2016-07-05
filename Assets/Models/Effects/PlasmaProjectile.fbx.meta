@@ -16,8 +16,8 @@ ModelImporter:
     400006: Main_end
     400008: //RootNode
     4300000: Cube
-    7400000: ProjectileAction
-    7400002: Armature|ProjectileAction
+    7400000: PlasmaProjectile
+    7400002: PlasmaProjectile
     9500000: //RootNode
     13700000: Cube
   materials:
@@ -42,10 +42,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: ProjectileAction
-      takeName: ProjectileAction
+      name: PlasmaProjectile
+      takeName: Armature|ProjectileAction
       firstFrame: 0
-      lastFrame: 9
+      lastFrame: 10
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -53,7 +53,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 1
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

@@ -35,6 +35,10 @@ namespace SupHero.Components.UI {
             playerUIs = new List<GameObject>();
         }
 
+        void Update() {
+            
+        }
+
         public void updateTimer(float time) {
             timerInstance.updateTimer(getTime(time));
         }

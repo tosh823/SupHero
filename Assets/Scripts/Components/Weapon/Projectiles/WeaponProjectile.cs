@@ -54,7 +54,7 @@ namespace SupHero.Components.Weapon {
 
         public override void Update() {
             base.Update();
-            if (launched && distanceTraveled >= (3 * gun.weapon.range)) {
+            if (launched && distanceTraveled >= (2 * gun.weapon.range)) {
                 Stop();
             }
         }

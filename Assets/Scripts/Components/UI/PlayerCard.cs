@@ -14,8 +14,8 @@ namespace SupHero.Components.UI {
         }
 
         // UI components
-		public Toggle maleButton;
-		public Toggle femaleButton;
+		public Selectable maleButton;
+		public Selectable femaleButton;
         public Text itemName;
         public Text itemDescription;
         public ItemSelect firstItem;
@@ -77,15 +77,38 @@ namespace SupHero.Components.UI {
                 timer = 0f;
                 moveSelection(SelectionDirection.DOWN);
             }
+
             if (action) {
-                if (currentSelection == colorButton) {
-                    Debug.Log("Change color for " + this);
-                    colorButton.onClick.Invoke();
-                }
-                else if (currentSelection == readyButton) {
-                    Debug.Log(this + " is ready");
-                    readyButton.onClick.Invoke();
-                }
+				if (currentSelection == colorButton) {
+					Debug.Log ("Change color for " + this);
+					colorButton.onClick.Invoke ();
+				} else if (currentSelection == readyButton) {
+					Debug.Log (this + " is ready");
+					activateSelection ();
+					readyButton.onClick.Invoke ();
+				} else if (currentSelection == maleButton) {
+					Debug.Log (this + " is male");
+					ColorChanger pallete = currentSelection.GetComponent<ColorChanger>();
+					if (pallete.state != SelectionState.ACTIVE) {
+						activateSelection ();
+						femaleButton.GetComponent<ColorChanger> ().setDefault (color);
+					} 
+					else {
+						pallete.setDefault(color);
+						femaleButton.GetComponent<ColorChanger> ().setActive (color);
+					}
+				} else if (currentSelection == femaleButton) {
+					Debug.Log (this + " is female");
+					ColorChanger pallete = currentSelection.GetComponent<ColorChanger>();
+					if (pallete.state != SelectionState.ACTIVE) {
+						activateSelection();
+						maleButton.GetComponent<ColorChanger> ().setDefault(color);
+					}
+					else {
+						pallete.setDefault(color);
+						maleButton.GetComponent<ColorChanger> ().setActive (color);
+					}
+				}
             }
             // Increase wait time
             if (timer <= threshold) timer += Time.deltaTime;
@@ -112,9 +135,34 @@ namespace SupHero.Components.UI {
 
         }
 
+		public void highlightSelection() {
+			if (currentSelection == firstItem.itemSelect || currentSelection == secondItem.itemSelect)
+				return;
+			ColorChanger pallete = currentSelection.GetComponent<ColorChanger>();
+			pallete.setHighlighted(color);
+		}
+
+		public void activateSelection() {
+			ColorChanger pallete = currentSelection.GetComponent<ColorChanger>();
+			if (pallete.state != SelectionState.ACTIVE) {
+				pallete.setActive(color);
+			}
+			else pallete.setDefault(color);
+		}
+
+		public void clearSelection() {
+			if (currentSelection == firstItem.itemSelect || currentSelection == secondItem.itemSelect)
+				return;
+			ColorChanger pallete = currentSelection.GetComponent<ColorChanger>();
+			if (pallete.state != SelectionState.ACTIVE) {
+				pallete.setDefault(color);
+			}
+		}
+
         // Jeez, this gonna be stupid
         // Seriously, Unity, why I can't have multiple inputs?
         private void moveSelection(SelectionDirection direction) {
+			clearSelection();
             if (currentSelection == maleButton) {
                 switch (direction) {
                     case SelectionDirection.UP:
@@ -230,6 +278,7 @@ namespace SupHero.Components.UI {
                 }
             }
             Debug.Log("Current selection is " + currentSelection);
+			highlightSelection();
         }
     }
 }

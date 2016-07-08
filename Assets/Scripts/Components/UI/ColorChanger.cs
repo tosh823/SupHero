@@ -31,10 +31,25 @@ namespace SupHero.Components.UI {
 	
 		void Start () {
 			image = GetComponent<Image>();
+			state = SelectionState.DEFAULT;
 		}
 	
 		void Update () {
 	
+		}
+
+		public void updateView(CharColor color) {
+			switch (state) {
+				case SelectionState.ACTIVE:
+					setActive (color);
+					break;
+				case SelectionState.DEFAULT:
+					setDefault(color);
+					break;
+				case SelectionState.HIGHLIGHTED:
+					setHighlighted(color);
+					break;
+			}
 		}
 
 		public void setDefault(CharColor color) {

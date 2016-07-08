@@ -27,6 +27,13 @@ namespace SupHero.Components.UI {
         private float threshold = 0.5f;
         private float timer = 0f;
 
+		private CharColor[] colors = new CharColor[] {
+			CharColor.RED, 
+			CharColor.BLUE, 
+			CharColor.YELLOW, 
+			CharColor.PINK
+		};
+
         // Control type
         private InputType inputType;
         private int gamepadNumber;
@@ -128,7 +135,21 @@ namespace SupHero.Components.UI {
         }
 
         public void changeColor() {
-
+			int index = 0;
+			for (int i = 0; i < colors.Length; i++) {
+				if (colors [i] == color) {
+					index = i + 1;
+					if (index >= colors.Length) {
+						index = 0;
+						break;
+					}
+				}
+			}
+			color = colors [index];
+			GetComponent<ColorChanger> ().updateView (color);
+			foreach (ColorChanger palette in GetComponentsInChildren<ColorChanger>()) {
+				palette.updateView (color);
+			}
         }
 
         public void getReady() {

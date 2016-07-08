@@ -37,7 +37,8 @@ namespace SupHero.Components.Level {
 
         public void startLevel() {
             level = new Model.Level();
-            level.createPlayers();
+            if (Data.Instance.session.players == null) level.createPlayers();
+            else level.players = Data.Instance.session.players;
 
             HUD = GameObject.FindWithTag(Tags.MainUI).GetComponent<HUDController>();
             HUD.createTimer();

@@ -53,11 +53,11 @@ namespace SupHero.Components.Character {
         public void setupItems() {
             firstItemVisuals = new List<Transform>();
             secondItemVisuals = new List<Transform>();
-            if (firstItemId >= 0) {
-                equipItem(firstItemId);
+            if (owner.player.firstItemId >= 0) {
+                equipItem(owner.player.firstItemId);
             }
-            if (secondItemId >= 0 && secondItemId != firstItemId) {
-                equipItem(secondItemId);
+            if (owner.player.secondItemId >= 0 && owner.player.secondItemId != firstItemId) {
+                equipItem(owner.player.secondItemId);
             }
         }
 
